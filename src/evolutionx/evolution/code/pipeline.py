@@ -98,7 +98,7 @@ def propose_and_evaluate(
 
     # Isolated worktree on a fresh branch
     progress("creating isolated worktree")
-    wt = WT_DIR / pid
+    wt = (WT_DIR / pid).resolve()
     WT_DIR.mkdir(parents=True, exist_ok=True)
     _git("worktree", "add", "-q", "-b", branch, str(wt), base_sha)
     report["worktree"] = str(wt)
