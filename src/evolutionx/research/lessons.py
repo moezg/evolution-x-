@@ -1,6 +1,8 @@
 """Outcome classification and lessons, computed from the EXISTING research memory (no parallel store).
 
 Classes (descriptive; a class never proves the cause of a failure):
+  generation_failed              no admissible candidate was produced (e.g. invalid LLM output)
+  generation_failed              no admissible candidate was produced (e.g. invalid LLM output)
   technically_false_premise      a verifiable premise was falsified before any backtest
   rejected_gate                  static/sandbox/causality/determinism gate failed
   duplicate                      identical code already evaluated
@@ -21,6 +23,7 @@ from typing import Any
 from .memory import Memory
 
 CLASSES = (
+    "generation_failed",
     "technically_false_premise",
     "rejected_gate",
     "duplicate",
@@ -72,6 +75,8 @@ def classify(
     note = "descriptive class from measured numbers; it does not prove the cause of the outcome"
     if (ck.get("premise_check") or {}).get("verdict", "accepted") != "accepted":
         return {"class": "technically_false_premise", "note": note, "premises": ck["premise_check"]["counts"]}
+    if not ck.get("candidate_id") and not ck.get("premise_check") and cand_diag is None and "screen" not in ck:
+        return {"class": "generation_failed", "note": "no admissible candidate was produced (e.g. invalid LLM output)"}
     if ck.get("rejection"):
         return {"class": "rejected_gate", "gate": ck["rejection"].get("gate"), "note": note}
     if ck.get("duplicate_of"):

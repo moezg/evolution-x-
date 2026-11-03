@@ -1,0 +1,33 @@
+{
+  "name": "generator-comparison-v1",
+  "frozen_utc": "2026-11-03T16:35:00Z",
+  "question": "Does the research PROCESS improve: fewer false premises, more executable and informative candidates, fewer duplicates, at what cost? (process efficiency; NOT evidence of financial edge)",
+  "arms": {
+    "A": {"generator": "offline-grammar-v1 (guided selector)", "dossier": false, "memory": false},
+    "B": {"generator": "claude-cli (official claude -p, no tools)", "dossier": true, "memory": false},
+    "C": {"generator": "claude-cli (official claude -p, no tools)", "dossier": true,
+          "memory": "lessons from archived tasks of arm_guided, arm_random, claude_session, claude_cli and its own lab"}
+  },
+  "common": {"parent": "v0 (fresh lab per arm)", "mode": "research (no auto-activation, so every task compares to v0)",
+             "premise_stage": "applied to all arms (offline operators carry fixed premises)",
+             "evaluation": "unchanged evaluator, frozen promotion rule research-protocol-v2, same data",
+             "validation_trials": "each pilot lab inherits all earlier validation trials (DSR N)"},
+  "metrics": {
+    "premise_correct_rate": "tasks whose premise check is 'accepted' / tasks that produced a hypothesis",
+    "executable_rate": "tasks reaching EVALUATE (passed static, sandbox, determinism, causality) / tasks that produced a candidate",
+    "duplicate_rate": "tasks whose candidate code hash already exists in any lab, or flagged duplicate / tasks with a candidate",
+    "informative_task": "a task that reached EVALUATE (a development measurement of the candidate exists)",
+    "cost_per_informative": "wall-clock s, sandbox runs, LLM calls/tokens and API-equivalent USD per informative task (API-equivalent USD is the CLI's total_cost_usd field: an ESTIMATE, not observed billing)",
+    "mechanism_observed_rate": "informative tasks whose declared mechanism metric moved as predicted on development",
+    "robustness": "share of informative tasks classified unstable_across_periods (lower is better)",
+    "confirmed": "promotions under the frozen rule (exploratory: the validation split is reused and not independent)"
+  },
+  "pilot": {"tasks_per_arm": 3, "campaigns_per_arm": 1, "purpose": "check mechanisms and measure cost; no inferential claim"},
+  "full_study_plan": {
+    "campaigns_per_arm": 5, "tasks_per_campaign": 6,
+    "justification": "the primary process metric is a proportion (premise_correct_rate); with 30 tasks per arm a difference of ~0.35 between 0.5 and 0.85 is detectable at alpha 0.05 with ~80% power (two-proportion test); smaller differences need more runs",
+    "analysis": "per-arm proportions with Wilson intervals; arm differences by Fisher exact test with Holm correction over the metric family; campaign-level bootstrap for costs",
+    "budget_gate": "requires explicit user approval of the estimated plan quota measured in the pilot"
+  },
+  "not_claimed": ["financial improvement", "general research ability", "any change to model weights"]
+}

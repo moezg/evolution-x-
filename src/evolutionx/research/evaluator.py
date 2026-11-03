@@ -287,6 +287,21 @@ def validate_stage(report: dict[str, Any], ds: DataSource, cfg: EvalConfig) -> d
             "day_index": days.tolist(),
         }
     )
+    # simple reference with comparable risk: constant long exposure scaled to the candidate's daily volatility
+    # (trusted code, no sandbox; reported to the critic, NOT part of the promotion rule)
+    bh_d = {}
+    for s in ds.symbols:
+        seg = {k: v[report["_n_dev"][s] :] for k, v in report["_full"][s].items()}
+        rb = run_backtest(seg, np.full(len(seg["close"]), 0.5), CostModel.from_protocol(p, s))
+        bh_d[s] = daily_returns(rb.equity, rb.open_time)
+    _, bh = _portfolio(bh_d)
+    k = float(np.std(port) / np.std(bh)) if np.std(bh) > 0 else 0.0
+    out["reference_buy_and_hold"] = {
+        "exposure": 0.5,
+        "vol_match_scale": k,
+        "sharpe": sharpe(bh),
+        "max_drawdown_vol_matched": max_drawdown(np.r_[1.0, np.cumprod(1 + k * bh)]),
+    }
     return out
 
 

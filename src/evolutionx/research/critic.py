@@ -40,6 +40,15 @@ def critique(
             sy,
             "high",
         )
+    ref = (task or {}).get("reference_buy_and_hold")
+    if ref and (task or {}).get("candidate_val_sharpe") is not None:
+        cs = task["candidate_val_sharpe"]
+        add(
+            f"Validation Sharpe {cs:.2f} vs constant-long reference {ref['sharpe']:.2f} (vol-matched, same costs model)",
+            "validation.reference_buy_and_hold",
+            {"candidate": cs, "reference": ref["sharpe"]},
+            "high" if cs < ref["sharpe"] else "info",
+        )
     if decision:
         b = decision["bootstrap"]
         add(

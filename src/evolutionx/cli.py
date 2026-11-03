@@ -289,6 +289,41 @@ def cmd_research(a: argparse.Namespace) -> None:
     _print(st)
 
 
+def cmd_compare(a: argparse.Namespace) -> None:
+    from .research.compare import report, run_arm
+
+    arms = a.arms.split(",")
+    if not a.report_only:
+        for arm in arms:
+            print("running arm", arm)
+            run_arm(arm, a.tag, a.tasks)
+    r = report(a.tag, arms)
+    for arm, m in r["arms"].items():
+        print(
+            arm,
+            {
+                k: m[k]
+                for k in (
+                    "tasks",
+                    "premise_correct_rate",
+                    "executable_rate",
+                    "duplicate_rate",
+                    "mechanism_observed_rate",
+                    "confirmed",
+                    "classes",
+                )
+            },
+            m["cost"],
+        )
+
+
+def cmd_reclassify(a: argparse.Namespace) -> None:
+    from .research.reclassify import reclassify
+
+    for r in a.roots.split(","):
+        _print(reclassify(Path(r)))
+
+
 def cmd_calibrate(a: argparse.Namespace) -> None:
     from .evaluation.calibration import run_calibration
 
@@ -384,6 +419,13 @@ def main() -> None:
     sp.add_argument("--seed", type=int, default=0)
     sp.add_argument("--reason", default="")
     sp.add_argument("--confirm", action="store_true", help="resume: explicit human confirmation after a stop")
+    sp = add("compare", cmd_compare)
+    sp.add_argument("--tag", required=True)
+    sp.add_argument("--arms", default="A,B,C")
+    sp.add_argument("--tasks", type=int, default=3)
+    sp.add_argument("--report-only", action="store_true")
+    sp = add("reclassify", cmd_reclassify)
+    sp.add_argument("--roots", default="artifacts/research/arm_guided,artifacts/research/arm_random")
     sp = add("calibrate", cmd_calibrate)
     sp.add_argument("--configs", type=int, default=16)
     sp.add_argument("--search-seeds", type=int, default=2)

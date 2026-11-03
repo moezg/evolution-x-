@@ -725,6 +725,7 @@ class Supervisor:
             "champion": champ_val["portfolio_sharpe"],
             "candidate_mdd": val["portfolio_max_drawdown"],
             "champion_mdd": champ_val["portfolio_max_drawdown"],
+            "reference_buy_and_hold": val.get("reference_buy_and_hold"),
         }
         return ck
 
@@ -744,7 +745,16 @@ class Supervisor:
         src = (self.lab.root / "candidates" / ck["candidate_id"] / "strategy.py").read_text()
         rep = self._evaluate_cached(src, ck["candidate_id"], data, camp["mode"])
         _, champ_rep, _ = self._champion(data, camp["mode"])
-        ck["critique"] = critique({}, rep, champ_rep, ck.get("decision"), self.lab.memory.n_trials("validation"))
+        ck["critique"] = critique(
+            {
+                "reference_buy_and_hold": (ck.get("validation_summary") or {}).get("reference_buy_and_hold"),
+                "candidate_val_sharpe": (ck.get("validation_summary") or {}).get("candidate"),
+            },
+            rep,
+            champ_rep,
+            ck.get("decision"),
+            self.lab.memory.n_trials("validation"),
+        )
         return ck
 
     def _s_decide(self, camp, task, ck, data):  # noqa: ANN001, ANN202
