@@ -288,3 +288,39 @@ def test_budget_caps_cannot_be_raised(tmp_path):
     lab, sup = lab_with(tmp_path, ANTI, FixedGenerator([GOOD]))
     c = sup.create_campaign("big", "research", "guided", 10_000, 10**9)
     assert c["budget"]["max_tasks"] == 60 and c["budget"]["max_wall_s"] == 14400 and c["budget"]["max_llm_tokens"] == 0
+
+
+def test_design_uses_exploration_parent_source_and_records_lineage(tmp_path):
+    """Regression: when the hypothesis names a candidate as design parent, the child must extend THAT source."""
+    import random
+
+    from evolutionx.research.generator import OfflineGenerator as G
+
+    lab = Lab(tmp_path / "lab")
+    v0 = Path("src/evolutionx/evolvable/tsmom_v0.py").read_text()
+    lab.registry.bootstrap(v0, "tsmom_v0")
+    sup = Supervisor(lab, DATA, PROTO, policy(), G())
+    parent = G().propose(
+        "add_funding_guard", {"id": "v0", "spec": Supervisor._spec_of(v0), "source": v0}, random.Random(1), {}
+    )
+    d = lab.root / "candidates" / parent.candidate_id
+    d.mkdir(parents=True)
+    (d / "strategy.py").write_text(parent.source)
+    act = lab.registry.active()
+    ck = {
+        "parent_version": 0,
+        "parent_sha": act["sha256"],
+        "operator": "add_vol_target",
+        "design_parent": parent.candidate_id,
+        "design_parent_kind": "candidate",
+        "design_parent_sha": parent.code_sha256,
+        "hypothesis_id": "h",
+    }
+    out = sup._s_design({"id": "c", "config": {"seed": 0}, "budget": {"sandbox": {}}}, {"id": "t1"}, ck, DATA)
+    child = (lab.root / "candidates" / out["candidate_id"] / "strategy.py").read_text()
+    assert "_f_funding_guard" in child and "_f_vol_target" in child
+    row = lab.memory.q("SELECT parent_id FROM candidates WHERE id=?", (out["candidate_id"],))[0]
+    assert row["parent_id"] == parent.candidate_id
+    with pytest.raises(CandidateFailure):  # tampered parent source is refused
+        (d / "strategy.py").write_text(parent.source + "\n# tampered\n")
+        sup._s_design({"id": "c", "config": {"seed": 0}, "budget": {"sandbox": {}}}, {"id": "t2"}, dict(ck), DATA)

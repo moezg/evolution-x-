@@ -482,12 +482,18 @@ class Supervisor:
         return ck
 
     def _s_design(self, camp, task, ck, data):  # noqa: ANN001, ANN202
-        v, src = self.lab.registry.load_source(ck["parent_version"])
-        meta = next(m for m in self.lab.registry.versions() if m["version"] == v)
-        spec = meta.get("spec") or self._spec_of(src)
+        if ck.get("design_parent_kind", "champion") == "champion":
+            _, src = self.lab.registry.load_source(ck["parent_version"])
+            parent_id = f"v{ck['parent_version']}"
+        else:
+            src = (self.lab.root / "candidates" / ck["design_parent"] / "strategy.py").read_text()
+            parent_id = ck["design_parent"]
+        if _sha(src) != ck.get("design_parent_sha", ck["parent_sha"]):
+            raise CandidateFailure("integrity", "design parent source does not match its recorded hash")
+        spec = self._spec_of(src)
         rng = random.Random(f"{camp['config']['seed']}|{task['id']}|design")
         prop = self.generator.propose(
-            ck["operator"], {"id": f"v{v}", "spec": spec, "source": src}, rng, {"sandbox": camp["budget"]["sandbox"]}
+            ck["operator"], {"id": parent_id, "spec": spec, "source": src}, rng, {"sandbox": camp["budget"]["sandbox"]}
         )
         d = self.lab.root / "candidates" / prop.candidate_id
         d.mkdir(parents=True, exist_ok=True)
@@ -495,12 +501,17 @@ class Supervisor:
         (d / "patch.diff").write_text(prop.diff)
         pd = prop.as_dict()
         pd.pop("source")
-        (d / "proposal.json").write_text(json.dumps({**pd, "base_commit": _head(), "parent_version": v}, indent=2))
+        (d / "proposal.json").write_text(
+            json.dumps(
+                {**pd, "base_commit": _head(), "parent_version": ck["parent_version"], "design_parent": parent_id},
+                indent=2,
+            )
+        )
         self.lab.memory.x(
             "INSERT OR IGNORE INTO candidates VALUES (?,?,?,?,?,?,?,?,?)",
             (
                 prop.candidate_id,
-                f"v{v}",
+                parent_id,
                 prop.code_sha256,
                 prop.generator,
                 prop.operator,
