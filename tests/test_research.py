@@ -287,7 +287,9 @@ def test_user_stop_has_priority_and_needs_human_resume(tmp_path):
 def test_budget_caps_cannot_be_raised(tmp_path):
     lab, sup = lab_with(tmp_path, ANTI, FixedGenerator([GOOD]))
     c = sup.create_campaign("big", "research", "guided", 10_000, 10**9)
-    assert c["budget"]["max_tasks"] == 60 and c["budget"]["max_wall_s"] == 14400 and c["budget"]["max_llm_tokens"] == 0
+    caps = json.loads(POLICY.read_text())["caps"]
+    assert c["budget"]["max_tasks"] == caps["max_tasks"] == 60 and c["budget"]["max_wall_s"] == caps["max_wall_s"]
+    assert c["budget"]["max_llm_tokens"] == caps["max_llm_tokens"]  # request (10**9 s, 10k tasks) clipped to caps
 
 
 def test_design_uses_exploration_parent_source_and_records_lineage(tmp_path):
@@ -344,14 +346,25 @@ def test_exhausted_search_space_stops_instead_of_proposing_duplicates(tmp_path):
     assert len(lab.memory.q("SELECT id FROM tasks")) == 1 and not lab.memory.q("SELECT id FROM candidates")
 
 
-HYP = {"statement": "Planted trend is exploitable", "mechanism": "test", "alternatives": ["none"],
-       "prediction": "higher validation Sharpe"}
+HYP = {
+    "statement": "Planted trend is exploitable",
+    "mechanism": "test",
+    "alternatives": ["none"],
+    "prediction": "higher validation Sharpe",
+}
 
 
 def test_session_import_goes_through_the_same_gates(tmp_path):
     lab, sup = lab_with(tmp_path, ANTI, FixedGenerator([GOOD]))
-    r = sup.import_candidate("imp1", "autonomous-experimental", GOOD, dict(HYP), "claude-code-session:test",
-                             "interactive session", ["dev diagnostics"])
+    r = sup.import_candidate(
+        "imp1",
+        "autonomous-experimental",
+        GOOD,
+        dict(HYP),
+        "claude-code-session:test",
+        "interactive session",
+        ["dev diagnostics"],
+    )
     sup.run("imp1")
     t = lab.memory.q("SELECT * FROM tasks WHERE id=?", (r["task"],))[0]
     assert t["status"] == "done" and t["task"]["hypothesis"] == HYP["statement"]
@@ -360,8 +373,10 @@ def test_session_import_goes_through_the_same_gates(tmp_path):
     bad = GOOD.replace("from __future__ import annotations", "from __future__ import annotations\nimport os")
     sup.import_candidate("imp2", "research", bad, dict(HYP), "claude-code-session:test", "x", [])
     sup.run("imp2")
-    assert lab.memory.q("SELECT checkpoint FROM tasks WHERE id='imp2-t001'")[0]["checkpoint"]["rejection"]["gate"] == \
-        "static_admissibility"
+    assert (
+        lab.memory.q("SELECT checkpoint FROM tasks WHERE id='imp2-t001'")[0]["checkpoint"]["rejection"]["gate"]
+        == "static_admissibility"
+    )
     with pytest.raises(ValueError):
         sup.import_candidate("imp3", "research", GOOD, {"statement": "x"}, "g", "p", [])
 
@@ -380,11 +395,32 @@ class FakeLLM:
 
         self.calls += 1
         src = GOOD.replace("good_trend", f"good_{self.calls}")
-        p = Proposal(f"llm-{self.calls}", parent["id"], "llm_free_form", dict(HYP), {"change_summary": "x"}, src,
-                     diff(parent["source"], src, "p", "c"), ["src/evolutionx/evolvable/generated/x.py"], "c", "b", "r",
-                     budget, "e", "fake-llm", code_hash(src), [])
-        return p, {"tokens": 1000, "cost_usd_equiv": 0.9, "models": ["fake"], "wall_s": 0.0, "session_id": "s",
-                   "stop_reason": "end_turn"}
+        p = Proposal(
+            f"llm-{self.calls}",
+            parent["id"],
+            "llm_free_form",
+            dict(HYP),
+            {"change_summary": "x"},
+            src,
+            diff(parent["source"], src, "p", "c"),
+            ["src/evolutionx/evolvable/generated/x.py"],
+            "c",
+            "b",
+            "r",
+            budget,
+            "e",
+            "fake-llm",
+            code_hash(src),
+            [],
+        )
+        return p, {
+            "tokens": 1000,
+            "cost_usd_equiv": 0.9,
+            "models": ["fake"],
+            "wall_s": 0.0,
+            "session_id": "s",
+            "stop_reason": "end_turn",
+        }
 
 
 def test_llm_connector_budget_caps_are_enforced(tmp_path):
@@ -396,3 +432,30 @@ def test_llm_connector_budget_caps_are_enforced(tmp_path):
     assert st["campaign"]["status"] == "budget_exhausted"
     events = [e["event"] for e in lab.journal.tail(200)]
     assert events.count("llm_call") == 3
+
+
+def test_invalid_llm_output_still_accounts_quota(tmp_path):
+    from evolutionx.research.llm_connectors import LLMOutputInvalid
+
+    class BadLLM(FakeLLM):
+        def propose_free(self, parent, diagnostics, tested, budget):  # noqa: ANN001
+            self.calls += 1
+            raise LLMOutputInvalid(
+                "schema",
+                {
+                    "tokens": 500,
+                    "cost_usd_equiv": 0.2,
+                    "models": ["m"],
+                    "wall_s": 0,
+                    "session_id": f"s{self.calls}",
+                    "stop_reason": "end_turn",
+                },
+            )
+
+    lab, sup = lab_with(tmp_path, ANTI, BadLLM(), auto=False)
+    sup.create_campaign("b", "research", "guided", 1, 600)
+    st = sup.run("b")
+    c = st["campaign"]["consumed"]
+    assert c["llm_calls"] == 2 and c["llm_tokens"] == 1000 and abs(c["llm_cost_usd_equiv"] - 0.4) < 1e-9
+    assert len(list((lab.root / "llm_raw").glob("*.json"))) == 2
+    assert lab.memory.q("SELECT status FROM tasks")[0]["status"] == "failed"  # bounded retries, no infinite loop

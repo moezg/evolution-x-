@@ -41,16 +41,24 @@ SYSTEM = (
 
 
 class LLMOut(BaseModel):
-    hypothesis: str = Field(min_length=10, max_length=600)
-    mechanism: str = Field(min_length=10, max_length=800)
-    alternatives: list[str] = Field(min_length=1, max_length=5)
-    prediction: str = Field(min_length=10, max_length=400)
-    change_summary: str = Field(min_length=5, max_length=400)
+    hypothesis: str = Field(min_length=10, max_length=1500)
+    mechanism: str = Field(min_length=10, max_length=3000)
+    alternatives: list[str] = Field(min_length=1, max_length=8)
+    prediction: str = Field(min_length=10, max_length=1500)
+    change_summary: str = Field(min_length=5, max_length=1500)
     source: str = Field(min_length=50, max_length=20_000)
 
 
 class LLMBudgetExceeded(RuntimeError):
     pass
+
+
+class LLMOutputInvalid(ValueError):
+    """The call happened (quota consumed) but its output failed validation; carries usage for accounting."""
+
+    def __init__(self, msg: str, call: dict[str, Any]) -> None:
+        super().__init__(msg)
+        self.call = call
 
 
 class ClaudeCLIGenerator:
@@ -123,7 +131,10 @@ class ClaudeCLIGenerator:
         txt = call["text"].strip()
         if txt.startswith("```"):
             txt = txt.split("\n", 1)[1].rsplit("```", 1)[0]
-        out = LLMOut.model_validate(json.loads(txt[txt.find("{") : txt.rfind("}") + 1]))
+        try:
+            out = LLMOut.model_validate(json.loads(txt[txt.find("{") : txt.rfind("}") + 1]))
+        except ValueError as e:
+            raise LLMOutputInvalid(str(e)[:600], call) from e
         src = out.source
         if "```" in src:
             src = src.split("```python")[-1].split("```")[0]

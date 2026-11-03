@@ -742,21 +742,19 @@ class Supervisor:
             tested.append({"idea": h["statement"], "operator": h["operator"], "development_oos_sharpe": dev})
         c["llm_calls"] = c.get("llm_calls", 0) + 1  # counted BEFORE the call: failed calls still consume quota
         self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
-        prop, call = self.generator.propose_free(
-            {"id": f"v{ck['parent_version']}", "source": src},
-            ck["diagnostics"],
-            tested[-30:],
-            {"sandbox": camp["budget"]["sandbox"]},
-        )
-        c = self._campaign(camp["id"])["consumed"]
-        c["llm_tokens"] = c.get("llm_tokens", 0) + call["tokens"]
-        c["llm_cost_usd_equiv"] = round(c.get("llm_cost_usd_equiv", 0.0) + call["cost_usd_equiv"], 4)
-        self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
-        self.lab.journal.append(
-            "generator",
-            "llm_call",
-            {k: call[k] for k in ("models", "tokens", "cost_usd_equiv", "wall_s", "session_id", "stop_reason")},
-        )
+        try:
+            prop, call = self.generator.propose_free(
+                {"id": f"v{ck['parent_version']}", "source": src},
+                ck["diagnostics"],
+                tested[-30:],
+                {"sandbox": camp["budget"]["sandbox"]},
+            )
+        except Exception as e:
+            bad = getattr(e, "call", None)
+            if bad is not None:  # quota was consumed by an invalid answer: account for it, keep raw text for audit
+                self._record_llm_usage(camp, bad, invalid=str(e))
+            raise
+        self._record_llm_usage(camp, call)
         return {
             "candidate_id": prop.candidate_id,
             "source": prop.source,
@@ -770,6 +768,17 @@ class Supervisor:
             "exposure": ["parent source", "development diagnostics", "tested ideas with development screen results"],
             "provenance": "claude -p (official CLI, environment's existing authentication; may use plan quota)",
         }
+
+    def _record_llm_usage(self, camp: dict[str, Any], call: dict[str, Any], invalid: str | None = None) -> None:
+        c = self._campaign(camp["id"])["consumed"]
+        c["llm_tokens"] = c.get("llm_tokens", 0) + int(call.get("tokens", 0))
+        c["llm_cost_usd_equiv"] = round(c.get("llm_cost_usd_equiv", 0.0) + float(call.get("cost_usd_equiv", 0.0)), 4)
+        self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
+        raw_dir = self.lab.root / "llm_raw"
+        raw_dir.mkdir(exist_ok=True)
+        (raw_dir / f"{call.get('session_id') or 'unknown'}.json").write_text(json.dumps(call, indent=1, default=str))
+        meta = {k: call.get(k) for k in ("models", "tokens", "cost_usd_equiv", "wall_s", "session_id", "stop_reason")}
+        self.lab.journal.append("generator", "llm_call", {**meta, "output_valid": invalid is None, "error": invalid})
 
     def import_candidate(
         self,
