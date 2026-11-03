@@ -1,0 +1,53 @@
+{
+  "spec": {
+    "instruments": [
+      "SOLUSDT",
+      "BNBUSDT"
+    ],
+    "start": "2024-01-01",
+    "end_exclusive": "2026-11-01",
+    "chosen_utc": "2026-11-03T16:30:00Z",
+    "selection_rule": "liquid USD-M perps not used anywhere in this project"
+  },
+  "built_utc": "2026-11-03T16:22:07+00:00",
+  "instruments": {
+    "SOLUSDT": {
+      "qc": {
+        "rows_raw": 24816,
+        "duplicates_identical": 0,
+        "duplicates_conflicting": 0,
+        "misaligned": 0,
+        "invalid_ohlc": 0,
+        "partial_bars": 0,
+        "gaps": 1,
+        "missing_hours": 24,
+        "funding_events": 3105,
+        "funding_out_of_range": 0,
+        "timestamp_us_files": 0,
+        "header_files": 68
+      },
+      "bars": 24816,
+      "sha256": "7ee3c3439dd76e0df9ebc1da97b3405f906de9df0e51474cf554002edbb001bb",
+      "checksums_verified": true
+    },
+    "BNBUSDT": {
+      "qc": {
+        "rows_raw": 24816,
+        "duplicates_identical": 0,
+        "duplicates_conflicting": 0,
+        "misaligned": 0,
+        "invalid_ohlc": 0,
+        "partial_bars": 0,
+        "gaps": 1,
+        "missing_hours": 24,
+        "funding_events": 3105,
+        "funding_out_of_range": 0,
+        "timestamp_us_files": 0,
+        "header_files": 68
+      },
+      "bars": 24816,
+      "sha256": "213871c53450d3b5fd3bb70ea6a033f5b50447c9b8d35e7b26ed0008b26b863c",
+      "checksums_verified": true
+    }
+  }
+}
