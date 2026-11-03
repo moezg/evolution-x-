@@ -1,0 +1,21 @@
+{
+  "statement": "Averaging volatility-normalised trend signals across several horizons (24h to 336h/720h) improves net risk-adjusted returns versus v0's single horizon.",
+  "mechanism": "Development diagnostics show large horizon sensitivity (single-horizon variants ranged widely in development OOS Sharpe) and trading costs of ~0.32x |gross PnL| for v0. Horizon-specific noise is partly independent across horizons, so the average should keep the common trend premium while flipping sign less often, lowering turnover and costs.",
+  "alternatives": [
+    "The trend premium lives at one horizon only; averaging dilutes it with noise horizons",
+    "Lower turnover is offset by slower reaction to reversals (larger drawdowns)",
+    "Any improvement is a development-period artefact (2020-2023 regimes)"
+  ],
+  "prediction": "Development walk-forward OOS Sharpe above v0's, fewer position changes than v0, and a validation improvement passing the frozen promotion rule; refuted if the development screen fails or validation P(delta Sharpe > 0) < 0.5.",
+  "novelty": "Multi-horizon averaging is outside the offline grammar (single-horizon signals only); no prior task in any lab tested it.",
+  "_provenance": {
+    "generator": "claude-code-session:claude-opus-5-5 (this interactive Claude Code session; human-driven, not callable by the lab)",
+    "provenance": "Hypothesis and code written by Claude in the Claude Code session on 2026-11-03 before any evaluation of this candidate; imported with `evox research import`.",
+    "exposure": [
+      "development diagnostics of v0 (costs, horizon sensitivity)",
+      "validation outcomes of the 33 earlier trials, including that long exposure did well in 2024-H1 2025 (buy-and-hold Sharpe 0.66): the validation test is therefore NOT independent of the author's knowledge",
+      "the final-vault report (split consumed): no blind final test is possible for this candidate"
+    ],
+    "risk": "Author exposure to validation outcomes; small search space; slower reaction to reversals."
+  }
+}
