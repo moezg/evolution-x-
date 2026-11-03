@@ -1,0 +1,90 @@
+{
+  "name": "volatility-diagnosis-v1",
+  "written_utc": "2026-11-03T17:20:00Z",
+  "question": "Why is simulated 1-minute volatility 3.5-4.4x the historical BTCUSDT 1-minute volatility (~4.0-4.5 bps)?",
+  "design": "paired seeds 501-503, 3600 s runs, one factor changed at a time from the default population; the latent fundamental column of the per-second series is used as a direct measurement of the exogenous input",
+  "hypotheses": {
+    "H-vol-shock": {
+      "claim": "the exogenous fundamental process (GBM 0.6/yr + news jumps 6/h x 0.4%) alone is already ~3x too volatile and the price tracks it",
+      "prediction": "fundamental 1m std >= 10 bps; mid 1m std / fundamental 1m std in [0.7, 1.5]; removing news jumps and setting GBM vol to 0.33/yr cuts mid 1m std by >= 50%",
+      "refuted_if": "fundamental 1m std < 6 bps, or mid std falls by < 25% when the fundamental is made realistic"
+    },
+    "H-vol-micro": {
+      "claim": "endogenous microstructure noise (quote refresh, bid-ask bounce, thin depth) sets a floor above historical volatility",
+      "prediction": "with a FROZEN fundamental (vol 0, no news), mid 1m std stays > 4 bps",
+      "refuted_if": "frozen-fundamental mid 1m std <= 4 bps"
+    },
+    "H-vol-leverage": {
+      "claim": "leverage/liquidation feedback adds volatility",
+      "prediction": "removing leveraged agents lowers mid 1m std by >= 15%",
+      "refuted_if": "change < 10%"
+    },
+    "H-vol-herding": {
+      "claim": "correlated decisions through the social network add volatility",
+      "prediction": "social network + imitation off lowers mid 1m std by >= 15%",
+      "refuted_if": "change < 10%"
+    },
+    "H-vol-time": {
+      "claim": "time scaling error: one simulated minute is not 60 virtual seconds or bars are mis-sampled",
+      "prediction": "a code/unit check finds a mismatch",
+      "refuted_if": "series sampled every 1000 ms and minute bars taken every 60 samples"
+    },
+    "H-vol-numeric": {
+      "claim": "mid computation artefacts (integer ticks, one-sided books) inflate measured volatility",
+      "prediction": "one-sided-book seconds > 5% or mid-vs-microprice volatility differs by > 20%",
+      "refuted_if": "one-sided seconds < 1% and the difference < 10%"
+    }
+  },
+  "properties_compared": [
+    "1m return std",
+    "5m/15m return std",
+    "excess kurtosis",
+    "|r| ACF lag1 (clustering)",
+    "return ACF lag1",
+    "volume-volatility correlation",
+    "spread median/p95",
+    "signed order-flow ACF",
+    "price impact (1m return on signed volume)"
+  ],
+  "historical_reference": "TRAIN days only (5 days of 1m BTCUSDT); spread/impact/order flow have no historical counterpart in our data (OHLCV only)",
+  "stopping_rule": "3 seeds per condition; no extra seeds added after seeing results",
+  "amendment_v2": {
+    "written_utc": "2026-11-03T17:35:00Z",
+    "after_results": "v1 (shock spec supported, micro floor refuted, leverage/herding amplify)",
+    "base": "fundamental_realistic (GBM 0.33/yr, news_impact 0)",
+    "question": "why is mid 1m vol ~1.8x the realistic fundamental's 1m vol?",
+    "hypotheses": {
+      "H-amp-belief": {
+        "claim": "value/whale private belief noise (AR(1), 20/10 bps) makes informed traders churn and moves the price",
+        "prediction": "belief noise -> 2/1 bps cuts mid 1m std by >= 25%",
+        "refuted_if": "< 10%"
+      },
+      "H-amp-momentum": {
+        "claim": "momentum traders amplify fundamental moves",
+        "prediction": "momentum population 0 cuts mid 1m std by >= 20%",
+        "refuted_if": "< 10%"
+      },
+      "H-amp-leverage": {
+        "claim": "leveraged traders amplify (as in v1)",
+        "prediction": ">= 15% cut",
+        "refuted_if": "< 10%"
+      },
+      "H-amp-social": {
+        "claim": "social contagion amplifies (as in v1)",
+        "prediction": ">= 15% cut",
+        "refuted_if": "< 10%"
+      },
+      "H-amp-noise": {
+        "claim": "retail noise flow (64 agents, market orders) adds variance",
+        "prediction": "noise population 0 cuts mid 1m std by >= 20%",
+        "refuted_if": "< 10%"
+      }
+    },
+    "seeds": [
+      501,
+      502,
+      503
+    ],
+    "stopping_rule": "3 seeds; no additions"
+  }
+}
