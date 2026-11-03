@@ -14,3 +14,4 @@ web/out/
 data/raw/
 data/research/*.npz
 data/vault/
+dist/
