@@ -383,6 +383,29 @@ def cmd_observatory(a: argparse.Namespace) -> None:
         _print({n: v["verdict_vs"] for n, v in r["results"].items()} | {"pareto": r["pareto"]})
 
 
+def cmd_forecast(a: argparse.Namespace) -> None:
+    """Predictive intelligence laboratory (paper forecasts only; no orders are ever sent)."""
+    if a.action == "fetch":
+        from .forecast.data import fetch_fresh
+
+        _print(fetch_fresh())
+    elif a.action == "backtest":
+        from .forecast.backtest import run
+
+        r = run(with_sim=not a.no_sim)
+        _print({"simulator_inclusion": r["simulator_inclusion"], "cost": r["cost"]})
+    elif a.action == "evolve":
+        from .forecast.evolve import run_evolution
+
+        r = run_evolution()
+        _print([(x["target"], x.get("status")) for x in r["results"]])
+    else:
+        from .forecast import prospective as P
+
+        fn = {"issue": P.issue, "resolve": P.resolve}.get(a.action)
+        _print(fn() if fn else P.score())
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -447,6 +470,9 @@ def main() -> None:
     sp.add_argument("--no-evaluate", action="store_true", help="knowledge: skip realism evaluation of proposals")
     sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
     sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
+    sp = add("forecast", cmd_forecast)
+    sp.add_argument("action", choices=["fetch", "backtest", "issue", "resolve", "score", "evolve"])
+    sp.add_argument("--no-sim", action="store_true", help="backtest without simulator features")
     sp = add("backtest", cmd_backtest)
     sp.add_argument("--strategy", default="v0", help="v0 | champion | path/to/strategy.py")
     sp.add_argument("--symbol", default="BTCUSDT")

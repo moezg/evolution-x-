@@ -1,0 +1,37 @@
+{
+ "backtest_v1.json": {
+  "sha256": "1caf63b70a64a115c5fc834c63886e2be1463db6690c3006971191d6279e911c",
+  "bytes": 2820288,
+  "compact_copy": "series removed"
+ },
+ "evolution_v1.json": {
+  "sha256": "c90316e7424f03af607464f596e626a71b661a9c075b15c7d05c943a754a020c",
+  "bytes": 6956
+ },
+ "ledger.jsonl": {
+  "sha256": "b30915ff1aa6f91045c94de06ba7501754dd0efe49ea039585adf23cdaa527e8",
+  "bytes": 40811
+ },
+ "simcache.json": {
+  "sha256": "72b12c04b07cac05fa5b05d4715ce3f74c06a61f30c2365bc76d3501877ad66a",
+  "bytes": 19797
+ },
+ "data/fresh/manifest.json": {
+  "fetched_utc": "2026-11-03T21:42:18+00:00",
+  "files": [
+   {
+    "day": "2026-11-01",
+    "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1h/BTCUSDT-1h-2026-11-01.zip",
+    "sha256": "f01880922915ec6d860a1516c47dc10811c0fc2be01f829cd6bf2d66f1622e8b",
+    "checksum_verified": true
+   },
+   {
+    "day": "2026-11-02",
+    "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1h/BTCUSDT-1h-2026-11-02.zip",
+    "sha256": "787798e65210de5a7bf63507e1fc5eca028cbc458f7f351e9939277820946475",
+    "checksum_verified": true
+   }
+  ],
+  "not_published": []
+ }
+}

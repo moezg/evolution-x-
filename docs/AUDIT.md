@@ -145,3 +145,25 @@ Statuses use the mission vocabulary: **IMPLEMENTED / PARTIAL / MISSING / UNVERIF
 | API | `/api/observatory/cascade`, `/cascade/pair`, `/knowledge` | — | — | executed |
 | Dashboard | `web/src/app/observatory/cascade` | `make dev` | — | see delivery message |
 | No holdout / LLM / exchange | no code path in `observatory/` touches the vault, an LLM or a network | `grep -rn "vault\|claude\|httpx" src/evolutionx/observatory` | — | verified by inspection |
+
+## Predictive intelligence foundation (2026-11-03)
+
+The reuse audit is in `docs/FORECASTING.md`. Requirements of the mission:
+
+| # | Requirement | Implementation | Command | Status |
+|---|---|---|---|---|
+| 1 | Audit of reusable components | `docs/FORECASTING.md` reuse table | — | done |
+| 2 | General forecasting engine, pluggable domains | `forecast/domain.py` (`Domain` protocol, `DOMAINS`) | — | implemented (1 domain) |
+| 3 | BTC forecasting with point-in-time data | `forecast/data.py`, `BTCDomain` (24 h publication lag) | `evox forecast fetch` | executed; leakage test passes |
+| 4 | Verifiable targets: RV, 3–5% moves, direction, explicit horizons | `btc_targets()` (24 h, 72 h) | — | implemented; outcome test passes |
+| 5 | Statistical and ML baselines before any LLM | B0, B1, M1, M2 (numpy) | — | executed |
+| 6 | Experimental hybrid with simulator features | `forecast/simfeatures.py`, H1 | `evox forecast backtest` | executed (119 cells) |
+| 7 | Strict rolling-origin backtest, no leakage | `forecast/backtest.py` | same | executed; label-availability test passes. Fees: not applicable (no trading) |
+| 8 | Brier, log loss, calibration, baseline comparison | `forecast/scoring.py`; Holm, block bootstrap | same | executed |
+| 9 | Does the simulator add skill? Exclude it if not | pre-registered inclusion rule | same | **EXCLUDED** |
+| 10 | Append-only forecast ledger | `forecast/ledger.py` on `research/journal.py` | `evox forecast score` | verified (tests; chain ok) |
+| 11 | Prospective paper-forecasting mode | `forecast/prospective.py` | `evox forecast issue`, `evox forecast resolve` | 32 forecasts issued; resolution pending |
+| 12 | Evolution against frozen baselines with safeguards | `forecast/evolve.py` (frozen space, trial-adjusted threshold, dedup, challenger only) | `evox forecast evolve` | executed: 9/9 rejected |
+| 13 | Abstention | 4 rules plus a stale-data rule at issue time; abstention scored as climatology | — | executed |
+| 14 | Dashboard | `/api/forecast/*`, `web/src/app/forecast` | `make dev` | see delivery message |
+| — | Holdouts | SOL/BNB vault never read; consumed BTC/ETH split labelled CONSUMED, never fresh | `grep -rn vault_v2 src/evolutionx/forecast` | verified |

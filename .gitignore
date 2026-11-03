@@ -16,3 +16,5 @@ data/research/*.npz
 data/vault/
 dist/
 data/vault_v2/*.npz
+data/fresh/*.zip
+data/fresh/*.CHECKSUM

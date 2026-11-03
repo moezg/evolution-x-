@@ -1,3 +1,94 @@
+# Status: predictive intelligence foundation (2026-11-03)
+
+The project's top-level objective is now **out-of-sample predictive skill, calibration and reliability of
+probabilistic forecasts about real-world events**, starting with BTC. The simulator, observatory, research memory and
+evolution machinery are preserved and reused. Details and limitations are in `docs/FORECASTING.md`.
+
+**Headline.** A working end-to-end forecasting system exists. It has data with publication lag, a rolling-origin
+backtest, baselines, ML models, an experimental simulator hybrid, proper scoring, an append-only ledger, prospective
+paper forecasts, abstention, guarded evolution, an API and a dashboard.
+
+**No predictive superiority is claimed.** All retrospective evidence comes from previously exposed data. The first 32
+prospective forecasts (origin 2026-11-04 00:00 UTC) are recorded but not yet resolved.
+
+### 1. Protocol
+- `evals/frozen/forecast_protocol_v1.json` was frozen before any model was fitted.
+- **Amendment 1, also before fitting:** funding features were removed because funding archives publish monthly and would not be available at issue time.
+- **Lag:** 24 h. Daily archives arrive about a day late, and the live API returns HTTP 451 here.
+- **Origins:** daily at 00:00 UTC.
+- **Targets:**
+  - realized volatility over 24/72 h;
+  - P(|move| ≥ 3%) and P(|move| ≥ 5%) over 24/72 h;
+  - P(up) over 24/72 h.
+
+### 2. Retrospective rolling-origin backtest
+Previously exposed data, so screening evidence only. The run is `artifacts/forecast/backtest_v1.json`, code `10d4f9ed`, 89 s. A run on the pre-typing-fix code `4b9e4800` gave identical results.
+
+Brier skill vs climatology B0 on SCREEN (2024-01 to 2025-06, n = 545 daily origins):
+
+| Target | B1 EWMA-Gauss | M1 logistic | M2 boosted | H1 hybrid (sim) |
+|---|---:|---:|---:|---:|
+| move3 24 h | −3.1% | **+2.1%** | +1.9% | +2.6% |
+| move5 24 h | −2.4% | +2.0% | +2.8% | +2.2% |
+| up 24 h | −0.2% | −0.2% | −0.6% | 0.0% |
+| move3 72 h | −0.3% | −1.0% | −0.9% | −1.2% |
+| move5 72 h | −3.5% | +0.1% | −1.8% | −0.4% |
+| up 72 h | −0.5% | −0.2% | −0.1% | −0.5% |
+| realized vol 24 h (MSE skill on log RV) | −4.5% | **+14.3%** | +11.7% | +13.6% |
+| realized vol 72 h (MSE skill on log RV) | −1.4% | **+19.6%** | +15.3% | +16.9% |
+
+**Pre-registered comparisons on SCREEN (Holm over 24 binary tests):**
+- Survive:
+  - M1 beats B1 on move3 24 h (ΔBrier −0.0091, 95% CI −0.0135 to −0.0040);
+  - M1 beats B1 on move5 24 h (−0.0029);
+  - M1 beats B1 on realized vol at 24 h and 72 h.
+
+  The Gaussian EWMA baseline is badly calibrated in the tails.
+- **Do not survive:** every model vs climatology. The best is move3 24 h, p = 0.037 against a Holm threshold of 0.0025.
+- **Direction (up/down):** no model has skill on any period.
+- **72 h move targets:** no skill on SCREEN.
+- **Calibration:** M1 has an ECE of 0.015–0.023 on 24 h targets (SCREEN).
+- **Abstention:** it is active (for example, M1 covers 48% of up-24 h origins). Abstained origins are scored as climatology.
+
+### 3. Do simulator features add skill?
+**No.** The simulator was run on 119 input cells (2 seeds, 900 s, scale 0.5).
+
+- H1 vs M1 on SCREEN: no binary target is significant after Holm (best p = 0.20).
+- Realized volatility: H1 is slightly worse than M1 (rv 72 h: +0.0039, CI +0.0005 to +0.0084).
+- Following the pre-registered rule, simulator features are **EXCLUDED** from all non-experimental models and are not issued prospectively.
+
+### 4. Ledger and prospective mode
+- `artifacts/forecast/ledger.jsonl` (copy in `docs/evidence/forecast/`) is hash-chained and append-only.
+- Forecasts can only be issued before their window starts; each is resolved once, after the window has ended and been published.
+- At 21:44 UTC, 32 forecasts were issued for origin 2026-11-04 00:00 (4 models × 8 targets, as of 2026-11-03 00:00). 2 abstained: M1 and M2 on up-24 h, because their trailing skill is negative. Status: 0 resolved, 32 open; the chain verifies.
+- **Promotion needs at least 180 resolved prospective forecasts per target.** No promotion is possible for months.
+
+### 5. Evolution with safeguards
+- Candidates are configs in a frozen space: model family, feature subset, L2, boosting settings. Targets, data, lag, periods and scoring cannot change.
+- Every evaluation counts as a trial. Acceptance on SCREEN needs one-sided p < 0.05 / (trials for that target) and no degradation on DEV.
+- First cycle: 9 candidates over 3 targets (proposed from DEV evidence only), **all rejected**. None beat the frozen champion M1.
+- An accepted candidate would only become a prospective challenger. Nothing replaces the champion automatically.
+
+### 6. Tests
+`tests/test_forecast.py` has 10 tests:
+- features never read bars after as-of;
+- outcome definitions are correct;
+- training never uses unobservable labels;
+- abstentions are scored as climatology;
+- the backtest is deterministic;
+- scores and Holm are correct;
+- the ledger is prospective, append-only and tamper-evident;
+- the full issue → resolve → score cycle works on synthetic bars;
+- candidates cannot leave the frozen space;
+- the trial-adjusted threshold tightens and never replaces the champion.
+
+### 7. What would make this system better (in order)
+1. Run `evox forecast issue` and `evox forecast resolve` **every day**. Prospective resolved forecasts are the only independent evidence. Two to three months give enough 24 h outcomes for a first real assessment.
+2. Add information unavailable to the current features, each tested through the same frozen comparison: options-implied volatility, intraday order flow, cross-asset signals. (Funding stays out until it can be obtained point-in-time.)
+3. Add LLM forecasting only after these baselines are stable, as another candidate in the same ledger and scoring.
+
+---
+
 # Status: v0.5 critical thresholds for liquidation cascades (2026-11-03)
 
 **Answer to the mission question:** the artificial society did **not** produce a liquidation feedback cascade.

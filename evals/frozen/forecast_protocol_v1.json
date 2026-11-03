@@ -1,0 +1,74 @@
+{
+  "name": "forecast-protocol-v1",
+  "written_utc": "2026-11-03T21:30:09Z",
+  "status": "frozen before any forecasting model was fitted or scored",
+  "objective": "out-of-sample predictive skill, calibration and reliability of probabilistic forecasts about real BTC prices; the simulator is one candidate feature source",
+  "domain": "btc_perp: Binance USD-M BTCUSDT perpetual, 1 h bars (data/research, data/vault final split for training/retrospective only, fresh daily archives from 2026-11-01)",
+  "information_lag": {
+    "publication_lag_h": 24,
+    "rule": "at origin o the model sees only bars with available_at <= o - 24 h (official daily archives are published with ~1 day delay; the live API is unreachable from this environment, HTTP 451). Target windows are (o, o + h].",
+    "training_labels": "a past origin o' is a training example at o only if o' + h <= o - 24 h (its outcome was observable)"
+  },
+  "origins": "daily at 00:00 UTC",
+  "horizons_h": [
+    24,
+    72
+  ],
+  "targets": {
+    "rv": "realized volatility over (o, o+h]: sqrt(sum of squared hourly log returns), in %; point forecast of log RV",
+    "move3": "binary |log(close(o+h)/close(o))| >= 3%",
+    "move5": "binary |log(close(o+h)/close(o))| >= 5%",
+    "up": "binary log(close(o+h)/close(o)) > 0"
+  },
+  "features": "log RV over 24 h/72 h/7 d/30 d; returns over 24 h/7 d/30 d; |return| 24 h; mean high-low range 24 h; log volume ratio 24 h vs 30 d; mean funding 24 h and 7 d; all computed from bars available at o - 24 h",
+  "models": {
+    "B0_climatology": "binary: expanding base rate of the target over available training labels; rv: mean of past log RV",
+    "B1_ewma_gauss": "sigma from EWMA of hourly squared returns (lambda 0.99) scaled to horizon; P(|r|>=k) = 2(1-Phi(k/sigma)); P(up) = 0.5; rv = log(sigma)",
+    "M1_logistic": "L2 logistic regression (lambda 1.0, standardized features + log sigma_EWMA); rv: ridge regression on the same features",
+    "M2_gbm": "gradient-boosted depth-2 regression trees on logistic loss (100 rounds, learning rate 0.05, min leaf 30); rv: same on squared loss",
+    "H1_hybrid": "M1 with simulator-generated features appended (EXPERIMENTAL)"
+  },
+  "training": "expanding window; refit every 30 origins; minimum 365 labelled origins, otherwise abstain",
+  "simulator_features": "for each origin, the agent simulator (realistic-fundamental profile, world_annual_vol set from the observed 7 d RV, funding regime from observed funding) is run and summarized as: simulated/input volatility ratio, excess kurtosis, |r| ACF, liquidation count, spread; runs are cached on a quantized input grid (deterministic seeds)",
+  "periods": {
+    "warmup": "2020-01-01 .. 2020-12-31 (training only)",
+    "DEV": "origins 2021-01-01 .. 2023-12-31 (free exploration; used while building)",
+    "SCREEN": "origins 2024-01-01 .. 2025-06-28 (previously exposed for strategy selection; screening only, NOT independent)",
+    "CONSUMED": "origins 2025-07-01 .. 2026-10-28 (consumed final split; retrospective only, NEVER fresh validation)",
+    "PROSPECTIVE": "forecasts written to the ledger before their target window starts; the only source of independent evidence"
+  },
+  "scoring": {
+    "binary": "Brier score, log loss (probabilities clipped to [1e-4, 1-1e-4]), reliability curve (10 equal-width bins), expected calibration error, Brier skill score vs B0",
+    "rv": "MSE of log RV and QLIKE",
+    "comparison": "mean paired loss difference with a moving-block bootstrap 95% CI (block 10 origins, 2000 resamples, seed 0); one-sided p-value = share of bootstrap means >= 0 for 'model better'"
+  },
+  "pre_registered_comparisons": {
+    "family": "for each binary target (move3, move5, up) x horizon (24, 72): M1 vs B0, M1 vs B1, M2 vs B0, H1 vs M1 (24 tests) on SCREEN, Brier",
+    "multiple_testing": "Holm-Bonferroni at alpha 0.05 over the 24 tests",
+    "rv_family": "M1 vs B1 on log-RV MSE for both horizons (reported, Holm over 2)"
+  },
+  "simulator_inclusion_rule": "simulator features are KEPT only if H1 beats M1 on SCREEN after Holm correction for at least one binary target AND H1 is not worse than M1 (mean Brier difference <= 0) on DEV for that target. Otherwise they are EXCLUDED from all non-experimental models and the exclusion is recorded.",
+  "abstention": {
+    "rules": [
+      "fewer than 365 labelled training origins",
+      "more than 5% of the last 30 days of bars missing",
+      "any standardized feature with |z| > 6 (out of training range)",
+      "trailing Brier skill of the model vs B0 over its last 180 resolved forecasts < 0"
+    ],
+    "scoring": "an abstained forecast is scored as the B0 climatology probability (fallback), so abstention cannot remove hard cases; coverage is reported"
+  },
+  "ledger": "append-only, hash-chained JSONL; records: forecast (id, domain, target, horizon, model id, model version = code sha256 + protocol sha256, issued_utc, origin, as_of, inputs digest and summary, probability or point, abstained, fallback) and resolution (forecast id, outcome, resolved_utc, data source checksum). No update or delete operation exists.",
+  "evolution": {
+    "candidate_space": "feature subsets, L2 strength, GBM rounds/depth/learning rate, training window; no candidate can change targets, data, lag, scoring or periods",
+    "trial_accounting": "every candidate evaluation is counted per target; acceptance threshold on SCREEN is a one-sided bootstrap p < 0.05 / (number of trials so far for that target) AND no Brier degradation on DEV",
+    "outcome_of_acceptance": "a passing candidate becomes a CHALLENGER that is issued prospectively next to the frozen champion; it never replaces the champion automatically",
+    "promotion": "requires >= 180 resolved prospective forecasts per target with a block-bootstrap CI of the Brier difference vs the champion entirely below 0, and human approval"
+  },
+  "claims_policy": "retrospective results on DEV/SCREEN/CONSUMED are labelled 'retrospective, previously exposed'; no claim of predictive superiority is made without prospective evidence meeting the promotion rule",
+  "amendment_1": {
+    "written_utc": "2026-11-03T21:30:25Z",
+    "before": "before any model was fitted or scored",
+    "finding": "funding-rate archives are published monthly only (daily fundingRate archive: HTTP 404), so funding is unavailable at prospective issue time for up to a month",
+    "change": "funding features are REMOVED from all models (and from simulator inputs, which use funding = 0 regime); keeping them would make retrospective information unrealistically richer than prospective information"
+  }
+}
