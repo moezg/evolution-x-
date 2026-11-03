@@ -56,7 +56,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.023929657358794598,
+   "armB_max_drop_mean": -0.023929657358794598,
    "direct_impact_mean": -0.0032519991208250776,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -74,7 +74,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -159,7 +159,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.0311316903306309,
+   "armB_max_drop_mean": -0.0311316903306309,
    "direct_impact_mean": -0.009145929261580532,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -177,7 +177,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -262,7 +262,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.0312755928455164,
+   "armB_max_drop_mean": -0.0312755928455164,
    "direct_impact_mean": -0.009147021327274851,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -280,7 +280,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -365,7 +365,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.023635959709111032,
+   "armB_max_drop_mean": -0.023635959709111032,
    "direct_impact_mean": -0.0033609288034209817,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -383,7 +383,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -468,7 +468,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.030823265249938392,
+   "armB_max_drop_mean": -0.030823265249938392,
    "direct_impact_mean": -0.008761723651250275,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -486,7 +486,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -571,7 +571,7 @@
      "effect_size_dz": null
     }
    },
-   "direct_drop_B_mean": -0.0324049050028512,
+   "armB_max_drop_mean": -0.0324049050028512,
    "direct_impact_mean": -0.009367764071298357,
    "secondary_liquidations_mean": 0.0,
    "secondary_breaches_A_mean": 0.0,
@@ -589,7 +589,7 @@
     "criteria": {
      "a_secondary_in_2of8": false,
      "b_t_interval_below_0": false,
-     "c_ge_10pct_of_direct": false,
+     "c_ge_10pct_of_armB_drop": false,
      "d_chain_in_2of8": false
     }
    },
@@ -660,132 +660,96 @@
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 1000,
-   "leverage_use": 0.7,
    "config_fingerprint": "e9ca42911e447969",
-   "run_fingerprint": "abf21eb87505093a",
-   "wall_s": 6.07
+   "run_fingerprint": "abf21eb87505093a"
   },
   {
    "config": "1000btc|lu0.7",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 1000,
-   "leverage_use": 0.7,
    "config_fingerprint": "51d146182eb226aa",
-   "run_fingerprint": "abf21eb87505093a",
-   "wall_s": 5.74
+   "run_fingerprint": "abf21eb87505093a"
   },
   {
    "config": "1000btc|lu1.0",
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 1000,
-   "leverage_use": 1.0,
    "config_fingerprint": "31738510a13db77d",
-   "run_fingerprint": "4f87c75ab2f08b7d",
-   "wall_s": 6.13
+   "run_fingerprint": "4f87c75ab2f08b7d"
   },
   {
    "config": "1000btc|lu1.0",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 1000,
-   "leverage_use": 1.0,
    "config_fingerprint": "389b881a94ce2871",
-   "run_fingerprint": "4f87c75ab2f08b7d",
-   "wall_s": 5.41
+   "run_fingerprint": "4f87c75ab2f08b7d"
   },
   {
    "config": "2000btc|lu0.7",
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 2000,
-   "leverage_use": 0.7,
    "config_fingerprint": "7f3766f7224c55c2",
-   "run_fingerprint": "ff33bbafb6627c13",
-   "wall_s": 6.17
+   "run_fingerprint": "ff33bbafb6627c13"
   },
   {
    "config": "2000btc|lu0.7",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 2000,
-   "leverage_use": 0.7,
    "config_fingerprint": "2821de145590203f",
-   "run_fingerprint": "ff33bbafb6627c13",
-   "wall_s": 5.8
+   "run_fingerprint": "ff33bbafb6627c13"
   },
   {
    "config": "2000btc|lu1.0",
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "0fc0d33200ce8f24",
-   "run_fingerprint": "dc0ddde4786f8515",
-   "wall_s": 5.51
+   "run_fingerprint": "dc0ddde4786f8515"
   },
   {
    "config": "2000btc|lu1.0",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "592cc95bd7b9910a",
-   "run_fingerprint": "dc0ddde4786f8515",
-   "wall_s": 5.6
+   "run_fingerprint": "dc0ddde4786f8515"
   },
   {
    "config": "4000btc|lu0.7",
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 4000,
-   "leverage_use": 0.7,
    "config_fingerprint": "c1371951edc850c8",
-   "run_fingerprint": "ea63df0207edda4e",
-   "wall_s": 5.41
+   "run_fingerprint": "ea63df0207edda4e"
   },
   {
    "config": "4000btc|lu0.7",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 4000,
-   "leverage_use": 0.7,
    "config_fingerprint": "d1567d12ae139fa3",
-   "run_fingerprint": "ea63df0207edda4e",
-   "wall_s": 5.07
+   "run_fingerprint": "ea63df0207edda4e"
   },
   {
    "config": "4000btc|lu1.0",
    "arm": "A",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 4000,
-   "leverage_use": 1.0,
    "config_fingerprint": "d582542bbb5a092d",
-   "run_fingerprint": "fa962617d9752345",
-   "wall_s": 4.94
+   "run_fingerprint": "fa962617d9752345"
   },
   {
    "config": "4000btc|lu1.0",
    "arm": "B",
    "seed": 900,
    "role": "pilot",
-   "whale_btc": 4000,
-   "leverage_use": 1.0,
    "config_fingerprint": "768a28bf20bdbf86",
-   "run_fingerprint": "fa962617d9752345",
-   "wall_s": 5.78
+   "run_fingerprint": "fa962617d9752345"
   }
  ]
 }

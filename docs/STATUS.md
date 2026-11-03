@@ -35,7 +35,7 @@ Other measurements, both arms identical:
 
 - **Volatility:** 1-minute volatility rises from 15–28 to 54–64 bps in the 300 s window.
 - **Depth:** 10-level depth falls from 6–8 BTC to a minimum of 1.5–2.4 BTC.
-- **Spread:** the median spread does *not* widen (3.9–5.9 → 3.3–3.6 bps).
+- **Liquidity:** the book is one-sided or empty in **41% of the window's seconds** (15% before the shock). The median spread over two-sided seconds (3.9–5.9 → 3.3–3.6 bps) hides this, and an earlier draft of this section wrongly read it as "spread does not widen".
 - **Recovery:** half-recovery takes 35–205 s.
 - **Circuit breakers and stops:** 0 circuit breakers; 0 leveraged stop-loss exits.
 - **First-tick impact:** −0.4% to −1.3%. Most of the drop comes later, during the multi-tick forced sale.

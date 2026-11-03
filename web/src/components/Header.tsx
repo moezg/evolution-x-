@@ -8,6 +8,7 @@ const NAV = [
   { href: "/agents", label: "Agents" },
   { href: "/collective", label: "Collective" },
   { href: "/observatory", label: "Observatory" },
+  { href: "/observatory/cascade", label: "Cascade Lab" },
   { href: "/evolution", label: "Evolution" },
   { href: "/scenarios", label: "Scenarios" },
   { href: "/council", label: "Council" },
@@ -47,7 +48,10 @@ export function Header() {
         </span>
         <nav aria-label="Primary" className="-mx-1 flex w-full gap-1 overflow-x-auto pb-0.5">
           {NAV.map((n) => {
-            const active = n.href === "/" ? path === "/" : path.startsWith(n.href);
+            // Longest matching prefix wins, so /observatory/cascade does not also highlight /observatory.
+            const matches = (h: string) => (h === "/" ? path === "/" : path === h || path.startsWith(h + "/"));
+            const best = NAV.filter((x) => matches(x.href)).sort((a, b) => b.href.length - a.href.length)[0];
+            const active = best?.href === n.href;
             return (
               <Link
                 key={n.href}

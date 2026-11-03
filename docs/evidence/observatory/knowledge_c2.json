@@ -1,5 +1,5 @@
 {
- "created_utc": "2026-11-03T21:19:30+00:00",
+ "created_utc": "2026-11-03T21:35:25+00:00",
  "log": [
   "skip: C2-H1: identical conditions already run (be3155251f0c622613d6:9d36d48f)"
  ],
@@ -16,7 +16,7 @@
     "threshold": "not observed within the tested range"
    },
    "classification": "mechanism",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   },
   {
    "id": "C2x-funding-contrarian",
@@ -33,7 +33,7 @@
     "note": "same seeds as C2; exploratory"
    },
    "classification": "mechanism",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   },
   {
    "id": "C2x-voluntary-deleveraging",
@@ -59,7 +59,7 @@
     "traces": "X2.deleveraging_traces"
    },
    "classification": "mechanism",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   },
   {
    "id": "gap:funding-magnitude",
@@ -73,7 +73,7 @@
     ]
    },
    "classification": "simulator_gap",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   },
   {
    "id": "gap:leveraged-capacity",
@@ -96,7 +96,7 @@
     ]
    },
    "classification": "simulator_gap",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   },
   {
    "id": "gap:whale-build-up-saturation",
@@ -167,7 +167,7 @@
     }
    },
    "classification": "simulator_gap",
-   "updated": "2026-11-03T21:19:30+00:00"
+   "updated": "2026-11-03T21:35:25+00:00"
   }
  ],
  "proposals": [
@@ -188,7 +188,7 @@
     },
     "rationale": "agent-side proxy for realistic funding: same funding term with 1000x lower sensitivity"
    },
-   "status": "proposed",
+   "status": "evaluated:{\"default\":\"not an improvement\",\"realistic_fundamental\":\"not an improvement\"}",
    "created": "2026-11-03T21:19:30+00:00"
   },
   {
@@ -220,7 +220,7 @@
     },
     "rationale": "4x leveraged speculators"
    },
-   "status": "proposed",
+   "status": "evaluated:{\"default\":\"not an improvement\",\"realistic_fundamental\":\"not an improvement\"}",
    "created": "2026-11-03T21:19:30+00:00"
   }
  ],
@@ -260,7 +260,34 @@
    "in_track_space": true
   }
  ],
- "proposal_evaluations": [],
+ "proposal_evaluations": [
+  {
+   "proposal": "P1-funding-sensitivity",
+   "verdict_vs": {
+    "default": "not an improvement",
+    "realistic_fundamental": "not an improvement"
+   },
+   "objectives_mean": {
+    "scale_error": 1.3583710576366377,
+    "shape_error": 0.7634764971262072,
+    "cost_cpu_s_per_sim_hour": 10.775997988333302
+   },
+   "applied": false
+  },
+  {
+   "proposal": "P3-leveraged-population",
+   "verdict_vs": {
+    "default": "not an improvement",
+    "realistic_fundamental": "not an improvement"
+   },
+   "objectives_mean": {
+    "scale_error": 8.88679471720055,
+    "shape_error": 1.6529653179183619,
+    "cost_cpu_s_per_sim_hour": 12.854431875999959
+   },
+   "applied": false
+  }
+ ],
  "next_experiment_ranking": [
   {
    "id": "C3-fuel",

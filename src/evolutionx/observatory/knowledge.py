@@ -97,7 +97,7 @@ def propose(
 ) -> dict[str, Any]:
     spec = {"overrides": overrides, "rationale": rationale, "gap": gap_id, "in_track_space": in_track_space}
     mem.x(
-        "INSERT OR REPLACE INTO candidates (id, parent_id, code_sha256, generator, operator, spec, path, status, created) "
+        "INSERT OR IGNORE INTO candidates (id, parent_id, code_sha256, generator, operator, spec, path, status, created) "
         "VALUES (?,?,?,?,?,?,?,?,?)",
         (
             pid,
@@ -126,10 +126,14 @@ def evaluate_proposal(mem: Memory, pid: str, workers: int = 4) -> dict[str, Any]
     spec = row["spec"]
     if not spec["in_track_space"]:
         raise ValueError("proposal lies outside the frozen candidate space; it needs a human rules review")
-    rules, _ = realism.rules()
-    cands = {i: realism.CANDIDATES_V2[i] for i in rules["incumbents"]}
-    cands[pid] = spec["overrides"]
-    rep = realism.evaluate(cands, workers=workers, tag=pid)
+    rules, sha = realism.rules()
+    stored = realism.ARCHIVE.parent / f"realism_{realism.VERSION}_{pid}.json"
+    if stored.exists() and json.loads(stored.read_text()).get("rules_sha256") == sha:
+        rep = json.loads(stored.read_text())  # already evaluated under the same frozen rules: reuse, never re-run
+    else:
+        cands = {i: realism.CANDIDATES_V2[i] for i in rules["incumbents"]}
+        cands[pid] = spec["overrides"]
+        rep = realism.evaluate(cands, workers=workers, tag=pid)
     verdicts = rep["results"][pid]["verdict_vs"]
     mem.x("UPDATE candidates SET status=? WHERE id=?", ("evaluated:" + _canon(verdicts), pid))
     return {

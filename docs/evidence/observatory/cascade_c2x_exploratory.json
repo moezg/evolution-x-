@@ -2,7 +2,7 @@
  "protocol": "cascade-c2x-v1",
  "protocol_sha256": "5b47a212d537e18752c16080f9f2e05c0d409b59ed8eb92b0a0ecaa8c7b0b235",
  "label": "EXPLORATORY - same seeds as C2 confirmatory; not independent; counterfactual model variants",
- "created_utc": "2026-11-03T21:16:52+00:00",
+ "created_utc": "2026-11-03T21:35:25+00:00",
  "X1": {
   "runs": [
    {
@@ -562,7 +562,7 @@
       "effect_size_dz": null
      }
     },
-    "direct_drop_B_mean": -0.03656027972610357,
+    "armB_max_drop_mean": -0.03656027972610357,
     "direct_impact_mean": -0.014960446661052437,
     "secondary_liquidations_mean": 0.0,
     "secondary_breaches_A_mean": 0.0,
@@ -594,7 +594,7 @@
      "criteria": {
       "a_secondary_in_2of8": false,
       "b_t_interval_below_0": false,
-      "c_ge_10pct_of_direct": false,
+      "c_ge_10pct_of_armB_drop": false,
       "d_chain_in_2of8": false
      }
     },
@@ -1482,7 +1482,7 @@
  },
  "cost": {
   "runs": 48,
-  "wall_s": 47.9,
+  "wall_s": 49.7,
   "llm_calls": 0
  },
  "runs_index": [
@@ -1491,176 +1491,128 @@
    "arm": "A",
    "seed": 901,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "9ff82711fac0c2aa",
-   "run_fingerprint": "2f0c28e6515dd32b",
-   "wall_s": 5.07
+   "run_fingerprint": "2f0c28e6515dd32b"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 901,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "1132a7276c5d72d1",
-   "run_fingerprint": "2f0c28e6515dd32b",
-   "wall_s": 4.88
+   "run_fingerprint": "2f0c28e6515dd32b"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 902,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "0ac2fc54609c156e",
-   "run_fingerprint": "fc5d63dcc2b5a8da",
-   "wall_s": 5.61
+   "run_fingerprint": "fc5d63dcc2b5a8da"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 902,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "c8f6f921caebf49d",
-   "run_fingerprint": "fc5d63dcc2b5a8da",
-   "wall_s": 5.39
+   "run_fingerprint": "fc5d63dcc2b5a8da"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 903,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "d28352d6ad3d3c34",
-   "run_fingerprint": "acdd6bb24b7595b5",
-   "wall_s": 4.97
+   "run_fingerprint": "acdd6bb24b7595b5"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 903,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "929a25b3577e262f",
-   "run_fingerprint": "acdd6bb24b7595b5",
-   "wall_s": 5.14
+   "run_fingerprint": "acdd6bb24b7595b5"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 904,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "6c342ca748707d9d",
-   "run_fingerprint": "92c065cebd4e438a",
-   "wall_s": 5.22
+   "run_fingerprint": "92c065cebd4e438a"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 904,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "e00134d751258af1",
-   "run_fingerprint": "92c065cebd4e438a",
-   "wall_s": 5.23
+   "run_fingerprint": "92c065cebd4e438a"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 905,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "9bea9a116beeef4f",
-   "run_fingerprint": "5a79f9aeb622ee61",
-   "wall_s": 5.33
+   "run_fingerprint": "5a79f9aeb622ee61"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 905,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "791fc7d6635a493f",
-   "run_fingerprint": "5a79f9aeb622ee61",
-   "wall_s": 4.82
+   "run_fingerprint": "5a79f9aeb622ee61"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 906,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "da5baf5345aeac2f",
-   "run_fingerprint": "70aa21e2e9a7577b",
-   "wall_s": 5.19
+   "run_fingerprint": "70aa21e2e9a7577b"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 906,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "456ec3d6d2450ce1",
-   "run_fingerprint": "70aa21e2e9a7577b",
-   "wall_s": 5.6
+   "run_fingerprint": "70aa21e2e9a7577b"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 907,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "0283cd3e495bafeb",
-   "run_fingerprint": "235fad10cec52287",
-   "wall_s": 4.59
+   "run_fingerprint": "235fad10cec52287"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 907,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "9087b74063369bf5",
-   "run_fingerprint": "235fad10cec52287",
-   "wall_s": 5.11
+   "run_fingerprint": "235fad10cec52287"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "A",
    "seed": 908,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "c0343678e13aedb3",
-   "run_fingerprint": "1fc13362fad5f4ed",
-   "wall_s": 5.46
+   "run_fingerprint": "1fc13362fad5f4ed"
   },
   {
    "config": "2000btc|lu1.0|no_funding_term",
    "arm": "B",
    "seed": 908,
    "role": "exploratory",
-   "whale_btc": 2000,
-   "leverage_use": 1.0,
    "config_fingerprint": "ca22438844ad33bf",
-   "run_fingerprint": "1fc13362fad5f4ed",
-   "wall_s": 5.07
+   "run_fingerprint": "1fc13362fad5f4ed"
   }
  ]
 }

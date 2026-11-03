@@ -279,7 +279,15 @@ def run_one(job: dict[str, Any], step_s: int = 5) -> dict[str, Any]:
             "pre": float(np.std(r_pre)) if len(r_pre) > 1 else None,
             "window": float(np.std(r_win)) if len(r_win) > 1 else None,
         },
-        "spread_median_bps": {"pre": float(np.nanmedian(spread[pre])), "window": float(np.nanmedian(spread[win]))},
+        "spread_median_bps": {
+            "pre": float(np.nanmedian(spread[pre])),
+            "window": float(np.nanmedian(spread[win])),
+            "note": "median over two-sided seconds only; see one_sided_frac",
+        },
+        "one_sided_frac": {
+            "pre": float(np.mean(~np.isfinite(spread[pre]))),
+            "window": float(np.mean(~np.isfinite(spread[win]))),
+        },
         "circuit_breakers_window": sum(
             1 for e in sim.exchange.events if e.type == "circuit_breaker" and at <= e.t < at + 300_000
         ),
@@ -365,7 +373,7 @@ def classify(n_secondary_seeds: int, incr: dict[str, Any], mean_b_drop: float, n
         "criteria": {
             "a_secondary_in_2of8": a,
             "b_t_interval_below_0": b,
-            "c_ge_10pct_of_direct": c,
+            "c_ge_10pct_of_armB_drop": c,
             "d_chain_in_2of8": d,
         },
     }
@@ -436,7 +444,7 @@ def analyse(rows: list[dict[str, Any]], sp: dict[str, Any]) -> dict[str, Any]:
                 k: _clean(paired_diff([p["incremental_at"][k] for p in pairs], [0.0] * len(pairs)))
                 for k in ("10", "60", "300")
             },
-            "direct_drop_B_mean": mean_b,
+            "armB_max_drop_mean": mean_b,
             "direct_impact_mean": float(np.mean([p["direct_impact_B"] for p in pairs])),
             "secondary_liquidations_mean": float(np.mean([p["secondary_liquidations_A"] for p in pairs])),
             "secondary_breaches_A_mean": float(np.mean([p["secondary_breaches_A"] for p in pairs])),
@@ -474,11 +482,11 @@ def _threshold(cfgs: dict[str, Any], sp: dict[str, Any]) -> dict[str, Any]:
             hi = next(v for v in row if v["whale_btc"] == onset)
             li = lo["incremental_drop"]
             neg_lo = (li.get("t_lo") or 0) <= 0 <= (li.get("t_hi") or 0) and abs(li.get("mean") or 0) < 0.1 * abs(
-                lo["direct_drop_B_mean"]
+                lo["armB_max_drop_mean"]
             )
             meets_hi = (
                 hi["classification"]["criteria"]["b_t_interval_below_0"]
-                and hi["classification"]["criteria"]["c_ge_10pct_of_direct"]
+                and hi["classification"]["criteria"]["c_ge_10pct_of_armB_drop"]
             )
             shape = "transition-like" if neg_lo and meets_hi else "graded"
         elif onset is not None:
@@ -816,9 +824,12 @@ def ingest_knowledge(evaluate: bool = True) -> dict[str, Any]:
             True,
         ),
     ]
+    from . import realism
+
     evals = []
-    if evaluate:
-        for pid in ("P1-funding-sensitivity", "P3-leveraged-population"):
+    for pid in ("P1-funding-sensitivity", "P3-leveraged-population"):
+        stored = realism.ARCHIVE.parent / f"realism_{realism.VERSION}_{pid}.json"
+        if evaluate or stored.exists():  # stored evaluations are always reloaded, never lost on re-ingest
             evals.append(K.evaluate_proposal(mem, pid))
     ranking = K.rank_next(mem, NEXT_CANDIDATES)
     rep = {

@@ -30,7 +30,7 @@ import {
 
 /* ================================================================ primitives */
 
-const TONE_CLS: Record<Tone, string> = {
+export const TONE_CLS: Record<Tone, string> = {
   good: "border-up/60 bg-up/15 text-up",
   weak: "border-warn/60 bg-warn/15 text-warn",
   neutral: "border-line2 bg-panel2 text-ink2",
@@ -58,7 +58,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 /** Wrapper that keeps wide tables scrollable on narrow screens. */
-function TableWrap({ children, label }: { children: ReactNode; label: string }) {
+export function TableWrap({ children, label }: { children: ReactNode; label: string }) {
   return (
     <div className="max-w-full overflow-x-auto" role="region" aria-label={label} tabIndex={0}>
       {children}
@@ -67,7 +67,7 @@ function TableWrap({ children, label }: { children: ReactNode; label: string }) 
 }
 
 /** Compact "k: v · k: v" rendering of an override/evidence dict. */
-function Kv({ data }: { data: Record<string, unknown> | undefined | null }) {
+export function Kv({ data }: { data: Record<string, unknown> | undefined | null }) {
   if (!data || Object.keys(data).length === 0) return <span className="text-muted">(none)</span>;
   return (
     <span className="break-words font-mono text-[11px] text-ink2 [overflow-wrap:anywhere]">
@@ -83,7 +83,7 @@ function Kv({ data }: { data: Record<string, unknown> | undefined | null }) {
 }
 
 /** Loading / 404 ("not produced yet") / error states shared by every section. */
-function SectionState<T>({ poll, what, children }: { poll: Poll<T>; what: string; children: (d: T) => ReactNode }) {
+export function SectionState<T>({ poll, what, children }: { poll: Poll<T>; what: string; children: (d: T) => ReactNode }) {
   if (poll.data) return <>{children(poll.data)}</>;
   if (poll.error instanceof ApiError && poll.error.status === 404)
     return (
