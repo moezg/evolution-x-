@@ -1,0 +1,6987 @@
+{
+ "cycles": [
+  {
+   "id": "c20261103T225023794a",
+   "status": "completed",
+   "config": {
+    "max_results": 4,
+    "verify_per_scout": 2,
+    "max_candidates": 2,
+    "n_placebo": 2,
+    "controls": [
+     "invalid_strategy",
+     "out_of_range"
+    ],
+    "llm_critique": false,
+    "policy_sha256": "e8615d30849d268b2cf2bc12ee8572a6761a582145508c726125c004832a071d"
+   },
+   "created": "2026-11-03T22:50:23+00:00",
+   "updated": "2026-11-03T22:51:24+00:00",
+   "summary": {
+    "counts": {
+     "done": 43,
+     "rejected": 2
+    },
+    "usage": [
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "A1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 27.367461442947388,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "A2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 15.35066843032837,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "A3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 54.11457920074463,
+      "ext_requests": 8
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "A4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.9488143920898438,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "B1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.011285543441772461,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "B2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.056801795959472656,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "B3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.09196138381958008,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "B4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.01351308822631836,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "C1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.056531429290771484,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "C3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.0664360523223877,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "C4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.0010671615600585938,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "D1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.0007636547088623047,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "D2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.07242560386657715,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "D3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 4.27111029624939,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "D4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.04099440574645996,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "E1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 28.33893370628357,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "E2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.005095481872558594,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "E3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 6.357751131057739,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "E4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.17273759841918945,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "F2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.019514799118041992,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "F3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 1.9045119285583496,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225023794a",
+      "role": "F4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.04451727867126465,
+      "ext_requests": 0
+     }
+    ],
+    "wall_s": 61.5
+   }
+  },
+  {
+   "id": "c20261103T225533972e",
+   "status": "completed",
+   "config": {
+    "max_results": 4,
+    "verify_per_scout": 2,
+    "max_candidates": 3,
+    "n_placebo": 8,
+    "controls": [
+     "invalid_strategy",
+     "out_of_range"
+    ],
+    "llm_critique": true,
+    "queries": {
+     "A1": [
+      "all:cryptocurrency AND all:\"mean reversion\"",
+      "all:cryptocurrency AND all:\"realized volatility\""
+     ],
+     "A2": [
+      "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+      "abs:\"perpetual\" AND abs:\"funding rate\""
+     ]
+    },
+    "note": "acceptance demonstration cycle (LLM roles enabled within the frozen 3-call budget)",
+    "policy_sha256": "e8615d30849d268b2cf2bc12ee8572a6761a582145508c726125c004832a071d"
+   },
+   "created": "2026-11-03T22:55:33+00:00",
+   "updated": "2026-11-03T22:56:10+00:00",
+   "summary": {
+    "counts": {
+     "done": 19,
+     "rejected": 2
+    },
+    "usage": [
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "A1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 27.364258289337158,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "A2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 15.3491849899292,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "A3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 46.0821795463562,
+      "ext_requests": 8
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "A4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.09623098373413086,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "B1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.006167411804199219,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "B2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.009001731872558594,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "B3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.08660292625427246,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "B4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.011140584945678711,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "C4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.020711898803710938,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "D2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.08491945266723633,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "D3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.018953800201416016,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "F3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.06708121299743652,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T225533972e",
+      "role": "F4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.03995966911315918,
+      "ext_requests": 0
+     }
+    ],
+    "wall_s": 36.7
+   }
+  },
+  {
+   "id": "c20261103T22573231f5",
+   "status": "completed",
+   "config": {
+    "max_results": 4,
+    "verify_per_scout": 2,
+    "max_candidates": 3,
+    "n_placebo": 8,
+    "controls": [
+     "invalid_strategy",
+     "out_of_range"
+    ],
+    "llm_critique": true,
+    "queries": {
+     "A1": [
+      "all:cryptocurrency AND all:\"realized volatility\"",
+      "all:cryptocurrency AND all:\"mean reversion\""
+     ],
+     "A2": [
+      "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+      "all:bitcoin AND all:\"order book\""
+     ]
+    },
+    "note": "acceptance demonstration cycle 3 (after classifier fix; LLM roles enabled within the frozen 3-call budget)",
+    "policy_sha256": "e8615d30849d268b2cf2bc12ee8572a6761a582145508c726125c004832a071d"
+   },
+   "created": "2026-11-03T22:57:32+00:00",
+   "updated": "2026-11-03T22:59:16+00:00",
+   "summary": {
+    "counts": {
+     "done": 33,
+     "rejected": 2
+    },
+    "usage": [
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "A1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 27.382631540298462,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "A2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 15.599350690841675,
+      "ext_requests": 2
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "A3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 46.12729477882385,
+      "ext_requests": 8
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "A4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.05162453651428223,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "B1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.012001991271972656,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "B2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.012620687484741211,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "B3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.13953232765197754,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "B4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.014509916305541992,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "C3",
+      "llm_calls": 1,
+      "llm_cost_usd": 0.107816,
+      "wall_s": 52.94912399242594,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "C4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.001230001449584961,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "D1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.0013327598571777344,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "D2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.05164766311645508,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "D3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 1.704374074935913,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "D4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.1498699188232422,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "E1",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 12.188752174377441,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "E2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.0019762516021728516,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "E3",
+      "llm_calls": 1,
+      "llm_cost_usd": 0.056144200000000005,
+      "wall_s": 49.18031784127925,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "E4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.00044608116149902344,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "F2",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.00899362564086914,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "F3",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.9037208557128906,
+      "ext_requests": 0
+     },
+     {
+      "cycle_id": "c20261103T22573231f5",
+      "role": "F4",
+      "llm_calls": 0,
+      "llm_cost_usd": 0.0,
+      "wall_s": 0.06385087966918945,
+      "ext_requests": 0
+     }
+    ],
+    "wall_s": 104.3
+   }
+  }
+ ],
+ "usage": [
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "D2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.07242560386657715,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "F3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 1.9045119285583496,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "B2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.056801795959472656,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "B4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.01351308822631836,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "B1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.011285543441772461,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "C4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.0010671615600585938,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "D3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 4.27111029624939,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "B3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.09196138381958008,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "A2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 15.35066843032837,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "A1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 27.367461442947388,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "A3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 54.11457920074463,
+   "ext_requests": 8
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "A4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.9488143920898438,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "C3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.0664360523223877,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "D1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.0007636547088623047,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "D4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.04099440574645996,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "E3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 6.357751131057739,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "E4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.17273759841918945,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "C1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.056531429290771484,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "E1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 28.33893370628357,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "E2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.005095481872558594,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "F2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.019514799118041992,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225023794a",
+   "role": "F4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.04451727867126465,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "D2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.08491945266723633,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "F3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.06708121299743652,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "B2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.009001731872558594,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "B4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.011140584945678711,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "B3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.08660292625427246,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "B1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.006167411804199219,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "D3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.018953800201416016,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "C4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.020711898803710938,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "A2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 15.3491849899292,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "A1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 27.364258289337158,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "A3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 46.0821795463562,
+   "ext_requests": 8
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "A4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.09623098373413086,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T225533972e",
+   "role": "F4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.03995966911315918,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "D2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.05164766311645508,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "F3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.9037208557128906,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "B4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.014509916305541992,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "B2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.012620687484741211,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "B1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.012001991271972656,
+   "ext_requests": 1
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "C4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.001230001449584961,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "D3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 1.704374074935913,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "B3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.13953232765197754,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "A2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 15.599350690841675,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "A1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 27.382631540298462,
+   "ext_requests": 2
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "A3",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 46.12729477882385,
+   "ext_requests": 8
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "A4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.05162453651428223,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "D1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.0013327598571777344,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "C3",
+   "llm_calls": 1,
+   "llm_cost_usd": 0.107816,
+   "wall_s": 52.94912399242594,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "D4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.1498699188232422,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "E3",
+   "llm_calls": 1,
+   "llm_cost_usd": 0.056144200000000005,
+   "wall_s": 49.18031784127925,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "E4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.00044608116149902344,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "E1",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 12.188752174377441,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "E2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.0019762516021728516,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "F2",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.00899362564086914,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "c20261103T22573231f5",
+   "role": "F4",
+   "llm_calls": 0,
+   "llm_cost_usd": 0.0,
+   "wall_s": 0.06385087966918945,
+   "ext_requests": 0
+  }
+ ],
+ "sources": [
+  {
+   "id": "arxiv:2506.08573v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2506.08573v1",
+   "title": "Designing funding rates for perpetual futures in cryptocurrency markets",
+   "authors": [
+    "Jaehyun Kim",
+    "Hyungbin Park"
+   ],
+   "published": "2025-06-10T08:42:32Z",
+   "updated": "2025-06-10T08:42:32Z",
+   "retrieved": "2026-11-03T22:50:26+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2025-06-10T08:42:32Z",
+    "updated": "2025-06-10T08:42:32Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.357
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "funding_carry",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 13,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "formulated"
+  },
+  {
+   "id": "arxiv:1912.03270v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/1912.03270v1",
+   "title": "BitMEX Funding Correlation with Bitcoin Exchange Rate",
+   "authors": [
+    "Sai Srikar Nimmagadda",
+    "Pawan Sasanka Ammanamanchi"
+   ],
+   "published": "2019-11-26T09:35:31Z",
+   "updated": "2019-11-26T09:35:31Z",
+   "retrieved": "2026-11-03T22:50:26+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2019-11-26T09:35:31Z",
+    "updated": "2019-11-26T09:35:31Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.3
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "funding_carry",
+    "scores": {
+     "tsmom": 1,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 6,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2212.06888v7",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2212.06888v7",
+   "title": "Fundamentals of Perpetual Futures",
+   "authors": [
+    "Songrun He",
+    "Asaf Manela",
+    "Omri Ross",
+    "Victor von Wachter"
+   ],
+   "published": "2022-12-13T20:19:14Z",
+   "updated": "2026-09-17T17:23:23Z",
+   "retrieved": "2026-11-03T22:50:26+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2022-12-13T20:19:14Z",
+    "updated": "2026-09-17T17:23:23Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.4301150",
+     "type": "journal-article",
+     "container": "SSRN Electronic Journal",
+     "published": [
+      2022
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": true,
+     "flags": {
+      "out_of_sample": false,
+      "costs": true,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": true,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "funding_carry",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 8,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2209.03307v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2209.03307v1",
+   "title": "A primer on perpetuals",
+   "authors": [
+    "Guillermo Angeris",
+    "Tarun Chitra",
+    "Alex Evans",
+    "Matthew Lorig"
+   ],
+   "published": "2022-09-07T17:15:07Z",
+   "updated": "2022-09-07T17:15:07Z",
+   "retrieved": "2026-11-03T22:50:26+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2022-09-07T17:15:07Z",
+    "updated": "2022-09-07T17:15:07Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.4215510",
+     "type": "posted-content",
+     "container": "",
+     "published": [
+      2022
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "funding_carry",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 8,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2602.11708v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2602.11708v1",
+   "title": "Systematic Trend-Following with Adaptive Portfolio Construction: Enhancing Risk-Adjusted Alpha in Cryptocurrency Markets",
+   "authors": [
+    "Duc Bui",
+    "Thanh Nguyen"
+   ],
+   "published": "2026-02-12T08:38:17Z",
+   "updated": "2026-02-12T08:38:17Z",
+   "retrieved": "2026-11-03T22:50:35+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"time series momentum\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2026-02-12T08:38:17Z",
+    "updated": "2026-02-12T08:38:17Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.294
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 4,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": true,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "tsmom",
+    "scores": {
+     "tsmom": 11,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2510.19271v2",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2510.19271v2",
+   "title": "Managing Portfolios Across the Return Distribution",
+   "authors": [
+    "Jozef Barunik",
+    "Lukas Janasek",
+    "Attila Sarkany"
+   ],
+   "published": "2025-10-22T06:03:19Z",
+   "updated": "2026-06-23T13:49:04Z",
+   "retrieved": "2026-11-03T22:50:38+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+   "verification": null,
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 1,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2212.07288v2",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2212.07288v2",
+   "title": "Flexible variational approximations for stochastic volatility-managed portfolios",
+   "authors": [
+    "Nicolas Bianco",
+    "Mauro Bernardi"
+   ],
+   "published": "2022-12-14T15:43:22Z",
+   "updated": "2026-08-31T08:23:32Z",
+   "retrieved": "2026-11-03T22:50:38+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+   "verification": null,
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 4,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2610.06690v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2610.06690v1",
+   "title": "Scale or speed? When do path signatures improve volatility-regime forecasts?",
+   "authors": [
+    "Yang Lyu",
+    "Kiseop Lee"
+   ],
+   "published": "2026-10-05T16:53:06Z",
+   "updated": "2026-10-05T16:53:06Z",
+   "retrieved": "2026-11-03T22:50:38+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+   "verification": null,
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 1,
+     "vol_managed_long": 3,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2605.24285v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2605.24285v1",
+   "title": "Memory, Roughness, and Information Persistence in Financial Markets: A Structural Approach to Volatility Forecasting",
+   "authors": [
+    "Akash Deep",
+    "Nicholas Appiah",
+    "Svetlozar T. Rachev"
+   ],
+   "published": "2026-05-22T23:34:00Z",
+   "updated": "2026-05-22T23:34:00Z",
+   "retrieved": "2026-11-03T22:50:38+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+   "verification": null,
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 4,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2508.15922v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2508.15922v1",
+   "title": "Probabilistic Forecasting Cryptocurrencies Volatility: From Point to Quantile Forecasts",
+   "authors": [
+    "Grzegorz Dudek",
+    "Witold Orzeszko",
+    "Piotr Fiszeder"
+   ],
+   "published": "2025-08-21T18:42:11Z",
+   "updated": "2025-08-21T18:42:11Z",
+   "retrieved": "2026-11-03T22:50:50+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"realized volatility\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2025-08-21T18:42:11Z",
+    "updated": "2025-08-21T18:42:11Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.1109/dsaa65442.2025.11248015",
+     "type": "proceedings-article",
+     "container": "2025 IEEE 12th International Conference on Data Science and Advanced Analytics (DSAA)",
+     "published": [
+      2025,
+      10,
+      9
+     ],
+     "publisher": "IEEE"
+    },
+    "evidence": {
+     "grade": "C",
+     "points": 1,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 2,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2604.01431v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2604.01431v1",
+   "title": "Do Prediction Markets Forecast Cryptocurrency Volatility? Evidence from Kalshi Macro Contracts",
+   "authors": [
+    "Hardhik Mohanty",
+    "Bhaskar Krishnamachari"
+   ],
+   "published": "2026-04-01T22:12:49Z",
+   "updated": "2026-04-01T22:12:49Z",
+   "retrieved": "2026-11-03T22:50:50+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"realized volatility\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2026-04-01T22:12:49Z",
+    "updated": "2026-04-01T22:12:49Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.375
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "breakout",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 3,
+     "reversal": 0,
+     "vol_managed_long": 1,
+     "funding_carry": 1,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "formulated"
+  },
+  {
+   "id": "arxiv:1906.03430v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/1906.03430v1",
+   "title": "The Effects of the Introduction of Bitcoin Futures on the Volatility of Bitcoin Returns",
+   "authors": [
+    "Wonse Kim",
+    "Junseok Lee",
+    "Kyungwon Kang"
+   ],
+   "published": "2019-06-08T09:38:28Z",
+   "updated": "2019-06-08T09:38:28Z",
+   "retrieved": "2026-11-03T22:50:50+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"realized volatility\"",
+   "verification": null,
+   "mechanism": {
+    "family": "seasonality",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 1,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 2
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2511.20105v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2511.20105v1",
+   "title": "Multivariate Forecasting of Bitcoin Volatility with Gradient Boosting: Deterministic, Probabilistic, and Feature Importance Perspectives",
+   "authors": [
+    "Grzegorz Dudek",
+    "Mateusz Kasprzyk",
+    "Pawe\u0142 Pe\u0142ka"
+   ],
+   "published": "2025-11-25T09:26:13Z",
+   "updated": "2025-11-25T09:26:13Z",
+   "retrieved": "2026-11-03T22:50:50+00:00",
+   "doi": "10.1016/j.eswa.2025.130404",
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"realized volatility\"",
+   "verification": null,
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 1,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2608.21888v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2608.21888v1",
+   "title": "Short-horizon mean reversion in cryptocurrency markets: a matched cross-market measurement",
+   "authors": [
+    "Nadav A. Kitron",
+    "Jonathan M. Wengrowicz"
+   ],
+   "published": "2026-08-22T10:06:04Z",
+   "updated": "2026-08-22T10:06:04Z",
+   "retrieved": "2026-11-03T22:55:45+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"mean reversion\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2026-08-22T10:06:04Z",
+    "updated": "2026-08-22T10:06:04Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.267
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "reversal",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 6,
+     "vol_managed_long": 0,
+     "funding_carry": 1,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "duplicate_mechanism"
+  },
+  {
+   "id": "arxiv:2601.13757v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2601.13757v1",
+   "title": "The Limits of Conditional Volatility: Assessing Cryptocurrency VaR under EWMA and IGARCH Models",
+   "authors": [
+    "Ekleen Kaur"
+   ],
+   "published": "2026-01-20T09:11:24Z",
+   "updated": "2026-01-20T09:11:24Z",
+   "retrieved": "2026-11-03T22:55:45+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"mean reversion\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2026-01-20T09:11:24Z",
+    "updated": "2026-01-20T09:11:24Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.1007/978-3-032-34434-2_38",
+     "type": "book-chapter",
+     "container": "Lecture Notes in Networks and Systems Proceedings of 11th International Congress on Information and Communication Technology",
+     "published": [
+      2027
+     ],
+     "publisher": "Springer Nature Switzerland"
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "vol_managed_long",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 1,
+     "vol_managed_long": 14,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "formulated"
+  },
+  {
+   "id": "arxiv:2109.10662v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2109.10662v1",
+   "title": "Evaluation of Dynamic Cointegration-Based Pairs Trading Strategy in the Cryptocurrency Market",
+   "authors": [
+    "Masood Tadi",
+    "Irina Kortchmeski"
+   ],
+   "published": "2021-09-22T11:34:09Z",
+   "updated": "2021-09-22T11:34:09Z",
+   "retrieved": "2026-11-03T22:55:45+00:00",
+   "doi": "10.1108/SEF-12-2020-0497",
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"mean reversion\"",
+   "verification": null,
+   "mechanism": {
+    "family": "reversal",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 1,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2111.11609v3",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2111.11609v3",
+   "title": "Pricing cryptocurrencies : Modelling the ETHBTC spot-quotient variation as a diffusion process",
+   "authors": [
+    "Sidharth Mallik"
+   ],
+   "published": "2021-11-23T02:24:03Z",
+   "updated": "2022-01-05T15:52:30Z",
+   "retrieved": "2026-11-03T22:55:45+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:cryptocurrency AND all:\"mean reversion\"",
+   "verification": null,
+   "mechanism": {
+    "family": "reversal",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 1,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 0,
+     "seasonality": 1
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2101.06236v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2101.06236v1",
+   "title": "Modelling Universal Order Book Dynamics in Bitcoin Market",
+   "authors": [
+    "Fabin Shi",
+    "Nathan Aden",
+    "Shengda Huang",
+    "Neil Johnson",
+    "Xiaoqian Sun",
+    "Jinhua Gao",
+    "Li Xu",
+    "Huawei Shen",
+    "Xueqi Cheng",
+    "Chaoming Song"
+   ],
+   "published": "2021-01-15T17:47:00Z",
+   "updated": "2021-01-15T17:47:00Z",
+   "retrieved": "2026-11-03T22:57:48+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:bitcoin AND all:\"order book\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2021-01-15T17:47:00Z",
+    "updated": "2021-01-15T17:47:00Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.429
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "microstructure",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 4,
+     "seasonality": 0
+    }
+   },
+   "status": "infeasible_with_current_data"
+  },
+  {
+   "id": "arxiv:1809.02772v3",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/1809.02772v3",
+   "title": "Order book model with herd behavior exhibiting long-range memory",
+   "authors": [
+    "Aleksejus Kononovicius",
+    "Julius Ruseckas"
+   ],
+   "published": "2018-09-08T07:26:04Z",
+   "updated": "2019-04-08T09:36:05Z",
+   "retrieved": "2026-11-03T22:57:48+00:00",
+   "doi": "10.1016/j.physa.2019.03.059",
+   "journal_ref": "Physica A 525: 171-191 (2019)",
+   "query": "all:bitcoin AND all:\"order book\"",
+   "verification": null,
+   "mechanism": {
+    "family": "microstructure",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 4,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2106.02187v2",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2106.02187v2",
+   "title": "Time-dependent relations between gaps and returns in a Bitcoin order book",
+   "authors": [
+    "Roberto Mota Navarro",
+    "Paulino Monroy Castillero",
+    "Francois Leyvraz"
+   ],
+   "published": "2021-06-04T00:20:09Z",
+   "updated": "2021-06-07T15:43:14Z",
+   "retrieved": "2026-11-03T22:57:48+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:bitcoin AND all:\"order book\"",
+   "verification": null,
+   "mechanism": {
+    "family": "microstructure",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 3,
+     "seasonality": 0
+    }
+   },
+   "status": "discovered"
+  },
+  {
+   "id": "arxiv:2010.01241v1",
+   "origin": "arxiv",
+   "url": "http://arxiv.org/abs/2010.01241v1",
+   "title": "Deep Learning for Digital Asset Limit Order Books",
+   "authors": [
+    "Rakshit Jha",
+    "Mattijs De Paepe",
+    "Samuel Holt",
+    "James West",
+    "Shaun Ng"
+   ],
+   "published": "2020-10-03T00:57:27Z",
+   "updated": "2020-10-03T00:57:27Z",
+   "retrieved": "2026-11-03T22:57:48+00:00",
+   "doi": null,
+   "journal_ref": null,
+   "query": "all:bitcoin AND all:\"order book\"",
+   "verification": {
+    "record_refetched": true,
+    "published": "2020-10-03T00:57:27Z",
+    "updated": "2020-10-03T00:57:27Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.3704098",
+     "type": "posted-content",
+     "container": "",
+     "published": [
+      2020
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "C",
+     "points": 1,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   },
+   "mechanism": {
+    "family": "microstructure",
+    "scores": {
+     "tsmom": 0,
+     "breakout": 0,
+     "reversal": 0,
+     "vol_managed_long": 0,
+     "funding_carry": 0,
+     "microstructure": 6,
+     "seasonality": 0
+    }
+   },
+   "status": "infeasible_with_current_data"
+  }
+ ],
+ "hypotheses": [
+  {
+   "id": "H-e80e66194b",
+   "signature": "funding_carry|medium|long_short",
+   "statement": "Persistent positive (negative) perpetual funding precedes weaker (stronger) BTC returns, so positioning against the funding sign earns a premium net of funding.",
+   "operator": "funding_carry",
+   "parent_id": null,
+   "candidate_id": "army-b36c67c040",
+   "status": "refuted",
+   "evidence": {
+    "lab_verdict": "refuted",
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "parameter_neighbourhood",
+     "regime_split"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "b36c67c0403ee1c5c7894b2afa7fdbff73d8d84d29cb6597688067bdbfaaf232"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "novelty": "novel-family",
+   "created": "2026-11-03T22:50:53+00:00",
+   "updated": "2026-11-03T22:51:17+00:00",
+   "classification": "rejected",
+   "premises": [
+    {
+     "id": "P1",
+     "claim": "the view exposes past funding rates",
+     "check": {
+      "type": "view_api",
+      "method": "funding",
+      "expect": "present"
+     }
+    },
+    {
+     "id": "P2",
+     "claim": "funding is charged on open positions in the backtest",
+     "check": {
+      "type": "engine_feature",
+      "feature": "funding_charged",
+      "expect": "present"
+     }
+    }
+   ]
+  },
+  {
+   "id": "H-6cac1a9a4c",
+   "signature": "breakout|medium|long_short",
+   "statement": "The position of the close inside its lookback high-low channel predicts continuation.",
+   "operator": "breakout",
+   "parent_id": null,
+   "candidate_id": "army-ed1248d972",
+   "status": "refuted",
+   "evidence": {
+    "lab_verdict": "refuted",
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "regime_split"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "ed1248d972e616b39e206d49219a56c6cbd481c7acbff21b0f75bba206500394"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "novelty": "novel-family",
+   "created": "2026-11-03T22:51:02+00:00",
+   "updated": "2026-11-03T22:51:24+00:00",
+   "classification": "rejected",
+   "premises": [
+    {
+     "id": "P1",
+     "claim": "decisions see only closed bars via the view API",
+     "check": {
+      "type": "view_api",
+      "method": "close",
+      "expect": "present"
+     }
+    },
+    {
+     "id": "P2",
+     "claim": "decisions are executed at the next bar's open",
+     "check": {
+      "type": "engine_feature",
+      "feature": "next_open_execution",
+      "expect": "present"
+     }
+    }
+   ]
+  },
+  {
+   "id": "H-fc291fc13d",
+   "signature": "vol_managed_long|medium|long_only",
+   "statement": "Scaling long BTC exposure inversely to trailing realized volatility improves risk-adjusted return versus constant exposure.",
+   "operator": "vol_managed_long",
+   "parent_id": null,
+   "candidate_id": "army-42090f1ded",
+   "status": "not_supported",
+   "evidence": {
+    "lab_verdict": "inconclusive",
+    "why": [
+     "lab verdict 'inconclusive' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "regime_split",
+     "block_shuffle_placebo"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "42090f1dedc479eecd3fca112849bc96347745e57926f213843dfc3e38255a30"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "novelty": "novel-family",
+   "created": "2026-11-03T22:58:34+00:00",
+   "updated": "2026-11-03T22:59:16+00:00",
+   "classification": "rejected",
+   "premises": [
+    {
+     "id": "P1",
+     "claim": "decisions see only closed bars via the view API",
+     "check": {
+      "type": "view_api",
+      "method": "close",
+      "expect": "present"
+     }
+    },
+    {
+     "id": "P2",
+     "claim": "decisions are executed at the next bar's open",
+     "check": {
+      "type": "engine_feature",
+      "feature": "next_open_execution",
+      "expect": "present"
+     }
+    }
+   ]
+  }
+ ],
+ "candidates": [
+  {
+   "id": "control-invalid_strategy-23794a",
+   "parent_id": null,
+   "code_sha256": "066b7d9f15d36b6e3d4634ea11442e3a64e58ebac223627ffd3c3dfa5ee816c4",
+   "generator": "planted-control",
+   "operator": "invalid_strategy",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-invalid_strategy-23794a.py",
+   "status": "rejected_static_check",
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "id": "control-out_of_range-23794a",
+   "parent_id": null,
+   "code_sha256": "52cb49e825f632f627c384fac32c52357bb124b32b03bce376b161b9cb56c485",
+   "generator": "planted-control",
+   "operator": "out_of_range",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-out_of_range-23794a.py",
+   "status": "rejected_tests",
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "id": "army-b36c67c040",
+   "parent_id": null,
+   "code_sha256": "b36c67c0403ee1c5c7894b2afa7fdbff73d8d84d29cb6597688067bdbfaaf232",
+   "generator": "army:D2-template",
+   "operator": "funding_carry",
+   "spec": {
+    "hypothesis_id": "H-e80e66194b",
+    "params": {
+     "lookback_h": 168.0,
+     "scale": 0.001
+    }
+   },
+   "path": "artifacts/army/candidates/army-b36c67c040.py",
+   "status": "rejected",
+   "created": "2026-11-03T22:50:53+00:00"
+  },
+  {
+   "id": "army-ed1248d972",
+   "parent_id": null,
+   "code_sha256": "ed1248d972e616b39e206d49219a56c6cbd481c7acbff21b0f75bba206500394",
+   "generator": "army:D2-template",
+   "operator": "breakout",
+   "spec": {
+    "hypothesis_id": "H-6cac1a9a4c",
+    "params": {
+     "lookback_h": 168.0
+    }
+   },
+   "path": "artifacts/army/candidates/army-ed1248d972.py",
+   "status": "rejected",
+   "created": "2026-11-03T22:51:02+00:00"
+  },
+  {
+   "id": "control-invalid_strategy-33972e",
+   "parent_id": null,
+   "code_sha256": "066b7d9f15d36b6e3d4634ea11442e3a64e58ebac223627ffd3c3dfa5ee816c4",
+   "generator": "planted-control",
+   "operator": "invalid_strategy",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-invalid_strategy-33972e.py",
+   "status": "rejected_static_check",
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "id": "control-out_of_range-33972e",
+   "parent_id": null,
+   "code_sha256": "52cb49e825f632f627c384fac32c52357bb124b32b03bce376b161b9cb56c485",
+   "generator": "planted-control",
+   "operator": "out_of_range",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-out_of_range-33972e.py",
+   "status": "rejected_tests",
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "id": "control-invalid_strategy-3231f5",
+   "parent_id": null,
+   "code_sha256": "066b7d9f15d36b6e3d4634ea11442e3a64e58ebac223627ffd3c3dfa5ee816c4",
+   "generator": "planted-control",
+   "operator": "invalid_strategy",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-invalid_strategy-3231f5.py",
+   "status": "rejected_static_check",
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "id": "control-out_of_range-3231f5",
+   "parent_id": null,
+   "code_sha256": "52cb49e825f632f627c384fac32c52357bb124b32b03bce376b161b9cb56c485",
+   "generator": "planted-control",
+   "operator": "out_of_range",
+   "spec": {},
+   "path": "artifacts/army/candidates/control-out_of_range-3231f5.py",
+   "status": "rejected_tests",
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "id": "army-42090f1ded",
+   "parent_id": null,
+   "code_sha256": "42090f1dedc479eecd3fca112849bc96347745e57926f213843dfc3e38255a30",
+   "generator": "army:D2-template",
+   "operator": "vol_managed_long",
+   "spec": {
+    "hypothesis_id": "H-fc291fc13d",
+    "params": {
+     "lookback_h": 336.0,
+     "target_vol": 0.4
+    }
+   },
+   "path": "artifacts/army/candidates/army-42090f1ded.py",
+   "status": "rejected",
+   "created": "2026-11-03T22:58:34+00:00"
+  }
+ ],
+ "experiments": [
+  {
+   "key": "02febcece54708a2b50d",
+   "candidate_id": "control-invalid_strategy-23794a",
+   "stage": "army-reject-static_check",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225023794a",
+    "hypothesis": null,
+    "why": [
+     "line 2: import os not allowed"
+    ]
+   },
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "key": "e7c671ee7cfed5da80bc",
+   "candidate_id": "control-out_of_range-23794a",
+   "stage": "army-reject-tests",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225023794a",
+    "hypothesis": null,
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    }
+   },
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "key": "8568b203f45957955e4b",
+   "candidate_id": "army-b36c67c040",
+   "stage": "army-cycle",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225023794a",
+    "hypothesis": "H-e80e66194b",
+    "status": "rejected",
+    "lab_verdict": "refuted",
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "parameter_neighbourhood",
+     "regime_split"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "b36c67c0403ee1c5c7894b2afa7fdbff73d8d84d29cb6597688067bdbfaaf232"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "created": "2026-11-03T22:51:17+00:00"
+  },
+  {
+   "key": "d86f62b67953d68e9aa7",
+   "candidate_id": "army-ed1248d972",
+   "stage": "army-cycle",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225023794a",
+    "hypothesis": "H-6cac1a9a4c",
+    "status": "rejected",
+    "lab_verdict": "refuted",
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "regime_split"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "ed1248d972e616b39e206d49219a56c6cbd481c7acbff21b0f75bba206500394"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "created": "2026-11-03T22:51:24+00:00"
+  },
+  {
+   "key": "e60a9c6f63d2f04a3866",
+   "candidate_id": "control-invalid_strategy-33972e",
+   "stage": "army-reject-static_check",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225533972e",
+    "hypothesis": null,
+    "why": [
+     "line 2: import os not allowed"
+    ]
+   },
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "key": "235ab03f61c1613c7a78",
+   "candidate_id": "control-out_of_range-33972e",
+   "stage": "army-reject-tests",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T225533972e",
+    "hypothesis": null,
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    }
+   },
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "key": "83d01b983fafe1aea39b",
+   "candidate_id": "control-invalid_strategy-3231f5",
+   "stage": "army-reject-static_check",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T22573231f5",
+    "hypothesis": null,
+    "why": [
+     "line 2: import os not allowed"
+    ]
+   },
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "key": "dd25979c4c8679a2b350",
+   "candidate_id": "control-out_of_range-3231f5",
+   "stage": "army-reject-tests",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T22573231f5",
+    "hypothesis": null,
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    }
+   },
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "key": "568b29032c13db3961c8",
+   "candidate_id": "army-42090f1ded",
+   "stage": "army-cycle",
+   "protocol_sha256": "",
+   "data_sha256": "",
+   "result": {
+    "cycle": "c20261103T22573231f5",
+    "hypothesis": "H-fc291fc13d",
+    "status": "rejected",
+    "lab_verdict": "inconclusive",
+    "why": [
+     "lab verdict 'inconclusive' (needs 'promote' on the selection data)"
+    ],
+    "adversarial_weaknesses": [
+     "regime_split",
+     "block_shuffle_placebo"
+    ],
+    "conditions": {
+     "data": "BTCUSDT 1h 2020-01..2025-06 (dev + selection)",
+     "costs": "lab cost model",
+     "code_sha256": "42090f1dedc479eecd3fca112849bc96347745e57926f213843dfc3e38255a30"
+    },
+    "reexamine_if": [
+     "a new data period becomes available (prospective)",
+     "market structure changes (e.g. funding regime)",
+     "a new mechanism-level argument addresses the recorded weaknesses"
+    ]
+   },
+   "created": "2026-11-03T22:59:16+00:00"
+  }
+ ],
+ "edges": [
+  {
+   "src": "candidate:control-invalid_strategy-23794a",
+   "rel": "rejected_at",
+   "dst": "stage:static_check",
+   "data": {
+    "why": [
+     "line 2: import os not allowed"
+    ],
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "src": "candidate:control-out_of_range-23794a",
+   "rel": "rejected_at",
+   "dst": "stage:tests",
+   "data": {
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    },
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:23+00:00"
+  },
+  {
+   "src": "source:arxiv:2506.08573v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:26+00:00"
+  },
+  {
+   "src": "source:arxiv:1912.03270v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:26+00:00"
+  },
+  {
+   "src": "source:arxiv:2212.06888v7",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:26+00:00"
+  },
+  {
+   "src": "source:arxiv:2209.03307v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"perpetual\" AND abs:\"funding rate\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:26+00:00"
+  },
+  {
+   "src": "source:arxiv:2602.11708v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"time series momentum\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:35+00:00"
+  },
+  {
+   "src": "source:arxiv:2510.19271v2",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:38+00:00"
+  },
+  {
+   "src": "source:arxiv:2212.07288v2",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:38+00:00"
+  },
+  {
+   "src": "source:arxiv:2610.06690v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:38+00:00"
+  },
+  {
+   "src": "source:arxiv:2605.24285v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:38+00:00"
+  },
+  {
+   "src": "source:arxiv:2508.15922v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"realized volatility\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:50+00:00"
+  },
+  {
+   "src": "source:arxiv:2604.01431v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"realized volatility\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:50+00:00"
+  },
+  {
+   "src": "source:arxiv:1906.03430v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"realized volatility\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:50+00:00"
+  },
+  {
+   "src": "source:arxiv:2511.20105v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"realized volatility\"",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:50:50+00:00"
+  },
+  {
+   "src": "source:arxiv:2506.08573v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "D"
+   },
+   "created": "2026-11-03T22:50:53+00:00"
+  },
+  {
+   "src": "source:arxiv:2506.08573v1",
+   "rel": "motivated",
+   "dst": "hypothesis:H-e80e66194b",
+   "data": {
+    "role": "C3",
+    "generator": "deterministic-template (LLM fallback: LLM disabled by human control)"
+   },
+   "created": "2026-11-03T22:50:53+00:00"
+  },
+  {
+   "src": "hypothesis:H-e80e66194b",
+   "rel": "implemented_by",
+   "dst": "candidate:army-b36c67c040",
+   "data": {
+    "code_sha256": "b36c67c0403ee1c5c7894b2afa7fdbff73d8d84d29cb6597688067bdbfaaf232"
+   },
+   "created": "2026-11-03T22:50:53+00:00"
+  },
+  {
+   "src": "source:arxiv:2212.06888v7",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "B"
+   },
+   "created": "2026-11-03T22:50:54+00:00"
+  },
+  {
+   "src": "source:arxiv:2212.06888v7",
+   "rel": "duplicate_mechanism_of",
+   "dst": "H-e80e66194b",
+   "data": {
+    "family": "funding_carry",
+    "prior_count": 1
+   },
+   "created": "2026-11-03T22:50:55+00:00"
+  },
+  {
+   "src": "proposal:p8a9a954ac8",
+   "rel": "authored_by",
+   "dst": "role:D3",
+   "data": {
+    "status": "checks_failed"
+   },
+   "created": "2026-11-03T22:50:57+00:00"
+  },
+  {
+   "src": "source:arxiv:2604.01431v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "B"
+   },
+   "created": "2026-11-03T22:51:02+00:00"
+  },
+  {
+   "src": "source:arxiv:2604.01431v1",
+   "rel": "motivated",
+   "dst": "hypothesis:H-6cac1a9a4c",
+   "data": {
+    "role": "C1",
+    "generator": "deterministic-template (LLM fallback: LLM disabled by human control)"
+   },
+   "created": "2026-11-03T22:51:02+00:00"
+  },
+  {
+   "src": "hypothesis:H-6cac1a9a4c",
+   "rel": "implemented_by",
+   "dst": "candidate:army-ed1248d972",
+   "data": {
+    "code_sha256": "ed1248d972e616b39e206d49219a56c6cbd481c7acbff21b0f75bba206500394"
+   },
+   "created": "2026-11-03T22:51:02+00:00"
+  },
+  {
+   "src": "source:arxiv:2602.11708v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "B"
+   },
+   "created": "2026-11-03T22:51:03+00:00"
+  },
+  {
+   "src": "source:arxiv:2602.11708v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "arm_guided/h-g3-t001",
+   "data": {
+    "family": "tsmom",
+    "prior_count": 59
+   },
+   "created": "2026-11-03T22:51:03+00:00"
+  },
+  {
+   "src": "proposal:pee2f7d879c",
+   "rel": "authored_by",
+   "dst": "role:D3",
+   "data": {
+    "status": "checks_failed"
+   },
+   "created": "2026-11-03T22:51:04+00:00"
+  },
+  {
+   "src": "candidate:army-b36c67c040",
+   "rel": "evaluated",
+   "dst": "result:rejected",
+   "data": {
+    "lab_verdict": "refuted",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:51:17+00:00"
+  },
+  {
+   "src": "hypothesis:H-e80e66194b",
+   "rel": "outcome",
+   "dst": "status:refuted",
+   "data": {
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ]
+   },
+   "created": "2026-11-03T22:51:17+00:00"
+  },
+  {
+   "src": "candidate:army-ed1248d972",
+   "rel": "evaluated",
+   "dst": "result:rejected",
+   "data": {
+    "lab_verdict": "refuted",
+    "cycle": "c20261103T225023794a"
+   },
+   "created": "2026-11-03T22:51:24+00:00"
+  },
+  {
+   "src": "hypothesis:H-6cac1a9a4c",
+   "rel": "outcome",
+   "dst": "status:refuted",
+   "data": {
+    "why": [
+     "lab verdict 'refuted' (needs 'promote' on the selection data)"
+    ]
+   },
+   "created": "2026-11-03T22:51:24+00:00"
+  },
+  {
+   "src": "candidate:control-invalid_strategy-33972e",
+   "rel": "rejected_at",
+   "dst": "stage:static_check",
+   "data": {
+    "why": [
+     "line 2: import os not allowed"
+    ],
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "src": "candidate:control-out_of_range-33972e",
+   "rel": "rejected_at",
+   "dst": "stage:tests",
+   "data": {
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    },
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:33+00:00"
+  },
+  {
+   "src": "source:arxiv:2608.21888v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"mean reversion\"",
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:45+00:00"
+  },
+  {
+   "src": "source:arxiv:2601.13757v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"mean reversion\"",
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:45+00:00"
+  },
+  {
+   "src": "source:arxiv:2109.10662v1",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"mean reversion\"",
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:45+00:00"
+  },
+  {
+   "src": "source:arxiv:2111.11609v3",
+   "rel": "discovered_by",
+   "dst": "role:A1",
+   "data": {
+    "query": "all:cryptocurrency AND all:\"mean reversion\"",
+    "cycle": "c20261103T225533972e"
+   },
+   "created": "2026-11-03T22:55:45+00:00"
+  },
+  {
+   "src": "source:arxiv:1912.03270v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "D"
+   },
+   "created": "2026-11-03T22:56:03+00:00"
+  },
+  {
+   "src": "source:arxiv:1912.03270v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "H-e80e66194b",
+   "data": {
+    "family": "funding_carry",
+    "prior_count": 2
+   },
+   "created": "2026-11-03T22:56:03+00:00"
+  },
+  {
+   "src": "source:arxiv:2209.03307v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "D"
+   },
+   "created": "2026-11-03T22:56:04+00:00"
+  },
+  {
+   "src": "source:arxiv:2209.03307v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "H-e80e66194b",
+   "data": {
+    "family": "funding_carry",
+    "prior_count": 2
+   },
+   "created": "2026-11-03T22:56:04+00:00"
+  },
+  {
+   "src": "source:arxiv:2601.13757v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "D"
+   },
+   "created": "2026-11-03T22:56:08+00:00"
+  },
+  {
+   "src": "source:arxiv:2601.13757v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "arm_guided/h-g3-t007",
+   "data": {
+    "family": "reversal",
+    "prior_count": 1
+   },
+   "created": "2026-11-03T22:56:08+00:00"
+  },
+  {
+   "src": "source:arxiv:2608.21888v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "B"
+   },
+   "created": "2026-11-03T22:56:10+00:00"
+  },
+  {
+   "src": "source:arxiv:2608.21888v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "arm_guided/h-g3-t007",
+   "data": {
+    "family": "reversal",
+    "prior_count": 1
+   },
+   "created": "2026-11-03T22:56:10+00:00"
+  },
+  {
+   "src": "source:arxiv:2601.13757v1",
+   "rel": "reclassified",
+   "dst": "family:vol_managed_long",
+   "data": {
+    "from": "reversal",
+    "reason": "classifier fix: volatility mean reversion is not price reversal (found in cycle 2)"
+   },
+   "created": "2026-11-03T22:57:01+00:00"
+  },
+  {
+   "src": "candidate:control-invalid_strategy-3231f5",
+   "rel": "rejected_at",
+   "dst": "stage:static_check",
+   "data": {
+    "why": [
+     "line 2: import os not allowed"
+    ],
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "src": "candidate:control-out_of_range-3231f5",
+   "rel": "rejected_at",
+   "dst": "stage:tests",
+   "data": {
+    "why": {
+     "deterministic": true,
+     "truncation": []
+    },
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:32+00:00"
+  },
+  {
+   "src": "source:arxiv:2101.06236v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "all:bitcoin AND all:\"order book\"",
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:48+00:00"
+  },
+  {
+   "src": "source:arxiv:1809.02772v3",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "all:bitcoin AND all:\"order book\"",
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:48+00:00"
+  },
+  {
+   "src": "source:arxiv:2106.02187v2",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "all:bitcoin AND all:\"order book\"",
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:48+00:00"
+  },
+  {
+   "src": "source:arxiv:2010.01241v1",
+   "rel": "discovered_by",
+   "dst": "role:A2",
+   "data": {
+    "query": "all:bitcoin AND all:\"order book\"",
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:57:48+00:00"
+  },
+  {
+   "src": "source:arxiv:2010.01241v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "C"
+   },
+   "created": "2026-11-03T22:58:02+00:00"
+  },
+  {
+   "src": "source:arxiv:2101.06236v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "D"
+   },
+   "created": "2026-11-03T22:58:02+00:00"
+  },
+  {
+   "src": "source:arxiv:2508.15922v1",
+   "rel": "verified_by",
+   "dst": "role:A3",
+   "data": {
+    "grade": "C"
+   },
+   "created": "2026-11-03T22:58:08+00:00"
+  },
+  {
+   "src": "source:arxiv:2601.13757v1",
+   "rel": "motivated",
+   "dst": "hypothesis:H-fc291fc13d",
+   "data": {
+    "role": "C3",
+    "generator": "deterministic-template (LLM fallback: invalid output: 2 validation errors for HypothesisOut\nclaimed_mechanism\n  String should have at most 800 characters [type=string_too_long, input_value='The source reports that ... our own extrapolation.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long\nlimitation)"
+   },
+   "created": "2026-11-03T22:58:34+00:00"
+  },
+  {
+   "src": "source:arxiv:2508.15922v1",
+   "rel": "duplicate_mechanism_of",
+   "dst": "H-fc291fc13d",
+   "data": {
+    "family": "vol_managed_long",
+    "prior_count": 1
+   },
+   "created": "2026-11-03T22:58:34+00:00"
+  },
+  {
+   "src": "hypothesis:H-fc291fc13d",
+   "rel": "implemented_by",
+   "dst": "candidate:army-42090f1ded",
+   "data": {
+    "code_sha256": "42090f1dedc479eecd3fca112849bc96347745e57926f213843dfc3e38255a30"
+   },
+   "created": "2026-11-03T22:58:34+00:00"
+  },
+  {
+   "src": "proposal:pd456df9b0d",
+   "rel": "authored_by",
+   "dst": "role:D3",
+   "data": {
+    "status": "pending_human_review"
+   },
+   "created": "2026-11-03T22:58:36+00:00"
+  },
+  {
+   "src": "candidate:army-42090f1ded",
+   "rel": "evaluated",
+   "dst": "result:rejected",
+   "data": {
+    "lab_verdict": "inconclusive",
+    "cycle": "c20261103T22573231f5"
+   },
+   "created": "2026-11-03T22:59:16+00:00"
+  },
+  {
+   "src": "hypothesis:H-fc291fc13d",
+   "rel": "outcome",
+   "dst": "status:not_supported",
+   "data": {
+    "why": [
+     "lab verdict 'inconclusive' (needs 'promote' on the selection data)"
+    ]
+   },
+   "created": "2026-11-03T22:59:16+00:00"
+  }
+ ],
+ "tasks": [
+  {
+   "id": "c20261103T225023794a:discover:07b1c4",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "DISCOVER",
+   "role": "A1",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 27.367461442947388,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "all:cryptocurrency AND all:\"time series momentum\"",
+     "all:cryptocurrency AND all:\"realized volatility\""
+    ],
+    "returned": 5,
+    "new_sources": [
+     "arxiv:2602.11708v1",
+     "arxiv:2604.01431v1",
+     "arxiv:2508.15922v1",
+     "arxiv:2511.20105v1",
+     "arxiv:1906.03430v1"
+    ],
+    "selected_for_verification": [
+     "arxiv:2602.11708v1",
+     "arxiv:2604.01431v1"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:discover:033a70",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "DISCOVER",
+   "role": "A2",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 15.35066843032837,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "abs:\"perpetual\" AND abs:\"funding rate\"",
+     "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\""
+    ],
+    "returned": 8,
+    "new_sources": [
+     "arxiv:2506.08573v1",
+     "arxiv:2212.06888v7",
+     "arxiv:2209.03307v1",
+     "arxiv:1912.03270v1",
+     "arxiv:2212.07288v2",
+     "arxiv:2605.24285v1",
+     "arxiv:2610.06690v1",
+     "arxiv:2510.19271v2"
+    ],
+    "selected_for_verification": [
+     "arxiv:2506.08573v1",
+     "arxiv:2212.06888v7"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:market:eeedf5",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "B1",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.011285543441772461,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "ann_vol": 0.6904959778139381,
+    "mean_daily_ret": 0.0012170623148986103,
+    "daily_ret_kurtosis": 35.10164687860536,
+    "max_drawdown": -0.7724232825946648
+   }
+  },
+  {
+   "id": "c20261103T225023794a:market:10a13f",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "B2",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.056801795959472656,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "funding_events": 4383,
+    "mean_funding_per_event": 0.0001367295163130276,
+    "share_positive": 0.865617157198266,
+    "acf1": 0.7909669461486674
+   }
+  },
+  {
+   "id": "c20261103T225023794a:market:8f23ca",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "B3",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.09196138381958008,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "share_high_vol": 0.4996505939902166,
+    "share_trending(|z|>1)": 0.39343116701607267,
+    "regime_switches_high_low": 34
+   }
+  },
+  {
+   "id": "c20261103T225023794a:market:9815da",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "B4",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.01351308822631836,
+   "llm_calls": 0,
+   "result": {
+    "strategy_view_api": [
+     "close",
+     "funding",
+     "high",
+     "low",
+     "open",
+     "t",
+     "time_ms",
+     "volume"
+    ],
+    "forecast_features": [
+     "lrv_24",
+     "lrv_72",
+     "lrv_168",
+     "lrv_720",
+     "ret_24",
+     "ret_168",
+     "ret_720",
+     "absret_24",
+     "range_24",
+     "lvol_ratio",
+     "lsig_ewma"
+    ],
+    "availability": {
+     "strategy": "bar t decided at its close, executed at t+1 open",
+     "forecast": "bars complete before origin - 24 h (archive publication lag)"
+    },
+    "unavailable": [
+     "order book",
+     "trades",
+     "open interest history",
+     "bar timestamps inside BarView"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:forecast_watch:9c4891",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "REASSESS",
+   "role": "F3",
+   "kind": "forecast_watch",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.058916330337524414,
+   "llm_calls": 0,
+   "result": {
+    "resolved": 0,
+    "open": 32,
+    "min_resolved_for_assessment": 30,
+    "alerts": [],
+    "status": {}
+   }
+  },
+  {
+   "id": "c20261103T225023794a:synthesis:929d3c",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "FORMULATE",
+   "role": "C4",
+   "kind": "synthesis",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0010671615600585938,
+   "llm_calls": 0,
+   "result": {
+    "decision": "no_synthesis",
+    "why": "0 validated mechanisms; synthesis requires at least 2 independently validated mechanisms (no indicator stacking)"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:control:02ebc7",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.013474702835083008,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-23794a",
+    "control": "invalid_strategy",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:control:ce4686",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.020033597946166992,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-23794a",
+    "control": "out_of_range",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:reassess:eb3533",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "REASSESS",
+   "role": "F4",
+   "kind": "reassess",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": true
+   },
+   "error": null,
+   "wall_s": 0.04451727867126465,
+   "llm_calls": 0,
+   "result": {
+    "cycle_outcomes": [
+     {
+      "candidate_id": "army-b36c67c040",
+      "hypothesis_id": "H-e80e66194b",
+      "status": "rejected",
+      "hypothesis_status": "refuted"
+     },
+     {
+      "candidate_id": "army-ed1248d972",
+      "hypothesis_id": "H-6cac1a9a4c",
+      "status": "rejected",
+      "hypothesis_status": "refuted"
+     }
+    ],
+    "duplicates_detected": [
+     {
+      "id": "c20261103T225023794a:novelty:2437bc",
+      "status": "done",
+      "source_id": "arxiv:2212.06888v7",
+      "family": "funding_carry",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "H-e80e66194b",
+      "earlier_investigations": 1,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     },
+     {
+      "id": "c20261103T225023794a:novelty:f90168",
+      "status": "done",
+      "source_id": "arxiv:2602.11708v1",
+      "family": "tsmom",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "arm_guided/h-g3-t001",
+      "earlier_investigations": 59,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     }
+    ],
+    "infeasible": [],
+    "forecast_monitor": {
+     "resolved": 0,
+     "open": 32,
+     "alerts": []
+    },
+    "promotions": 0,
+    "recommendation": {
+     "id": "accumulate-prospective-forecasts",
+     "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+     "prior_positive": 0.5,
+     "cost_runs": 1,
+     "bits": 1.0,
+     "bits_per_run": 1.0
+    },
+    "ranking": [
+     {
+      "id": "accumulate-prospective-forecasts",
+      "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+      "prior_positive": 0.5,
+      "cost_runs": 1,
+      "bits": 1.0,
+      "bits_per_run": 1.0
+     },
+     {
+      "id": "regime-conditional-army-b36c67c040",
+      "why": "effect differs by volatility regime (development)",
+      "prior_positive": 0.15,
+      "cost_runs": 2,
+      "bits": 0.6098403047164004,
+      "bits_per_run": 0.305
+     },
+     {
+      "id": "regime-conditional-army-ed1248d972",
+      "why": "effect differs by volatility regime (development)",
+      "prior_positive": 0.15,
+      "cost_runs": 2,
+      "bits": 0.6098403047164004,
+      "bits_per_run": 0.305
+     },
+     {
+      "id": "investigate-vol_managed_long",
+      "why": "implementable family never investigated",
+      "prior_positive": 0.1,
+      "cost_runs": 3,
+      "bits": 0.4689955935892812,
+      "bits_per_run": 0.156
+     }
+    ],
+    "note": "F4 recommends only; eligibility is computed by army/policy.py; priors are explicit judgement inputs"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test:11d750",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00773310661315918,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-23794a",
+    "static_issues": [
+     "line 2: import os not allowed"
+    ],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test:4bc904",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.009444475173950195,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-23794a",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:verify:392ba7",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 14.809448480606079,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2506.08573v1",
+    "record_refetched": true,
+    "published": "2025-06-10T08:42:32Z",
+    "updated": "2025-06-10T08:42:32Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.357
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:novelty:514d5a",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:verify:392ba7"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.032208919525146484,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2506.08573v1",
+    "family": "funding_carry",
+    "decision": "novel",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225023794a:verify:753ea2",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 15.571212530136108,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2212.06888v7",
+    "record_refetched": true,
+    "published": "2022-12-13T20:19:14Z",
+    "updated": "2026-09-17T17:23:23Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.4301150",
+     "type": "journal-article",
+     "container": "SSRN Electronic Journal",
+     "published": [
+      2022
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": true,
+     "flags": {
+      "out_of_sample": false,
+      "costs": true,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": true,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:novelty:2437bc",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:verify:753ea2"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.8017985820770264,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2212.06888v7",
+    "family": "funding_carry",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "H-e80e66194b",
+    "earlier_investigations": 1,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225023794a:verify:5fc0cf",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 2,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 6.357551336288452,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2602.11708v1",
+    "record_refetched": true,
+    "published": "2026-02-12T08:38:17Z",
+    "updated": "2026-02-12T08:38:17Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.294
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 4,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": true,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:novelty:f90168",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:verify:5fc0cf"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.09906506538391113,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2602.11708v1",
+    "family": "tsmom",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "arm_guided/h-g3-t001",
+    "earlier_investigations": 59,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225023794a:verify:baeafb",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 11.314592361450195,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2604.01431v1",
+    "record_refetched": true,
+    "published": "2026-04-01T22:12:49Z",
+    "updated": "2026-04-01T22:12:49Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.375
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:novelty:4d4865",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:verify:baeafb"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.015741825103759766,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2604.01431v1",
+    "family": "breakout",
+    "decision": "novel",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225023794a:formulate:c4c650",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "FORMULATE",
+   "role": "C3",
+   "kind": "formulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:market:eeedf5",
+     "c20261103T225023794a:market:10a13f",
+     "c20261103T225023794a:market:8f23ca",
+     "c20261103T225023794a:market:9815da"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0664360523223877,
+   "llm_calls": 0,
+   "result": {
+    "hypothesis_id": "H-e80e66194b",
+    "decision": "formulated",
+    "hypothesis": {
+     "family": "funding_carry",
+     "claimed_mechanism": "(from source, unverified) In cryptocurrency markets, a key challenge for perpetual future issuers is maintaining alignment between the perpetual future price and target value. This study addresses this challenge by exploring the relationship between funding rates and perpetual future prices",
+     "statement": "Persistent positive (negative) perpetual funding precedes weaker (stronger) BTC returns, so positioning against the funding sign earns a premium net of funding.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 168,
+     "params": {
+      "lookback_h": 168.0,
+      "scale": 0.001
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "funding_carry|medium|long_short",
+     "source_id": "arxiv:2506.08573v1",
+     "generator": "deterministic-template (LLM fallback: LLM disabled by human control)",
+     "llm": {
+      "used_llm": false,
+      "reason": "LLM disabled by human control"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "the view exposes past funding rates",
+       "check": {
+        "type": "view_api",
+        "method": "funding",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "funding is charged on open positions in the backtest",
+       "check": {
+        "type": "engine_feature",
+        "feature": "funding_charged",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1"
+    },
+    "next": [
+     "c20261103T225023794a:contract:1aec54",
+     "c20261103T225023794a:render:27be57"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:contract:1aec54",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D1",
+   "kind": "contract",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00037598609924316406,
+   "llm_calls": 0,
+   "result": {
+    "ok": true,
+    "hypothesis": {
+     "family": "funding_carry",
+     "claimed_mechanism": "(from source, unverified) In cryptocurrency markets, a key challenge for perpetual future issuers is maintaining alignment between the perpetual future price and target value. This study addresses this challenge by exploring the relationship between funding rates and perpetual future prices",
+     "statement": "Persistent positive (negative) perpetual funding precedes weaker (stronger) BTC returns, so positioning against the funding sign earns a premium net of funding.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 168,
+     "params": {
+      "lookback_h": 168.0,
+      "scale": 0.001
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "funding_carry|medium|long_short",
+     "source_id": "arxiv:2506.08573v1",
+     "generator": "deterministic-template (LLM fallback: LLM disabled by human control)",
+     "llm": {
+      "used_llm": false,
+      "reason": "LLM disabled by human control"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "the view exposes past funding rates",
+       "check": {
+        "type": "view_api",
+        "method": "funding",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "funding is charged on open positions in the backtest",
+       "check": {
+        "type": "engine_feature",
+        "feature": "funding_charged",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1",
+     "id": "H-e80e66194b"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:render:27be57",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "render",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:contract:1aec54"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.02121591567993164,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-b36c67c040",
+    "code_sha256": "b36c67c0403ee1c5c7894b2afa7fdbff73d8d84d29cb6597688067bdbfaaf232",
+    "path": "artifacts/army/candidates/army-b36c67c040.py"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test:3653bb",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.03698611259460449,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-b36c67c040",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "passed"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:security:fbaf2b",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D4",
+   "kind": "security",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.025751590728759766,
+   "llm_calls": 0,
+   "result": {
+    "sandbox_available": true,
+    "source_bytes": 692,
+    "decision_ms_per_1000_bars": 4.36,
+    "imports": [
+     "math",
+     "numpy"
+    ],
+    "note": "the research lab re-runs the candidate inside its namespace sandbox during EVALUATE"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:challenge:8cca59",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "CHALLENGE",
+   "role": "E3",
+   "kind": "challenge",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:test:3653bb",
+     "c20261103T225023794a:security:fbaf2b"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 2.6105170249938965,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023 (free exploration)",
+    "tests": {
+     "valid_decisions": {
+      "ok": true,
+      "hard_failure": false
+     },
+     "causality_truncation_probe": {
+      "ok": true,
+      "hard_failure": false,
+      "mismatched_bars": [],
+      "probes": 25
+     },
+     "cost_stress": {
+      "sharpe_1x": 0.2382045882611838,
+      "sharpe_2x": 0.18654952328507332,
+      "sharpe_3x": 0.13634850154020253,
+      "ok": true,
+      "hard_failure": false
+     },
+     "one_bar_delay": {
+      "sharpe": 0.20877489479319147,
+      "ok": true,
+      "hard_failure": false
+     },
+     "parameter_neighbourhood": {
+      "sharpe": {
+       "lookback_hx0.5": 0.19191796644943226,
+       "lookback_hx2.0": -0.11714239826150159,
+       "scalex0.5": 0.11706298876025001,
+       "scalex2.0": 0.13380671195286412
+      },
+      "ok": false,
+      "hard_failure": false
+     },
+     "regime_split": {
+      "sharpe": {
+       "high_vol": -0.3093279124919821,
+       "low_vol": 0.6588588366720455
+      },
+      "ok": false,
+      "hard_failure": false
+     },
+     "block_shuffle_placebo": {
+      "placebo_sharpes": [
+       -0.7537732012786782,
+       -0.37193242518325975
+      ],
+      "q90": -0.4101165027928016,
+      "candidate": 0.2382045882611838,
+      "ok": true,
+      "hard_failure": false
+     },
+     "exposure": {
+      "mean_abs_exposure_x_engine_max": 0.8617812557077625,
+      "max_abs": 1.0,
+      "buy_and_hold_1x_sharpe_same_period": 0.7819613337487598,
+      "ok": true,
+      "hard_failure": false
+     }
+    },
+    "hard_failures": [],
+    "weaknesses": [
+     "parameter_neighbourhood",
+     "regime_split"
+    ],
+    "verdict": "fragile",
+    "llm_critique": null,
+    "llm": {
+     "used_llm": false,
+     "reason": "no LLM critique requested"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:evaluate:7bfb30",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E1",
+   "kind": "evaluate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:8cca59"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 20.72124743461609,
+   "llm_calls": 0,
+   "result": {
+    "lab": "artifacts/research/army_v06",
+    "campaign": "army-army-b36c67c040",
+    "task_status": "done",
+    "error": null,
+    "verdict": "refuted",
+    "classification": "unstable_across_periods",
+    "premise_check": "accepted",
+    "screen": {
+     "candidate_dev_oos_sharpe": 0.40378867295531173,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": true
+    },
+    "decision": {
+     "verdict": "refuted",
+     "checks": {
+      "effect_size": false,
+      "prob_improvement": false,
+      "drawdown": false,
+      "cost_robustness": false,
+      "deflated_sharpe": false
+     },
+     "bootstrap": {
+      "delta_sharpe": -0.5169587880839397,
+      "prob_positive": 0.3905,
+      "ci90_lo": -2.829431159438629,
+      "ci90_hi": 1.8645123716238128,
+      "ci95_lo": -3.2437057437794983,
+      "ci95_hi": 2.273956046149875,
+      "resamples": 2000,
+      "mean_block": 10
+     },
+     "dsr": {
+      "dsr": 0.032703391727482656,
+      "sr0": 0.05264010318678251,
+      "z": -1.842467587163891
+     },
+     "n_validation_trials": 53,
+     "candidate_sharpe": -0.5033139458003703,
+     "champion_sharpe": 0.013644842283569453,
+     "common_days": 546
+    },
+    "validation_summary": {
+     "candidate": -0.5033139458003703,
+     "champion": 0.013644842283569453,
+     "candidate_mdd": 0.7912590109945941,
+     "champion_mdd": 0.619269717226437,
+     "reference_buy_and_hold": {
+      "exposure": 0.5,
+      "vol_match_scale": 1.3741990127442205,
+      "sharpe": 0.6644966370359955,
+      "max_drawdown_vol_matched": 0.6331579948949444
+     }
+    },
+    "data_labels": {
+     "development": "free exploration",
+     "validation": "SELECTION - previously exposed, not confirmatory"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:stats:a9dd92",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E2",
+   "kind": "stats",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:evaluate:7bfb30"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0036716461181640625,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-b36c67c040",
+    "lab_verdict": "refuted",
+    "selection_rule_checks": {
+     "effect_size": false,
+     "prob_improvement": false,
+     "drawdown": false,
+     "cost_robustness": false,
+     "deflated_sharpe": false
+    },
+    "delta_sharpe_vs_champion": -0.5169587880839397,
+    "prob_delta_positive": 0.3905,
+    "deflated_sharpe": 0.032703391727482656,
+    "n_validation_trials_counted": 53,
+    "baselines": {
+     "champion": "parent v0 time-series momentum",
+     "buy_and_hold": {
+      "exposure": 0.5,
+      "vol_match_scale": 1.3741990127442205,
+      "sharpe": 0.6644966370359955,
+      "max_drawdown_vol_matched": 0.6331579948949444
+     },
+     "cash": "Sharpe 0"
+    },
+    "dev_screen": {
+     "candidate_dev_oos_sharpe": 0.40378867295531173,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": true
+    },
+    "adversarial_verdict": "fragile",
+    "adversarial_weaknesses": [
+     "parameter_neighbourhood",
+     "regime_split"
+    ],
+    "eligibility": {
+     "status": "rejected",
+     "why": [
+      "lab verdict 'refuted' (needs 'promote' on the selection data)"
+     ],
+     "validated": false
+    },
+    "exposure_note": "validation results are selection evidence on previously exposed data; never confirmatory"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:simulate:770159",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E4",
+   "kind": "simulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:8cca59"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0003170967102050781,
+   "llm_calls": 0,
+   "result": {
+    "applicable": true,
+    "linked_evidence": "artifacts/observatory/cascade_c2x_exploratory.json",
+    "mechanism": "leveraged agents' reaction to funding (v0.5 C2x: funding pushes leveraged agents contrarian)",
+    "sim_runs": 0,
+    "note": "existing simulator evidence linked; a new simulator experiment needs its own pre-registration"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:risk:48b83b",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "F3",
+   "kind": "risk",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:8cca59"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.32019734382629395,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "max_drawdown": 0.9906806207375665,
+    "daily_var95": 0.09538064911027068,
+    "daily_cvar95": 0.14239855605683677,
+    "worst_day": -0.3324582647228361,
+    "liquidations": 0
+   }
+  },
+  {
+   "id": "c20261103T225023794a:archive:cc167a",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "ARCHIVE",
+   "role": "F2",
+   "kind": "archive",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:stats:a9dd92",
+     "c20261103T225023794a:simulate:770159",
+     "c20261103T225023794a:risk:48b83b"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.011871814727783203,
+   "llm_calls": 0,
+   "result": {
+    "hypothesis_id": "H-e80e66194b",
+    "candidate_id": "army-b36c67c040",
+    "status": "rejected",
+    "hypothesis_status": "refuted",
+    "risk": {
+     "period": "development 2020-2023",
+     "max_drawdown": 0.9906806207375665,
+     "daily_var95": 0.09538064911027068,
+     "daily_cvar95": 0.14239855605683677,
+     "worst_day": -0.3324582647228361,
+     "liquidations": 0
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test_proposal:011c04",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test_proposal",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:test:3653bb"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 1.7662475109100342,
+   "llm_calls": 0,
+   "result": {
+    "proposal": "p8a9a954ac8",
+    "status": "checks_failed",
+    "files": [
+     "tests/army_generated/test_army_army_b36c67c040.py"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:formulate:045c3c",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "FORMULATE",
+   "role": "C1",
+   "kind": "formulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:market:eeedf5",
+     "c20261103T225023794a:market:10a13f",
+     "c20261103T225023794a:market:8f23ca",
+     "c20261103T225023794a:market:9815da"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.056531429290771484,
+   "llm_calls": 0,
+   "result": {
+    "hypothesis_id": "H-6cac1a9a4c",
+    "decision": "formulated",
+    "hypothesis": {
+     "family": "breakout",
+     "claimed_mechanism": "(from source, unverified) Daily probability changes in Kalshi macro prediction markets forecast cryptocurrency realized volatility through two distinct channels. The monetary policy channel, measured by Fed rate repricing on KXFED contracts, predicts Bitcoin volatility in sample with t = 3.63 and p < 0.001 but exhibits regime dependence tied to the 2024-2025 rate-cutting cycle",
+     "statement": "The position of the close inside its lookback high-low channel predicts continuation.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 168,
+     "params": {
+      "lookback_h": 168.0
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "breakout|medium|long_short",
+     "source_id": "arxiv:2604.01431v1",
+     "generator": "deterministic-template (LLM fallback: LLM disabled by human control)",
+     "llm": {
+      "used_llm": false,
+      "reason": "LLM disabled by human control"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "decisions see only closed bars via the view API",
+       "check": {
+        "type": "view_api",
+        "method": "close",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "decisions are executed at the next bar's open",
+       "check": {
+        "type": "engine_feature",
+        "feature": "next_open_execution",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1"
+    },
+    "next": [
+     "c20261103T225023794a:contract:920494",
+     "c20261103T225023794a:render:fd6cd8"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225023794a:contract:920494",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D1",
+   "kind": "contract",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0003876686096191406,
+   "llm_calls": 0,
+   "result": {
+    "ok": true,
+    "hypothesis": {
+     "family": "breakout",
+     "claimed_mechanism": "(from source, unverified) Daily probability changes in Kalshi macro prediction markets forecast cryptocurrency realized volatility through two distinct channels. The monetary policy channel, measured by Fed rate repricing on KXFED contracts, predicts Bitcoin volatility in sample with t = 3.63 and p < 0.001 but exhibits regime dependence tied to the 2024-2025 rate-cutting cycle",
+     "statement": "The position of the close inside its lookback high-low channel predicts continuation.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 168,
+     "params": {
+      "lookback_h": 168.0
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "breakout|medium|long_short",
+     "source_id": "arxiv:2604.01431v1",
+     "generator": "deterministic-template (LLM fallback: LLM disabled by human control)",
+     "llm": {
+      "used_llm": false,
+      "reason": "LLM disabled by human control"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "decisions see only closed bars via the view API",
+       "check": {
+        "type": "view_api",
+        "method": "close",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "decisions are executed at the next bar's open",
+       "check": {
+        "type": "engine_feature",
+        "feature": "next_open_execution",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1",
+     "id": "H-6cac1a9a4c"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:render:fd6cd8",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "render",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:contract:920494"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.017701387405395508,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-ed1248d972",
+    "code_sha256": "ed1248d972e616b39e206d49219a56c6cbd481c7acbff21b0f75bba206500394",
+    "path": "artifacts/army/candidates/army-ed1248d972.py"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test:034252",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.05637931823730469,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-ed1248d972",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "passed"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:security:7a1d14",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D4",
+   "kind": "security",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.015242815017700195,
+   "llm_calls": 0,
+   "result": {
+    "sandbox_available": true,
+    "source_bytes": 733,
+    "decision_ms_per_1000_bars": 7.23,
+    "imports": [
+     "math",
+     "numpy"
+    ],
+    "note": "the research lab re-runs the candidate inside its namespace sandbox during EVALUATE"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:challenge:f0ff87",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "CHALLENGE",
+   "role": "E3",
+   "kind": "challenge",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:test:034252",
+     "c20261103T225023794a:security:7a1d14"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 3.7472341060638428,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023 (free exploration)",
+    "tests": {
+     "valid_decisions": {
+      "ok": true,
+      "hard_failure": false
+     },
+     "causality_truncation_probe": {
+      "ok": true,
+      "hard_failure": false,
+      "mismatched_bars": [],
+      "probes": 25
+     },
+     "cost_stress": {
+      "sharpe_1x": -0.24331423561945467,
+      "sharpe_2x": -0.8356198968762335,
+      "sharpe_3x": -1.4065502279609945,
+      "ok": true,
+      "hard_failure": false
+     },
+     "one_bar_delay": {
+      "sharpe": -0.1892878426148417,
+      "ok": true,
+      "hard_failure": false
+     },
+     "parameter_neighbourhood": {
+      "sharpe": {
+       "lookback_hx0.5": -0.5931215124448628,
+       "lookback_hx2.0": -0.005219440454403243
+      },
+      "ok": true,
+      "hard_failure": false
+     },
+     "regime_split": {
+      "sharpe": {
+       "high_vol": -0.8722131559024148,
+       "low_vol": 0.49666001748134375
+      },
+      "ok": false,
+      "hard_failure": false
+     },
+     "block_shuffle_placebo": {
+      "placebo_sharpes": [
+       -0.7428040076223883,
+       -0.5692259870821788
+      ],
+      "q90": -0.5865837891361997,
+      "candidate": -0.24331423561945467,
+      "ok": true,
+      "hard_failure": false
+     },
+     "exposure": {
+      "mean_abs_exposure_x_engine_max": 0.4709634983850549,
+      "max_abs": 1.0,
+      "buy_and_hold_1x_sharpe_same_period": 0.7819613337487598,
+      "ok": true,
+      "hard_failure": false
+     }
+    },
+    "hard_failures": [],
+    "weaknesses": [
+     "regime_split"
+    ],
+    "verdict": "fragile",
+    "llm_critique": null,
+    "llm": {
+     "used_llm": false,
+     "reason": "no LLM critique requested"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:evaluate:094fcd",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E1",
+   "kind": "evaluate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:f0ff87"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 7.6176862716674805,
+   "llm_calls": 0,
+   "result": {
+    "lab": "artifacts/research/army_v06",
+    "campaign": "army-army-ed1248d972",
+    "task_status": "done",
+    "error": null,
+    "verdict": "refuted",
+    "classification": "no_benefit_mechanism_undeclared",
+    "premise_check": "accepted",
+    "screen": {
+     "candidate_dev_oos_sharpe": -0.03651094454753309,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": false
+    },
+    "decision": null,
+    "validation_summary": null,
+    "data_labels": {
+     "development": "free exploration",
+     "validation": "SELECTION - previously exposed, not confirmatory"
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:stats:eadd39",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E2",
+   "kind": "stats",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:evaluate:094fcd"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0014238357543945312,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-ed1248d972",
+    "lab_verdict": "refuted",
+    "selection_rule_checks": null,
+    "delta_sharpe_vs_champion": null,
+    "prob_delta_positive": null,
+    "deflated_sharpe": null,
+    "n_validation_trials_counted": null,
+    "baselines": {
+     "champion": "parent v0 time-series momentum",
+     "buy_and_hold": null,
+     "cash": "Sharpe 0"
+    },
+    "dev_screen": {
+     "candidate_dev_oos_sharpe": -0.03651094454753309,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": false
+    },
+    "adversarial_verdict": "fragile",
+    "adversarial_weaknesses": [
+     "regime_split"
+    ],
+    "eligibility": {
+     "status": "rejected",
+     "why": [
+      "lab verdict 'refuted' (needs 'promote' on the selection data)"
+     ],
+     "validated": false
+    },
+    "exposure_note": "validation results are selection evidence on previously exposed data; never confirmatory"
+   }
+  },
+  {
+   "id": "c20261103T225023794a:simulate:6370c9",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "E4",
+   "kind": "simulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:f0ff87"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.17242050170898438,
+   "llm_calls": 0,
+   "result": {
+    "applicable": false,
+    "why": "breakout is a single-asset statistical mechanism; agent interactions add nothing testable here",
+    "sim_runs": 0
+   }
+  },
+  {
+   "id": "c20261103T225023794a:risk:44e7ad",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "EVALUATE",
+   "role": "F3",
+   "kind": "risk",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:challenge:f0ff87"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 1.5253982543945312,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "max_drawdown": 0.9614454145016602,
+    "daily_var95": 0.046497639657943346,
+    "daily_cvar95": 0.07252688710152737,
+    "worst_day": -0.3251573667441663,
+    "liquidations": 0
+   }
+  },
+  {
+   "id": "c20261103T225023794a:archive:d3b526",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "ARCHIVE",
+   "role": "F2",
+   "kind": "archive",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:stats:eadd39",
+     "c20261103T225023794a:simulate:6370c9",
+     "c20261103T225023794a:risk:44e7ad"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.007642984390258789,
+   "llm_calls": 0,
+   "result": {
+    "hypothesis_id": "H-6cac1a9a4c",
+    "candidate_id": "army-ed1248d972",
+    "status": "rejected",
+    "hypothesis_status": "refuted",
+    "risk": {
+     "period": "development 2020-2023",
+     "max_drawdown": 0.9614454145016602,
+     "daily_var95": 0.046497639657943346,
+     "daily_cvar95": 0.07252688710152737,
+     "worst_day": -0.3251573667441663,
+     "liquidations": 0
+    }
+   }
+  },
+  {
+   "id": "c20261103T225023794a:test_proposal:4ce292",
+   "cycle_id": "c20261103T225023794a",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test_proposal",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225023794a:test:034252"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 2.394319772720337,
+   "llm_calls": 0,
+   "result": {
+    "proposal": "pee2f7d879c",
+    "status": "checks_failed",
+    "files": [
+     "tests/army_generated/test_army_army_ed1248d972.py"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225533972e:discover:7b6ab1",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "DISCOVER",
+   "role": "A1",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 27.364258289337158,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "all:cryptocurrency AND all:\"mean reversion\"",
+     "all:cryptocurrency AND all:\"realized volatility\""
+    ],
+    "returned": 8,
+    "new_sources": [
+     "arxiv:2608.21888v1",
+     "arxiv:2601.13757v1",
+     "arxiv:2109.10662v1",
+     "arxiv:2111.11609v3"
+    ],
+    "backlog_considered": [
+     "arxiv:2508.15922v1",
+     "arxiv:1906.03430v1",
+     "arxiv:2511.20105v1"
+    ],
+    "selected_for_verification": [
+     "arxiv:2608.21888v1",
+     "arxiv:2601.13757v1"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225533972e:discover:c65393",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "DISCOVER",
+   "role": "A2",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 15.3491849899292,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+     "abs:\"perpetual\" AND abs:\"funding rate\""
+    ],
+    "returned": 8,
+    "new_sources": [],
+    "backlog_considered": [
+     "arxiv:1912.03270v1",
+     "arxiv:2209.03307v1",
+     "arxiv:2510.19271v2",
+     "arxiv:2212.07288v2",
+     "arxiv:2610.06690v1",
+     "arxiv:2605.24285v1"
+    ],
+    "selected_for_verification": [
+     "arxiv:2209.03307v1",
+     "arxiv:1912.03270v1"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225533972e:market:868b0a",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "B1",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.006167411804199219,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "ann_vol": 0.6904959778139381,
+    "mean_daily_ret": 0.0012170623148986103,
+    "daily_ret_kurtosis": 35.10164687860536,
+    "max_drawdown": -0.7724232825946648
+   }
+  },
+  {
+   "id": "c20261103T225533972e:market:408116",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "B2",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.009001731872558594,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "funding_events": 4383,
+    "mean_funding_per_event": 0.0001367295163130276,
+    "share_positive": 0.865617157198266,
+    "acf1": 0.7909669461486674
+   }
+  },
+  {
+   "id": "c20261103T225533972e:market:045cbb",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "B3",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.08660292625427246,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "share_high_vol": 0.4996505939902166,
+    "share_trending(|z|>1)": 0.39343116701607267,
+    "regime_switches_high_low": 34
+   }
+  },
+  {
+   "id": "c20261103T225533972e:market:57f586",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "B4",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.011140584945678711,
+   "llm_calls": 0,
+   "result": {
+    "strategy_view_api": [
+     "close",
+     "funding",
+     "high",
+     "low",
+     "open",
+     "t",
+     "time_ms",
+     "volume"
+    ],
+    "forecast_features": [
+     "lrv_24",
+     "lrv_72",
+     "lrv_168",
+     "lrv_720",
+     "ret_24",
+     "ret_168",
+     "ret_720",
+     "absret_24",
+     "range_24",
+     "lvol_ratio",
+     "lsig_ewma"
+    ],
+    "availability": {
+     "strategy": "bar t decided at its close, executed at t+1 open",
+     "forecast": "bars complete before origin - 24 h (archive publication lag)"
+    },
+    "unavailable": [
+     "order book",
+     "trades",
+     "open interest history",
+     "bar timestamps inside BarView"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T225533972e:forecast_watch:0c7b67",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "REASSESS",
+   "role": "F3",
+   "kind": "forecast_watch",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.06708121299743652,
+   "llm_calls": 0,
+   "result": {
+    "resolved": 0,
+    "open": 32,
+    "min_resolved_for_assessment": 30,
+    "alerts": [],
+    "status": {}
+   }
+  },
+  {
+   "id": "c20261103T225533972e:synthesis:9ed0f8",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "FORMULATE",
+   "role": "C4",
+   "kind": "synthesis",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.020711898803710938,
+   "llm_calls": 0,
+   "result": {
+    "decision": "no_synthesis",
+    "why": "0 validated mechanisms; synthesis requires at least 2 independently validated mechanisms (no indicator stacking)"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:control:4e181d",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.01178288459777832,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-33972e",
+    "control": "invalid_strategy",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:control:a5dab3",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.07313656806945801,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-33972e",
+    "control": "out_of_range",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:reassess:9da67d",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "REASSESS",
+   "role": "F4",
+   "kind": "reassess",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": true
+   },
+   "error": null,
+   "wall_s": 0.03995966911315918,
+   "llm_calls": 0,
+   "result": {
+    "cycle_outcomes": [],
+    "duplicates_detected": [
+     {
+      "id": "c20261103T225533972e:novelty:e2acdd",
+      "status": "done",
+      "source_id": "arxiv:2209.03307v1",
+      "family": "funding_carry",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "H-e80e66194b",
+      "earlier_investigations": 2,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     },
+     {
+      "id": "c20261103T225533972e:novelty:d7306d",
+      "status": "done",
+      "source_id": "arxiv:1912.03270v1",
+      "family": "funding_carry",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "H-e80e66194b",
+      "earlier_investigations": 2,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     },
+     {
+      "id": "c20261103T225533972e:novelty:343aab",
+      "status": "done",
+      "source_id": "arxiv:2608.21888v1",
+      "family": "reversal",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "arm_guided/h-g3-t007",
+      "earlier_investigations": 1,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     },
+     {
+      "id": "c20261103T225533972e:novelty:1ac2e4",
+      "status": "done",
+      "source_id": "arxiv:2601.13757v1",
+      "family": "reversal",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "arm_guided/h-g3-t007",
+      "earlier_investigations": 1,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     }
+    ],
+    "infeasible": [],
+    "forecast_monitor": {
+     "resolved": 0,
+     "open": 32,
+     "alerts": []
+    },
+    "promotions": 0,
+    "recommendation": {
+     "id": "accumulate-prospective-forecasts",
+     "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+     "prior_positive": 0.5,
+     "cost_runs": 1,
+     "bits": 1.0,
+     "bits_per_run": 1.0
+    },
+    "ranking": [
+     {
+      "id": "accumulate-prospective-forecasts",
+      "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+      "prior_positive": 0.5,
+      "cost_runs": 1,
+      "bits": 1.0,
+      "bits_per_run": 1.0
+     },
+     {
+      "id": "investigate-vol_managed_long",
+      "why": "implementable family never investigated",
+      "prior_positive": 0.1,
+      "cost_runs": 3,
+      "bits": 0.4689955935892812,
+      "bits_per_run": 0.156
+     }
+    ],
+    "note": "F4 recommends only; eligibility is computed by army/policy.py; priors are explicit judgement inputs"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:test:3e682a",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.005537509918212891,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-33972e",
+    "static_issues": [
+     "line 2: import os not allowed"
+    ],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:test:fd8c3f",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.013416290283203125,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-33972e",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:verify:5c47bd",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 15.373414754867554,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2209.03307v1",
+    "record_refetched": true,
+    "published": "2022-09-07T17:15:07Z",
+    "updated": "2022-09-07T17:15:07Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.4215510",
+     "type": "posted-content",
+     "container": "",
+     "published": [
+      2022
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:novelty:e2acdd",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225533972e:verify:5c47bd"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.014751911163330078,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2209.03307v1",
+    "family": "funding_carry",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "H-e80e66194b",
+    "earlier_investigations": 2,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225533972e:verify:219c08",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 14.269289016723633,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:1912.03270v1",
+    "record_refetched": true,
+    "published": "2019-11-26T09:35:31Z",
+    "updated": "2019-11-26T09:35:31Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.3
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:novelty:d7306d",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225533972e:verify:219c08"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.02542591094970703,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:1912.03270v1",
+    "family": "funding_carry",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "H-e80e66194b",
+    "earlier_investigations": 2,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225533972e:verify:3d3b3e",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 9.217080354690552,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2608.21888v1",
+    "record_refetched": true,
+    "published": "2026-08-22T10:06:04Z",
+    "updated": "2026-08-22T10:06:04Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.267
+    },
+    "evidence": {
+     "grade": "B",
+     "points": 3,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": true,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:novelty:343aab",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225533972e:verify:3d3b3e"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.025930166244506836,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2608.21888v1",
+    "family": "reversal",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "arm_guided/h-g3-t007",
+    "earlier_investigations": 1,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T225533972e:verify:fb441b",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 7.222395420074463,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2601.13757v1",
+    "record_refetched": true,
+    "published": "2026-01-20T09:11:24Z",
+    "updated": "2026-01-20T09:11:24Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.1007/978-3-032-34434-2_38",
+     "type": "book-chapter",
+     "container": "Lecture Notes in Networks and Systems Proceedings of 11th International Congress on Information and Communication Technology",
+     "published": [
+      2027
+     ],
+     "publisher": "Springer Nature Switzerland"
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T225533972e:novelty:1ac2e4",
+   "cycle_id": "c20261103T225533972e",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T225533972e:verify:fb441b"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.030122995376586914,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2601.13757v1",
+    "family": "reversal",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "arm_guided/h-g3-t007",
+    "earlier_investigations": 1,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:discover:400cfa",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "DISCOVER",
+   "role": "A1",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 27.382631540298462,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "all:cryptocurrency AND all:\"realized volatility\"",
+     "all:cryptocurrency AND all:\"mean reversion\""
+    ],
+    "returned": 8,
+    "new_sources": [],
+    "backlog_considered": [
+     "arxiv:2508.15922v1",
+     "arxiv:1906.03430v1",
+     "arxiv:2511.20105v1",
+     "arxiv:2601.13757v1",
+     "arxiv:2109.10662v1",
+     "arxiv:2111.11609v3"
+    ],
+    "selected_for_verification": [
+     "arxiv:2601.13757v1",
+     "arxiv:2508.15922v1"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:discover:02afe9",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "DISCOVER",
+   "role": "A2",
+   "kind": "discover",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 15.599350690841675,
+   "llm_calls": 0,
+   "result": {
+    "queries": [
+     "abs:\"volatility-managed\" OR abs:\"volatility managed portfolio\"",
+     "all:bitcoin AND all:\"order book\""
+    ],
+    "returned": 8,
+    "new_sources": [
+     "arxiv:2101.06236v1",
+     "arxiv:1809.02772v3",
+     "arxiv:2106.02187v2",
+     "arxiv:2010.01241v1"
+    ],
+    "backlog_considered": [
+     "arxiv:2510.19271v2",
+     "arxiv:2212.07288v2",
+     "arxiv:2610.06690v1",
+     "arxiv:2605.24285v1"
+    ],
+    "selected_for_verification": [
+     "arxiv:2010.01241v1",
+     "arxiv:2101.06236v1"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:market:b2b23f",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "B1",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.012001991271972656,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "ann_vol": 0.6904959778139381,
+    "mean_daily_ret": 0.0012170623148986103,
+    "daily_ret_kurtosis": 35.10164687860536,
+    "max_drawdown": -0.7724232825946648
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:market:8d9dc1",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "B2",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.012620687484741211,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "funding_events": 4383,
+    "mean_funding_per_event": 0.0001367295163130276,
+    "share_positive": 0.865617157198266,
+    "acf1": 0.7909669461486674
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:market:22cb0b",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "B3",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.13953232765197754,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "share_high_vol": 0.4996505939902166,
+    "share_trending(|z|>1)": 0.39343116701607267,
+    "regime_switches_high_low": 34
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:market:7fe31c",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "B4",
+   "kind": "market",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.014509916305541992,
+   "llm_calls": 0,
+   "result": {
+    "strategy_view_api": [
+     "close",
+     "funding",
+     "high",
+     "low",
+     "open",
+     "t",
+     "time_ms",
+     "volume"
+    ],
+    "forecast_features": [
+     "lrv_24",
+     "lrv_72",
+     "lrv_168",
+     "lrv_720",
+     "ret_24",
+     "ret_168",
+     "ret_720",
+     "absret_24",
+     "range_24",
+     "lvol_ratio",
+     "lsig_ewma"
+    ],
+    "availability": {
+     "strategy": "bar t decided at its close, executed at t+1 open",
+     "forecast": "bars complete before origin - 24 h (archive publication lag)"
+    },
+    "unavailable": [
+     "order book",
+     "trades",
+     "open interest history",
+     "bar timestamps inside BarView"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:forecast_watch:ab450d",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "REASSESS",
+   "role": "F3",
+   "kind": "forecast_watch",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.04590868949890137,
+   "llm_calls": 0,
+   "result": {
+    "resolved": 0,
+    "open": 32,
+    "min_resolved_for_assessment": 30,
+    "alerts": [],
+    "status": {}
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:synthesis:c878b5",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "FORMULATE",
+   "role": "C4",
+   "kind": "synthesis",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.001230001449584961,
+   "llm_calls": 0,
+   "result": {
+    "decision": "no_synthesis",
+    "why": "0 validated mechanisms; synthesis requires at least 2 independently validated mechanisms (no indicator stacking)"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:control:917fd2",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.008650779724121094,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-3231f5",
+    "control": "invalid_strategy",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:control:c87f3e",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "control",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.01690816879272461,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-3231f5",
+    "control": "out_of_range",
+    "expected": "rejected by D3"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:reassess:8f8154",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "REASSESS",
+   "role": "F4",
+   "kind": "reassess",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": true
+   },
+   "error": null,
+   "wall_s": 0.06385087966918945,
+   "llm_calls": 0,
+   "result": {
+    "cycle_outcomes": [
+     {
+      "candidate_id": "army-42090f1ded",
+      "hypothesis_id": "H-fc291fc13d",
+      "status": "rejected",
+      "hypothesis_status": "not_supported"
+     }
+    ],
+    "duplicates_detected": [
+     {
+      "id": "c20261103T22573231f5:novelty:3242c5",
+      "status": "done",
+      "source_id": "arxiv:2508.15922v1",
+      "family": "vol_managed_long",
+      "decision": "duplicate_mechanism",
+      "duplicate_of": "H-fc291fc13d",
+      "earlier_investigations": 1,
+      "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+      "near_duplicate_sources": []
+     }
+    ],
+    "infeasible": [
+     {
+      "id": "c20261103T22573231f5:novelty:15ea6d",
+      "status": "done",
+      "source_id": "arxiv:2010.01241v1",
+      "family": "microstructure",
+      "decision": "infeasible",
+      "why": "needs order-book / trade data; only 1 h bars are available"
+     },
+     {
+      "id": "c20261103T22573231f5:novelty:708b7f",
+      "status": "done",
+      "source_id": "arxiv:2101.06236v1",
+      "family": "microstructure",
+      "decision": "infeasible",
+      "why": "needs order-book / trade data; only 1 h bars are available"
+     }
+    ],
+    "forecast_monitor": {
+     "resolved": 0,
+     "open": 32,
+     "alerts": []
+    },
+    "promotions": 0,
+    "recommendation": {
+     "id": "accumulate-prospective-forecasts",
+     "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+     "prior_positive": 0.5,
+     "cost_runs": 1,
+     "bits": 1.0,
+     "bits_per_run": 1.0
+    },
+    "ranking": [
+     {
+      "id": "accumulate-prospective-forecasts",
+      "why": "0 of 180 required resolved forecasts exist; this is the only independent evidence",
+      "prior_positive": 0.5,
+      "cost_runs": 1,
+      "bits": 1.0,
+      "bits_per_run": 1.0
+     },
+     {
+      "id": "regime-conditional-army-42090f1ded",
+      "why": "effect differs by volatility regime (development)",
+      "prior_positive": 0.15,
+      "cost_runs": 2,
+      "bits": 0.6098403047164004,
+      "bits_per_run": 0.305
+     }
+    ],
+    "note": "F4 recommends only; eligibility is computed by army/policy.py; priors are explicit judgement inputs"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:test:57d352",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00948190689086914,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-invalid_strategy-3231f5",
+    "static_issues": [
+     "line 2: import os not allowed"
+    ],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:test:595466",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "rejected",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.01049494743347168,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "control-out_of_range-3231f5",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "rejected"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:verify:727065",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 14.409385204315186,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2010.01241v1",
+    "record_refetched": true,
+    "published": "2020-10-03T00:57:27Z",
+    "updated": "2020-10-03T00:57:27Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.2139/ssrn.3704098",
+     "type": "posted-content",
+     "container": "",
+     "published": [
+      2020
+     ],
+     "publisher": "Elsevier BV"
+    },
+    "evidence": {
+     "grade": "C",
+     "points": 1,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": true,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:novelty:15ea6d",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:verify:727065"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.003957271575927734,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2010.01241v1",
+    "family": "microstructure",
+    "decision": "infeasible",
+    "why": "needs order-book / trade data; only 1 h bars are available"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:verify:5d8089",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 14.575312614440918,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2101.06236v1",
+    "record_refetched": true,
+    "published": "2021-01-15T17:47:00Z",
+    "updated": "2021-01-15T17:47:00Z",
+    "crossref": {
+     "matched": false,
+     "similarity": 0.429
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:novelty:708b7f",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:verify:5d8089"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.003688335418701172,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2101.06236v1",
+    "family": "microstructure",
+    "decision": "infeasible",
+    "why": "needs order-book / trade data; only 1 h bars are available"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:verify:44b283",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 8.379190444946289,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2601.13757v1",
+    "record_refetched": true,
+    "published": "2026-01-20T09:11:24Z",
+    "updated": "2026-01-20T09:11:24Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.1007/978-3-032-34434-2_38",
+     "type": "book-chapter",
+     "container": "Lecture Notes in Networks and Systems Proceedings of 11th International Congress on Information and Communication Technology",
+     "published": [
+      2027
+     ],
+     "publisher": "Springer Nature Switzerland"
+    },
+    "evidence": {
+     "grade": "D",
+     "points": 0,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": false,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:novelty:6f2e25",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:verify:44b283"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.015105247497558594,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2601.13757v1",
+    "family": "vol_managed_long",
+    "decision": "novel",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:verify:d3e43f",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "VERIFY",
+   "role": "A3",
+   "kind": "verify",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 8.76340651512146,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2508.15922v1",
+    "record_refetched": true,
+    "published": "2025-08-21T18:42:11Z",
+    "updated": "2025-08-21T18:42:11Z",
+    "crossref": {
+     "matched": true,
+     "similarity": 1.0,
+     "doi": "10.1109/dsaa65442.2025.11248015",
+     "type": "proceedings-article",
+     "container": "2025 IEEE 12th International Conference on Data Science and Advanced Analytics (DSAA)",
+     "published": [
+      2025,
+      10,
+      9
+     ],
+     "publisher": "IEEE"
+    },
+    "evidence": {
+     "grade": "C",
+     "points": 1,
+     "peer_reviewed": false,
+     "flags": {
+      "out_of_sample": false,
+      "costs": false,
+      "data_period": false,
+      "statistical_test": true,
+      "crypto": true
+     },
+     "marketing_language": false,
+     "note": "deterministic rubric over metadata and abstract; it does not replicate the paper's results"
+    },
+    "classification": "verified_source",
+    "claim_status": "claimed (abstract-level), not replicated"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:novelty:3242c5",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "UNDERSTAND",
+   "role": "A4",
+   "kind": "novelty",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:verify:d3e43f"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.028873682022094727,
+   "llm_calls": 0,
+   "result": {
+    "source_id": "arxiv:2508.15922v1",
+    "family": "vol_managed_long",
+    "decision": "duplicate_mechanism",
+    "duplicate_of": "H-fc291fc13d",
+    "earlier_investigations": 1,
+    "reexamination_rule": "allowed only with a recorded reason: new data period, changed market conditions or new evidence",
+    "near_duplicate_sources": []
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:gap_proposal:1d9d6c",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D1",
+   "kind": "gap_proposal",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0004477500915527344,
+   "llm_calls": 0,
+   "result": {
+    "family": "microstructure",
+    "decision": "recorded_data_gap",
+    "why": "needs order-book / trade data; only 1 h bars are available"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:gap_proposal:36244f",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D1",
+   "kind": "gap_proposal",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00029087066650390625,
+   "llm_calls": 0,
+   "result": {
+    "family": "microstructure",
+    "decision": "recorded_data_gap",
+    "why": "needs order-book / trade data; only 1 h bars are available"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:formulate:44ecc9",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "FORMULATE",
+   "role": "C3",
+   "kind": "formulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:market:b2b23f",
+     "c20261103T22573231f5:market:8d9dc1",
+     "c20261103T22573231f5:market:22cb0b",
+     "c20261103T22573231f5:market:7fe31c"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 26.517942905426025,
+   "llm_calls": 1,
+   "result": {
+    "hypothesis_id": "H-fc291fc13d",
+    "decision": "formulated",
+    "hypothesis": {
+     "family": "vol_managed_long",
+     "claimed_mechanism": "(from source, unverified) The application of the standard static Geometric Brownian Motion (GBM) model for cryptocurrency risk management resulted in a systemic failure, evidenced by a 80.67% chance of loss in the 5% value-at-risk benchmark. This study addresses a critical literature gap by comparatively testing three conditional volatility models the EWMA/IGARCH baseline, an IGARCH model augmented with explicit mean reversion (IGARCH + MR), and a modified EGARCH-style asymmetric shock model within a correlated Monte Car",
+     "statement": "Scaling long BTC exposure inversely to trailing realized volatility improves risk-adjusted return versus constant exposure.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 336,
+     "params": {
+      "lookback_h": 336.0,
+      "target_vol": 0.4
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "vol_managed_long|medium|long_only",
+     "source_id": "arxiv:2601.13757v1",
+     "generator": "deterministic-template (LLM fallback: invalid output: 2 validation errors for HypothesisOut\nclaimed_mechanism\n  String should have at most 800 characters [type=string_too_long, input_value='The source reports that ... our own extrapolation.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long\nlimitation)",
+     "llm": {
+      "used_llm": true,
+      "rc": 0,
+      "wall_s": 26.43,
+      "cost_usd_api_equivalent": 0.107816,
+      "models": [
+       "claude-opus-5-5"
+      ],
+      "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+      "reason": "invalid output: 2 validation errors for HypothesisOut\nclaimed_mechanism\n  String should have at most 800 characters [type=string_too_long, input_value='The source reports that ... our own extrapolation.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long\nlimitation",
+      "raw": "{\"family\":\"vol_managed_long\",\"claimed_mechanism\":\"The source reports that cryptocurrency conditional volatility behaves like EWMA/IGARCH: shocks to volatility are highly persistent (alpha+beta\u22481), and models that assume mean reversion or leverage asymmetry fit worse. If BTC volatility is also highly persistent at the hourly scale, then recent realized volatility is a good forecast of near-future volatility. Expected returns, however, should not rise in proportion to that volatility. So scaling a"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "decisions see only closed bars via the view API",
+       "check": {
+        "type": "view_api",
+        "method": "close",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "decisions are executed at the next bar's open",
+       "check": {
+        "type": "engine_feature",
+        "feature": "next_open_execution",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1"
+    },
+    "next": [
+     "c20261103T22573231f5:contract:ce369a",
+     "c20261103T22573231f5:render:b56562"
+    ]
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:contract:ce369a",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D1",
+   "kind": "contract",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0005941390991210938,
+   "llm_calls": 0,
+   "result": {
+    "ok": true,
+    "hypothesis": {
+     "family": "vol_managed_long",
+     "claimed_mechanism": "(from source, unverified) The application of the standard static Geometric Brownian Motion (GBM) model for cryptocurrency risk management resulted in a systemic failure, evidenced by a 80.67% chance of loss in the 5% value-at-risk benchmark. This study addresses a critical literature gap by comparatively testing three conditional volatility models the EWMA/IGARCH baseline, an IGARCH model augmented with explicit mean reversion (IGARCH + MR), and a modified EGARCH-style asymmetric shock model within a correlated Monte Car",
+     "statement": "Scaling long BTC exposure inversely to trailing realized volatility improves risk-adjusted return versus constant exposure.",
+     "decision_rule": "def signal(view, p):",
+     "horizon_h": 336,
+     "params": {
+      "lookback_h": 336.0,
+      "target_vol": 0.4
+     },
+     "alternatives": [
+      "the effect is a development-period artefact",
+      "the effect is beta to BTC rather than timing skill",
+      "costs and delay remove the effect"
+     ],
+     "prediction": "refuted if the development walk-forward screen fails, the adversarial battery finds a hard failure, or the frozen selection rule is not met",
+     "data_requirements": "BTCUSDT 1 h OHLCV (+ funding for funding_carry)",
+     "limitations": "abstract-level claim; paper results not replicated",
+     "signature": "vol_managed_long|medium|long_only",
+     "source_id": "arxiv:2601.13757v1",
+     "generator": "deterministic-template (LLM fallback: invalid output: 2 validation errors for HypothesisOut\nclaimed_mechanism\n  String should have at most 800 characters [type=string_too_long, input_value='The source reports that ... our own extrapolation.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long\nlimitation)",
+     "llm": {
+      "used_llm": true,
+      "rc": 0,
+      "wall_s": 26.43,
+      "cost_usd_api_equivalent": 0.107816,
+      "models": [
+       "claude-opus-5-5"
+      ],
+      "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+      "reason": "invalid output: 2 validation errors for HypothesisOut\nclaimed_mechanism\n  String should have at most 800 characters [type=string_too_long, input_value='The source reports that ... our own extrapolation.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long\nlimitation",
+      "raw": "{\"family\":\"vol_managed_long\",\"claimed_mechanism\":\"The source reports that cryptocurrency conditional volatility behaves like EWMA/IGARCH: shocks to volatility are highly persistent (alpha+beta\u22481), and models that assume mean reversion or leverage asymmetry fit worse. If BTC volatility is also highly persistent at the hourly scale, then recent realized volatility is a good forecast of near-future volatility. Expected returns, however, should not rise in proportion to that volatility. So scaling a"
+     },
+     "premises": [
+      {
+       "id": "P1",
+       "claim": "decisions see only closed bars via the view API",
+       "check": {
+        "type": "view_api",
+        "method": "close",
+        "expect": "present"
+       }
+      },
+      {
+       "id": "P2",
+       "claim": "decisions are executed at the next bar's open",
+       "check": {
+        "type": "engine_feature",
+        "feature": "next_open_execution",
+        "expect": "present"
+       }
+      }
+     ],
+     "information_availability": "decision at bar close from closed bars only; executed at next open; funding as published per bar",
+     "costs": "lab cost model: taker fees, spread, square-root impact, funding (cost_multiplier 1, stress 2-3x)",
+     "risk": "signal in [-1, 1] times engine max leverage 2x; vol_managed_long capped at 1x notional",
+     "evaluation": "frozen research protocol v2 + army policy v1",
+     "id": "H-fc291fc13d"
+    }
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:render:b56562",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "IMPLEMENT",
+   "role": "D2",
+   "kind": "render",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:contract:ce369a"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.026088714599609375,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-42090f1ded",
+    "code_sha256": "42090f1dedc479eecd3fca112849bc96347745e57926f213843dfc3e38255a30",
+    "path": "artifacts/army/candidates/army-42090f1ded.py"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:test:25ec28",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.09896421432495117,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-42090f1ded",
+    "static_issues": [],
+    "deterministic_replay": true,
+    "truncation_mismatch_bars": [],
+    "verdict": "passed"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:security:581e72",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "TEST",
+   "role": "D4",
+   "kind": "security",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.1498699188232422,
+   "llm_calls": 0,
+   "result": {
+    "sandbox_available": true,
+    "source_bytes": 822,
+    "decision_ms_per_1000_bars": 23.43,
+    "imports": [
+     "math",
+     "numpy"
+    ],
+    "note": "the research lab re-runs the candidate inside its namespace sandbox during EVALUATE"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:challenge:536c37",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "CHALLENGE",
+   "role": "E3",
+   "kind": "challenge",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:test:25ec28",
+     "c20261103T22573231f5:security:581e72"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 29.463756561279297,
+   "llm_calls": 1,
+   "result": {
+    "period": "development 2020-2023 (free exploration)",
+    "tests": {
+     "valid_decisions": {
+      "ok": true,
+      "hard_failure": false
+     },
+     "causality_truncation_probe": {
+      "ok": true,
+      "hard_failure": false,
+      "mismatched_bars": [],
+      "probes": 25
+     },
+     "cost_stress": {
+      "sharpe_1x": 0.6005774329501561,
+      "sharpe_2x": 0.5953330793308366,
+      "sharpe_3x": 0.5895501943343463,
+      "ok": true,
+      "hard_failure": false
+     },
+     "one_bar_delay": {
+      "sharpe": 0.6040993480465354,
+      "ok": true,
+      "hard_failure": false
+     },
+     "parameter_neighbourhood": {
+      "sharpe": {
+       "lookback_hx0.5": 0.6966407040624756,
+       "lookback_hx2.0": 0.607184534987526,
+       "target_volx0.5": 0.7426656642432471,
+       "target_volx2.0": 0.5967465313479308
+      },
+      "ok": true,
+      "hard_failure": false
+     },
+     "regime_split": {
+      "sharpe": {
+       "high_vol": 1.0084698478512892,
+       "low_vol": -0.09581705663869339
+      },
+      "ok": false,
+      "hard_failure": false
+     },
+     "block_shuffle_placebo": {
+      "placebo_sharpes": [
+       0.7164532785635158,
+       0.60811667661851,
+       0.3693194810434136,
+       0.7254021569937311,
+       0.649740912821964,
+       0.7537986794832733,
+       0.8566033885274663,
+       0.8362547309882232
+      ],
+      "q90": 0.8423593282499962,
+      "candidate": 0.6005774329501561,
+      "ok": false,
+      "hard_failure": false
+     },
+     "exposure": {
+      "mean_abs_exposure_x_engine_max": 0.3569253266202518,
+      "max_abs": 0.5,
+      "buy_and_hold_1x_sharpe_same_period": 0.7819613337487598,
+      "ok": true,
+      "hard_failure": false
+     }
+    },
+    "hard_failures": [],
+    "weaknesses": [
+     "regime_split",
+     "block_shuffle_placebo"
+    ],
+    "verdict": "fragile",
+    "llm_critique": null,
+    "llm": {
+     "used_llm": true,
+     "rc": 0,
+     "wall_s": 19.72,
+     "cost_usd_api_equivalent": 0.056144200000000005,
+     "models": [
+      "claude-opus-5-5"
+     ],
+     "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+     "reason": "invalid output: 1 validation error for CritiqueOut\nadditional_test\n  String should have at most 600 characters [type=string_too_long, input_value=\"Matched-exposure benchma...tive alpha after costs.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_too_long",
+     "raw": "{\"concerns\": [\"Fails its own null: the block-shuffle placebo q90 Sharpe (0.842) beats the candidate (0.601), so timing information in the vol-scaling cannot be told apart from random structure-preserving reorderings. The edge is not statistically supported.\", \"Underperforms the trivial benchmark: buy-and-hold at 1x has a Sharpe of 0.782 over the same period, against 0.601 for the strategy. The hypothesis claims better risk-adjusted return than constant exposure, and the dev data contradicts it u"
+    }
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:evaluate:cc830a",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "EVALUATE",
+   "role": "E1",
+   "kind": "evaluate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:challenge:536c37"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 12.188752174377441,
+   "llm_calls": 0,
+   "result": {
+    "lab": "artifacts/research/army_v06",
+    "campaign": "army-army-42090f1ded",
+    "task_status": "done",
+    "error": null,
+    "verdict": "inconclusive",
+    "classification": "insufficient_evidence",
+    "premise_check": "accepted",
+    "screen": {
+     "candidate_dev_oos_sharpe": 0.04370795043883784,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": true
+    },
+    "decision": {
+     "verdict": "inconclusive",
+     "checks": {
+      "effect_size": true,
+      "prob_improvement": false,
+      "drawdown": true,
+      "cost_robustness": true,
+      "deflated_sharpe": false
+     },
+     "bootstrap": {
+      "delta_sharpe": 1.0221632919952357,
+      "prob_positive": 0.893,
+      "ci90_lo": -0.4420557589676042,
+      "ci90_hi": 2.452011520980032,
+      "ci95_lo": -0.7516357769972114,
+      "ci95_hi": 2.635731713781227,
+      "resamples": 2000,
+      "mean_block": 10
+     },
+     "dsr": {
+      "dsr": 0.4856408573320447,
+      "sr0": 0.05573345189283946,
+      "z": -0.036000808022976984
+     },
+     "n_validation_trials": 54,
+     "candidate_sharpe": 1.0358081342788052,
+     "champion_sharpe": 0.013644842283569453,
+     "common_days": 546
+    },
+    "validation_summary": {
+     "candidate": 1.0358081342788052,
+     "champion": 0.013644842283569453,
+     "candidate_mdd": 0.3216636234639896,
+     "champion_mdd": 0.619269717226437,
+     "reference_buy_and_hold": {
+      "exposure": 0.5,
+      "vol_match_scale": 0.6677765400096612,
+      "sharpe": 0.6644966370359955,
+      "max_drawdown_vol_matched": 0.36590758608906504
+     }
+    },
+    "data_labels": {
+     "development": "free exploration",
+     "validation": "SELECTION - previously exposed, not confirmatory"
+    }
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:stats:f84358",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "EVALUATE",
+   "role": "E2",
+   "kind": "stats",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:evaluate:cc830a"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.0019762516021728516,
+   "llm_calls": 0,
+   "result": {
+    "candidate_id": "army-42090f1ded",
+    "lab_verdict": "inconclusive",
+    "selection_rule_checks": {
+     "effect_size": true,
+     "prob_improvement": false,
+     "drawdown": true,
+     "cost_robustness": true,
+     "deflated_sharpe": false
+    },
+    "delta_sharpe_vs_champion": 1.0221632919952357,
+    "prob_delta_positive": 0.893,
+    "deflated_sharpe": 0.4856408573320447,
+    "n_validation_trials_counted": 54,
+    "baselines": {
+     "champion": "parent v0 time-series momentum",
+     "buy_and_hold": {
+      "exposure": 0.5,
+      "vol_match_scale": 0.6677765400096612,
+      "sharpe": 0.6644966370359955,
+      "max_drawdown_vol_matched": 0.36590758608906504
+     },
+     "cash": "Sharpe 0"
+    },
+    "dev_screen": {
+     "candidate_dev_oos_sharpe": 0.04370795043883784,
+     "champion_dev_oos_sharpe": -0.010269482409153038,
+     "passed": true
+    },
+    "adversarial_verdict": "fragile",
+    "adversarial_weaknesses": [
+     "regime_split",
+     "block_shuffle_placebo"
+    ],
+    "eligibility": {
+     "status": "rejected",
+     "why": [
+      "lab verdict 'inconclusive' (needs 'promote' on the selection data)"
+     ],
+     "validated": false
+    },
+    "exposure_note": "validation results are selection evidence on previously exposed data; never confirmatory"
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:simulate:76f26c",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "EVALUATE",
+   "role": "E4",
+   "kind": "simulate",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:challenge:536c37"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00044608116149902344,
+   "llm_calls": 0,
+   "result": {
+    "applicable": false,
+    "why": "vol_managed_long is a single-asset statistical mechanism; agent interactions add nothing testable here",
+    "sim_runs": 0
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:risk:0abf77",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "EVALUATE",
+   "role": "F3",
+   "kind": "risk",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:challenge:536c37"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.8578121662139893,
+   "llm_calls": 0,
+   "result": {
+    "period": "development 2020-2023",
+    "max_drawdown": 0.6760351145562329,
+    "daily_var95": 0.03118471010683258,
+    "daily_cvar95": 0.05371434284063776,
+    "worst_day": -0.24189074317365933,
+    "liquidations": 0
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:archive:ce2d9c",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "ARCHIVE",
+   "role": "F2",
+   "kind": "archive",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:stats:f84358",
+     "c20261103T22573231f5:simulate:76f26c",
+     "c20261103T22573231f5:risk:0abf77"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 0.00899362564086914,
+   "llm_calls": 0,
+   "result": {
+    "hypothesis_id": "H-fc291fc13d",
+    "candidate_id": "army-42090f1ded",
+    "status": "rejected",
+    "hypothesis_status": "not_supported",
+    "risk": {
+     "period": "development 2020-2023",
+     "max_drawdown": 0.6760351145562329,
+     "daily_var95": 0.03118471010683258,
+     "daily_cvar95": 0.05371434284063776,
+     "worst_day": -0.24189074317365933,
+     "liquidations": 0
+    }
+   }
+  },
+  {
+   "id": "c20261103T22573231f5:test_proposal:5b2f22",
+   "cycle_id": "c20261103T22573231f5",
+   "stage": "TEST",
+   "role": "D3",
+   "kind": "test_proposal",
+   "status": "done",
+   "attempts": 1,
+   "deps": {
+    "deps": [
+     "c20261103T22573231f5:test:25ec28"
+    ],
+    "barrier": false
+   },
+   "error": null,
+   "wall_s": 1.585433006286621,
+   "llm_calls": 0,
+   "result": {
+    "proposal": "pd456df9b0d",
+    "status": "pending_human_review",
+    "files": [
+     "tests/army_generated/test_army_army_42090f1ded.py"
+    ]
+   }
+  }
+ ],
+ "proposals": [
+  {
+   "id": "p8a9a954ac8",
+   "author_role": "D3",
+   "title": "Regression test for army-b36c67c040",
+   "rationale": "pin the template rendering used by this candidate",
+   "files": [
+    "tests/army_generated/test_army_army_b36c67c040.py"
+   ],
+   "tests": [
+    "tests/army_generated/test_army_army_b36c67c040.py"
+   ],
+   "created_utc": "2026-11-03T22:50:55+00:00",
+   "merged": false,
+   "status": "checks_failed",
+   "checks": [
+    {
+     "cmd": "git worktree add --detach",
+     "rc": 0,
+     "tail": "HEAD is now at 1e9e81d stage A stabilization: API anchored to repo root (diagnosed cause of the /api/forecast/evolution 404), regression tests for the forecast corrections\nPreparing worktree (detached HEAD 1e9e81d)\n"
+    },
+    {
+     "cmd": "git apply --check proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "git apply proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/ruff check src tests",
+     "rc": 1,
+     "tail": "I001 [*] Import block is un-sorted or un-formatted\n --> tests/army_generated/test_army_army_b36c67c040.py:3:1\n  |\n1 |   \"\"\"Generated by role D3 for army-b36c67c040: template 'funding_carry' renders deterministically and passes the contract.\"\"\"\n2 |\n3 | / from evolutionx.army import mechanisms as M\n4 | | from evolutionx.research.contract import static_check\n  | |_____________________________________________________^\nhelp: Organize imports\n  |\n3 | from evolutionx.army import mechanisms as M\n4 +\n5 | from evolutionx.research.contract import static_check\n  |\n\nFound 1 error.\n[*] 1 fixable with `--fix`.\n"
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/pytest -q -p no:cacheprovider",
+     "rc": 2,
+     "tail": "\n==================================== ERRORS ====================================\n______ ERROR collecting tests/army_generated/test_army_army_b36c67c040.py ______\nImportError while importing test module '/tmp/evox-proposal-ts9urp51/tests/army_generated/test_army_army_b36c67c040.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/local/lib/python3.13/importlib/__init__.py:88: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/army_generated/test_army_army_b36c67c040.py:3: in <module>\n    from evolutionx.army import mechanisms as M\nE   ModuleNotFoundError: No module named 'evolutionx.army'\n=========================== short test summary info ============================\nERROR tests/army_generated/test_army_army_b36c67c040.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n"
+    }
+   ]
+  },
+  {
+   "id": "pd456df9b0d",
+   "author_role": "D3",
+   "title": "Regression test for army-42090f1ded",
+   "rationale": "pin the template rendering used by this candidate",
+   "files": [
+    "tests/army_generated/test_army_army_42090f1ded.py"
+   ],
+   "tests": [
+    "tests/army_generated/test_army_army_42090f1ded.py"
+   ],
+   "created_utc": "2026-11-03T22:58:35+00:00",
+   "merged": false,
+   "status": "pending_human_review",
+   "checks": [
+    {
+     "cmd": "git worktree add --detach",
+     "rc": 0,
+     "tail": "HEAD is now at c7f7f04 army: classifier fix (volatility mean reversion != price reversal) with journaled source reclassification; serial novelty/formulate; duplicate check before any LLM call\nPreparing worktree (detached HEAD c7f7f04)\n"
+    },
+    {
+     "cmd": "git apply --check proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "git apply proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/ruff check src tests",
+     "rc": 0,
+     "tail": "All checks passed!\n"
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/pytest -q -p no:cacheprovider",
+     "rc": 0,
+     "tail": ".                                                                        [100%]\n"
+    }
+   ]
+  },
+  {
+   "id": "pee2f7d879c",
+   "author_role": "D3",
+   "title": "Regression test for army-ed1248d972",
+   "rationale": "pin the template rendering used by this candidate",
+   "files": [
+    "tests/army_generated/test_army_army_ed1248d972.py"
+   ],
+   "tests": [
+    "tests/army_generated/test_army_army_ed1248d972.py"
+   ],
+   "created_utc": "2026-11-03T22:51:02+00:00",
+   "merged": false,
+   "status": "checks_failed",
+   "checks": [
+    {
+     "cmd": "git worktree add --detach",
+     "rc": 0,
+     "tail": "HEAD is now at 1e9e81d stage A stabilization: API anchored to repo root (diagnosed cause of the /api/forecast/evolution 404), regression tests for the forecast corrections\nPreparing worktree (detached HEAD 1e9e81d)\n"
+    },
+    {
+     "cmd": "git apply --check proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "git apply proposal.diff",
+     "rc": 0,
+     "tail": ""
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/ruff check src tests",
+     "rc": 1,
+     "tail": "I001 [*] Import block is un-sorted or un-formatted\n --> tests/army_generated/test_army_army_ed1248d972.py:3:1\n  |\n1 |   \"\"\"Generated by role D3 for army-ed1248d972: template 'breakout' renders deterministically and passes the contract.\"\"\"\n2 |\n3 | / from evolutionx.army import mechanisms as M\n4 | | from evolutionx.research.contract import static_check\n  | |_____________________________________________________^\nhelp: Organize imports\n  |\n3 | from evolutionx.army import mechanisms as M\n4 +\n5 | from evolutionx.research.contract import static_check\n  |\n\nFound 1 error.\n[*] 1 fixable with `--fix`.\n"
+    },
+    {
+     "cmd": "/home/user/evolution-x/.venv/bin/pytest -q -p no:cacheprovider",
+     "rc": 2,
+     "tail": "\n==================================== ERRORS ====================================\n______ ERROR collecting tests/army_generated/test_army_army_ed1248d972.py ______\nImportError while importing test module '/tmp/evox-proposal-dylcgnmg/tests/army_generated/test_army_army_ed1248d972.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/local/lib/python3.13/importlib/__init__.py:88: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/army_generated/test_army_army_ed1248d972.py:3: in <module>\n    from evolutionx.army import mechanisms as M\nE   ModuleNotFoundError: No module named 'evolutionx.army'\n=========================== short test summary info ============================\nERROR tests/army_generated/test_army_army_ed1248d972.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n"
+    }
+   ]
+  }
+ ],
+ "journal_verify": {
+  "ok": true,
+  "entries": 116,
+  "head": "ef0fd4ef5a715d431b38769602f0561318513f8822e35557137dc6b0ce066013"
+ }
+}

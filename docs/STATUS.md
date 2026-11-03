@@ -1,3 +1,47 @@
+# Status: v0.6 research army (2026-11-03)
+
+A 24-role research organization now runs durable, restartable research cycles: DISCOVER → VERIFY → UNDERSTAND →
+FORMULATE → IMPLEMENT → TEST → CHALLENGE → EVALUATE → ARCHIVE → REASSESS. It builds on the existing research
+lab, memory, forecasting engine and simulator. Details, roles and limitations are in `docs/ARMY.md`.
+
+**Headline: 3 cycles, 3 mechanisms evaluated, 0 promotions, 0 validated improvements.** No trading code exists.
+
+### Stage A: stabilization (`1e9e81d`)
+- **Verified in the committed code:**
+  - raw and scored forecast series;
+  - realized-vol Holm family of 2 tests;
+  - quantile levels;
+  - abstention rule 4 on resolved ledger forecasts;
+  - header text.
+- **Evolution 404 reproduced and diagnosed.** Artifact routes resolved relative to the server's working directory, so a server started from another directory answered 404 everywhere. The app now anchors to the repo root, and `/api/health` reports paths. The original report itself predates the artifact (written 21:45:26).
+- **Tests:** 3 new regressions.
+
+### Research cycles
+
+| Cycle | Evaluated | Outcome |
+|---|---|---|
+| 1 (LLM off) | funding carry, breakout | both **refuted** by the lab's frozen rule. Trend paper = duplicate of 59 earlier hypotheses. 2 planted invalid strategies rejected |
+| 2 | — | all 4 sources were duplicates (deduplication against memory works). One rejection came from a **classifier error**, found and fixed. The source was re-opened with a journaled reason |
+| 3 | volatility-managed long | **inconclusive**. Selection Sharpe 1.04 vs 0.66 vol-matched buy-and-hold, but P = 0.89 and DSR 0.49 fail the frozen rule (54 trials counted). The adversarial placebo says it is mostly BTC beta. 2 order-book papers declared infeasible. A regression-test proposal passed isolated-worktree checks and awaits human review |
+
+- **External sources that work:** arXiv and Crossref. Semantic Scholar, OpenAlex, SSRN and GitHub are blocked or rate-limited here.
+- **LLM:** 2 real calls, $0.164 API-equivalent (estimate).
+  - Both answers were lost to over-strict schema caps; the deterministic fallback was used. Fixed afterwards.
+  - The affected hypothesis was not re-run, to avoid outcome-driven retesting.
+- **Prospective evidence:** 32 forecasts open, 0 resolved. Each cycle now resolves and issues forecasts and monitors drift.
+
+### Tests
+- `tests/test_army.py`, 19 tests:
+  - roles, eligibility, context scrubbing and protected paths;
+  - untrusted XML and injection handling; LLM output cannot set a status; truncation;
+  - templates, classifier fix, adversarial hard failure;
+  - the orchestrator: DAG, retry, failure propagation, barrier, pause/stop, crash recovery, tick;
+  - code proposals: protected path blocked, real worktree check;
+  - paper ledger and drift alert.
+- Full suite: 160 passed; pyright 0 errors.
+
+---
+
 # Status: predictive intelligence foundation (2026-11-03)
 
 The project's top-level objective is now **out-of-sample predictive skill, calibration and reliability of

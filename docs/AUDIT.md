@@ -167,3 +167,22 @@ The reuse audit is in `docs/FORECASTING.md`. Requirements of the mission:
 | 13 | Abstention | 4 rules plus a stale-data rule at issue time; abstention scored as climatology | — | executed |
 | 14 | Dashboard | `/api/forecast/*`, `web/src/app/forecast` | `make dev` | see delivery message |
 | — | Holdouts | SOL/BNB vault never read; consumed BTC/ETH split labelled CONSUMED, never fresh | `grep -rn vault_v2 src/evolutionx/forecast` | verified |
+
+## v0.6 research army (2026-11-03)
+
+| Requirement | Implementation | Command | Status |
+|---|---|---|---|
+| Stage A fixes verified; 404 diagnosed | `api/paths.py`, tests in `tests/test_forecast.py` | `curl /api/health` | verified |
+| 24 roles, on-demand activation | `army/roles.py`, `army/stages.py` | `GET /api/army/roles` | implemented (honest impl labels) |
+| Durable, restartable pipeline: queues, scheduling, cancellation, checkpoints, retries, budgets, dedup, priorities, progress | `army/orchestrator.py`, `army/store.py` | `evox army run` / `tick` / `pause` / `stop` / `resume` | executed (3 cycles); verified (tests) |
+| Controlled research ingestion with provenance | `army/sources.py` | — | arXiv + Crossref work; others disabled with reasons |
+| Untrusted content cannot instruct agents | delimiting, schemas, allow-lists | `pytest tests/test_army.py -k "untrusted or llm_output"` | verified |
+| Knowledge memory reuses the existing memory | research `Memory` schema + graph tables | `GET /api/army/memory`, `/graph`, `/lineage/{id}` | executed |
+| Duplicate mechanisms recognized; failed ideas remembered; re-examination possible | `army/mechanisms.py`, `reclassify_sources` | — | executed (6 duplicates, 1 reclassification) |
+| No future or protected results in researcher context | `policy.scrub_context` | test | verified |
+| Strategy evolution: templates, lineage, champion/challenger, baselines | `army/mechanisms.py`, E1 via `research/supervisor.py` | — | executed: 3 candidates, 0 promotions |
+| Overfitting protection | lab walk-forward, all-lab trial count (54), DSR, block bootstrap, adversarial battery, exposure labels | — | executed |
+| Read-only live observation and drift trigger | `army/drift.py`, `forecast_live` | — | executed (0 resolved yet) |
+| Self-evolving code in isolated workspaces, human merge | `army/codeprop.py` | — | executed (1 pending review); protected-path block tested |
+| Dashboard `/research-army` | `api/army_routes.py`, `web/src/app/research-army` | `make dev` | see delivery message |
+| No trading, no holdout access | no order code; `vault_v2` never read | `grep -rn "vault_v2" src/evolutionx/army` | verified |
