@@ -168,8 +168,12 @@ class Simulation:
                 c[5] += 1
         self._trade_cursor = len(trades)
 
-    def observe(self, a: Agent, t: int) -> Observation | None:
-        """Build the agent's legitimate view of the world at time t."""
+    def observe(self, a: Agent, t: int, peek: bool = False) -> Observation | None:
+        """Build the agent's legitimate view of the world at time t.
+
+        peek=True is a side-effect-free inspection (dashboard): it neither consumes
+        news nor draws from the agent's RNG, so inspecting never perturbs a run.
+        """
         data_t = t - a.md_latency_ms
         snap = self.feed.as_of(data_t)
         if snap is None:
@@ -184,9 +188,12 @@ class Simulation:
                 news.append(n)
         if news:
             news.reverse()
-            a.last_news_t = news[-1].t
+            if not peek:
+                a.last_news_t = news[-1].t
         fundamental = None
-        if a.memory.get("research"):
+        if peek and a.memory.get("research"):
+            fundamental = float("nan")  # exists, but value is private to the agent's own decision step
+        elif a.memory.get("research"):
             # persistent private belief error: AR(1) with ~5 min half-life (heterogeneous beliefs)
             noise_bps = a.params.get("info_noise_bps", 20.0)
             e = a.memory.get("belief_err", a.rng.gauss(0, 1))
