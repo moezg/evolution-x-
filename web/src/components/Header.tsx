@@ -15,6 +15,7 @@ const NAV = [
   { href: "/research", label: "Research" },
   { href: "/research-army", label: "Research Army" },
   { href: "/forecast", label: "Forecast" },
+  { href: "/quant", label: "Quant" },
 ];
 
 interface Health {

@@ -7,6 +7,7 @@ discovery period AND in the confirmation period. A chart that "looks periodic" i
 
 from __future__ import annotations
 
+import hashlib
 from typing import Any
 
 import numpy as np
@@ -51,6 +52,7 @@ def acf(x: np.ndarray, lags: int = 10) -> list[float]:
 def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
     reg = reg or TestRegistry()
     fr = daily_frame()
+    dsha = hashlib.sha256(fr["ret"][np.isfinite(fr["ret"])].tobytes()).hexdigest()[:16]
     per = protocol()["periods"]
     out: dict[str, Any] = {"cycles": {}, "diagnostics": {}}
     tests = {}
@@ -91,10 +93,27 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                 "status": st,
                 "protocol_sha": protocol_sha(),
                 "run_id": run_id,
+                "data_sha": dsha,
                 "details": {
                     "halves": [v["DISC_H1"]["p_rank"], v["DISC_H2"]["p_rank"]],
                     "confirmation_p_rank": v["CONFIRMATION"]["p_rank"],
                 },
+            }
+        )
+        reg.record(
+            {
+                "family": "F-CYCLE",
+                "hypothesis": k,
+                "role": "H3",
+                "method": "periodogram band rank on CONFIRMATION (stability check, uncorrected)",
+                "period": "CONFIRMATION",
+                "n": int(v["CONFIRMATION"]["band_size"]),
+                "effect": v["CONFIRMATION"]["ratio_to_band_median"],
+                "p": v["CONFIRMATION"]["p_rank"],
+                "status": st,
+                "protocol_sha": protocol_sha(),
+                "run_id": run_id,
+                "data_sha": dsha,
             }
         )
     m = (fr["date"] <= per["DISCOVERY"][1]) & np.isfinite(fr["ret"])

@@ -72,6 +72,8 @@ def placebo_test(event_vals: np.ndarray, placebo_vals: np.ndarray, n: int = 2000
         "placebo_median_of_means": center,
         "effect": m - center,
         "p": float(p),
+        "p_greater": float((1 + np.sum(means >= m)) / (n + 1)),  # one-sided, never 0
+        "p_less": float((1 + np.sum(means <= m)) / (n + 1)),
         "percentile": float(np.mean(means < m)),
     }
 
@@ -170,7 +172,14 @@ class TestRegistry:
 
     def counts(self) -> dict[str, Any]:
         r = self.store.q("SELECT family, period, COUNT(*) n FROM stat_tests GROUP BY family, period")
-        return {"total_tests": sum(x["n"] for x in r), "by_family_period": r}
+        d = self.store.q("SELECT COUNT(DISTINCT hypothesis) h, COUNT(DISTINCT run_id) runs FROM stat_tests")[0]
+        return {
+            "total_tests": sum(x["n"] for x in r),
+            "distinct_hypotheses": d["h"],
+            "runs": d["runs"],
+            "note": "re-runs of the same pre-registered test are reproductions, not new hypotheses",
+            "by_family_period": r,
+        }
 
 
 def _num(v: Any) -> Any:

@@ -58,6 +58,7 @@ def _in(day: str, period: str) -> bool:
 def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
     reg = reg or TestRegistry()
     s = load_btc("1h")
+    data_sha = _sha(s.t, s.close)
     ev = [
         e for e in Registry().current("fomc") if e["subcategory"] == "scheduled" and not e["attributes"].get("future")
     ]
@@ -100,7 +101,13 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
             pl_v = np.array([r[met] for r in P])
             pt = placebo_test(ev_v, pl_v)
             lo, hi = bootstrap_ci(ev_v)
-            res[per][met] = {**pt, "event_mean_ci": [lo, hi], "placebo_mean": float(pl_v.mean()) if len(pl_v) else None}
+            c0 = pt.get("placebo_median_of_means", float("nan"))
+            res[per][met] = {
+                **pt,
+                "event_mean_ci": [lo, hi],
+                "effect_ci": [lo - c0, hi - c0],  # event-mean bootstrap CI shifted by the placebo centre
+                "placebo_mean": float(pl_v.mean()) if len(pl_v) else None,
+            }
         out["periods"][per] = {"n_events": len(E), "n_placebo": len(P)}
     b = bh({m: res["DISCOVERY"][m]["p"] for m in metrics}, 0.10)
     surv = [m for m in metrics if b[m]["reject"]]
@@ -110,7 +117,7 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
         ev_c = np.array([r[m] for r in rows if _in(r["day"], "CONFIRMATION")])
         pl_c = np.array([r[m] for r in pool if _in(r["day"], "CONFIRMATION")])
         pt = placebo_test(ev_c, pl_c)
-        one[m] = pt["percentile"] if d0 < 0 else 1 - pt["percentile"]  # one-sided in the discovery direction
+        one[m] = pt["p_less"] if d0 < 0 else pt["p_greater"]  # one-sided in the discovery direction, never 0
     h = holm(one, 0.05)
     status = {}
     for m in metrics:
@@ -130,8 +137,9 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                 "n": res["DISCOVERY"][m]["n"],
                 "n_ref": res["DISCOVERY"][m].get("n_placebo_pool"),
                 "effect": res["DISCOVERY"][m]["effect"],
-                "ci_lo": res["DISCOVERY"][m]["event_mean_ci"][0],
-                "ci_hi": res["DISCOVERY"][m]["event_mean_ci"][1],
+                "ci_lo": res["DISCOVERY"][m]["effect_ci"][0],
+                "ci_hi": res["DISCOVERY"][m]["effect_ci"][1],
+                "data_sha": data_sha,
                 "p": res["DISCOVERY"][m]["p"],
                 "p_adj": b[m]["p_adj"],
                 "adj_method": f"BH within F-FOMC ({len(metrics)})",
@@ -139,7 +147,9 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                 "direction": int(np.sign(res["DISCOVERY"][m]["effect"])),
                 "protocol_sha": protocol_sha(),
                 "run_id": run_id,
-                "details": {"note": "CI is for the event mean, not for the effect"},
+                "details": {
+                    "ci": "effect CI = event-mean bootstrap CI minus the placebo centre (placebo variability not included)"
+                },
             }
         )
         if m in one:
@@ -154,8 +164,10 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                     "n": c["n"],
                     "n_ref": c.get("n_placebo_pool"),
                     "effect": c["effect"],
-                    "ci_lo": c["event_mean_ci"][0],
-                    "ci_hi": c["event_mean_ci"][1],
+                    "ci_lo": c["effect_ci"][0],
+                    "ci_hi": c["effect_ci"][1],
+                    "data_sha": data_sha,
+                    "details": {"ci": "effect CI = event-mean bootstrap CI minus the placebo centre"},
                     "p": one[m],
                     "p_adj": h[m]["p_adj"],
                     "adj_method": f"Holm over {len(one)} survivors",
@@ -167,7 +179,7 @@ def fomc_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
             )
     out["results"] = res
     out["status"] = status
-    out["xevent"] = xevent(rows, pool, run_id, reg)
+    out["xevent"] = xevent(rows, pool, run_id, reg, data_sha)
     return out
 
 
@@ -185,7 +197,9 @@ def _interaction(E: list[dict[str, Any]], key: str, metric: str, seed: int = 0) 
     return {"n_true": n1, "n_false": n0, "diff": diff, "p": float(p)}
 
 
-def xevent(rows: list[dict[str, Any]], pool: list[dict[str, Any]], run_id: str, reg: TestRegistry) -> dict[str, Any]:
+def xevent(
+    rows: list[dict[str, Any]], pool: list[dict[str, Any]], run_id: str, reg: TestRegistry, data_sha: str | None = None
+) -> dict[str, Any]:
     """F-XEVENT: FOMC x pre-event volatility regime; FOMC x policy action. Min 15 events per cell."""
     min_cell = protocol()["families"]["F-XEVENT"]["min_n_per_cell"]
     med = float(np.median([r["pre_rv_30d"] for r in pool if _in(r["day"], "DISCOVERY")]))
@@ -214,17 +228,20 @@ def xevent(rows: list[dict[str, Any]], pool: list[dict[str, Any]], run_id: str, 
                         "role": "H4",
                         "method": "label permutation (2000) of event attribute",
                         "period": per,
-                        "n": it["n_true"],
-                        "n_ref": it["n_false"],
+                        "n": it["n_true"] + it["n_false"],
+                        "n_ref": None,
                         "effect": it["diff"],
                         "p": it["p"],
+                        "adj_method": "none: 2 exploratory interaction tests, reported uncorrected",
+                        "data_sha": data_sha,
                         "status": "exploratory",
                         "protocol_sha": protocol_sha(),
                         "run_id": run_id,
                         "details": {
+                            "cells": {"true": it["n_true"], "false": it["n_false"]},
                             "split": "pre-event 30-day hourly vol vs placebo median (DISCOVERY)"
                             if key == "high_vol"
-                            else "target change (hike/cut) vs hold, FRED DFEDTARU"
+                            else "target change (hike/cut) vs hold, FRED DFEDTARU",
                         },
                     }
                 )
@@ -281,7 +298,14 @@ def election_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, An
                     continue
                 m = daily_window_metrics(t, v, i0, kind)
                 rows.append(
-                    {"event_id": e["event_id"], "date": d.isoformat(), **m, "complete": bool(np.isfinite(m["post_90"]))}
+                    {
+                        "event_id": e["event_id"],
+                        "date": d.isoformat(),
+                        "reference_date": days[i0].isoformat(),
+                        **m,
+                        "complete": bool(np.isfinite(m["post_90"])),
+                        "pending": d.isoformat() >= protocol()["periods"]["CONFIRMATION"][1],
+                    }
                 )
             # placebo pool: Tuesdays in October-December of odd (non-election) years, same series
             pool_idx = [
@@ -290,7 +314,8 @@ def election_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, An
             pool = [daily_window_metrics(t, v, i, kind) for i in pool_idx]
             stats = {}
             for w in ("pre_30", "post_1", "post_7", "post_30", "post_90"):
-                vals = np.array([r[w] for r in rows if np.isfinite(r[w])])
+                # pending (prospective) events are excluded from every window, including pre_30
+                vals = np.array([r[w] for r in rows if np.isfinite(r[w]) and not r["pending"]])
                 pv = np.array([p[w] for p in pool if np.isfinite(p[w])])
                 pct = [float(np.mean(pv < x)) for x in vals] if len(pv) else []
                 stats[w] = {
@@ -321,18 +346,31 @@ def election_study(run_id: str, reg: TestRegistry | None = None) -> dict[str, An
                         "status": "descriptive_only" if n_ok < min_n else "exploratory",
                         "protocol_sha": protocol_sha(),
                         "run_id": run_id,
+                        "data_sha": _sha(t, v),
                     }
                 )
             res[sub] = {
                 "events": rows,
                 "windows": stats,
-                "n_events": len(rows),
-                "inference": "descriptive only (n < 20)" if len(rows) < min_n else "placebo test",
+                "n_events": sum(not r["pending"] for r in rows),
+                "n_pending": sum(r["pending"] for r in rows),
+                "inference": "descriptive only (n < 20)"
+                if sum(not r["pending"] for r in rows) < min_n
+                else "placebo test",
             }
         out["assets"][name] = res
     out["pending"] = [e["event_id"] for e in ev if e["event_time_utc"][:10] >= "2026-11-01"]
     out["pending_note"] = "the 2026 midterm (2026-11-03) has no post-event data yet; it is a prospective observation"
     return out
+
+
+def _sha(*arrs: np.ndarray) -> str:
+    import hashlib
+
+    h = hashlib.sha256()
+    for a in arrs:
+        h.update(np.ascontiguousarray(a).tobytes())
+    return h.hexdigest()[:16]
 
 
 def _fred(sid: str) -> tuple[np.ndarray, np.ndarray]:

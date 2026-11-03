@@ -51,7 +51,10 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
             sc, dv = compare(r, "H1_hybrid", "M1_logistic", "SCREEN"), compare(r, "H1_hybrid", "M1_logistic", "DEV")
             k = f"F-FCAST:{fname}:{tn}"
             res[k] = {"SCREEN": sc, "DEV": dv, "feature_rate": float(col.mean())}
-            p_screen[k] = sc["p_better"]
+            # the frozen forecast scoring reports the share of bootstrap means >= 0, which can be 0; the registry
+            # floors it at 1/(2000+1) so no test claims p = 0
+            sc["p_floor"] = max(sc["p_better"], 1 / 2001)
+            p_screen[k] = sc["p_floor"]
     h = holm(p_screen, 0.05)
     for k, v in res.items():
         better = h[k]["reject"] and v["DEV"]["mean"] <= 0
@@ -68,7 +71,8 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                 "effect": v["SCREEN"]["mean"],
                 "ci_lo": v["SCREEN"]["lo"],
                 "ci_hi": v["SCREEN"]["hi"],
-                "p": v["SCREEN"]["p_better"],
+                "p": v["SCREEN"]["p_floor"],
+                "data_sha": dom.bars.digest(0, len(dom.bars)),
                 "p_adj": h[k]["p_adj"],
                 "adj_method": "Holm over 6",
                 "status": v["status"],

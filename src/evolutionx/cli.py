@@ -435,7 +435,16 @@ def cmd_quant(a: argparse.Namespace) -> None:
     else:
         from .army.cli import run
 
-        r = run("run", 1, {"workflow": "quant", "controls": [], "note": "quant discovery workflow"})
+        r = run(
+            "run",
+            1,
+            {
+                "workflow": "quant",
+                "controls": [],
+                "llm_critique": False,
+                "note": "quant discovery workflow (0 LLM calls)",
+            },
+        )
         _print({k: v for k, v in r["cycles"][0].items() if k != "usage"})
 
 

@@ -130,7 +130,7 @@ def build_elections(reg: Registry, first: int = 1962, last: int = 2026) -> dict[
                 "subcategory": sub,
                 "event_time_utc": dt.datetime(d.year, d.month, d.day, tzinfo=dt.UTC).isoformat(),
                 "time_precision": "day",
-                "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+                "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
                 "source_url": STATUTE,
                 "source_sha256": None,
                 "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",

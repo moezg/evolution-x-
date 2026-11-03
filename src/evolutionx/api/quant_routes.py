@@ -78,7 +78,9 @@ def rankings() -> dict[str, Any]:
     by: dict[str, dict[str, Any]] = {}
     for r in rows:
         k = r["hypothesis"]
-        e = by.setdefault(k, {"hypothesis": k, "family": r["family"], "role": r["role"], "tests": []})
+        e = by.setdefault(k, {"hypothesis": k, "family": r["family"], "role": None, "tests": []})
+        if r["period"] != "CONFIRMATION" and e["role"] is None:
+            e["role"] = r["role"]  # the role that proposed/tested it in discovery (E2 only confirms)
         e["tests"].append(
             {
                 x: r[x]

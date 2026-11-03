@@ -2,7 +2,7 @@
 
 The research army now has **36 roles** (new divisions G, H, I) and a pre-registered quant workflow. Details, answers and limitations are in `docs/QUANT.md`.
 
-- **Registered run:** 263 tests; 0 LLM calls; about 20 s.
+- **Registered runs:** 2 runs (the second only corrected recording; statuses identical); 271 tests in the latest run, 258 distinct hypotheses; 0 LLM calls; about 20 s each.
 - **Supported (exploratory)**, i.e. survived discovery and chronological confirmation:
   - Saturday BTC |return| lower;
   - Saturday left-tail days fewer;

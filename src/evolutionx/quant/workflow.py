@@ -136,13 +136,19 @@ def q_adversarial(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
             years = {}
             for y in sorted({d[:4] for d in fr["date"]}):
                 ym = ok & np.char.startswith(fr["date"].astype(str), y)
-                a = np.abs(fr["ret"][ym & (fr[key] == x["label"])])
-                b = np.abs(fr["ret"][ym & (fr[key] != x["label"])])
-                years[y] = float(a.mean() - b.mean()) if len(a) and len(b) else None
+                a, b = fr["ret"][ym & (fr[key] == x["label"])], fr["ret"][ym & (fr[key] != x["label"])]
+                q05 = float(np.quantile(fr["ret"][ok], 0.05))
+                tf = {  # the metric of THIS hypothesis, per year
+                    "mean_absret": lambda z: np.abs(z).mean(),
+                    "left_tail_rate": lambda z, q05=q05: (z < q05).mean(),
+                    "up_rate": lambda z: (z > 0).mean(),
+                }.get(x["metric"], lambda z: z.mean())
+                years[y] = float(tf(a) - tf(b)) if len(a) and len(b) else None
             same = [v for v in years.values() if v is not None and np.sign(v) == np.sign(x["effect"])]
             rev.update(
                 {
-                    "yearly_absret_diff": years,
+                    "metric": x["metric"],
+                    "yearly_diff": years,
                     "years_same_sign": f"{len(same)}/{sum(v is not None for v in years.values())}",
                     "effect_without_fomc_election_days": x["excl_macro_effect"],
                     "practical": "a volatility pattern, not a return predictor; it is not tradable by itself (no directional edge, costs apply)",
@@ -206,7 +212,9 @@ def q_reassess(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     return {
         "tests_this_run": len(rows),
         "supported_exploratory": sup,
-        "forecast_features_promoted": [r["hypothesis"] for r in fc if str(r["status"]).startswith("candidate_feature")],
+        "forecast_challenger_candidates_not_promoted": [
+            r["hypothesis"] for r in fc if str(r["status"]).startswith("candidate_feature")
+        ],
         "next": [
             {
                 "id": "prospective-fomc-vol",

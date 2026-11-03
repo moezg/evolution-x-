@@ -46,7 +46,7 @@ All results are produced by `evox quant run` (protocol `evals/frozen/quant_proto
 
 The validation also exposed a defect in the first version: empirical rotation p-values could not go below 0.001, under BH's first threshold of 0.0008. Isolated effects could never be found. Amendment 2 fixed it, and the dry-run conclusions did not change.
 
-## Answers, with evidence (run `c20261103T2323577382`, 263 registered tests)
+## Answers, with evidence (run `c20261103T233607736b`, 271 registered tests; the first registered run `c20261103T2323577382` had identical statuses - the re-run only corrected how results are recorded: no p = 0, effect CIs, data hashes, pending events excluded, confirmation rows for cycles)
 
 **Is the 14th statistically unusual?** **No.**
 
@@ -74,8 +74,8 @@ None of the 124 day-of-month tests survives BH. There is no yearly regularity ei
 
 | Period | Events | Mean |4 h abs return| after the 14:00 ET statement | Matched placebo | p |
 |---|---|---|---|---|
-| Discovery 2017–22 | 39 | 1.73% (95% CI 1.23–2.29) | 1.09% | 0.004 |
-| Confirmation 2023–26 | 29 | 1.38% | 0.66% | 0.0005 |
+| Discovery 2017–22 | 39 | 1.73% (event-mean 95% CI 1.23–2.29) | 1.09% | 0.004 |
+| Confirmation 2023–26 | 29 | 1.38% (effect CI +0.32 to +1.22 pp) | 0.66% | 0.0005 (one-sided) |
 
 - **Status:** supported (exploratory).
 - **Direction:** a positive first-hour return in discovery did not replicate (inconclusive). No 24 h / 7 d return effect and no pre-event anticipation.

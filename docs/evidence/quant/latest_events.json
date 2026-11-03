@@ -1,5 +1,5 @@
 {
- "cycle": "c20261103T2323577382",
+ "cycle": "c20261103T233607736b",
  "events": [
   {
    "attributes": {
@@ -9,14 +9,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1962",
    "event_time_utc": "1962-11-06T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -26,14 +26,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1964",
    "event_time_utc": "1964-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -43,14 +43,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1966",
    "event_time_utc": "1966-11-08T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -60,14 +60,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1968",
    "event_time_utc": "1968-11-05T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -77,14 +77,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1970",
    "event_time_utc": "1970-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -94,14 +94,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1972",
    "event_time_utc": "1972-11-07T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -111,14 +111,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1974",
    "event_time_utc": "1974-11-05T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -128,14 +128,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1976",
    "event_time_utc": "1976-11-02T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -145,14 +145,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1978",
    "event_time_utc": "1978-11-07T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -162,14 +162,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1980",
    "event_time_utc": "1980-11-04T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -179,14 +179,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1982",
    "event_time_utc": "1982-11-02T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -196,14 +196,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1984",
    "event_time_utc": "1984-11-06T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -213,14 +213,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1986",
    "event_time_utc": "1986-11-04T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -230,14 +230,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1988",
    "event_time_utc": "1988-11-08T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -247,14 +247,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1990",
    "event_time_utc": "1990-11-06T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -264,14 +264,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1992",
    "event_time_utc": "1992-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -281,14 +281,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1994",
    "event_time_utc": "1994-11-08T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -298,14 +298,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1996",
    "event_time_utc": "1996-11-05T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -315,14 +315,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_1998",
    "event_time_utc": "1998-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -332,14 +332,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2000",
    "event_time_utc": "2000-11-07T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -349,14 +349,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2002",
    "event_time_utc": "2002-11-05T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -366,14 +366,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2004",
    "event_time_utc": "2004-11-02T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -383,14 +383,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2006",
    "event_time_utc": "2006-11-07T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -400,14 +400,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2008",
    "event_time_utc": "2008-11-04T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -417,14 +417,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2010",
    "event_time_utc": "2010-11-02T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -434,14 +434,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2012",
    "event_time_utc": "2012-11-06T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -451,14 +451,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2014",
    "event_time_utc": "2014-11-04T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -468,14 +468,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2016",
    "event_time_utc": "2016-11-08T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -779,14 +779,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2018",
    "event_time_utc": "2018-11-06T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -1258,14 +1258,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2020",
    "event_time_utc": "2020-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -1632,14 +1632,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2022",
    "event_time_utc": "2022-11-08T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -1964,14 +1964,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2024",
    "event_time_utc": "2024-11-05T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "presidential",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -2359,14 +2359,14 @@
    "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
    "event_id": "us_election_2026",
    "event_time_utc": "2026-11-03T00:00:00+00:00",
-   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
-   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "market_reference": "last observation at or before election day (BTC: UTC daily candle of election day; FRED: last trading day <= election day, markets were often closed) - quant protocol amendment 1",
+   "registered_utc": "2026-11-03T23:36:07+00:00",
    "source_sha256": null,
    "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
    "subcategory": "midterm",
-   "supersedes": null,
+   "supersedes": 1,
    "time_precision": "day",
-   "version": 1
+   "version": 2
   },
   {
    "attributes": {
@@ -2532,7 +2532,7 @@
   }
  ],
  "elections": {
-  "unchanged": 33
+  "new_version": 33
  },
  "fomc": {
   "unchanged": 95
@@ -2544,8 +2544,8 @@
  },
  "verify": {
   "ok": true,
-  "entries": 214,
-  "head": "86337ec1e651d41f90da797721ca90abc97ae87c52b074b5238dd85dc788f7be"
+  "entries": 247,
+  "head": "6c79cdd045592b8d8f450927a1cc3a892c7fadba6286ecbcef01893976fc279f"
  },
  "counts": {
   "us_election": 33,
