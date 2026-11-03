@@ -14,7 +14,13 @@ def decide(agent: Agent, obs: Observation) -> list[Command]:
         if agent.rng.random() < p["p_new"]:
             side = 1 if agent.rng.random() < 0.5 else -1
             total = max(10, btc(p["parent_btc"] * agent.rng.lognormvariate(0, 0.5)))
-            parent = {"side": side, "total": total, "done": 0, "start": obs.t, "end": obs.t + int(p["horizon_s"] * 1000)}
+            parent = {
+                "side": side,
+                "total": total,
+                "done": 0,
+                "start": obs.t,
+                "end": obs.t + int(p["horizon_s"] * 1000),
+            }
             m["parent"] = parent
             m["parents_started"] = m.get("parents_started", 0) + 1
         else:

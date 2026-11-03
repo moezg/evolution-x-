@@ -47,8 +47,13 @@ def validate_command(cmd: object, n_venues: int, max_lots: int) -> bool:
     if isinstance(cmd, CancelAll):
         return cmd.venue is None or (isinstance(cmd.venue, int) and 0 <= cmd.venue < n_venues)
     if isinstance(cmd, Limit | Market):
-        ok = (isinstance(cmd.qty, int) and 0 < cmd.qty <= max_lots and cmd.side in (1, -1)
-              and isinstance(cmd.venue, int) and 0 <= cmd.venue < n_venues)
+        ok = (
+            isinstance(cmd.qty, int)
+            and 0 < cmd.qty <= max_lots
+            and cmd.side in (1, -1)
+            and isinstance(cmd.venue, int)
+            and 0 <= cmd.venue < n_venues
+        )
         if isinstance(cmd, Limit):
             ok = ok and isinstance(cmd.price, int) and cmd.price > 0
         return ok
@@ -111,7 +116,15 @@ class Agent:
     orders_sent: int = 0
 
     def record_strategy_change(self, t: int, reason: str, new_params: dict[str, float], source: int | None) -> None:
-        self.lineage.append({"t": t, "version": self.strategy_version + 1, "reason": reason,
-                             "source_agent": source, "before": dict(self.params), "after": dict(new_params)})
+        self.lineage.append(
+            {
+                "t": t,
+                "version": self.strategy_version + 1,
+                "reason": reason,
+                "source_agent": source,
+                "before": dict(self.params),
+                "after": dict(new_params),
+            }
+        )
         self.params = dict(new_params)
         self.strategy_version += 1

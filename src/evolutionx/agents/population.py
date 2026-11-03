@@ -41,9 +41,13 @@ def population_counts(scale: float = 1.0, overrides: dict[str, int] | None = Non
     return counts
 
 
-def build_population(seed: int, counts: dict[str, int], n_venues: int,
-                     param_overrides: dict[str, dict[str, float]] | None = None,
-                     heterogeneity: float = 0.3) -> list[Agent]:
+def build_population(
+    seed: int,
+    counts: dict[str, int],
+    n_venues: int,
+    param_overrides: dict[str, dict[str, float]] | None = None,
+    heterogeneity: float = 0.3,
+) -> list[Agent]:
     """Create agents with individually jittered parameters.
 
     `param_overrides[kind]` replaces the family's central parameters (this is
@@ -58,16 +62,21 @@ def build_population(seed: int, counts: dict[str, int], n_venues: int,
             center.update(param_overrides[kind])
         for i in range(counts.get(kind, 0)):
             params = {k: v * (1 + heterogeneity * (2 * rng.random() - 1)) for k, v in center.items()}
-            agents.append(Agent(
-                id=aid, kind=kind, policy_name=kind, params=clip_params(kind, params),
-                rng=random.Random(f"agent:{seed}:{aid}"),
-                wake_ms=max(200, int(prof.wake_ms * (0.6 + 0.8 * rng.random()))),
-                order_latency_ms=rng.randint(*prof.order_latency_ms),
-                md_latency_ms=rng.randint(*prof.md_latency_ms),
-                home_venue=i % n_venues,
-                capital_usd=prof.capital_usd * (0.5 + rng.random()),
-                max_leverage=prof.max_leverage,
-                memory={"research": prof.research},
-            ))
+            agents.append(
+                Agent(
+                    id=aid,
+                    kind=kind,
+                    policy_name=kind,
+                    params=clip_params(kind, params),
+                    rng=random.Random(f"agent:{seed}:{aid}"),
+                    wake_ms=max(200, int(prof.wake_ms * (0.6 + 0.8 * rng.random()))),
+                    order_latency_ms=rng.randint(*prof.order_latency_ms),
+                    md_latency_ms=rng.randint(*prof.md_latency_ms),
+                    home_venue=i % n_venues,
+                    capital_usd=prof.capital_usd * (0.5 + rng.random()),
+                    max_leverage=prof.max_leverage,
+                    memory={"research": prof.research},
+                )
+            )
             aid += 1
     return agents

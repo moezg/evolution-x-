@@ -92,7 +92,9 @@ class ClearingHouse:
         return gross <= eq * a.max_leverage
 
     # --- settlement ----------------------------------------------------------
-    def settle_fill(self, venue: int, price: int, qty: int, buyer: int, seller: int, aggressor_side: int) -> tuple[int, int]:
+    def settle_fill(
+        self, venue: int, price: int, qty: int, buyer: int, seller: int, aggressor_side: int
+    ) -> tuple[int, int]:
         cash = notional(price, qty)
         b, s = self.accounts[buyer], self.accounts[seller]
         b.cash -= cash

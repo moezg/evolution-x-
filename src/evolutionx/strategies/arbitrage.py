@@ -24,7 +24,9 @@ def decide(agent: Agent, obs: Observation) -> list[Command]:
             q = min(max_q, lo.ask_qty, hi.bid_qty, inv - max(0, obs.positions[vlo]))
             if q > 0:
                 cmds += [Limit(vlo, 1, q, lo.ask, ioc=True), Limit(vhi, -1, q, hi.bid, ioc=True)]
-                agent.decisions.append({"t": obs.t, "buy_venue": vlo, "edge_bps": round((hi.bid / lo.ask - 1) * 1e4, 2), "qty": q})
+                agent.decisions.append(
+                    {"t": obs.t, "buy_venue": vlo, "edge_bps": round((hi.bid / lo.ask - 1) * 1e4, 2), "qty": q}
+                )
     # unwind converged legs
     pa, pb = obs.positions[0], obs.positions[1]
     if not cmds and pa and pb and (pa > 0) != (pb > 0):

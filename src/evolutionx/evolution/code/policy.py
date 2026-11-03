@@ -14,18 +14,73 @@ from pathlib import Path
 
 ALLOWED_PREFIXES = ("src/evolutionx/strategies/",)
 ALLOWED_SUFFIX = ".py"
-PROTECTED_GLOBS = ("src/evolutionx/kernel/**/*.py", "src/evolutionx/evaluation/**/*.py",
-                   "src/evolutionx/evolution/**/*.py", "src/evolutionx/council/**/*.py",
-                   "src/evolutionx/api/**/*.py", "src/evolutionx/sim/**/*.py", "src/evolutionx/agents/**/*.py",
-                   "src/evolutionx/data/**/*.py", "src/evolutionx/*.py", "src/evolutionx/strategies/params.py",
-                   "tests/**/*.py", "evals/frozen/*", ".github/**/*", "Makefile", "pyproject.toml", "uv.lock",
-                   "Dockerfile", "docker-compose.yml")
+PROTECTED_GLOBS = (
+    "src/evolutionx/kernel/**/*.py",
+    "src/evolutionx/evaluation/**/*.py",
+    "src/evolutionx/evolution/**/*.py",
+    "src/evolutionx/council/**/*.py",
+    "src/evolutionx/api/**/*.py",
+    "src/evolutionx/sim/**/*.py",
+    "src/evolutionx/agents/**/*.py",
+    "src/evolutionx/data/**/*.py",
+    "src/evolutionx/*.py",
+    "src/evolutionx/strategies/params.py",
+    "tests/**/*.py",
+    "evals/frozen/*",
+    ".github/**/*",
+    "Makefile",
+    "pyproject.toml",
+    "uv.lock",
+    "Dockerfile",
+    "docker-compose.yml",
+)
 
-FORBIDDEN_MODULES = {"os", "sys", "subprocess", "socket", "shutil", "ctypes", "importlib", "http", "urllib",
-                     "requests", "httpx", "pickle", "marshal", "multiprocessing", "threading", "asyncio", "builtins",
-                     "pathlib", "io", "tempfile", "signal", "resource", "inspect", "gc", "code", "pty", "select"}
-FORBIDDEN_CALLS = {"eval", "exec", "compile", "open", "__import__", "globals", "locals", "vars", "setattr",
-                   "delattr", "getattr", "input", "breakpoint", "exit", "quit"}
+FORBIDDEN_MODULES = {
+    "os",
+    "sys",
+    "subprocess",
+    "socket",
+    "shutil",
+    "ctypes",
+    "importlib",
+    "http",
+    "urllib",
+    "requests",
+    "httpx",
+    "pickle",
+    "marshal",
+    "multiprocessing",
+    "threading",
+    "asyncio",
+    "builtins",
+    "pathlib",
+    "io",
+    "tempfile",
+    "signal",
+    "resource",
+    "inspect",
+    "gc",
+    "code",
+    "pty",
+    "select",
+}
+FORBIDDEN_CALLS = {
+    "eval",
+    "exec",
+    "compile",
+    "open",
+    "__import__",
+    "globals",
+    "locals",
+    "vars",
+    "setattr",
+    "delattr",
+    "getattr",
+    "input",
+    "breakpoint",
+    "exit",
+    "quit",
+}
 
 
 def path_violations(paths: list[str]) -> list[str]:

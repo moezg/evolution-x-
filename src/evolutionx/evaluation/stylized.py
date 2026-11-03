@@ -72,13 +72,13 @@ def realism_score(facts: dict[str, float], bands: dict[str, tuple[float, float]]
     return {"score": inside / n if n else 0.0, "distance": dist / n if n else 1.0, "detail": detail}
 
 
-def bands_from_reference(ref_facts: list[dict[str, float]], widen: float = 0.5) -> dict[str, tuple[float, float]]:
-    """Empirical bands from historical reference windows (min/max widened by `widen` x range)."""
+def bands_from_reference(
+    ref_facts: list[dict[str, float]], lo_q: float = 0.05, hi_q: float = 0.95
+) -> dict[str, tuple[float, float]]:
+    """Empirical bands from historical reference windows: the [lo_q, hi_q] quantile range of each fact."""
     bands = {}
     for k in LITERATURE_BANDS:
         vals = [f[k] for f in ref_facts if k in f and math.isfinite(f[k])]
-        if len(vals) >= 2:
-            lo, hi = min(vals), max(vals)
-            pad = (hi - lo) * widen + 1e-6
-            bands[k] = (lo - pad, hi + pad)
+        if len(vals) >= 10:
+            bands[k] = (float(np.quantile(vals, lo_q)), float(np.quantile(vals, hi_q)))
     return bands

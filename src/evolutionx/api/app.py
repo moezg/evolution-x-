@@ -26,8 +26,11 @@ from . import views
 from .jobs import JobManager
 from .live import LiveSession
 
-app = FastAPI(title="EVOLUTION X", version=ENGINE_VERSION,
-              description="Self-evolving multi-agent market simulation laboratory (research-only).")
+app = FastAPI(
+    title="EVOLUTION X",
+    version=ENGINE_VERSION,
+    description="Self-evolving multi-agent market simulation laboratory (research-only).",
+)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 live = LiveSession()
@@ -48,8 +51,15 @@ def health() -> dict[str, Any]:
 
 @app.get("/api/scenarios")
 def scenarios() -> list[dict[str, Any]]:
-    return [{"name": s.name, "description": s.description, "shocks": [x.model_dump() for x in s.shocks],
-             "population_overrides": dict(s.population_overrides)} for s in SCENARIOS.values()]
+    return [
+        {
+            "name": s.name,
+            "description": s.description,
+            "shocks": [x.model_dump() for x in s.shocks],
+            "population_overrides": dict(s.population_overrides),
+        }
+        for s in SCENARIOS.values()
+    ]
 
 
 # ------------------------------------------------------------------ live simulation
@@ -123,6 +133,7 @@ def sim_save() -> dict[str, str]:
     _require_sim()
     from ..evaluation.metrics import run_metrics
     from ..sim.persist import save_run
+
     with live.lock:
         assert live.sim is not None
         path = save_run(live.sim, run_metrics(live.sim), name=f"live-{live.scenario}")
@@ -138,8 +149,12 @@ def sim_state() -> dict[str, Any]:
 @app.get("/api/sim/candles")
 def sim_candles(venue: int = 0) -> dict[str, Any]:
     _require_sim()
-    return {"venue": venue, "data_label": live.snapshot(lambda s: views.state(s, "", 0)["data_label"]),
-            "candles": live.snapshot(views.candles, venue), "historical": live.snapshot(views.historical_overlay)}
+    return {
+        "venue": venue,
+        "data_label": live.snapshot(lambda s: views.state(s, "", 0)["data_label"]),
+        "candles": live.snapshot(views.candles, venue),
+        "historical": live.snapshot(views.historical_overlay),
+    }
 
 
 @app.get("/api/sim/book")
@@ -233,6 +248,7 @@ def _quota(fn):  # noqa: ANN001, ANN202
             return fn(*a, **k)
         except RuntimeError as e:
             raise HTTPException(429, str(e)) from e
+
     return wrapped
 
 
@@ -262,8 +278,21 @@ def list_experiments() -> list[dict[str, Any]]:
     out = []
     for p in sorted(EXP_DIR.glob("*/report.json"), key=os.path.getmtime, reverse=True):
         r = json.loads(p.read_text())
-        out.append({k: r[k] for k in ("experiment_id", "scenario", "replicates", "duration_s", "scale", "n_agents",
-                                      "created_utc", "data_label")})
+        out.append(
+            {
+                k: r[k]
+                for k in (
+                    "experiment_id",
+                    "scenario",
+                    "replicates",
+                    "duration_s",
+                    "scale",
+                    "n_agents",
+                    "created_utc",
+                    "data_label",
+                )
+            }
+        )
     return out
 
 
@@ -300,6 +329,7 @@ class EvolutionRequest(BaseModel):
 @_quota
 def evolution_run(req: EvolutionRequest) -> dict[str, Any]:
     from ..strategies.params import PARAM_SPECS
+
     if req.family not in PARAM_SPECS:
         raise HTTPException(400, "unknown family")
 
@@ -307,17 +337,26 @@ def evolution_run(req: EvolutionRequest) -> dict[str, Any]:
         from ..council.engineer import synthesize_genomes
         from ..evaluation.reference import historical_bands
         from ..evolution.loop import EvolutionRun
-        return EvolutionRun(**p, archive=archive, bands=historical_bands(),
-                            synthesizer=synthesize_genomes if use_llm_synthesis else None, progress=progress).run()
+
+        return EvolutionRun(
+            **p,
+            archive=archive,
+            bands=historical_bands(),
+            synthesizer=synthesize_genomes if use_llm_synthesis else None,
+            progress=progress,
+        ).run()
 
     return jobs.submit("evolution", fn, req.model_dump())
 
 
 @app.get("/api/evolution/lineage")
 def evolution_lineage(family: str | None = None) -> dict[str, Any]:
-    return {"candidates": archive.candidates(family), "champions": archive.champions(family),
-            "challenges": archive.challenges(family),
-            "runs": archive.query("SELECT * FROM evo_runs ORDER BY created DESC")}
+    return {
+        "candidates": archive.candidates(family),
+        "champions": archive.champions(family),
+        "challenges": archive.challenges(family),
+        "runs": archive.query("SELECT * FROM evo_runs ORDER BY created DESC"),
+    }
 
 
 class RollbackRequest(BaseModel):
@@ -351,6 +390,7 @@ def proposals() -> list[dict[str, Any]]:
 @app.get("/api/proposals/catalogue")
 def proposal_catalogue() -> list[dict[str, Any]]:
     from ..council.engineer import catalogue
+
     return catalogue()
 
 
@@ -359,6 +399,7 @@ def proposal_catalogue() -> list[dict[str, Any]]:
 def proposal_generate(req: ProposalRequest) -> dict[str, Any]:
     def fn(progress, proposal_key):  # noqa: ANN001, ANN202
         from ..evolution.code.pipeline import propose_and_evaluate
+
         return propose_and_evaluate(proposal_key, archive=archive, progress=progress)
 
     return jobs.submit("proposal", fn, req.model_dump())
@@ -373,6 +414,7 @@ class Decision(BaseModel):
 @app.post("/api/proposals/{pid}/decision")
 def proposal_decision(pid: str, d: Decision) -> dict[str, Any]:
     from ..evolution.code.pipeline import record_decision
+
     try:
         return record_decision(pid, d.decision, d.reviewer, d.comment, archive=archive)
     except (KeyError, ValueError) as e:
@@ -390,6 +432,7 @@ class CouncilRequest(BaseModel):
 def council_run(req: CouncilRequest) -> dict[str, Any]:
     def fn(progress, **p):  # noqa: ANN001, ANN003, ANN202
         from ..council.workflow import run_council
+
         return run_council(**p, live_sim=live, archive=archive, progress=progress)
 
     return jobs.submit("council", fn, req.model_dump())
@@ -398,6 +441,7 @@ def council_run(req: CouncilRequest) -> dict[str, Any]:
 @app.get("/api/council/reports")
 def council_reports() -> list[dict[str, Any]]:
     from ..council.workflow import COUNCIL_DIR
+
     out = []
     for p in sorted(COUNCIL_DIR.glob("*.json"), key=os.path.getmtime, reverse=True)[:30]:
         out.append(json.loads(p.read_text()))
@@ -417,8 +461,20 @@ def runs() -> list[dict[str, Any]]:
     out = []
     for p in sorted(Path("artifacts/runs").glob("*/manifest.json"), key=os.path.getmtime, reverse=True)[:50]:
         m = json.loads(p.read_text())
-        out.append({k: m.get(k) for k in ("run_id", "data_label", "created_utc", "event_fingerprint", "n_agents",
-                                          "performance", "reproduce")})
+        out.append(
+            {
+                k: m.get(k)
+                for k in (
+                    "run_id",
+                    "data_label",
+                    "created_utc",
+                    "event_fingerprint",
+                    "n_agents",
+                    "performance",
+                    "reproduce",
+                )
+            }
+        )
     return out
 
 

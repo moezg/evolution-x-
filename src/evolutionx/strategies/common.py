@@ -25,8 +25,9 @@ def take(obs: Observation, venue: int, side: int, qty: int, slip_bps: float) -> 
     return [Limit(venue, side, qty, max(px, 1), ioc=True)]
 
 
-def trade_toward(obs: Observation, venue: int, target: int, clip_lots: int, slip_bps: float,
-                 min_lots: int = 10) -> list[Command]:
+def trade_toward(
+    obs: Observation, venue: int, target: int, clip_lots: int, slip_bps: float, min_lots: int = 10
+) -> list[Command]:
     diff = target - obs.positions[venue]
     if abs(diff) < min_lots:
         return []

@@ -1,0 +1,35 @@
+{
+  "source": "Binance BTCUSDT 1m klines, TRAIN split only (see data/historical/manifest.json)",
+  "window_min": 60,
+  "quantiles": [
+    0.05,
+    0.95
+  ],
+  "n_windows": 120,
+  "bands": {
+    "excess_kurtosis": [
+      -0.3824826319268179,
+      6.029978808862566
+    ],
+    "acf_ret_lag1": [
+      -0.2444578741695793,
+      0.19323813341453183
+    ],
+    "acf_absret_lag1": [
+      -0.1701894479171194,
+      0.3121898428132439
+    ],
+    "acf_absret_lag5": [
+      -0.19102134593525558,
+      0.26121510390003455
+    ],
+    "hill_tail_index": [
+      1.8721680153747948,
+      7.302055660122276
+    ],
+    "vol_volume_corr": [
+      0.053791216526869336,
+      0.6918681899282685
+    ]
+  }
+}

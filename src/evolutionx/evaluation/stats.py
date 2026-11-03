@@ -22,14 +22,35 @@ def mean_ci(x: list[float] | np.ndarray, level: float = 0.95, n_boot: int = 2000
     alpha = (1 - level) / 2
     tcrit = _t_crit(n - 1, level)
     se = sd / math.sqrt(n)
-    return {"n": n, "mean": m, "std": sd, "lo": float(np.quantile(boots, alpha)), "hi": float(np.quantile(boots, 1 - alpha)),
-            "t_lo": m - tcrit * se, "t_hi": m + tcrit * se}
+    return {
+        "n": n,
+        "mean": m,
+        "std": sd,
+        "lo": float(np.quantile(boots, alpha)),
+        "hi": float(np.quantile(boots, 1 - alpha)),
+        "t_lo": m - tcrit * se,
+        "t_hi": m + tcrit * se,
+    }
 
 
 def _t_crit(df: int, level: float) -> float:
     # two-sided 95% t critical values; falls back to normal for large df
-    table = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262,
-             10: 2.228, 12: 2.179, 15: 2.131, 20: 2.086, 30: 2.042}
+    table = {
+        1: 12.706,
+        2: 4.303,
+        3: 3.182,
+        4: 2.776,
+        5: 2.571,
+        6: 2.447,
+        7: 2.365,
+        8: 2.306,
+        9: 2.262,
+        10: 2.228,
+        12: 2.179,
+        15: 2.131,
+        20: 2.086,
+        30: 2.042,
+    }
     if abs(level - 0.95) > 1e-9:
         return 1.96
     for k in sorted(table):

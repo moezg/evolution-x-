@@ -52,16 +52,18 @@ def take_snapshot(exchange, t: int, funding_rate: float, index_price: int) -> Sn
     for v in exchange.venues:
         bids, asks = v.book.depth(5)
         mid = v.mid()
-        views.append(VenueView(
-            bid=bids[0][0] if bids else None,
-            ask=asks[0][0] if asks else None,
-            bid_qty=bids[0][1] if bids else 0,
-            ask_qty=asks[0][1] if asks else 0,
-            depth_bid=sum(q for _, q in bids),
-            depth_ask=sum(q for _, q in asks),
-            last=v.last_price,
-            mid=mid if mid is not None else exchange.initial_price,
-            volume=v.volume,
-            halted=v.halted(t),
-        ))
+        views.append(
+            VenueView(
+                bid=bids[0][0] if bids else None,
+                ask=asks[0][0] if asks else None,
+                bid_qty=bids[0][1] if bids else 0,
+                ask_qty=asks[0][1] if asks else 0,
+                depth_bid=sum(q for _, q in bids),
+                depth_ask=sum(q for _, q in asks),
+                last=v.last_price,
+                mid=mid if mid is not None else exchange.initial_price,
+                volume=v.volume,
+                halted=v.halted(t),
+            )
+        )
     return Snapshot(t, tuple(views), funding_rate, index_price)

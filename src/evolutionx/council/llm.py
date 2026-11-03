@@ -65,9 +65,16 @@ class LLMClient:
                 raise LLMBudgetExceeded(f"call budget {self.budget.max_calls} exhausted")
             self.budget.calls += 1
             try:
-                raw = self.provider.complete(system, user + ("" if attempt == 0 else
-                                                            f"\n\nYour previous answer was invalid: {last_err}. "
-                                                            "Return ONLY valid JSON."), self.budget.max_output_tokens)
+                raw = self.provider.complete(
+                    system,
+                    user
+                    + (
+                        ""
+                        if attempt == 0
+                        else f"\n\nYour previous answer was invalid: {last_err}. Return ONLY valid JSON."
+                    ),
+                    self.budget.max_output_tokens,
+                )
                 data = json.loads(_extract_json(raw))
                 out = validate(data)
                 if self.use_cache:
@@ -85,7 +92,7 @@ def _extract_json(raw: str) -> str:
     if s.startswith("```"):
         s = s.split("\n", 1)[1].rsplit("```", 1)[0]
     i, j = min((p for p in (s.find("{"), s.find("[")) if p >= 0), default=0), max(s.rfind("}"), s.rfind("]"))
-    return s[i:j + 1]
+    return s[i : j + 1]
 
 
 class MockLLM:
@@ -118,11 +125,17 @@ class AnthropicLLM:
         self.timeout = timeout_s
 
     def complete(self, system: str, user: str, max_tokens: int) -> str:
-        r = httpx.post("https://api.anthropic.com/v1/messages", timeout=self.timeout,
-                       headers={"x-api-key": self.key, "anthropic-version": "2023-06-01",
-                                "content-type": "application/json"},
-                       json={"model": self.model, "max_tokens": max_tokens, "system": system,
-                             "messages": [{"role": "user", "content": user}]})
+        r = httpx.post(
+            "https://api.anthropic.com/v1/messages",
+            timeout=self.timeout,
+            headers={"x-api-key": self.key, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+            json={
+                "model": self.model,
+                "max_tokens": max_tokens,
+                "system": system,
+                "messages": [{"role": "user", "content": user}],
+            },
+        )
         r.raise_for_status()
         return "".join(b.get("text", "") for b in r.json()["content"] if b.get("type") == "text")
 
@@ -137,11 +150,17 @@ class OpenAICompatLLM:
         self.timeout = timeout_s
 
     def complete(self, system: str, user: str, max_tokens: int) -> str:
-        r = httpx.post(f"{self.base}/chat/completions", timeout=self.timeout,
-                       headers={"authorization": f"Bearer {self.key}"},
-                       json={"model": self.model, "max_tokens": max_tokens,
-                             "response_format": {"type": "json_object"},
-                             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]})
+        r = httpx.post(
+            f"{self.base}/chat/completions",
+            timeout=self.timeout,
+            headers={"authorization": f"Bearer {self.key}"},
+            json={
+                "model": self.model,
+                "max_tokens": max_tokens,
+                "response_format": {"type": "json_object"},
+                "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
+            },
+        )
         r.raise_for_status()
         return r.json()["choices"][0]["message"]["content"]
 

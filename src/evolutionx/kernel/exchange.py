@@ -76,8 +76,17 @@ class Exchange:
         if reason != "margin":  # margin rejections are frequent; counted not logged
             self.events.append(SimEvent(t, "reject", agent, venue, {"reason": reason}))
 
-    def submit(self, t: int, agent: int, venue: int, side: int, qty: int, price: int | None,
-               ioc: bool = False, forced: bool = False) -> int | None:
+    def submit(
+        self,
+        t: int,
+        agent: int,
+        venue: int,
+        side: int,
+        qty: int,
+        price: int | None,
+        ioc: bool = False,
+        forced: bool = False,
+    ) -> int | None:
         """Submit limit (price) or market (price=None) order. Returns resting order id or None."""
         if side not in (BUY, SELL) or qty <= 0 or not (0 <= venue < len(self.venues)):
             self._reject(t, agent, venue, "invalid")
@@ -93,7 +102,9 @@ class Exchange:
             self._reject(t, agent, venue, "halted")
             return None
         marks = self.marks()
-        ref_price = price if price is not None else (v.book.best_ask() if side == BUY else v.book.best_bid()) or marks[venue]
+        ref_price = (
+            price if price is not None else (v.book.best_ask() if side == BUY else v.book.best_bid()) or marks[venue]
+        )
         if not forced and not self.clearing.can_take(agent, venue, side, qty, ref_price, marks):
             self._reject(t, agent, venue, "margin")
             return None
@@ -196,8 +207,15 @@ class Exchange:
                 acct.liquidating = False
             if new_episode:
                 acct.liquidations += 1
-                self.events.append(SimEvent(t, "liquidation", agent, -1,
-                                            {"equity": eq_before, "closed_lots": closed, "insurance_cover": cover}))
+                self.events.append(
+                    SimEvent(
+                        t,
+                        "liquidation",
+                        agent,
+                        -1,
+                        {"equity": eq_before, "closed_lots": closed, "insurance_cover": cover},
+                    )
+                )
                 liquidated.append(agent)
         return liquidated
 

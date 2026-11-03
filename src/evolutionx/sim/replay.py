@@ -22,5 +22,4 @@ def load_replay_path(path: str | None, duration_s: int) -> dict[str, Any]:
     t0 = arr[0, 0]
     # 1-minute closes mapped to simulation milliseconds; step function between minutes
     pts = [(int(r[0] - t0), float(r[4])) for r in arr if (r[0] - t0) <= duration_s * 1000]
-    return {"source_file": p.name, "label": "historical", "path": pts,
-            "first_close": pts[0][1], "n_points": len(pts)}
+    return {"source_file": p.name, "label": "historical", "path": pts, "first_close": pts[0][1], "n_points": len(pts)}

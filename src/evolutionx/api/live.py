@@ -21,11 +21,26 @@ class LiveSession:
         self._stop = threading.Event()
         self.scenario = "baseline"
 
-    def start(self, seed: int, duration_s: int, scenario: str, speed: float, scale: float = 1.0,
-              mode: str = "synthetic", replay_dataset: str | None = None, shock_at_s: int | None = None) -> None:
+    def start(
+        self,
+        seed: int,
+        duration_s: int,
+        scenario: str,
+        speed: float,
+        scale: float = 1.0,
+        mode: str = "synthetic",
+        replay_dataset: str | None = None,
+        shock_at_s: int | None = None,
+    ) -> None:
         self.stop_thread()
-        cfg = SimConfig(seed=seed, duration_s=duration_s, scale=scale, mode=mode,  # type: ignore[arg-type]
-                        replay_dataset=replay_dataset, invariant_check_every_s=60)
+        cfg = SimConfig(
+            seed=seed,
+            duration_s=duration_s,
+            scale=scale,
+            mode=mode,  # type: ignore[arg-type]
+            replay_dataset=replay_dataset,
+            invariant_check_every_s=60,
+        )
         cfg = scenario_at(scenario, shock_at_s if shock_at_s is not None else min(900, duration_s // 2)).apply(cfg)
         with self.lock:
             self.sim = Simulation(cfg)

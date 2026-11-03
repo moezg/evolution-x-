@@ -21,6 +21,7 @@ def decide(agent: Agent, obs: Observation) -> list[Command]:
         agent.memory["social_override"] = agent.memory.get("social_override", 0) + 1
     agent.stance = signal
     target = int(signal * btc(p["max_btc"]))
-    agent.decisions.append({"t": obs.t, "ret_bps": round(r, 2), "own": round(own, 3),
-                            "social": round(obs.social, 3), "target": target})
+    agent.decisions.append(
+        {"t": obs.t, "ret_bps": round(r, 2), "own": round(own, 3), "social": round(obs.social, 3), "target": target}
+    )
     return trade_toward(obs, v, target, btc(p["max_btc"]) // 2 + 1, p["slip_bps"])

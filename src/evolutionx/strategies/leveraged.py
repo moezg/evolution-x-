@@ -38,6 +38,7 @@ def decide(agent: Agent, obs: Observation) -> list[Command]:
     target = int(target_usd / (mid / 100) * 1e4)
     if pos == 0 or (target > 0) != (pos > 0):
         m["entry"] = mid
-    agent.decisions.append({"t": obs.t, "ret_bps": round(r, 2), "signal": round(signal, 3), "target": target,
-                            "funding": obs.funding_rate})
+    agent.decisions.append(
+        {"t": obs.t, "ret_bps": round(r, 2), "signal": round(signal, 3), "target": target, "funding": obs.funding_rate}
+    )
     return trade_toward(obs, v, target, abs(target) // 2 + 50, 40)

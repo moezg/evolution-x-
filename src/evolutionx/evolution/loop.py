@@ -45,8 +45,9 @@ def run_utility(m: dict[str, float]) -> float:
 
 def _eval_job(job: tuple[str, dict[str, float], int, str, int, dict | None]) -> dict[str, Any]:
     family, genome, seed, regime, duration, bands = job
-    cfg = scenario_at(regime, duration // 2).apply(SimConfig(seed=seed, duration_s=duration,
-                                                             param_overrides={family: genome}))
+    cfg = scenario_at(regime, duration // 2).apply(
+        SimConfig(seed=seed, duration_s=duration, param_overrides={family: genome})
+    )
     try:
         sim = Simulation(cfg).run()
         sim.exchange.check_invariants()
@@ -59,13 +60,21 @@ def _eval_job(job: tuple[str, dict[str, float], int, str, int, dict | None]) -> 
     realism = realism_score(m["facts"], {k: tuple(v) for k, v in bands.items()} if bands else None)
     wakes = sum(a.wakes for a in cohort) or 1
     return {
-        "failed": False, "seed": seed, "regime": regime,
-        "ret": float(np.mean(rets) * 100), "dd": float(np.mean([a.max_drawdown for a in cohort]) * 100),
+        "failed": False,
+        "seed": seed,
+        "regime": regime,
+        "ret": float(np.mean(rets) * 100),
+        "dd": float(np.mean([a.max_drawdown for a in cohort]) * 100),
         "cvar": float(np.mean(rets[: max(1, len(rets) // 10)]) * 100),
-        "realism": 1 - realism["distance"], "realism_inside": realism["score"],
+        "realism": 1 - realism["distance"],
+        "realism_inside": realism["score"],
         "turnover": sum(a.orders_sent for a in cohort) / wakes,
-        "abs_pos_btc": float(np.mean([sum(abs(p) for p in sim.clearing.accounts[a.id].positions) / 1e4 for a in cohort])),
-        "wall_s": sim.wall_time_s, "market_dd_pct": m["max_drawdown_pct"], "liquidations": m["liquidations"],
+        "abs_pos_btc": float(
+            np.mean([sum(abs(p) for p in sim.clearing.accounts[a.id].positions) / 1e4 for a in cohort])
+        ),
+        "wall_s": sim.wall_time_s,
+        "market_dd_pct": m["max_drawdown_pct"],
+        "liquidations": m["liquidations"],
     }
 
 
@@ -76,10 +85,15 @@ def aggregate(runs: list[dict[str, Any]]) -> dict[str, Any]:
     rets = [r["ret"] for r in ok]
     return {
         "failed": False,
-        "objectives": {"ret": float(np.mean(rets)), "neg_dd": -float(np.mean([r["dd"] for r in ok])),
-                       "cvar": float(np.mean([r["cvar"] for r in ok])), "robust": -float(np.std(rets)),
-                       "realism": float(np.mean([r["realism"] for r in ok])),
-                       "neg_cost": -float(np.mean([r["turnover"] for r in ok])), "novelty": 0.0},
+        "objectives": {
+            "ret": float(np.mean(rets)),
+            "neg_dd": -float(np.mean([r["dd"] for r in ok])),
+            "cvar": float(np.mean([r["cvar"] for r in ok])),
+            "robust": -float(np.std(rets)),
+            "realism": float(np.mean([r["realism"] for r in ok])),
+            "neg_cost": -float(np.mean([r["turnover"] for r in ok])),
+            "novelty": 0.0,
+        },
         "utility": float(np.mean([run_utility(r) for r in ok])),
         "behavior": [float(np.mean([r["turnover"] for r in ok])), float(np.mean([r["abs_pos_btc"] for r in ok]))],
         "runs": ok,
@@ -87,11 +101,22 @@ def aggregate(runs: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 class EvolutionRun:
-    def __init__(self, family: str = "momentum", generations: int = 3, pop: int = 6, train_seeds: int = 2,
-                 val_seeds: int = 3, heldout_seeds: int = 2, duration_s: int = 900, workers: int = 4, seed: int = 0,
-                 archive: Archive | None = None, bands: dict[str, tuple[float, float]] | None = None,
-                 synthesizer: Callable[[str, list[dict[str, Any]], int], list[dict[str, float]]] | None = None,
-                 progress: Callable[[str], None] | None = None) -> None:
+    def __init__(
+        self,
+        family: str = "momentum",
+        generations: int = 3,
+        pop: int = 6,
+        train_seeds: int = 2,
+        val_seeds: int = 3,
+        heldout_seeds: int = 2,
+        duration_s: int = 900,
+        workers: int = 4,
+        seed: int = 0,
+        archive: Archive | None = None,
+        bands: dict[str, tuple[float, float]] | None = None,
+        synthesizer: Callable[[str, list[dict[str, Any]], int], list[dict[str, float]]] | None = None,
+        progress: Callable[[str], None] | None = None,
+    ) -> None:
         self.family, self.generations, self.pop = family, generations, pop
         self.train = [100 + i for i in range(train_seeds)]
         self.val = [500 + i for i in range(val_seeds)]
@@ -102,11 +127,20 @@ class EvolutionRun:
         self.synthesizer = synthesizer
         self.progress = progress or (lambda _m: None)
         self.run_id = f"evo-{family}-{dt.datetime.now(dt.UTC).strftime('%Y%m%dT%H%M%S')}-s{seed}"
-        self.config = {"family": family, "generations": generations, "pop": pop, "train_seeds": self.train,
-                       "val_seeds": self.val, "heldout_seeds": self.heldout, "duration_s": duration_s,
-                       "train_regimes": TRAIN_REGIMES, "val_regimes": VALIDATION_REGIMES,
-                       "heldout_regimes": HELDOUT_REGIMES, "seed": seed, "realism_reference": "historical-train"
-                       if bands else "literature"}
+        self.config = {
+            "family": family,
+            "generations": generations,
+            "pop": pop,
+            "train_seeds": self.train,
+            "val_seeds": self.val,
+            "heldout_seeds": self.heldout,
+            "duration_s": duration_s,
+            "train_regimes": TRAIN_REGIMES,
+            "val_regimes": VALIDATION_REGIMES,
+            "heldout_regimes": HELDOUT_REGIMES,
+            "seed": seed,
+            "realism_reference": "historical-train" if bands else "literature",
+        }
 
     # ------------------------------------------------------------------
     def _evaluate(self, genomes: list[dict[str, float]], seeds: list[int], regimes: list[str]) -> list[dict[str, Any]]:
@@ -114,27 +148,49 @@ class EvolutionRun:
         with ProcessPoolExecutor(max_workers=self.workers) as ex:
             res = list(ex.map(_eval_job, jobs))
         per = len(seeds) * len(regimes)
-        return [aggregate(res[i * per:(i + 1) * per]) for i in range(len(genomes))]
+        return [aggregate(res[i * per : (i + 1) * per]) for i in range(len(genomes))]
 
     def _record(self, gen: int, genome: dict[str, float], origin: str, parents: list[str], ev: dict[str, Any]) -> dict:
         cid = genome_id(self.family, genome)
-        c = {"id": cid, "family": self.family, "run_id": self.run_id, "generation": gen, "parents": parents,
-             "origin": origin, "genome": genome, "status": "failed" if ev["failed"] else "evaluated",
-             "objectives": ev.get("objectives", {}), "behavior": ev.get("behavior", []),
-             "train": {"utility": ev.get("utility"), "errors": ev.get("errors")}, "utility": ev.get("utility")}
+        c = {
+            "id": cid,
+            "family": self.family,
+            "run_id": self.run_id,
+            "generation": gen,
+            "parents": parents,
+            "origin": origin,
+            "genome": genome,
+            "status": "failed" if ev["failed"] else "evaluated",
+            "objectives": ev.get("objectives", {}),
+            "behavior": ev.get("behavior", []),
+            "train": {"utility": ev.get("utility"), "errors": ev.get("errors")},
+            "utility": ev.get("utility"),
+        }
         return c
 
     def run(self) -> dict[str, Any]:
         A = self.archive
-        A.execute("INSERT INTO evo_runs (run_id, family, config, status, created) VALUES (?,?,?,?,?)",
-                  (self.run_id, self.family, json.dumps(self.config), "running", dt.datetime.now(dt.UTC).isoformat()))
+        A.execute(
+            "INSERT INTO evo_runs (run_id, family, config, status, created) VALUES (?,?,?,?,?)",
+            (self.run_id, self.family, json.dumps(self.config), "running", dt.datetime.now(dt.UTC).isoformat()),
+        )
         A.audit("evolution-loop", "start_run", self.run_id, self.config)
         champ_row = A.active_champion(self.family)
         if champ_row is None:
             g0 = seed_genome(self.family)
             cid = genome_id(self.family, g0)
-            A.add_candidate({"id": cid, "family": self.family, "run_id": self.run_id, "generation": 0, "parents": [],
-                             "origin": "default", "genome": g0, "status": "champion"})
+            A.add_candidate(
+                {
+                    "id": cid,
+                    "family": self.family,
+                    "run_id": self.run_id,
+                    "generation": 0,
+                    "parents": [],
+                    "origin": "default",
+                    "genome": g0,
+                    "status": "champion",
+                }
+            )
             A.promote(self.family, cid, "initial default strategy", {})
             champ_row = A.active_champion(self.family)
         assert champ_row is not None
@@ -144,7 +200,9 @@ class EvolutionRun:
         self.progress(f"champion v{champ_row['version']} {champ['id']}")
 
         # generation 0: champion + mutants (+ optional LLM-synthesised genomes)
-        genomes = [champ_genome] + [mutate(self.family, champ_genome, self.rng, sigma=0.35) for _ in range(self.pop - 1)]
+        genomes = [champ_genome] + [
+            mutate(self.family, champ_genome, self.rng, sigma=0.35) for _ in range(self.pop - 1)
+        ]
         origins = ["champion"] + ["mutation"] * (self.pop - 1)
         parents = [[]] + [[champ["id"]]] * (self.pop - 1)
         if self.synthesizer:
@@ -175,7 +233,9 @@ class EvolutionRun:
                     kid_parents.append([a["id"]])
                 kids.append(g)
             evs = self._evaluate(kids, self.train, TRAIN_REGIMES)
-            children = [self._record(gen, g, o, p, e) for g, o, p, e in zip(kids, kid_origin, kid_parents, evs, strict=True)]
+            children = [
+                self._record(gen, g, o, p, e) for g, o, p, e in zip(kids, kid_origin, kid_parents, evs, strict=True)
+            ]
             self._finish_generation(children, behaviors)
             behaviors += [c["behavior"] for c in children if c["behavior"]]
             pool = parents_sel + [c for c in children if c["status"] != "failed"]
@@ -197,10 +257,13 @@ class EvolutionRun:
                 continue  # never overwrite the champion's record
             self.archive.add_candidate(c)
 
-    def _champion_challenger(self, champ: dict[str, Any], champ_row: dict[str, Any],
-                             population: list[dict[str, Any]]) -> dict[str, Any]:
+    def _champion_challenger(
+        self, champ: dict[str, Any], champ_row: dict[str, Any], population: list[dict[str, Any]]
+    ) -> dict[str, Any]:
         A = self.archive
-        front = [c for c in population if c["status"] != "failed" and c.get("pareto_rank") == 0 and c["id"] != champ["id"]]
+        front = [
+            c for c in population if c["status"] != "failed" and c.get("pareto_rank") == 0 and c["id"] != champ["id"]
+        ]
         pool = front or [c for c in population if c["status"] != "failed" and c["id"] != champ["id"]]
         decision: dict[str, Any] = {"run_id": self.run_id}
         if not pool:
@@ -226,11 +289,23 @@ class EvolutionRun:
                 if dd_gap < -1.0:
                     reasons.append(f"drawdown regressed by {-dd_gap:.2f} pct-pts")
                 verdict = "promoted" if not reasons else "rejected"
-                evidence = {"utility_challenger": mean_ci(u_ch), "utility_champion": mean_ci(u_cp),
-                            "paired_diff": diff, "realism_gap": real_gap, "drawdown_gap": dd_gap,
-                            "validation_objectives": {"challenger": ev_ch["objectives"], "champion": ev_cp["objectives"]},
-                            "per_run": [{"seed": a["seed"], "regime": a["regime"], "u_challenger": run_utility(a),
-                                         "u_champion": run_utility(b)} for a, b in zip(ev_ch["runs"], ev_cp["runs"], strict=True)]}
+                evidence = {
+                    "utility_challenger": mean_ci(u_ch),
+                    "utility_champion": mean_ci(u_cp),
+                    "paired_diff": diff,
+                    "realism_gap": real_gap,
+                    "drawdown_gap": dd_gap,
+                    "validation_objectives": {"challenger": ev_ch["objectives"], "champion": ev_cp["objectives"]},
+                    "per_run": [
+                        {
+                            "seed": a["seed"],
+                            "regime": a["regime"],
+                            "u_challenger": run_utility(a),
+                            "u_champion": run_utility(b),
+                        }
+                        for a, b in zip(ev_ch["runs"], ev_cp["runs"], strict=True)
+                    ],
+                }
             evidence["reasons"] = reasons
             A.record_challenge(self.family, self.run_id, ch["id"], champ["id"], verdict, evidence)
             if verdict == "promoted":
@@ -253,17 +328,24 @@ class EvolutionRun:
         if not ev_a["failed"] and not ev_d["failed"]:
             ua = [run_utility(r) for r in ev_a["runs"]]
             ud = [run_utility(r) for r in ev_d["runs"]]
-            heldout.update(paired_diff_vs_default=paired_diff(ua, ud), champion=ev_a["objectives"],
-                           default=ev_d["objectives"])
-        summary = {"run_id": self.run_id, "config": self.config, "decision": decision, "heldout": heldout,
-                   "n_candidates": len(A.candidates(self.family, self.run_id))}
+            heldout.update(
+                paired_diff_vs_default=paired_diff(ua, ud), champion=ev_a["objectives"], default=ev_d["objectives"]
+            )
+        summary = {
+            "run_id": self.run_id,
+            "config": self.config,
+            "decision": decision,
+            "heldout": heldout,
+            "n_candidates": len(A.candidates(self.family, self.run_id)),
+        }
         out = EVO_DIR / self.run_id
         out.mkdir(parents=True, exist_ok=True)
         (out / "report.json").write_text(json.dumps(summary, indent=2, default=_json_default))
         (out / "report.md").write_text(render_report(summary))
-        A.execute("UPDATE evo_runs SET status=?, summary=?, finished=? WHERE run_id=?",
-                  ("finished", json.dumps(summary, default=_json_default), dt.datetime.now(dt.UTC).isoformat(),
-                   self.run_id))
+        A.execute(
+            "UPDATE evo_runs SET status=?, summary=?, finished=? WHERE run_id=?",
+            ("finished", json.dumps(summary, default=_json_default), dt.datetime.now(dt.UTC).isoformat(), self.run_id),
+        )
         A.audit("evolution-loop", "finish_run", self.run_id, {"decision": decision.get("decision")})
         return summary
 
@@ -278,26 +360,45 @@ def _json_default(o: Any) -> Any:
 
 def render_report(s: dict[str, Any]) -> str:
     d = s["decision"]
-    lines = [f"# Evolution run `{s['run_id']}`", "", f"Family: **{s['config']['family']}** - "
-             f"{s['config']['generations']} generations x {s['config']['pop']} candidates; data: synthetic", "",
-             "## Champion / challenger decision", "", f"- Decision: **{d.get('decision')}**"]
+    lines = [
+        f"# Evolution run `{s['run_id']}`",
+        "",
+        f"Family: **{s['config']['family']}** - "
+        f"{s['config']['generations']} generations x {s['config']['pop']} candidates; data: synthetic",
+        "",
+        "## Champion / challenger decision",
+        "",
+        f"- Decision: **{d.get('decision')}**",
+    ]
     if "challenger" in d:
         ev = d["evidence"]
         lines += [f"- Challenger `{d['challenger']}` vs champion `{d['champion']}`"]
         if "paired_diff" in ev:
             pdf = ev["paired_diff"]
-            lines += [f"- Paired utility diff (validation, {pdf['n']} runs): {pdf['mean']:+.4f} "
-                      f"[95% t-CI {pdf['t_lo']:+.4f}, {pdf['t_hi']:+.4f}]",
-                      f"- Realism gap: {ev['realism_gap']:+.3f}; drawdown gap: {ev['drawdown_gap']:+.3f}"]
+            lines += [
+                f"- Paired utility diff (validation, {pdf['n']} runs): {pdf['mean']:+.4f} "
+                f"[95% t-CI {pdf['t_lo']:+.4f}, {pdf['t_hi']:+.4f}]",
+                f"- Realism gap: {ev['realism_gap']:+.3f}; drawdown gap: {ev['drawdown_gap']:+.3f}",
+            ]
         for r in ev.get("reasons", []):
             lines.append(f"- Rejection reason: {r}")
     h = s["heldout"]
-    lines += ["", "## Held-out (unseen regimes, reporting only)", "",
-              f"Regimes: {', '.join(h['regimes'])}; seeds {h['seeds']}"]
+    lines += [
+        "",
+        "## Held-out (unseen regimes, reporting only)",
+        "",
+        f"Regimes: {', '.join(h['regimes'])}; seeds {h['seeds']}",
+    ]
     if "paired_diff_vs_default" in h:
         p = h["paired_diff_vs_default"]
-        lines.append(f"- Active champion `{h['active_champion']}` vs default: {p['mean']:+.4f} "
-                     f"[95% t-CI {p['t_lo']:+.4f}, {p['t_hi']:+.4f}] (n={p['n']})")
-    lines += ["", "Utility = cohort return% - 0.5 x max-drawdown% + 0.25 x CVaR10%. Selection on TRAIN, gate on "
-              "VALIDATION, report on HELD-OUT seeds/regimes.", ""]
+        lines.append(
+            f"- Active champion `{h['active_champion']}` vs default: {p['mean']:+.4f} "
+            f"[95% t-CI {p['t_lo']:+.4f}, {p['t_hi']:+.4f}] (n={p['n']})"
+        )
+    lines += [
+        "",
+        "Utility = cohort return% - 0.5 x max-drawdown% + 0.25 x CVaR10%. Selection on TRAIN, gate on "
+        "VALIDATION, report on HELD-OUT seeds/regimes.",
+        "",
+    ]
     return "\n".join(lines)

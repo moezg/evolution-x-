@@ -36,20 +36,26 @@ class Simulation:
         self.historical: dict[str, Any] | None = None
         if cfg.mode == "replay":
             from .replay import load_replay_path
+
             self.historical = load_replay_path(cfg.replay_dataset, cfg.duration_s)
             cfg = cfg.model_copy(update={"initial_price_usd": self.historical["first_close"]})
         self.cfg = cfg
         self.counts = population_counts(cfg.scale, cfg.population_overrides)
-        self.agents: list[Agent] = build_population(cfg.seed, self.counts, cfg.n_venues, cfg.param_overrides,
-                                                    cfg.heterogeneity)
+        self.agents: list[Agent] = build_population(
+            cfg.seed, self.counts, cfg.n_venues, cfg.param_overrides, cfg.heterogeneity
+        )
         self.clearing = ClearingHouse(cfg.n_venues, cfg.maker_fee_bps, cfg.taker_fee_bps, cfg.maintenance_margin)
         for a in self.agents:
             self.clearing.open_account(a.id, usd_to_cash(a.capital_usd), a.max_leverage)
         self.p0 = usd_to_ticks(cfg.initial_price_usd)
-        self.exchange = Exchange([VenueConfig(f"venue_{chr(65 + i)}", cfg.circuit_breaker_pct)
-                                  for i in range(cfg.n_venues)], self.clearing, self.p0)
-        self.world = World(cfg.seed, cfg.initial_price_usd, cfg.world_annual_vol, cfg.news_rate_per_hour,
-                           cfg.news_impact)
+        self.exchange = Exchange(
+            [VenueConfig(f"venue_{chr(65 + i)}", cfg.circuit_breaker_pct) for i in range(cfg.n_venues)],
+            self.clearing,
+            self.p0,
+        )
+        self.world = World(
+            cfg.seed, cfg.initial_price_usd, cfg.world_annual_vol, cfg.news_rate_per_hour, cfg.news_impact
+        )
         if self.historical is not None:
             self.world.replay = self.historical["path"]
         self.feed = MarketDataFeed()
@@ -96,8 +102,12 @@ class Simulation:
         n = max(1, (end - start) // 5000)
         chunk = max(1, lots // n)
         for k in range(n):
-            self.q.schedule(start + k * 5000, "ext_order", (aid, 0 if k % 2 == 0 else min(1, self.cfg.n_venues - 1),
-                                                            BUY, chunk, False), priority=3)
+            self.q.schedule(
+                start + k * 5000,
+                "ext_order",
+                (aid, 0 if k % 2 == 0 else min(1, self.cfg.n_venues - 1), BUY, chunk, False),
+                priority=3,
+            )
 
     # ------------------------------------------------------------------ run
     @property
@@ -112,8 +122,16 @@ class Simulation:
         t_end_ms = min(t_end_ms, self.cfg.duration_s * 1000)
         start = time.perf_counter()
         q = self.q
-        handlers = {"tick": self._tick, "wake": self._wake, "orders": self._orders, "funding": self._funding,
-                    "perf": self._perf, "shock": self._shock, "ext_order": self._ext_order, "restore": self._restore}
+        handlers = {
+            "tick": self._tick,
+            "wake": self._wake,
+            "orders": self._orders,
+            "funding": self._funding,
+            "perf": self._perf,
+            "shock": self._shock,
+            "ext_order": self._ext_order,
+            "restore": self._restore,
+        }
         while q and not self.stopped:
             nt = q.peek_time()
             if nt is None or nt > t_end_ms:
@@ -131,7 +149,9 @@ class Simulation:
     def _tick(self, t: int, _: Any) -> None:
         news = self.world.step(t)
         if news is not None:
-            self.sim_events.append(SimEvent(t, "news", data={"sentiment": round(news.sentiment, 3), "headline": news.headline}))
+            self.sim_events.append(
+                SimEvent(t, "news", data={"sentiment": round(news.sentiment, 3), "headline": news.headline})
+            )
         ex = self.exchange
         ex.update_circuit_breakers(t)
         for aid in ex.run_liquidations(t):
@@ -145,8 +165,19 @@ class Simulation:
         spread = (v0.ask - v0.bid) / v0.mid * 1e4 if v0.ask and v0.bid else float("nan")
         depth = v0.depth_bid + v0.depth_ask
         imb = (v0.depth_bid - v0.depth_ask) / depth if depth else 0.0
-        self.series.append((t, *[vv.mid for vv in snap.venues], spread, depth, imb, self.world.value,
-                            self.funding_rate, sum(vv.volume for vv in snap.venues), len(self.liquidation_log)))
+        self.series.append(
+            (
+                t,
+                *[vv.mid for vv in snap.venues],
+                spread,
+                depth,
+                imb,
+                self.world.value,
+                self.funding_rate,
+                sum(vv.volume for vv in snap.venues),
+                len(self.liquidation_log),
+            )
+        )
         self._update_candles()
         if self.cfg.invariant_check_every_s and t % (self.cfg.invariant_check_every_s * 1000) == 0:
             ex.check_invariants()
@@ -154,7 +185,7 @@ class Simulation:
 
     def _update_candles(self) -> None:
         trades = self.exchange.trades
-        for tr in trades[self._trade_cursor:]:
+        for tr in trades[self._trade_cursor :]:
             m = tr.t // 60_000
             c = self.candles[tr.venue].get(m)
             p = tr.price / 100
@@ -203,10 +234,19 @@ class Simulation:
             a.memory["belief_err"], a.memory["belief_t"] = e, t
             fundamental = self.world.value_as_of(data_t) * math.exp(noise_bps / 1e4 * e)
         return Observation(
-            t=t, data_t=snap.t, venues=snap.venues, funding_rate=snap.funding_rate, index_price=snap.index_price,
-            cash=acct.cash, positions=tuple(acct.positions), equity=acct.equity(marks),
-            open_orders=len(self.exchange.agent_orders.get(a.id, ())), news=tuple(news),
-            social=self.social.signal(a.id, self.agents), fundamental=fundamental)
+            t=t,
+            data_t=snap.t,
+            venues=snap.venues,
+            funding_rate=snap.funding_rate,
+            index_price=snap.index_price,
+            cash=acct.cash,
+            positions=tuple(acct.positions),
+            equity=acct.equity(marks),
+            open_orders=len(self.exchange.agent_orders.get(a.id, ())),
+            news=tuple(news),
+            social=self.social.signal(a.id, self.agents),
+            fundamental=fundamental,
+        )
 
     def _wake(self, t: int, aid: int) -> None:
         a = self.agents[aid]
@@ -223,8 +263,16 @@ class Simulation:
         a.wakes += 1
         s = obs.social
         if self.cfg.social_enabled and abs(s) > 0.4 and a.stance * s > 0 and prev * s < 0 and abs(a.stance) > 0.2:
-            self.influence_events.append({"t": t, "agent": aid, "kind": a.kind, "social": round(s, 3),
-                                          "prev": round(prev, 3), "new": round(a.stance, 3)})
+            self.influence_events.append(
+                {
+                    "t": t,
+                    "agent": aid,
+                    "kind": a.kind,
+                    "social": round(s, 3),
+                    "prev": round(prev, 3),
+                    "new": round(a.stance, 3),
+                }
+            )
         valid = []
         for c in cmds:
             if validate_command(c, self.cfg.n_venues, MAX_CMD_LOTS):
@@ -369,5 +417,14 @@ class Simulation:
         return h.hexdigest()
 
     def series_columns(self) -> list[str]:
-        return ["t", *[f"mid_{i}" for i in range(self.cfg.n_venues)], "spread_bps", "depth", "imbalance",
-                "fundamental", "funding", "volume", "liquidations"]
+        return [
+            "t",
+            *[f"mid_{i}" for i in range(self.cfg.n_venues)],
+            "spread_bps",
+            "depth",
+            "imbalance",
+            "fundamental",
+            "funding",
+            "volume",
+            "liquidations",
+        ]

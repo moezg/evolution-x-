@@ -65,9 +65,18 @@ def test_liquidation_and_bankruptcy_cover_conserve_cash():
     ex.check_invariants()
 
 
-ops = st.lists(st.tuples(st.integers(0, 3), st.integers(0, 1), st.sampled_from([BUY, SELL]),
-                         st.integers(1, 3000), st.one_of(st.none(), st.integers(5_900_000, 6_100_000)),
-                         st.integers(0, 9)), min_size=1, max_size=60)
+ops = st.lists(
+    st.tuples(
+        st.integers(0, 3),
+        st.integers(0, 1),
+        st.sampled_from([BUY, SELL]),
+        st.integers(1, 3000),
+        st.one_of(st.none(), st.integers(5_900_000, 6_100_000)),
+        st.integers(0, 9),
+    ),
+    min_size=1,
+    max_size=60,
+)
 
 
 @settings(max_examples=200, deadline=None)

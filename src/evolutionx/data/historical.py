@@ -79,10 +79,19 @@ def fetch_day(day: str, symbol: str = "BTCUSDT", data_dir: Path = DATA_DIR, clie
         raw = z.read(names[0])
     arr = _parse_rows(raw)
     np.save(out, arr)
-    _update_manifest(data_dir, out.name, {"source": url, "symbol": symbol, "day": day, "rows": int(len(arr)),
-                                          "sha256_archive": hashlib.sha256(r.content).hexdigest(),
-                                          "fetched_utc": dt.datetime.now(dt.UTC).isoformat(timespec="seconds"),
-                                          "kind": "historical"})
+    _update_manifest(
+        data_dir,
+        out.name,
+        {
+            "source": url,
+            "symbol": symbol,
+            "day": day,
+            "rows": int(len(arr)),
+            "sha256_archive": hashlib.sha256(r.content).hexdigest(),
+            "fetched_utc": dt.datetime.now(dt.UTC).isoformat(timespec="seconds"),
+            "kind": "historical",
+        },
+    )
     return out
 
 
@@ -98,8 +107,9 @@ def fetch_splits(splits: dict[str, list[str]] = DEFAULT_SPLITS, symbol: str = "B
         return {k: [fetch_day(d, symbol, client=c) for d in days] for k, days in splits.items()}
 
 
-def load_split(split: str, symbol: str = "BTCUSDT", data_dir: Path = DATA_DIR,
-               splits: dict[str, list[str]] = DEFAULT_SPLITS) -> list[np.ndarray]:
+def load_split(
+    split: str, symbol: str = "BTCUSDT", data_dir: Path = DATA_DIR, splits: dict[str, list[str]] = DEFAULT_SPLITS
+) -> list[np.ndarray]:
     out = []
     for d in splits[split]:
         p = data_dir / f"{symbol}-1m-{d}.npy"

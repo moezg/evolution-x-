@@ -17,16 +17,29 @@ import numpy as np
 def main(suite_path: str, mode: str = "suite") -> None:
     import evolutionx
     from evolutionx.evaluation.metrics import run_metrics
+    from evolutionx.evaluation.stylized import realism_score
     from evolutionx.sim.config import SimConfig
     from evolutionx.sim.scenarios import scenario_at
     from evolutionx.sim.simulation import Simulation
 
     suite = json.loads(Path(suite_path).read_text())
+    bands_file = Path(suite_path).parents[2] / suite.get("reference_bands", "")
+    bands = (
+        {k: tuple(v) for k, v in json.loads(bands_file.read_text())["bands"].items()} if bands_file.is_file() else None
+    )
     if mode == "replay":  # deterministic replay test: same seed twice -> identical fingerprint
         cfg = SimConfig(seed=4242, duration_s=300)
         a, b = Simulation(cfg).run(), Simulation(cfg).run()
-        print(json.dumps({"fingerprint_a": a.fingerprint(), "fingerprint_b": b.fingerprint(),
-                          "identical": a.fingerprint() == b.fingerprint(), "module": evolutionx.__file__}))
+        print(
+            json.dumps(
+                {
+                    "fingerprint_a": a.fingerprint(),
+                    "fingerprint_b": b.fingerprint(),
+                    "identical": a.fingerprint() == b.fingerprint(),
+                    "module": evolutionx.__file__,
+                }
+            )
+        )
         return
     if mode == "bench":
         rates = []
@@ -43,9 +56,19 @@ def main(suite_path: str, mode: str = "suite") -> None:
         sim = Simulation(cfg).run()
         sim.exchange.check_invariants()
         m = run_metrics(sim)
-        cases.append({"seed": case["seed"], "scenario": case["scenario"], "realism": 1 - m["realism"]["distance"],
-                      "market_dd_pct": m["max_drawdown_pct"], "spread_bps": m["spread_bps_median"],
-                      "liquidations": m["liquidations"], "by_kind": m["by_kind"], "fingerprint": sim.fingerprint()})
+        real = realism_score(m["facts"], bands)
+        cases.append(
+            {
+                "seed": case["seed"],
+                "scenario": case["scenario"],
+                "realism": 1 - real["distance"],
+                "market_dd_pct": m["max_drawdown_pct"],
+                "spread_bps": m["spread_bps_median"],
+                "liquidations": m["liquidations"],
+                "by_kind": m["by_kind"],
+                "fingerprint": sim.fingerprint(),
+            }
+        )
     print(json.dumps({"suite": suite["name"], "cases": cases, "module": evolutionx.__file__}))
 
 

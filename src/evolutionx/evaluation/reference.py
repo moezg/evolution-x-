@@ -12,7 +12,7 @@ def window_facts(split: str, window_min: int = 60) -> list[dict[str, float]]:
     out = []
     for day in load_split(split):
         for i in range(0, len(day) - window_min + 1, window_min):
-            w = day[i:i + window_min]
+            w = day[i : i + window_min]
             f = facts_from_series(w[:, 4], w[:, 5])
             if f:
                 out.append(f)
@@ -25,4 +25,4 @@ def historical_bands(window_min: int = 60) -> dict[str, tuple[float, float]] | N
     facts = window_facts("train", window_min)
     if len(facts) < 10:
         return None
-    return bands_from_reference(facts, widen=0.1)
+    return bands_from_reference(facts)

@@ -8,8 +8,15 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-ShockType = Literal["fundamental_drop", "flash_sell", "liquidity_drought", "whale_liquidation",
-                    "funding_spike", "news_panic", "arb_outage"]
+ShockType = Literal[
+    "fundamental_drop",
+    "flash_sell",
+    "liquidity_drought",
+    "whale_liquidation",
+    "funding_spike",
+    "news_panic",
+    "arb_outage",
+]
 
 
 class Shock(BaseModel):

@@ -23,8 +23,14 @@ class News:
 
 
 class World:
-    def __init__(self, seed: int, initial_value: float, annual_vol: float = 0.6,
-                 news_rate_per_hour: float = 6.0, news_impact: float = 0.004) -> None:
+    def __init__(
+        self,
+        seed: int,
+        initial_value: float,
+        annual_vol: float = 0.6,
+        news_rate_per_hour: float = 6.0,
+        news_impact: float = 0.004,
+    ) -> None:
         self.rng = random.Random(f"world:{seed}")
         self.value = initial_value
         self.sigma_per_s = annual_vol / math.sqrt(365 * 24 * 3600)

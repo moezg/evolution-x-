@@ -15,8 +15,9 @@ def genome_id(family: str, genome: dict[str, float]) -> str:
     return f"{family[:3]}-{hashlib.sha256(blob.encode()).hexdigest()[:10]}"
 
 
-def mutate(family: str, genome: dict[str, float], rng: random.Random, sigma: float = 0.25,
-           p_gene: float = 0.5) -> dict[str, float]:
+def mutate(
+    family: str, genome: dict[str, float], rng: random.Random, sigma: float = 0.25, p_gene: float = 0.5
+) -> dict[str, float]:
     """Log-normal multiplicative mutation for positive params, additive for [0,1] params; clipped."""
     out = dict(genome)
     for k, (_d, lo, hi) in PARAM_SPECS[family].items():

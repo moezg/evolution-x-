@@ -25,8 +25,16 @@ class JobManager:
             if len(active) >= self.max_queued:
                 raise RuntimeError("job quota exceeded; wait for running jobs to finish")
             jid = f"{kind}-{uuid.uuid4().hex[:8]}"
-            job = {"id": jid, "kind": kind, "params": params, "status": "queued", "created": now(),
-                   "progress": [], "result": None, "error": None}
+            job = {
+                "id": jid,
+                "kind": kind,
+                "params": params,
+                "status": "queued",
+                "created": now(),
+                "progress": [],
+                "result": None,
+                "error": None,
+            }
             self.jobs[jid] = job
 
         def progress(msg: str) -> None:
@@ -47,5 +55,7 @@ class JobManager:
         return job
 
     def list(self) -> list[dict[str, Any]]:
-        return [{k: v for k, v in j.items() if k != "result"} for j in sorted(self.jobs.values(), key=lambda j: j["created"],
-                                                                                reverse=True)]
+        return [
+            {k: v for k, v in j.items() if k != "result"}
+            for j in sorted(self.jobs.values(), key=lambda j: j["created"], reverse=True)
+        ]

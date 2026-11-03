@@ -1,11 +1,12 @@
 {
   "name": "frozen-eval-v1",
   "description": "Frozen evaluation suite for code-evolution candidates. Protected path: candidates cannot modify it.",
-  "duration_s": 600,
+  "duration_s": 1800,
   "cases": [
     {"seed": 7001, "scenario": "baseline"},
     {"seed": 7002, "scenario": "btc_drop_5pct"},
     {"seed": 7003, "scenario": "liquidity_drought_70"}
   ],
+  "reference_bands": "evals/frozen/reference_bands.json",
   "tolerances": {"realism_drop_max": 0.15, "market_drawdown_increase_max_pct": 2.0, "events_per_s_drop_max": 0.30}
 }

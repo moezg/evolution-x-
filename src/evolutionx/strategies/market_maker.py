@@ -28,8 +28,16 @@ def decide(agent: Agent, obs: Observation) -> list[Command]:
     q = btc(size)
     cmds: list[Command] = [CancelAll(v)]
     agent.stance = -max(-1.0, min(1.0, inv_btc / p["max_inv_btc"]))
-    agent.decisions.append({"t": obs.t, "ref": int(ref), "vol_bps": round(vol, 2), "inv_btc": round(inv_btc, 3),
-                            "withdrawing": withdrawing, "half_spread_bps": round(hs, 2)})
+    agent.decisions.append(
+        {
+            "t": obs.t,
+            "ref": int(ref),
+            "vol_bps": round(vol, 2),
+            "inv_btc": round(inv_btc, 3),
+            "withdrawing": withdrawing,
+            "half_spread_bps": round(hs, 2),
+        }
+    )
     if q <= 0:
         return cmds
     for i in range(int(p["levels"])):

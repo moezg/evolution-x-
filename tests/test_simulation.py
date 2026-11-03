@@ -18,8 +18,18 @@ def test_population_is_256_unique_stateful_agents():
     s = Simulation(SimConfig(seed=1, duration_s=60))
     assert len(s.agents) == 256 and len({a.id for a in s.agents}) == 256
     assert len({tuple(sorted(a.params.items())) for a in s.agents}) == 256  # individually parameterised
-    assert counts == {"noise": 64, "momentum": 40, "value": 32, "market_maker": 24, "arbitrage": 20,
-                      "execution": 20, "whale": 16, "leveraged": 16, "news": 12, "adaptive": 12}
+    assert counts == {
+        "noise": 64,
+        "momentum": 40,
+        "value": 32,
+        "market_maker": 24,
+        "arbitrage": 20,
+        "execution": 20,
+        "whale": 16,
+        "leveraged": 16,
+        "news": 12,
+        "adaptive": 12,
+    }
 
 
 def test_same_seed_is_bit_identical_and_different_seed_differs():
@@ -47,8 +57,18 @@ def test_observation_never_contains_future_data():
         assert (obs.fundamental is None) == (not a.memory.get("research"))
 
 
-@pytest.mark.parametrize("name", ["btc_drop_5pct", "liquidity_drought_70", "whale_liquidation", "funding_spike",
-                                  "news_panic", "arb_outage", "flash_sell"])
+@pytest.mark.parametrize(
+    "name",
+    [
+        "btc_drop_5pct",
+        "liquidity_drought_70",
+        "whale_liquidation",
+        "funding_spike",
+        "news_panic",
+        "arb_outage",
+        "flash_sell",
+    ],
+)
 def test_scenarios_execute_and_preserve_invariants(name):
     cfg = scenario_at(name, 120).apply(SimConfig(seed=4, duration_s=300, invariant_check_every_s=10))
     s = Simulation(cfg).run()

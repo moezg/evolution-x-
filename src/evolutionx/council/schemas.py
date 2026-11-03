@@ -6,8 +6,16 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-Role = Literal["research_scientist", "microstructure_analyst", "behavioral_scientist", "macro_scenario_designer",
-               "adversarial_researcher", "risk_researcher", "evaluation_scientist", "evolution_engineer"]
+Role = Literal[
+    "research_scientist",
+    "microstructure_analyst",
+    "behavioral_scientist",
+    "macro_scenario_designer",
+    "adversarial_researcher",
+    "risk_researcher",
+    "evaluation_scientist",
+    "evolution_engineer",
+]
 
 
 class Claim(BaseModel):

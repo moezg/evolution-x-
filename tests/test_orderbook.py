@@ -57,8 +57,9 @@ def test_self_trade_prevention_cancels_resting():
     b.check_invariants()
 
 
-order_st = st.tuples(st.integers(1, 6), st.sampled_from([BUY, SELL]), st.integers(95, 105), st.integers(1, 20),
-                     st.booleans())
+order_st = st.tuples(
+    st.integers(1, 6), st.sampled_from([BUY, SELL]), st.integers(95, 105), st.integers(1, 20), st.booleans()
+)
 
 
 @settings(max_examples=300, deadline=None)
