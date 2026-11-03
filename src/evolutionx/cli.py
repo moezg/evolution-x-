@@ -163,6 +163,15 @@ def cmd_bench(a: argparse.Namespace) -> None:
     Path("artifacts/bench.json").write_text(json.dumps(out, indent=2))
 
 
+def cmd_audit(a: argparse.Namespace) -> None:
+    from .research.audit import capture_baseline, verify_baseline
+
+    if a.verify:
+        _print(verify_baseline(Path(a.verify)))
+    else:
+        _print(capture_baseline(run_tests=not a.no_tests))
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -219,6 +228,9 @@ def main() -> None:
     sp = add("council", cmd_council)
     sp.add_argument("--question", default="What mechanisms drive the observed dynamics, and what should we test next?")
     sp.add_argument("--experiment", default=None)
+    sp = add("audit", cmd_audit)
+    sp.add_argument("--no-tests", action="store_true")
+    sp.add_argument("--verify", default=None, help="path to a baseline manifest to re-check")
     add("data", cmd_data)
     add("bench", cmd_bench)
     sp = add("serve", cmd_serve)
