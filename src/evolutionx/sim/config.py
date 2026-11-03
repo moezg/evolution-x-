@@ -37,6 +37,8 @@ class SimConfig(BaseModel):
     scale: float = Field(default=1.0, gt=0, le=50)
     population_overrides: dict[str, int] = Field(default_factory=dict)
     param_overrides: dict[str, dict[str, float]] = Field(default_factory=dict)
+    size_scale: dict[str, float] = Field(default_factory=dict)
+    insurance_fund_usd: float = Field(default=1_000_000.0, ge=0)  # external seed capital (KC-1)  # per-kind multiplier on order-size parameters
     heterogeneity: float = Field(default=0.3, ge=0, le=1)
     initial_price_usd: float = 60_000.0
     n_venues: int = Field(default=2, ge=1, le=4)

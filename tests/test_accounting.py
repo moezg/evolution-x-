@@ -93,3 +93,30 @@ def test_random_order_flow_conserves_cash_and_positions(seq):
         else:
             ex.submit(t, agent, venue, side, qty, price)
         ex.check_invariants()
+
+
+def test_kc1_insurance_fund_never_negative_and_losses_socialised():
+    """Reference test for kernel change KC-1."""
+    ch = ClearingHouse(1, 1.0, 5.0, 0.05)
+    ch.open_account(0, 10**12, 5)
+    ch.open_account(1, 3 * 10**12, 5)
+    ch.open_account(2, 0, 50)
+    ch.seed_insurance_fund(1000)
+    ch.accounts[2].cash = -5000  # flat and bankrupt by 5000 micro-USDT
+    before = ch.total_cash()
+    assert ch.cover_bankruptcy(2) == 5000
+    assert ch.insurance_fund == 0 and ch.socialized_losses == 4000 and ch.accounts[2].cash == 0
+    assert ch.total_cash() == before  # cover is a pure transfer
+    assert 10**12 - ch.accounts[0].cash == 1000 and 3 * 10**12 - ch.accounts[1].cash == 3000  # pro rata 1:3
+
+
+def test_kc1_fund_pays_first_when_sufficient():
+    ch = ClearingHouse(1, 1.0, 5.0, 0.05)
+    ch.open_account(0, 10**12, 5)
+    ch.open_account(1, 0, 5)
+    ch.seed_insurance_fund(10**6)
+    ch.accounts[1].cash = -300
+    ch.accounts[0].cash += 300
+    before = ch.total_cash()
+    ch.cover_bankruptcy(1)
+    assert ch.insurance_fund == 10**6 - 300 and ch.socialized_losses == 0 and ch.total_cash() == before

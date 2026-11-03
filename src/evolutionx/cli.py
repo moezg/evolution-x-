@@ -251,6 +251,16 @@ def cmd_research(a: argparse.Namespace) -> None:
     _print(st)
 
 
+def cmd_calibrate(a: argparse.Namespace) -> None:
+    from .evaluation.calibration import run_calibration
+
+    r = run_calibration(a.configs, a.search_seeds, a.eval_seeds, a.duration, a.workers)
+    e = r["evaluation"]
+    for k in ("default", "calibrated"):
+        print(k, {s: round(e[k][s]["mean"], 3) for s in ("train_distance", "validation_distance", "heldout_distance")})
+    print("selected knobs:", {k: round(v, 3) for k, v in r["selected_knobs"].items()})
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -325,6 +335,12 @@ def main() -> None:
     sp.add_argument("--seed", type=int, default=0)
     sp.add_argument("--reason", default="")
     sp.add_argument("--confirm", action="store_true", help="resume: explicit human confirmation after a stop")
+    sp = add("calibrate", cmd_calibrate)
+    sp.add_argument("--configs", type=int, default=16)
+    sp.add_argument("--search-seeds", type=int, default=2)
+    sp.add_argument("--eval-seeds", type=int, default=6)
+    sp.add_argument("--duration", type=int, default=3600)
+    sp.add_argument("--workers", type=int, default=4)
     sp = add("audit", cmd_audit)
     sp.add_argument("--no-tests", action="store_true")
     sp.add_argument("--verify", default=None, help="path to a baseline manifest to re-check")

@@ -47,6 +47,7 @@ def build_population(
     n_venues: int,
     param_overrides: dict[str, dict[str, float]] | None = None,
     heterogeneity: float = 0.3,
+    size_scale: dict[str, float] | None = None,
 ) -> list[Agent]:
     """Create agents with individually jittered parameters.
 
@@ -67,7 +68,7 @@ def build_population(
                     id=aid,
                     kind=kind,
                     policy_name=kind,
-                    params=clip_params(kind, params),
+                    params=_scaled(clip_params(kind, params), (size_scale or {}).get(kind, 1.0)),
                     rng=random.Random(f"agent:{seed}:{aid}"),
                     wake_ms=max(200, int(prof.wake_ms * (0.6 + 0.8 * rng.random()))),
                     order_latency_ms=rng.randint(*prof.order_latency_ms),
@@ -80,3 +81,13 @@ def build_population(
             )
             aid += 1
     return agents
+
+
+SIZE_KEYS = ("mean_btc", "max_btc", "quote_btc", "size_btc", "parent_btc")
+
+
+def _scaled(params: dict[str, float], k: float) -> dict[str, float]:
+    """Calibration knob: scales order-size parameters (applied after bounds; default k=1 changes nothing)."""
+    if k == 1.0:
+        return params
+    return {n: (v * k if n in SIZE_KEYS else v) for n, v in params.items()}

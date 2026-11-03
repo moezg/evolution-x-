@@ -51,6 +51,8 @@ class ClearingHouse:
         self.accounts: dict[int, Account] = {}
         self.fee_pool = 0
         self.insurance_fund = 0
+        self.socialized_losses = 0
+        self.uncovered_losses = 0
         self.initial_cash = 0
         self.external_inflows = 0
 
@@ -124,14 +126,42 @@ class ClearingHouse:
         self.insurance_fund += total
         return total
 
+    def seed_insurance_fund(self, cash: int) -> None:
+        """External capital injected into the insurance fund (recorded as an external inflow)."""
+        self.insurance_fund += cash
+        self.external_inflows += cash
+
     def cover_bankruptcy(self, agent: int) -> int:
+        """Cover a flat account's negative cash: insurance fund first, then socialised loss.
+
+        KERNEL CHANGE KC-1 (see docs/KERNEL_CHANGES.md): previously the fund could go negative without bound.
+        Now the fund pays at most its balance; any remainder is charged pro rata to accounts with positive cash
+        (integer allocation, remainder to the largest), recorded in `socialized_losses`. Cash stays conserved.
+        """
         a = self.accounts[agent]
         if a.cash >= 0 or any(a.positions):
             return 0
         deficit = -a.cash
         a.cash = 0
         a.bankrupt_cover += deficit
-        self.insurance_fund -= deficit
+        from_fund = min(deficit, max(self.insurance_fund, 0))
+        self.insurance_fund -= from_fund
+        rest = deficit - from_fund
+        if rest > 0:
+            payers = [x for x in self.accounts.values() if x.cash > 0 and x.agent != agent]
+            total = sum(x.cash for x in payers)
+            if total < rest:  # system-wide insolvency: cannot be covered; keep it visible
+                self.insurance_fund -= rest
+                self.uncovered_losses += rest
+            else:
+                charged = 0
+                for x in payers:
+                    share = rest * x.cash // total
+                    x.cash -= share
+                    charged += share
+                big = max(payers, key=lambda x: x.cash)
+                big.cash -= rest - charged
+                self.socialized_losses += rest
         return deficit
 
     def needs_liquidation(self, agent: int, marks: list[int]) -> bool:

@@ -42,11 +42,12 @@ class Simulation:
         self.cfg = cfg
         self.counts = population_counts(cfg.scale, cfg.population_overrides)
         self.agents: list[Agent] = build_population(
-            cfg.seed, self.counts, cfg.n_venues, cfg.param_overrides, cfg.heterogeneity
+            cfg.seed, self.counts, cfg.n_venues, cfg.param_overrides, cfg.heterogeneity, cfg.size_scale
         )
         self.clearing = ClearingHouse(cfg.n_venues, cfg.maker_fee_bps, cfg.taker_fee_bps, cfg.maintenance_margin)
         for a in self.agents:
             self.clearing.open_account(a.id, usd_to_cash(a.capital_usd), a.max_leverage)
+        self.clearing.seed_insurance_fund(usd_to_cash(cfg.insurance_fund_usd))
         self.p0 = usd_to_ticks(cfg.initial_price_usd)
         self.exchange = Exchange(
             [VenueConfig(f"venue_{chr(65 + i)}", cfg.circuit_breaker_pct) for i in range(cfg.n_venues)],
