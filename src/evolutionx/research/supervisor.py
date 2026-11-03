@@ -49,6 +49,7 @@ STAGES = [
     "OBSERVE",
     "HYPOTHESIZE",
     "PROTOCOL",
+    "PREMISES",
     "DESIGN",
     "ADMISSIBILITY",
     "EXPERIMENT",
@@ -59,6 +60,27 @@ STAGES = [
     "DONE",
 ]
 POLICY = Path("evals/frozen/research_policy.json")
+DEFAULT_MECHANISM_TESTS: dict[str, dict[str, Any]] = {
+    "add_deadzone": {
+        "metric": "turnover_per_year",
+        "symbol": "ALL",
+        "direction": "decrease",
+        "min_relative_change": 0.1,
+    },
+    "add_vol_target": {"metric": "max_drawdown", "symbol": "ALL", "direction": "decrease", "min_relative_change": 0.05},
+    "add_trend_filter": {
+        "metric": "avg_holding_bars",
+        "symbol": "ALL",
+        "direction": "increase",
+        "min_relative_change": 0.1,
+    },
+    "add_funding_guard": {
+        "metric": "funding_cost_share",
+        "symbol": "ALL",
+        "direction": "decrease",
+        "min_relative_change": 0.1,
+    },
+}
 PROTOCOL = Path("evals/frozen/research_protocol.json")
 V0 = Path("src/evolutionx/evolvable/tsmom_v0.py")
 
@@ -104,6 +126,8 @@ class Supervisor:
         self.protocol_sha = _sha(json.dumps(self.protocol, sort_keys=True))
         self._data = data
         self.generator: Any = generator or OfflineGenerator()
+        self.use_dossier = True  # LLM generators receive the technical dossier
+        self.memory_roots: list[Path] | None = None  # lessons from these labs' memory (None = no lessons)
 
     # ---------------------------------------------------------------- campaign lifecycle
     def create_campaign(
@@ -125,6 +149,10 @@ class Supervisor:
             "llm_available": llm_ok,
             "llm_status": llm_why,
             "sandbox": sandbox.isolation_report(self._limits()),
+            "generator_settings": {
+                "dossier": self.use_dossier,
+                "memory_roots": [str(r) for r in self.memory_roots] if self.memory_roots else None,
+            },
         }
         existing = self.lab.memory.q("SELECT * FROM campaigns WHERE id=?", (campaign_id,))
         if existing:
@@ -335,7 +363,11 @@ class Supervisor:
         return EvalConfig(self.protocol, self.policy["modes"][mode]["causality_checks"], self._limits())
 
     def _experiment_key(self, code_sha: str, data: DataSource, stage: str) -> str:
-        return _sha(f"{code_sha}|{self.protocol_sha}|{data_sha(data)}|{','.join(data.symbols)}|{stage}")
+        from .evaluator import EVALUATOR_VERSION
+
+        return _sha(
+            f"{code_sha}|{self.protocol_sha}|{data_sha(data)}|{','.join(data.symbols)}|{stage}|{EVALUATOR_VERSION}"
+        )
 
     def _evaluate_cached(self, source: str, cid: str, data: DataSource, mode: str) -> dict[str, Any]:
         """Idempotent: identical (code, protocol, data) -> stored result, never re-run."""
@@ -491,7 +523,7 @@ class Supervisor:
         hid = f"h-{task['id']}"
         self.lab.memory.x("UPDATE tasks SET task=? WHERE id=?", (json.dumps(t, default=str), task["id"]))
         self.lab.memory.x(
-            "INSERT OR REPLACE INTO hypotheses VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT OR REPLACE INTO hypotheses (id, signature, statement, operator, parent_id, candidate_id, status, evidence, novelty, created, updated) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
             (
                 hid,
                 ck["signature"],
@@ -510,6 +542,34 @@ class Supervisor:
             "formulator", "preregistered", {"task": task["id"], "sha256": t["preregistration_sha256"]}
         )
         ck.update(hypothesis_id=hid, preregistration_sha256=t["preregistration_sha256"])
+        return ck
+
+    def _s_premises(self, camp, task, ck, data):  # noqa: ANN001, ANN202
+        """Verify the hypothesis' premises against executable evidence BEFORE any backtest."""
+        from . import premises as P
+
+        ext = ck.get("external")
+        if ext is not None:
+            prem = ext.get("premises") or [
+                {
+                    "id": "P0",
+                    "claim": "no premises declared",
+                    "check": {"type": "unverifiable", "reason": "none declared"},
+                }
+            ]
+        else:
+            prem = P.OPERATOR_PREMISES.get(ck["operator"], [])
+        res = P.verify(prem, P.feature_registry(), P.view_api(), ck["diagnostics"])
+        ck["premise_check"] = res
+        self.lab.memory.x(
+            "UPDATE hypotheses SET premises=? WHERE id=?", (json.dumps(res, default=str), ck.get("hypothesis_id"))
+        )
+        self.lab.journal.append(
+            "verifier", "premise_check", {"task": task["id"], "verdict": res["verdict"], "counts": res["counts"]}
+        )
+        if res["verdict"] != "accepted":
+            ck["verdict"] = "rejected_premise"
+            ck["_next"] = "ARCHIVE"
         return ck
 
     def _s_design(self, camp, task, ck, data):  # noqa: ANN001, ANN202
@@ -636,6 +696,10 @@ class Supervisor:
         src = (self.lab.root / "candidates" / ck["candidate_id"] / "strategy.py").read_text()
         rep = self._evaluate_cached(src, ck["candidate_id"], data, camp["mode"])
         _, champ_rep, champ_val = self._champion(data, camp["mode"])
+        from .lessons import mechanism_result
+
+        test = (ck.get("external") or {}).get("mechanism_test") or DEFAULT_MECHANISM_TESTS.get(ck.get("operator", ""))
+        ck["mechanism"] = mechanism_result(test, rep["diagnostics"], champ_rep["diagnostics"])
         cs, hs = rep["development"]["portfolio_oos_sharpe"], champ_rep["development"]["portfolio_oos_sharpe"]
         ck["screen"] = {"candidate_dev_oos_sharpe": cs, "champion_dev_oos_sharpe": hs, "passed": cs > hs}
         if not ck["screen"]["passed"]:
@@ -706,8 +770,29 @@ class Supervisor:
             "refuted": "refuted",
             "inconclusive": "inconclusive",
             "rejected": "failed",
+            "rejected_premise": "failed",
             "duplicate": "inconclusive",
         }.get(verdict, "failed")
+        from .lessons import classify
+
+        cand_rep = parent_rep = None
+        if ck.get("experiment_key"):
+            cand_rep = self.lab.memory.get_experiment(ck["experiment_key"])
+            champ = self.lab.memory.q(
+                "SELECT result FROM experiments WHERE candidate_id=? AND stage='eval'",
+                (f"champion-v{ck.get('parent_version', 0)}",),
+            )
+            parent_rep = champ[-1]["result"] if champ else None
+        cl = classify(
+            ck,
+            (cand_rep or {}).get("diagnostics"),
+            (parent_rep or {}).get("diagnostics"),
+            (cand_rep or {}).get("development"),
+        )
+        ck["classification"] = cl
+        self.lab.memory.x(
+            "UPDATE hypotheses SET classification=? WHERE id=?", (json.dumps(cl, default=str), ck.get("hypothesis_id"))
+        )
         ev = {
             k: ck.get(k)
             for k in ("experiment_key", "screen", "validation_summary", "rejection", "duplicate_of", "activation")
@@ -739,25 +824,35 @@ class Supervisor:
         if c.get("llm_tokens", 0) >= camp["budget"]["max_llm_tokens"]:
             raise BudgetExhausted("LLM token budget exhausted")
         _, src = self.lab.registry.load_source(ck["parent_version"])
-        tested = []
-        for h in self.lab.memory.q("SELECT statement, operator, candidate_id FROM hypotheses"):
-            exp = (
-                self.lab.memory.q(
-                    "SELECT result FROM experiments WHERE candidate_id=? AND stage='eval'", (h["candidate_id"],)
-                )
-                if h["candidate_id"]
-                else []
-            )
-            dev = exp[0]["result"]["development"]["portfolio_oos_sharpe"] if exp else None
-            tested.append({"idea": h["statement"], "operator": h["operator"], "development_oos_sharpe": dev})
+        from .context import build as build_dossier
+        from .contract import literal_symbols
+        from .lessons import lessons as mem_lessons
+
+        lsn = mem_lessons(self.memory_roots + [self.lab.root]) if self.memory_roots is not None else None
+        dossier = build_dossier(
+            {
+                "id": f"v{ck['parent_version']}",
+                "version": ck["parent_version"],
+                "source": src,
+                "params": literal_symbols(src).get("PARAMS"),
+            },
+            ck["diagnostics"],
+            self.protocol,
+            self.policy,
+            lsn,
+        )
+        ddir = self.lab.root / "dossiers"
+        ddir.mkdir(exist_ok=True)
+        (ddir / f"{task['id']}.json").write_text(json.dumps(dossier, indent=1, default=str))
+        ck["dossier_sha256"] = dossier["dossier_sha256"]
         c["llm_calls"] = c.get("llm_calls", 0) + 1  # counted BEFORE the call: failed calls still consume quota
         self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
         try:
-            prop, call = self.generator.propose_free(
+            prop, call = self.generator.propose_with_dossier(
                 {"id": f"v{ck['parent_version']}", "source": src},
-                ck["diagnostics"],
-                tested[-30:],
+                dossier,
                 {"sandbox": camp["budget"]["sandbox"]},
+                require_motivation=lsn is not None,
             )
         except Exception as e:
             bad = getattr(e, "call", None)
@@ -775,7 +870,11 @@ class Supervisor:
             "why": "hypothesis formulated by the LLM from development-only diagnostics",
             "novelty": prop.spec.get("change_summary", ""),
             "llm_call": {k: v for k, v in call.items() if k != "text"},
-            "exposure": ["parent source", "development diagnostics", "tested ideas with development screen results"],
+            "premises": prop.spec.get("premises"),
+            "mechanism_test": prop.spec.get("mechanism_test"),
+            "dossier_sha256": dossier["dossier_sha256"],
+            "exposure": ["technical dossier (code excerpts, probes, parent development behaviour)"]
+            + (["lessons from memory incl. coarse validation verdicts of earlier tasks"] if lsn is not None else []),
             "provenance": "claude -p (official CLI, environment's existing authentication; may use plan quota)",
         }
 
@@ -825,6 +924,8 @@ class Supervisor:
             "provenance": provenance,
             "exposure": exposure,
             "risk": risk,
+            "premises": hypothesis.get("premises"),
+            "mechanism_test": hypothesis.get("mechanism_test"),
         }
         pol = self.policy["task"]
         tid = f"{campaign_id}-t001"

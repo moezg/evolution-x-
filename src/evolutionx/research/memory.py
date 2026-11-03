@@ -11,7 +11,10 @@ import threading
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+MIGRATIONS = {
+    2: ["ALTER TABLE hypotheses ADD COLUMN classification TEXT", "ALTER TABLE hypotheses ADD COLUMN premises TEXT"]
+}
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT);
 CREATE TABLE IF NOT EXISTS campaigns (
@@ -23,7 +26,7 @@ CREATE TABLE IF NOT EXISTS tasks (
   UNIQUE(campaign_id, seq));
 CREATE TABLE IF NOT EXISTS hypotheses (
   id TEXT PRIMARY KEY, signature TEXT, statement TEXT, operator TEXT, parent_id TEXT, candidate_id TEXT,
-  status TEXT, evidence TEXT, novelty TEXT, created TEXT, updated TEXT);
+  status TEXT, evidence TEXT, novelty TEXT, created TEXT, updated TEXT, classification TEXT, premises TEXT);
 CREATE TABLE IF NOT EXISTS candidates (
   id TEXT PRIMARY KEY, parent_id TEXT, code_sha256 TEXT, generator TEXT, operator TEXT, spec TEXT, path TEXT,
   status TEXT, created TEXT);
@@ -52,8 +55,15 @@ class Memory:
             cur = c.execute("SELECT value FROM meta WHERE key='schema_version'").fetchone()
             if cur is None:
                 c.execute("INSERT INTO meta VALUES ('schema_version', ?)", (str(SCHEMA_VERSION),))
-            elif int(cur[0]) != SCHEMA_VERSION:
-                raise RuntimeError(f"research DB schema {cur[0]} != code schema {SCHEMA_VERSION}; migrate first")
+            else:
+                v = int(cur[0])
+                if v > SCHEMA_VERSION:
+                    raise RuntimeError(f"research DB schema {v} is newer than code schema {SCHEMA_VERSION}")
+                while v < SCHEMA_VERSION:  # forward-only, in-place migrations of the existing store
+                    v += 1
+                    for stmt in MIGRATIONS[v]:
+                        c.execute(stmt)
+                    c.execute("UPDATE meta SET value=? WHERE key='schema_version'", (str(v),))
 
     def _c(self) -> sqlite3.Connection:
         c = sqlite3.connect(self.path, timeout=30)

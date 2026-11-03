@@ -66,6 +66,7 @@ class BacktestResult:
     unfilled_qty: float
     open_time: np.ndarray
     events: list[dict[str, Any]] = field(default_factory=list)
+    fill_notional: np.ndarray = field(default_factory=lambda: np.zeros(0))  # traded notional per bar (instrumentation)
 
 
 class InvalidDecisions(ValueError):
@@ -96,6 +97,7 @@ def run_backtest(
     eq = np.full(n, equity0)
     posa = np.zeros(n)
     cumc = np.zeros(n)
+    fill_notional = np.zeros(n)
     gross = 0.0
     costs = {"fees": 0.0, "spread": 0.0, "impact": 0.0, "funding": 0.0, "liquidation": 0.0}
     n_fills = n_liq = 0
@@ -135,6 +137,7 @@ def run_backtest(
                 costs["fees"] += fee
                 pos += qty
                 traded += notional
+                fill_notional[t] += notional
                 n_fills += 1
             last_mark = px
         elif t > start and last_mark is not None:
@@ -184,7 +187,7 @@ def run_backtest(
         eq[t] = cash
         posa[t] = pos
         cumc[t] = sum(costs.values())
-    res = BacktestResult(eq, posa, cumc, gross, costs, n_fills, n_liq, traded, unfilled, t_open, events)
+    res = BacktestResult(eq, posa, cumc, gross, costs, n_fills, n_liq, traded, unfilled, t_open, events, fill_notional)
     check_accounting(res, equity0)
     return res
 

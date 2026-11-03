@@ -336,7 +336,7 @@ def test_exhausted_search_space_stops_instead_of_proposing_duplicates(tmp_path):
     sha = lab.registry.active()["sha256"]
     for op in ALL_OPS:  # every operator already tested on the only available parent
         lab.memory.x(
-            "INSERT INTO hypotheses VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            "INSERT INTO hypotheses (id, signature, statement, operator, parent_id, candidate_id, status, evidence, novelty, created, updated) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
             (f"h-{op}", signature(sha, op), op, op, "v0", None, "refuted", "{}", "", "x", "x"),
         )
     sup = Supervisor(lab, DATA, PROTO, policy(), FixedGenerator([GOOD]))
@@ -351,6 +351,13 @@ HYP = {
     "mechanism": "test",
     "alternatives": ["none"],
     "prediction": "higher validation Sharpe",
+    "premises": [
+        {
+            "id": "P1",
+            "claim": "decisions execute next bar",
+            "check": {"type": "engine_feature", "feature": "next_open_execution", "expect": "present"},
+        }
+    ],
 }
 
 
@@ -379,6 +386,11 @@ def test_session_import_goes_through_the_same_gates(tmp_path):
     )
     with pytest.raises(ValueError):
         sup.import_candidate("imp3", "research", GOOD, {"statement": "x"}, "g", "p", [])
+    no_prem = {k: v for k, v in HYP.items() if k != "premises"}
+    sup.import_candidate("imp4", "research", GOOD.replace("good_trend", "g4"), no_prem, "g", "p", [])
+    sup.run("imp4")
+    ck4 = lab.memory.q("SELECT checkpoint FROM tasks WHERE id='imp4-t001'")[0]["checkpoint"]
+    assert ck4["premise_check"]["verdict"] == "rejected_unverifiable" and "experiment_key" not in ck4
 
 
 class FakeLLM:
@@ -390,7 +402,7 @@ class FakeLLM:
     def __init__(self):
         self.calls = 0
 
-    def propose_free(self, parent, diagnostics, tested, budget):  # noqa: ANN001
+    def propose_with_dossier(self, parent, dossier, budget, require_motivation):  # noqa: ANN001
         from evolutionx.research.generator import diff
 
         self.calls += 1
@@ -438,7 +450,7 @@ def test_invalid_llm_output_still_accounts_quota(tmp_path):
     from evolutionx.research.llm_connectors import LLMOutputInvalid
 
     class BadLLM(FakeLLM):
-        def propose_free(self, parent, diagnostics, tested, budget):  # noqa: ANN001
+        def propose_with_dossier(self, parent, dossier, budget, require_motivation):  # noqa: ANN001
             self.calls += 1
             raise LLMOutputInvalid(
                 "schema",
@@ -470,3 +482,31 @@ def test_inherited_trials_are_not_double_counted(tmp_path):
     sc.inherit_validation_trials([tmp_path / "a", tmp_path / "b"])
     sc.inherit_validation_trials([tmp_path / "a", tmp_path / "b"])  # idempotent
     assert c.memory.n_trials("validation") == 2
+
+
+def test_false_premise_stops_task_before_any_backtest(tmp_path):
+    class MisinformedLLM(FakeLLM):
+        def propose_with_dossier(self, parent, dossier, budget, require_motivation):  # noqa: ANN001
+            p, call = super().propose_with_dossier(parent, dossier, budget, require_motivation)
+            p.spec["premises"] = [
+                {
+                    "id": "P1",
+                    "claim": "the executor rebalances on every small change",
+                    "check": {"type": "engine_feature", "feature": "rebalance_band", "expect": "absent"},
+                }
+            ]
+            return p, call
+
+    lab, sup = lab_with(tmp_path, ANTI, MisinformedLLM(), auto=False)
+    sup.create_campaign("m", "research", "guided", 1, 600)
+    sup.run("m")
+    t = lab.memory.q("SELECT * FROM tasks")[0]
+    ck = t["checkpoint"]
+    assert t["status"] == "done" and ck["premise_check"]["verdict"] == "rejected_false_premise"
+    assert ck["classification"]["class"] == "technically_false_premise"
+    assert "experiment_key" not in ck and not lab.memory.q(
+        "SELECT key FROM experiments WHERE candidate_id LIKE 'llm-%'"
+    )
+    assert (lab.root / "dossiers" / f"{t['id']}.json").exists()
+    h = lab.memory.q("SELECT status, classification, premises FROM hypotheses")[0]
+    assert h["status"] == "failed" and h["classification"]["class"] == "technically_false_premise"

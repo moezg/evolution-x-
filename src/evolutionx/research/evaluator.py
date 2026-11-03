@@ -33,6 +33,7 @@ from . import sandbox
 from .contract import literal_symbols, param_sets, static_check
 
 MAX_DEC_BYTES = 50_000_000
+EVALUATOR_VERSION = "evaluator-v2"  # bump when evaluation outputs change (part of the experiment cache key)
 
 
 class DataSource(Protocol):
@@ -214,7 +215,9 @@ def evaluate(source: str, cand_id: str, ds: DataSource, cfg: EvalConfig, secret_
             "day_index": days.tolist(),
         },
     }
-    report["diagnostics"] = diagnostics(ds, dec, n_dev, p)
+    default_index = next((i for i, ps in enumerate(psets) if ps == lit["PARAMS"]), 0)
+    report["diagnostics"] = diagnostics(ds, dec, n_dev, p, default_index)
+    report["default_param_index"] = default_index
     report["_dec"] = dec  # kept in memory for validation stage (not serialised)
     report["_n_dev"] = n_dev
     report["_full"] = full
@@ -222,35 +225,22 @@ def evaluate(source: str, cand_id: str, ds: DataSource, cfg: EvalConfig, secret_
 
 
 def diagnostics(
-    ds: DataSource, dec: dict[tuple[str, int], np.ndarray], n_dev: dict[str, int], p: dict[str, Any]
+    ds: DataSource,
+    dec: dict[tuple[str, int], np.ndarray],
+    n_dev: dict[str, int],
+    p: dict[str, Any],
+    default_index: int = 0,
 ) -> dict[str, Any]:
-    """Development-only diagnostics used by the hypothesis formulator (never validation/final data)."""
+    """Development-only diagnostics used by the hypothesis formulator (never validation/final data).
+    Computed on calendar-year segments with fresh equity (see research/behaviour.py) for the strategy's default
+    parameter set (`default_index`)."""
+    from .behaviour import behaviour
+
     out = {}
     for s in ds.symbols:
         dd = ds.get(s, "development")
-        r = run_backtest(dd, dec[(s, 0)][: n_dev[s]], CostModel.from_protocol(p, s))
-        sm = summarize(r)
-        days, rets = daily_returns(r.equity, r.open_time)
-        closes = dd["close"]
-        dclose = closes[np.r_[np.where(np.diff(dd["open_time"] // 86_400_000) != 0)[0], len(closes) - 1]][1:]
-        lr = np.diff(np.log(np.r_[closes[0], dclose]))
-        vol = np.array([np.std(lr[max(0, i - 30) : i]) if i > 5 else np.nan for i in range(len(lr))])
-        ok = np.isfinite(vol)
-        lo_q, hi_q = np.nanquantile(vol, [1 / 3, 2 / 3])
-        hv = rets[ok & (vol >= hi_q)]
-        lv = rets[ok & (vol <= lo_q)]
-        gross = abs(r.gross_pnl) + 1e-9
-        out[s] = {
-            "net_sharpe": sm["net_sharpe"],
-            "gross_sharpe": sm["gross_sharpe"],
-            "max_drawdown": sm["max_drawdown"],
-            "turnover_per_year": sm["turnover_per_year"],
-            "avg_holding_bars": sm["avg_holding_bars"],
-            "trading_cost_share": (r.costs["fees"] + r.costs["spread"] + r.costs["impact"]) / gross,
-            "funding_cost_share": r.costs["funding"] / gross,
-            "sharpe_low_vol_tercile": sharpe(lv),
-            "sharpe_high_vol_tercile": sharpe(hv),
-        }
+        out[s] = behaviour(dd, dec[(s, default_index)][: n_dev[s]], CostModel.from_protocol(p, s))
+        out[s]["param_index"] = default_index
     return out
 
 

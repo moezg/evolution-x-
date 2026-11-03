@@ -114,25 +114,55 @@ class ClaudeCLIGenerator:
             "stop_reason": meta.get("stop_reason"),
         }
 
-    def propose_free(
-        self, parent: dict[str, Any], diagnostics: dict[str, Any], tested: list[dict[str, Any]], budget: dict[str, Any]
+    def propose_with_dossier(
+        self, parent: dict[str, Any], dossier: dict[str, Any], budget: dict[str, Any], require_motivation: bool
     ) -> tuple[Proposal, dict[str, Any]]:
+        """One call. The model sees the verified technical dossier (and lessons if present), never validation/final
+        data, and must answer with checkable premises and a mechanism test."""
+        from .context import render
+
+        fields = (
+            '"current_behavior","premises":[{"id","claim","check":{...}}],"change","mechanism_effect",'
+            '"refutation_observation","mechanism_test":{"metric","symbol","direction","min_relative_change"},'
+            '"hypothesis","mechanism","alternatives":[...],"prediction","change_summary","source"'
+        )
+        if require_motivation:
+            fields += ',"motivated_by":["<lab>/<task id> from lessons_from_memory"],"new_information"'
         prompt = (
             CONTRACT
-            + "\nParent module (current champion or exploration parent):\n```python\n"
-            + parent["source"]
-            + "\n```\nDevelopment-period diagnostics of the champion (2020-2023 only):\n"
-            + json.dumps(diagnostics, indent=1, default=float)
-            + "\nIdeas already tested in this lab (development screen only):\n"
-            + json.dumps(tested, indent=1)
-            + '\nReturn JSON: {"hypothesis","mechanism","alternatives":[...],"prediction","change_summary","source"}'
+            + "\nTECHNICAL DOSSIER generated from the repository at commit "
+            + str(dossier.get("git_commit"))
+            + " (dossier sha256 "
+            + str(dossier.get("dossier_sha256"))[:16]
+            + "). Treat it as ground truth about "
+            "the engine, interface and measured behaviour; do NOT assume features or problems that it contradicts."
+            "\n"
+            + render(dossier)
+            + "\nRULES:\n- Propose ONE identifiable change to the parent (a new rule or composition is allowed;"
+            " you are not limited to existing building blocks).\n- State the current behaviour you claim to improve"
+            " and back it with premises written in premise_language; at least one must be verifiable (engine_feature,"
+            " view_api or parent_metric). A falsified premise rejects the proposal before any backtest.\n"
+            "- Give a mechanism_test the evaluator will measure on development (candidate vs parent).\n"
+            "- State the observation that would refute the hypothesis.\n"
+            + (
+                "- Cite in motivated_by the lessons (task ids) that motivate this proposal and explain in"
+                " new_information what this experiment will teach that previous ones did not. Do not repeat a"
+                " change already tested with other parameters unless you name the new evidence.\n"
+                if require_motivation
+                else ""
+            )
+            + "Return ONE JSON object with fields: {"
+            + fields
+            + "}"
         )
         call = self.call(prompt)
         txt = call["text"].strip()
         if txt.startswith("```"):
             txt = txt.split("\n", 1)[1].rsplit("```", 1)[0]
         try:
-            out = LLMOut.model_validate(json.loads(txt[txt.find("{") : txt.rfind("}") + 1]))
+            out = LLMOutV2.model_validate(json.loads(txt[txt.find("{") : txt.rfind("}") + 1]))
+            if require_motivation and (not out.motivated_by or not out.new_information):
+                raise ValueError("motivated_by and new_information are required in memory mode")
         except ValueError as e:
             raise LLMOutputInvalid(str(e)[:600], call) from e
         src = out.source
@@ -144,13 +174,24 @@ class ClaudeCLIGenerator:
             "mechanism": out.mechanism,
             "alternatives": out.alternatives,
             "prediction": out.prediction,
+            "current_behavior": out.current_behavior,
+            "change": out.change,
+            "mechanism_effect": out.mechanism_effect,
+            "refutation_observation": out.refutation_observation,
+            "motivated_by": out.motivated_by,
+            "new_information": out.new_information,
         }
         prop = Proposal(
             cid,
             parent["id"],
             "llm_free_form",
             h,
-            {"llm": True, "change_summary": out.change_summary},
+            {
+                "llm": True,
+                "change_summary": out.change_summary,
+                "premises": out.premises,
+                "mechanism_test": out.mechanism_test.model_dump(),
+            },
             src,
             diff(parent["source"], src, parent["id"], cid),
             [f"src/evolutionx/evolvable/generated/{cid}.py"],
@@ -158,9 +199,37 @@ class ClaudeCLIGenerator:
             out.prediction,
             "LLM output may be invalid, non-causal or overfit",
             budget,
-            "same gates and frozen promotion rule as every candidate",
+            "premise check, then same gates and frozen promotion rule as every candidate",
             f"claude-cli:{','.join(call['models'])}",
             code_hash(src),
             static_check(src),
         )
         return prop, call
+
+
+class MechanismTest(BaseModel):
+    metric: str
+    symbol: str = "ALL"
+    direction: str
+    min_relative_change: float = Field(ge=0.0, le=1.0)
+
+    def model_post_init(self, _ctx: Any) -> None:
+        from .context import MECH_METRICS
+
+        if (
+            self.metric not in MECH_METRICS
+            or self.direction not in ("decrease", "increase")
+            or self.symbol not in ("BTCUSDT", "ETHUSDT", "ALL")
+        ):
+            raise ValueError(f"invalid mechanism_test {self.metric}/{self.direction}/{self.symbol}")
+
+
+class LLMOutV2(LLMOut):
+    current_behavior: str = Field(min_length=10, max_length=1500)
+    premises: list[dict[str, Any]] = Field(min_length=1, max_length=8)
+    change: str = Field(min_length=5, max_length=1500)
+    mechanism_effect: str = Field(min_length=5, max_length=1500)
+    refutation_observation: str = Field(min_length=5, max_length=1500)
+    mechanism_test: MechanismTest
+    motivated_by: list[str] = Field(default_factory=list, max_length=10)
+    new_information: str = Field(default="", max_length=1500)
