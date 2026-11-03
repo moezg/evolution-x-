@@ -1,99 +1,114 @@
-# Status, measured results and limitations (v0.1.0, 2026-11-03)
+# Status: v0.2 research laboratory (2026-11-03)
 
-All numbers below were produced by the commands shown, on a 4-vCPU Intel Xeon @ 2.10 GHz, Python 3.13.
-Every result is from **synthetic** simulation unless labelled historical.
+- **Initial commit:** `b89ad87`, with its reproducible baseline in `artifacts/baseline/b89ad877b237/manifest.json`.
+- **Commits since:** see `git log b89ad87..HEAD`.
+- **Machine:** 4-vCPU Intel Xeon 2.1 GHz Linux container, Python 3.13.18.
+- **Provenance labels:** **[HIST]** historical backtest on Binance data, **[SYN]** synthetic simulator,
+  **[MECH]** controlled mechanism test, which is not evidence about markets.
 
-## Acceptance criteria
+## Headline results (negative and inconclusive results kept)
 
-| Criterion | Status | Evidence |
+1. **Question C, value of self-evolution [HIST]: no progress demonstrated.**
+   - Setup: two autonomous campaigns at equal budget (20 tasks each, offline generator, guided vs random
+     experiment selection). Each promoted nothing under the frozen promotion rule.
+   - Final vault (2025-07 to 2026-10, revealed once, blind, plan pre-registered): both arms' champions are the
+     frozen v0. Paired ΔSharpe = 0, Holm: no rejection.
+   - Exploratory picks (best development Sharpe per arm) showed higher final Sharpe than v0:
+     - guided: +0.26, 95% CI [−0.81, +1.58];
+     - random: +0.53, 95% CI [−0.19, +1.41].
+   - The CIs include 0 and these picks were never selected on validation, so this is not evidence of progress.
+2. **Question B, strategy robustness [HIST]: no generated strategy passed validation.**
+   - 33 validation trials in total. The best paired ΔSharpe vs v0 on validation was +0.53 (P = 0.80, DSR 0.45),
+     below the pre-registered threshold P ≥ 0.95 and DSR ≥ 0.90.
+   - Strong development-period gains (walk-forward OOS Sharpe up to 1.14 vs −0.01) did not carry over with
+     enough confidence. This is consistent with search overfitting on development data.
+3. **Question A, simulator realism [SYN vs HIST targets]: calibration helped slightly, not significantly.**
+   - Mean stylized-fact distance on validation days fell from 2.71 to 2.27 and on held-out days from 2.36 to
+     1.94 (6 seeds). The 95% CIs overlap: default [1.61, 3.20], calibrated [1.09, 2.90] on held-out days.
+   - 1-minute volatility is still 3.7× too high (16.5 vs ~4.5 bps).
+4. **Mechanisms [MECH]: verified by tests.**
+   - Leak detection, promotion with real activation, automatic rollback, crash/resume without duplication,
+     sandbox escape attempts, user stop, and budget caps.
+
+## Acceptance evidence (A–J)
+
+| | Evidence | Status |
 |---|---|---|
-| 256 unique, stateful agents in virtual time | Done | `tests/test_simulation.py::test_population_is_256_unique_stateful_agents` |
-| Real order book with consistent executions | Done | Hypothesis property tests (`test_orderbook.py`, `test_accounting.py`); invariants checked every 60 virtual seconds in every run |
-| Reproducible outcomes from seed and version | Done | Bit-identical event fingerprints (`test_same_seed_is_bit_identical...`); fingerprints stored in run manifests |
-| ≥3 executable stress scenarios | Done (8) | `sim/scenarios.py`; all run under invariants in tests |
-| Interactive dashboard connected to the simulation | Done | `web/` (Next.js static export) served by FastAPI; see `web/README.md` |
-| Working population evolutionary experiment | Done | `make evolve`, result below |
-| Auditable champion/challenger result | Done | `challenges` + `audit` tables in `artifacts/evolution.db`, `artifacts/evolution/<run>/report.md` |
-| Tests covering accounting and matching invariants | Done | 48 tests, all passing (`make test`) |
-| Complete sandboxed code-change proposal + evaluation | Done | `make propose KEY=momentum-vol-scaling` passed all 9 gates and reached `awaiting_approval`; red-team probes rejected |
-| Offline execution with synthetic data + mock LLM | Done | Default `EVOX_LLM=mock`; historical data is optional (falls back to literature bands) |
-| Documented performance and limitations | Done | This file |
+| A | `evox audit`. Baseline for `b89ad87`: 48/48 tests passed, sim fingerprints recorded. `evox audit --verify …` still reproduces them after the kernel change KC-1 | Executed, verified |
+| B | `evox backtest`, research tasks, final report: causal engine on 2020–2026 BTC/ETH perp 1h with fees, spread, √-impact, participation cap, funding, lot rounding, margin and liquidation; 12 walk-forward windows per instrument | Executed |
+| C | `tests/test_backtest.py::test_leaky_strategy_is_detected` and `tests/test_research.py::test_H_leak_through_input_file_is_caught_by_physical_truncation` (detected even with static checks bypassed) | Executed, passing |
+| D | `evox calibrate`, `artifacts/calibration/report.json`: train-only search, evaluated on validation and held-out days; unfavourable (non-significant) result kept | Executed |
+| E | Autonomous cycle with an offline-generated patch: `test_E_autonomous_cycle_with_generated_patch`, plus 40 real tasks in `artifacts/research/arm_*`. **Patches come from the offline grammar generator, not a real LLM (no key configured).** | Executed |
+| F | `test_F_controlled_promotion_changes_next_run`, `test_F_automatic_rollback_on_post_activation_failure`, `test_manual_rollback`. Mechanism tests on planted synthetic data, not discoveries | Executed, passing |
+| G | Guided vs random vs frozen at equal budget, final vault: no progress demonstrated | Executed |
+| H | `test_H_*`: hidden registry, vault and data; read-only src and tests; no network; scrubbed secrets; symlink and forged-report outputs ignored; CPU exhaustion killed; out-of-scope patch and leverage exploit rejected | Executed, passing |
+| I | `test_I_crash_and_resume_without_duplicate_experiments`, `test_user_stop_has_priority_and_needs_human_resume` | Executed, passing |
+| J | Dashboard `/research` page reading the real lab state (see `web/README.md`, screenshots in the session) | See section below |
 
-## Performance (`make bench`)
+## Research campaigns (all kept, including superseded runs)
 
-| Agents | Virtual time | Wall time | Events/s | × real time |
-|---:|---:|---:|---:|---:|
-| 256 | 1,800 s | 4.6 s | 36,773 | 394× |
-| 999 | 600 s | 6.3 s | 34,038 | 96× |
-| 10,000 | 120 s | 14.5 s | 28,470 | 8× |
-
-Test suite: about 70 s, including one full sandboxed proposal pipeline (about 50 s).
-
-## Realism vs historical data (`make eval`)
-
-Reference: 5–95% quantile bands from 120 one-hour windows of Binance BTCUSDT 1m klines (train split:
-2026-09-01..05). Validation: 2026-09-15..16. Held-out: 2026-10-01..02. 4 seeds × 1 hour per model.
-
-| Model | Facts inside bands | Validation fact distance (lower = better) | 1-min vol (bps) |
+| Lab | Tasks | Outcome | Notes |
 |---|---|---|---|
-| Full model | 0.79 [0.58, 1.00] | 1.05 [0.85, 1.20] | 21.4 |
-| Zero-intelligence (noise + MM only) | 0.54 [0.33, 0.83] | 1.74 [1.16, 2.31] | 13.2 |
-| Ablation: no social network | 0.67 [0.54, 0.79] | 1.24 [1.08, 1.46] | 17.5 |
-| Ablation: no leverage | 0.58 [0.50, 0.75] | 1.32 [1.25, 1.37] | 16.4 |
-| Ablation: no fundamental traders | 0.38 [0.33, 0.46] | 1.69 [1.44, 1.95] | 47.3 |
-| GBM (vol matched to history) | 0.88 [0.75, 1.00] | 0.68 [0.52, 0.80] | 4.6 |
+| `arm_guided` (g3) | 20 | 0 promoted, 7 refuted, 13 inconclusive | 304 s, 280 sandbox runs, 0 LLM tokens |
+| `arm_random` (r3) | 20 | 0 promoted, 14 refuted, 6 inconclusive | 229 s, 280 sandbox runs |
+| `*_run1_superseded` | 12 / partial | — | The selector re-proposed duplicates after exhausting operators. Fixed by exploration parents and early stop |
+| `*_run2_superseded` | partial | — | The design-parent fix had not been applied (silent failed edit). Fixed, with a regression test |
+| `smoke`, `pilot` | 2, 1 | refuted | Pilot cost: 20 s per task (first task includes the champion evaluation), 4.7 MB |
 
-Historical 1-min volatility: 4.5 bps. Held-out fact distance for the full model: 0.95 [0.73, 1.11].
+Validation-split usage: 33 trials (18 guided + 15 random). Its evidential value is reduced accordingly.
 
-**Reading:** each agent component improves fit over its ablation, and the full model beats zero-intelligence.
-But a volatility-matched random walk still fits these one-hour shape statistics better. The ABM's volatility
-is about 4.7× too high and is not yet calibrated. This is the top calibration priority.
+**Example lineage (guided arm).** Each candidate is the parent of the next:
+`v0 → cand-92b0 (change_horizon) → cand-398e (add_deadzone) → cand-d760 (add_vol_target) → cand-6d40 (add_vol_target) → cand-9b9d (add_funding_guard) → cand-dbef (add_deadzone)`
 
-## Stress experiments (`make experiment`, 8 paired replicates, 1,800 s, shock at 900 s)
+- **Task `g3-t016`:**
+  - Pre-registration sha `b65fe3e6…`.
+  - Hypothesis: "Ignoring weak signals reduces transaction costs enough to raise net Sharpe".
+  - Chosen because trading costs = 0.32 × |gross PnL| in development diagnostics.
+- **Development screen:** OOS Sharpe 1.14 vs −0.01; the candidate beats the champion in 18/24 windows.
+- **Validation:** ΔSharpe +0.525, 90% CI [−0.54, +1.54], P = 0.80, DSR 0.45 (N = 14).
+- **Verdict:** inconclusive. Not promoted.
 
-Paired difference, treatment − baseline, mean [95% bootstrap CI]:
+## Simulator (question A) details
 
-| Scenario | Post-shock min (%) | 5-min return (%) | Shock-window spread (bps) | Max drawdown (pct-pts) | Liquidations |
-|---|---|---|---|---|---|
-| Fundamental −5% | −5.73 [−5.90, −5.55] | −4.99 [−5.04, −4.94] | +0.54 [+0.22, +0.95] | +5.32 [+5.01, +5.59] | 0 |
-| Liquidity drought −70% | +0.01 [−0.02, +0.03] | +0.00 [−0.02, +0.03] | +0.08 [−0.01, +0.18] | −0.01 [−0.03, +0.01] | 0 |
-| Whale liquidation (250 BTC) | −0.50 [−0.62, −0.39] | −0.14 [−0.19, −0.10] | +0.17 [+0.02, +0.33] | +0.26 [+0.12, +0.42] | +1.1 (whale only) |
-| News panic (no fundamental change) | −0.01 [−0.02, +0.00] | +0.01 [−0.02, +0.05] | +0.14 [+0.01, +0.28] | +0.01 [−0.00, +0.02] | 0 |
+- **Calibration knobs:** per-population order-size scales and latent volatility. 16 configs × 2 seeds (train),
+  then 6 new seeds for evaluation.
+- **Sensitivity** (d log vol / d log knob): momentum size +0.20, value size −0.33, market-maker size −0.01.
+- **Liquidity supply** (`artifacts/analysis/liquidity_supply.json`):
+  - Market makers provide 68% of the depth within 20 bps.
+  - In the 70% drought, MM depth falls 123 → 36 BTC but total depth only 181 → 92 BTC.
+  - Value and execution limit orders remain, and the remaining depth still exceeds typical aggressive order
+    sizes (0.03–4 BTC). This explains the small price effect of the drought scenario. It is a property of the
+    population rules, not a bug.
+- **Kernel change KC-1** (`docs/KERNEL_CHANGES.md`): the insurance fund is bounded and losses beyond it are
+  socialised, with reference tests. Baseline fingerprints are unchanged.
+- **Earlier v0.1 statement corrected:** "each agent component improves fit" was based on 4 seeds with
+  overlapping CIs and is withdrawn as a claim.
 
-Findings (synthetic, uncalibrated, not real-world probabilities):
+## Verification status
 
-- The market reprices a 5% fundamental drop almost one-for-one, overshooting by about 0.7 pct-pts.
-- A forced 250 BTC liquidation moves price about 0.5% and does **not** cascade: no other liquidations followed.
-- A pure-sentiment panic has no measurable price effect. Value traders absorb it.
-- Cutting market-maker size by 70% barely matters, because value and retail limit orders supply most resting
-  depth. Market-maker dominance of liquidity is therefore *not* a property of this population.
-
-## Evolution (`make evolve`, momentum family, 3 generations × 6 candidates)
-
-The challenger improved validation utility by +0.149 (95% t-CI [−0.009, +0.307], 9 paired runs). It was
-**rejected** because the CI lower bound was ≤ 0. The champion is unchanged, the rejection is in the audit log,
-and held-out regimes were reported only. With more seeds or generations the same pipeline can promote; rollback
-is available (`evox rollback`).
-
-## Code evolution (Level 4)
-
-| Proposal | Outcome |
+| Item | Status |
 |---|---|
-| `momentum-vol-scaling` | All 9 gates pass (frozen-suite realism 0.930 vs 0.926 baseline; benchmark within 30%), so `awaiting_approval` |
-| `redteam-kernel-fee-bypass` | `policy_rejected` before any worktree exists |
-| `redteam-shell-escape` | `gates_failed` at the security scan; candidate code never executed |
+| Static checks (ruff, format, pyright, bandit `-ll`) | Executed locally: pass |
+| Test suite | 83 passed in 135 s (`uv run pytest -o addopts=""`) |
+| GitHub Actions CI | Workflow written. **Not executed** (no remote); the same commands were run locally |
+| Docker / Compose | **Unavailable**: no Docker daemon in this environment, not executed |
+| LLM candidate generation | **Unavailable**: no API key configured. The interface exists; 0 tokens used. The mock is never counted as an LLM experiment |
+| Sandbox on macOS | **Unavailable** by design (needs Linux namespaces); see `docs/MACOS.md` |
+| Real-money trading, order routing, pushes, deployments | Not implemented, by design |
 
 ## Limitations and next priorities
 
-1. **Calibration**: per-minute volatility is about 4–5× historical. Next: calibrate order sizes and depth
-   against the train split, with realism as an evolution objective. The plumbing exists.
-2. Facts from 60-minute windows are noisy; longer runs and intraday seasonality are not modelled.
-3. Single instrument (perp-like, two venues); no spot leg, no auctions or auto-deleveraging; the insurance fund
-   may go negative.
-4. Level 3 prompt evolution is limited to versioning plus grounding scores. With the mock LLM, prompt variants
-   are indistinguishable, so meaningful comparisons need a live model.
-5. The offline Evolution Engineer draws code proposals from a curated catalogue. Free-form LLM patches go through
-   the same schema and gates but have not been exercised against a live model here.
-6. Durable state uses SQLite and Parquet; PostgreSQL is deferred until there are multiple users (see ADR).
-7. OpenTelemetry tracing is not wired in yet. Runs record timings and fingerprints in their manifests.
-8. Docker image and GitHub Actions CI are provided but were not executed in this environment.
+1. **Statistics:**
+   - One campaign per arm. Process comparisons need multiple independent campaigns (seeds) before any claim.
+   - The final vault is now consumed. A further blind test needs data after 2026-10, or another instrument or
+     period not yet seen.
+2. **Execution model (OHLCV only):** no queue position, no intrabar path, no L2 replay. Impact is a √-model
+   with an unvalidated coefficient.
+3. **Simulator:** volatility is still 3.7× too high. Next hypothesis to test: the volatility floor comes from
+   market-maker quote structure (half-spread, level spacing, re-centring), which the calibration search did not
+   vary.
+4. **Generator:** the offline grammar has 7 operators, so the space is small. An LLM generator would widen it;
+   it is untested here.
+5. **PBO:** CSCV is implemented and validated but not yet applied to the full campaign trial matrix.
+6. **Vault isolation:** it is audited (ledger and journal), not cryptographic. The supervisor runs as the same OS
+   user.

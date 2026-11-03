@@ -6,12 +6,46 @@ propose, test and archive improvements to strategies and source code, with human
 
 > No real-money trading, no exchange order routing, no autonomous merge or deploy. See [docs/SAFETY.md](docs/SAFETY.md).
 
+## v0.2: research laboratory (what is new)
+
+The lab runs a persistent, auditable research loop on **real historical data**: Binance BTC/ETH USD-M perps,
+1h bars and funding, 2020-01 to 2026-10, with checksums and a final split kept in a vault. Each task goes through
+these steps:
+
+1. Pre-register a falsifiable hypothesis.
+2. **Write new strategy code** with the offline grammar generator. An LLM interface exists but no key is
+   configured here.
+3. Run the code in a Linux namespace/chroot sandbox.
+4. Evaluate it out-of-process: walk-forward, a causality check by physical truncation, a paired bootstrap and
+   the DSR.
+5. Critique, decide under a frozen promotion rule, archive the outcome and (in autonomous-experimental mode)
+   activate or roll back an experimental champion. Only the local branch `experimental/research` is touched;
+   `main` is never touched.
+
+**Honest result so far:**
+
+- 40 autonomous tasks produced no promotion. On the blind final split, the evolving system did not demonstrate
+  progress over the frozen v0.
+- Simulator calibration improved its fit only non-significantly.
+
+Details: [docs/STATUS.md](docs/STATUS.md), [docs/AUDIT.md](docs/AUDIT.md),
+[docs/RESEARCH_LAB.md](docs/RESEARCH_LAB.md), [docs/MACOS.md](docs/MACOS.md).
+
+```bash
+make audit             # reproducible baseline (tests + deterministic fingerprints)
+make data-research     # 2020-2026 perp datasets, QC, checksums, vault split
+make backtest          # causal historical backtest of the frozen v0
+make research-smoke    # short end-to-end research cycle (Linux sandbox required)
+make research-campaign TASKS=20 SELECTOR=guided LAB=my_lab   # bounded autonomous campaign
+make calibrate         # simulator calibration (train days) evaluated on unseen days
+```
+
 ## Quick start
 
 ```bash
 make dev        # install deps, build dashboard, serve UI + API on http://localhost:8000
 make demo       # seeded 256-agent run (baseline + 5% shock), persisted to artifacts/runs/
-make test       # 48 tests incl. property tests and the full sandboxed code-evolution pipeline
+make test       # full suite (83 tests) incl. property, sandbox and research-loop tests
 make eval       # realism vs historical BTCUSDT data, baselines, ablations -> artifacts/eval/report.md
 ```
 
