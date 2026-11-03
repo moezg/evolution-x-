@@ -143,3 +143,37 @@ def lessons(roots: list[Path], limit: int = 40) -> list[dict[str, Any]]:
                 row["validation_prob_positive"] = round(b["prob_positive"], 3)
             out.append(row)
     return out[-limit:]
+
+
+def operator_summary(roots: list[Path]) -> dict[str, Any]:
+    """Per change-type aggregate over archived tasks: how often the declared mechanism actually moved, and classes."""
+    agg: dict[str, dict[str, Any]] = {}
+    for r in roots:
+        db = r / "research.db"
+        if not db.exists():
+            continue
+        for t in Memory(db).q("SELECT checkpoint FROM tasks WHERE status IN ('done','failed')"):
+            ck = t["checkpoint"] or {}
+            op = ck.get("operator") or "unknown"
+            a = agg.setdefault(
+                op, {"n": 0, "mechanism_declared": 0, "mechanism_observed": 0, "rel_changes": [], "classes": {}}
+            )
+            a["n"] += 1
+            cls = (ck.get("classification") or {}).get("class", "unclassified")
+            a["classes"][cls] = a["classes"].get(cls, 0) + 1
+            m = ck.get("mechanism_v2") or ck.get("mechanism") or {}
+            if m.get("declared"):
+                a["mechanism_declared"] += 1
+                a["mechanism_observed"] += int(bool(m.get("observed")))
+                a["metric"] = m["test"]["metric"]
+                rel = [
+                    v["relative_change"]
+                    for v in m["per_symbol"].values()
+                    if isinstance(v.get("relative_change"), float)
+                ]
+                if rel:
+                    a["rel_changes"].append(round(sum(rel) / len(rel), 3))
+    for a in agg.values():
+        rc = a.pop("rel_changes")
+        a["median_relative_change_of_mechanism_metric"] = sorted(rc)[len(rc) // 2] if rc else None
+    return agg

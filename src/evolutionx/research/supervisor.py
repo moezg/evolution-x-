@@ -838,7 +838,18 @@ class Supervisor:
         from .contract import literal_symbols
         from .lessons import lessons as mem_lessons
 
-        lsn = mem_lessons(self.memory_roots + [self.lab.root]) if self.memory_roots is not None else None
+        lsn = None
+        if self.memory_roots is not None:
+            from .lessons import operator_summary
+
+            roots = self.memory_roots + [self.lab.root]
+            lsn = [
+                {
+                    "summary_by_change_type": operator_summary(roots),
+                    "note": "classes are descriptive; a failure class does not prove its cause. validation verdicts "
+                    "are coarse and the validation split has been reused many times",
+                }
+            ] + mem_lessons(roots)
         dossier = build_dossier(
             {
                 "id": f"v{ck['parent_version']}",

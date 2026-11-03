@@ -1,0 +1,21 @@
+{
+  "name": "exposure-registry-v1",
+  "written_utc": "2026-11-03T16:45:00Z",
+  "principle": "Pre-registering a hypothesis after its author has seen data does not restore independence. Data seen by an actor cannot serve as an independent confirmation of that actor's proposals.",
+  "datasets": {
+    "development BTC/ETH 2020-2023": {"status": "free exploration"},
+    "validation BTC/ETH 2024-01..2025-06": {"status": "reused for selection (35+ trials across labs); usable for screening, NOT for independent confirmation"},
+    "final BTC/ETH 2025-07..2026-10": {"status": "CONSUMED (revealed once on 2026-11-03 15:16Z, report final-2026-11-03); never to be labelled blind again"},
+    "vault_v2 SOL/BNB 2024-01..2026-10": {"status": "RESERVED, unrevealed", "seen": "quality-control counts only (bars, gaps, checksums)",
+                                           "caveat": "same calendar period as BTC/ETH validation+final, whose results the session has seen; correlated assets: reserved but not independent of regime knowledge"},
+    "simulator 1m days (calibration)": {"status": "train used for search; validation/held-out days used once in the calibration report"}
+  },
+  "actors": {
+    "offline generator + guided selector": {"saw": ["parent source", "development diagnostics"], "never": ["validation", "final", "vault_v2"]},
+    "claude -p, arm B (dossier)": {"saw": ["technical dossier: code excerpts, engine probes, parent development behaviour"], "never": ["validation", "final", "vault_v2"]},
+    "claude -p, arm C (dossier + memory)": {"saw": ["technical dossier", "lessons incl. coarse validation verdicts and validation delta-Sharpe of earlier tasks"], "never": ["final", "vault_v2"], "consequence": "its validation results are NOT independent of its inputs"},
+    "this Claude Code session (operator)": {"saw": ["everything in development and validation", "the final vault report", "all classifications"], "never": ["vault_v2 returns or prices (raw archives exist on disk under data/raw/binance/{SOLUSDT,BNBUSDT} and were not inspected)"]},
+    "trusted evaluator": {"role": "computes metrics; does not generate"}
+  },
+  "next_confirmation": "A candidate selected by a pre-registered rule may be evaluated ONCE on vault_v2 with a plan written before the reveal; until then every result is exploratory."
+}
