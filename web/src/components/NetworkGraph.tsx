@@ -18,7 +18,7 @@ function layoutPositions(net: Network, mode: Layout): Map<number, [number, numbe
     const a = (i / Math.max(1, n)) * Math.PI * 2;
     pos.set(nd.id, [0.5 + 0.45 * Math.cos(a), 0.5 + 0.45 * Math.sin(a)]);
   });
-  if (mode === "circular" || n < 3) return pos;
+  if (mode === "circular" || n < 3 || n > 1200) return pos; // force layout is O(n²): skip for large populations
 
   // Fruchterman–Reingold, deterministic start from the grouped circle.
   const ids = nodes.map((d) => d.id);

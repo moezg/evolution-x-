@@ -73,6 +73,16 @@ def propose_and_evaluate(
     A.audit("evolution-engineer", "propose_code", pid, {"files": files, "title": prop.title})
 
     def finish(status: str) -> dict[str, Any]:
+        # worktree directories are disposable; the candidate branch (and its commit) is kept for review
+        for key in ("worktree", "baseline_worktree"):
+            if report.get(key):
+                subprocess.run(
+                    ["git", "worktree", "remove", "--force", report[key]],
+                    cwd=REPO,
+                    capture_output=True,
+                    check=False,
+                    timeout=60,
+                )
         out = PROP_DIR / pid
         out.mkdir(parents=True, exist_ok=True)
         (out / "report.json").write_text(json.dumps(report, indent=2, default=str))
@@ -127,8 +137,13 @@ def propose_and_evaluate(
     report["diff"] = _git("diff", f"{base_sha}..HEAD", cwd=wt)
     report["gates"].append(_gate("apply_patch", True, f"{len(prop.edits)} edit(s) applied on branch {branch}"))
 
-    # Gate 2: protected-file integrity inside the worktree
-    main_m, wt_m = policy.protected_manifest(REPO), policy.protected_manifest(wt)
+    # Trusted baseline = detached worktree at the same base commit (independent of local uncommitted edits)
+    base_wt = (WT_DIR / f"{pid}--baseline").resolve()
+    _git("worktree", "add", "-q", "--detach", str(base_wt), base_sha)
+    report["baseline_worktree"] = str(base_wt)
+
+    # Gate 2: protected-file integrity inside the worktree (vs. the base commit)
+    main_m, wt_m = policy.protected_manifest(base_wt), policy.protected_manifest(wt)
     tampered = sorted(k for k in set(main_m) | set(wt_m) if main_m.get(k) != wt_m.get(k))
     report["gates"].append(
         _gate("protected_integrity", not tampered, tampered or f"{len(main_m)} protected files verified")
@@ -174,7 +189,7 @@ def propose_and_evaluate(
     # Gate 6: deterministic replay
     progress("deterministic replay")
     rp = sandbox.run(
-        [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(REPO / SUITE), "replay"], wt, wt / "src"
+        [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(base_wt / SUITE), "replay"], wt, wt / "src"
     )
     rj = _json(rp["stdout"])
     report["gates"].append(
@@ -188,16 +203,18 @@ def propose_and_evaluate(
 
     # Gate 7: performance regression benchmark (candidate vs trusted baseline, same sandbox)
     progress("benchmark")
-    suite = json.loads(SUITE.read_text())
+    suite = json.loads((base_wt / SUITE).read_text())
     tol = suite["tolerances"]
     bc = _json(
-        sandbox.run([py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(REPO / SUITE), "bench"], wt, wt / "src")[
-            "stdout"
-        ]
+        sandbox.run(
+            [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(base_wt / SUITE), "bench"], wt, wt / "src"
+        )["stdout"]
     )
     bb = _json(
         sandbox.run(
-            [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(REPO / SUITE), "bench"], REPO, REPO / "src"
+            [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(base_wt / SUITE), "bench"],
+            base_wt,
+            base_wt / "src",
         )["stdout"]
     )
     bench_ok = bool(bc and bb and bc["events_per_s"] >= (1 - tol["events_per_s_drop_max"]) * bb["events_per_s"])
@@ -211,12 +228,14 @@ def propose_and_evaluate(
     # Gate 8: frozen evaluation suite vs trusted baseline
     progress("frozen evaluation suite")
     fc = _json(
-        sandbox.run([py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(REPO / SUITE)], wt, wt / "src")["stdout"]
-    )
-    fb = _json(
-        sandbox.run([py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(REPO / SUITE)], REPO, REPO / "src")[
+        sandbox.run([py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(base_wt / SUITE)], wt, wt / "src")[
             "stdout"
         ]
+    )
+    fb = _json(
+        sandbox.run(
+            [py, "-S", "-m", "evolutionx.evaluation.frozen_suite", str(base_wt / SUITE)], base_wt, base_wt / "src"
+        )["stdout"]
     )
     frozen_ok, comparison = False, {}
     if fc and fb:

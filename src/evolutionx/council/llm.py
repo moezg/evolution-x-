@@ -65,16 +65,9 @@ class LLMClient:
                 raise LLMBudgetExceeded(f"call budget {self.budget.max_calls} exhausted")
             self.budget.calls += 1
             try:
-                raw = self.provider.complete(
-                    system,
-                    user
-                    + (
-                        ""
-                        if attempt == 0
-                        else f"\n\nYour previous answer was invalid: {last_err}. Return ONLY valid JSON."
-                    ),
-                    self.budget.max_output_tokens,
-                )
+                note = "" if attempt == 0 else f"Your previous answer was invalid: {last_err}. Return ONLY JSON.\n"
+                prompt = user.replace("<<CONTEXT>>", note + "<<CONTEXT>>", 1) if "<<CONTEXT>>" in user else note + user
+                raw = self.provider.complete(system, prompt, self.budget.max_output_tokens)
                 data = json.loads(_extract_json(raw))
                 out = validate(data)
                 if self.use_cache:

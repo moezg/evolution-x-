@@ -1,11 +1,22 @@
 """Level-4 code evolution: protection policy, security scan, sandboxed pipeline and human gate."""
 
+import subprocess
+
 import pytest
 
 from evolutionx.council.schemas import CodeProposal
 from evolutionx.evolution.archive import Archive
 from evolutionx.evolution.code import policy
 from evolutionx.evolution.code.pipeline import propose_and_evaluate, record_decision
+
+
+@pytest.fixture(autouse=True)
+def _cleanup_branches():
+    before = set(subprocess.run(["git", "branch", "--list", "evo/*"], capture_output=True, text=True).stdout.split())
+    yield
+    after = set(subprocess.run(["git", "branch", "--list", "evo/*"], capture_output=True, text=True).stdout.split())
+    for b in after - before - {"*", "+"}:
+        subprocess.run(["git", "branch", "-D", b], capture_output=True)
 
 
 def test_path_policy():

@@ -22,6 +22,10 @@ async function parseError(res: Response): Promise<ApiError> {
     try {
       const j = JSON.parse(text);
       if (j && typeof j.detail === "string") detail = j.detail;
+      else if (j && Array.isArray(j.detail))
+        detail = j.detail
+          .map((d: { loc?: unknown[]; msg?: string }) => `${(d.loc ?? []).join(".")}: ${d.msg ?? "invalid"}`)
+          .join("; ");
       else if (j && j.detail) detail = JSON.stringify(j.detail);
       else if (text) detail = text.slice(0, 300);
     } catch {

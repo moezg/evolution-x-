@@ -64,6 +64,8 @@ FORBIDDEN_MODULES = {
     "pty",
     "select",
 }
+# read-only modules strategy code may import from outside strategies/
+ALLOWED_PARENT_IMPORTS = {"agents.base", "kernel.units"}
 FORBIDDEN_CALLS = {
     "eval",
     "exec",
@@ -112,7 +114,7 @@ def security_scan(source: str, filename: str) -> list[str]:
             mod = (node.module or "").split(".")[0]
             if node.level == 0 and mod in FORBIDDEN_MODULES:
                 issues.append(f"{filename}:{node.lineno}: forbidden import from {node.module}")
-            if node.level > 1 and (node.module or "").split(".")[0] not in ("agents",):
+            if node.level > 1 and (node.module or "") not in ALLOWED_PARENT_IMPORTS:
                 issues.append(f"{filename}:{node.lineno}: relative import outside strategies/agents ({node.module})")
         elif isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in FORBIDDEN_CALLS:
             issues.append(f"{filename}:{node.lineno}: forbidden call {node.func.id}()")
