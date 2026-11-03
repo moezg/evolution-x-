@@ -166,7 +166,9 @@ def propose_and_evaluate(
 
     # Gate 5: unit + integration + property tests (frozen tests/ from protected tree)
     progress("running test suite in sandbox")
-    tests = sandbox.run([py, "-S", "-m", "pytest", "-q", "-x", "-p", "no:cacheprovider", "tests"], wt, wt / "src")
+    tests = sandbox.run(
+        [py, "-S", "-m", "pytest", "-q", "-x", "-p", "no:cacheprovider", "-m", "not slow", "tests"], wt, wt / "src"
+    )
     report["gates"].append(_gate("tests", tests["returncode"] == 0, tests["stdout"][-1500:], tests["duration_s"]))
 
     # Gate 6: deterministic replay

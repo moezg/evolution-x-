@@ -38,6 +38,7 @@ evox = "evolutionx.cli:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+markers = ["slow: runs the full sandboxed code-evolution pipeline (~1 min)"]
 timeout = 600
 
 [tool.ruff]

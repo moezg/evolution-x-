@@ -19,7 +19,8 @@ export function compact(v: unknown, digits = 1): string {
 
 export function usd(v: unknown, digits = 2): string {
   if (typeof v !== "number" || !Number.isFinite(v)) return "—";
-  return "$" + num(v, digits);
+  const r = Number(v.toFixed(digits));
+  return (r < 0 ? "−$" : "$") + num(Math.abs(r) || 0, digits);
 }
 
 export function pct(v: unknown, digits = 2): string {
