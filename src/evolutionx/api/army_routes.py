@@ -152,8 +152,22 @@ def lineage(hid: str) -> dict[str, Any]:
         "source": src[0] if src else None,
         "source_steps": pre,
         "steps": steps,
-        "edges": s.edges(f"hypothesis:{hid}") + (s.edges(f"candidate:{cid}") if cid else []),
+        "edges": _dedup(
+            s.edges(f"hypothesis:{hid}")
+            + (s.edges(f"candidate:{cid}") if cid else [])
+            + (s.edges(f"source:{src_id}") if src_id else [])
+        ),
     }
+
+
+def _dedup(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    seen, out = set(), []
+    for e in edges:
+        k = (e["src"], e["rel"], e["dst"])
+        if k not in seen:
+            seen.add(k)
+            out.append(e)
+    return out
 
 
 @router.get("/proposals")
@@ -191,6 +205,7 @@ def control_state() -> dict[str, Any]:
         "sources": pol["sources"],
         "last_run": _last_run,
         "running": _run_lock.locked(),
+        "schedule_every_hours": s.control("schedule_every_hours", pol["orchestration"]["schedule_every_hours"]),
     }
 
 

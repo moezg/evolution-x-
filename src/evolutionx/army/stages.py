@@ -30,6 +30,12 @@ LAB_ROOT = Path("artifacts/research/army_v06")
 CAND_DIR = Path("artifacts/army/candidates")
 
 
+def set_source_status(ctx: Ctx, sid: str, status: str) -> None:
+    """Source status is mutable; every change is also kept as a graph edge (status history per cycle)."""
+    ctx.store.x("UPDATE army_sources SET status=? WHERE id=?", (status, sid))
+    ctx.store.edge(f"source:{sid}", f"status@{ctx.cycle}", f"status:{status}", {"cycle": ctx.cycle})
+
+
 def result_for(ctx: Ctx, kind: str, cid: str) -> dict[str, Any]:
     """Result of this cycle's task of `kind` whose payload concerns candidate `cid`."""
     for r in ctx.store.q("SELECT payload, result FROM army_tasks WHERE cycle_id=? AND kind=?", (ctx.cycle, kind)):
@@ -160,7 +166,7 @@ def novelty(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
         return {"source_id": sid, "decision": "not_verified", "_status": "rejected"}
     fam = (src["mechanism"] or {}).get("family", "unclassified")
     if fam in M.INFEASIBLE:
-        ctx.store.x("UPDATE army_sources SET status=? WHERE id=?", ("infeasible_with_current_data", sid))
+        set_source_status(ctx, sid, "infeasible_with_current_data")
         new_task(ctx.store, ctx.cycle, "gap_proposal", "D1", "IMPLEMENT", {"family": fam, "source_id": sid})
         return {"source_id": sid, "family": fam, "decision": "infeasible", "why": M.INFEASIBLE[fam]}
     if fam not in M.IMPLEMENTABLE:
@@ -174,11 +180,11 @@ def novelty(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     near = [s["id"] for s in other_sources if M.jaccard(s["title"], src["title"]) >= 0.5]
     reexamine = ctx.config.get("reexamine", {}).get(fam)
     if (prior or mine) and not reexamine:
-        ref = mine[0]["id"] if mine else f"{prior[0]['lab']}/{prior[0]['id']}"
+        ref = f"hypothesis:{mine[0]['id']}" if mine else f"lab_hypothesis:{prior[0]['lab']}/{prior[0]['id']}"
         ctx.store.edge(
             f"source:{sid}", "duplicate_mechanism_of", ref, {"family": fam, "prior_count": len(prior) + len(mine)}
         )
-        ctx.store.x("UPDATE army_sources SET status=? WHERE id=?", ("duplicate_mechanism", sid))
+        set_source_status(ctx, sid, "duplicate_mechanism")
         return {
             "source_id": sid,
             "family": fam,
@@ -204,7 +210,7 @@ def novelty(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
         {"source_id": sid, "family": fam, "reexamine": reexamine},
         deps=market,
     )
-    ctx.store.x("UPDATE army_sources SET status=? WHERE id=?", ("formulated", sid))
+    set_source_status(ctx, sid, "formulated")
     return {
         "source_id": sid,
         "family": fam,
@@ -327,7 +333,10 @@ def formulate(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     same = ctx.store.q("SELECT id FROM hypotheses WHERE signature LIKE ?", (fam + "|%",))
     if same and not p.get("reexamine"):
         ctx.store.edge(
-            f"source:{p['source_id']}", "duplicate_mechanism_of", same[0]["id"], {"family": fam, "at": "formulate"}
+            f"source:{p['source_id']}",
+            "duplicate_mechanism_of",
+            f"hypothesis:{same[0]['id']}",
+            {"family": fam, "at": "formulate"},
         )
         return {
             "decision": "duplicate_mechanism",
@@ -398,7 +407,10 @@ def formulate(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     hid = "H-" + hashlib.sha256(f"{sig}|{json.dumps(params, sort_keys=True)}".encode()).hexdigest()[:10]
     if (dup or near) and not p.get("reexamine"):
         ctx.store.edge(
-            f"hypothesis:{hid}", "duplicate_of", f"hypothesis:{(dup or [{'id': near[0]}])[0]['id']}", {"signature": sig}
+            f"hypothesis:{hid}",
+            "duplicate_mechanism_of",
+            f"hypothesis:{(dup or [{'id': near[0]}])[0]['id']}",
+            {"signature": sig},
         )
         return {
             "hypothesis_id": hid,
@@ -854,7 +866,7 @@ def reassess(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     cands = [
         {
             "id": "accumulate-prospective-forecasts",
-            "why": f"0 of {PROMOTION_MIN_RESOLVED} required resolved forecasts exist; this is the only independent evidence",
+            "why": f"forecasting promotion needs {PROMOTION_MIN_RESOLVED} resolved prospective forecasts per target (strategies need 180 resolved paper days); 0 exist - the only independent evidence",
             "prior_positive": 0.5,
             "cost_runs": 1,
         },

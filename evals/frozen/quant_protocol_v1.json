@@ -1,0 +1,34 @@
+{
+  "name": "quant-protocol-v1",
+  "written_utc": "2026-11-03T23:07:31Z",
+  "status": "frozen before any calendar, cycle or event scan was run on market data",
+  "principle": "universal pattern search manufactures coincidences; every test is registered in a family, corrected, confirmed on chronologically later data, and only prospective observations can give final predictive evidence",
+  "data": {
+    "btc_spot": "Binance spot BTCUSDT 1h and 1d official archives (checksummed), from 2017-08-17; perpetual-futures data of earlier missions is not used here",
+    "fred": {"DGS10": "10-year Treasury constant-maturity yield, daily (public domain, US Treasury via FRED)", "SP500": "S&P 500 daily close (FRED, S&P Dow Jones Indices licence: research use, ~10 years available)", "DFEDTARU": "fed funds target range upper limit (from 2008-12-16)"},
+    "unavailable": {"CPI / NFP release calendar": "bls.gov returns HTTP 403 from this environment", "consensus expectations / surprises": "require licensed survey data (not available); 'above expectations' interactions cannot be tested", "intraday S&P / Nasdaq / gold": "not available; equity analysis is daily and limited to ~10 years"}
+  },
+  "time_conventions": {"btc_daily_return": "close-to-close of Binance daily candles, day = UTC date of the candle open (00:00 UTC)", "weekday": "UTC weekday of that candle", "fomc_event_time": "scheduled statement release 14:00 America/New_York on the final meeting day, converted to UTC with DST", "election_day": "statutory U.S. federal election day: Tuesday after the first Monday in November of even years (2 U.S.C. 7); market reaction measured from the close of election day"},
+  "periods": {"DISCOVERY": ["2017-08-17", "2022-12-31"], "CONFIRMATION": ["2023-01-01", "2026-10-31"], "PROSPECTIVE": "from 2026-11-01", "exposure_note": "CONFIRMATION is chronologically held out from every quant scan, but BTC prices of that period were seen in other project contexts (strategy validation, forecasting backtests); it is therefore not independent of the operator's exposure. Only PROSPECTIVE is independent."},
+  "families": {
+    "F-DOM": {"what": "day-of-month 1..31", "metrics": ["mean_ret_wd_adj", "mean_absret", "up_rate", "left_tail_rate"], "tests": 124, "named_hypothesis": "H-DOM-14: the 14th differs from other days on any metric"},
+    "F-DOW": {"what": "day of week (UTC)", "metrics": ["mean_ret", "mean_absret", "up_rate", "left_tail_rate"], "tests": 28},
+    "F-MOY": {"what": "month of year", "metrics": ["mean_ret_wd_adj", "mean_absret", "up_rate", "left_tail_rate"], "tests": 48},
+    "F-TOM": {"what": "turn of month (last day + first 3 days)", "metrics": ["mean_ret_wd_adj", "mean_absret", "up_rate", "left_tail_rate"], "tests": 4},
+    "F-CYCLE": {"what": "periodogram ordinate at 7, 30.44, 91.31, 365.25 days for daily returns and |returns| vs the local band [P/2, 2P]", "tests": 8},
+    "F-FOMC": {"what": "scheduled FOMC statements, hourly BTC", "metrics": ["absret_0_4h", "rv_0_4h", "ret_0_1h", "ret_0_4h", "ret_0_24h", "ret_0_7d", "pre_ret_24h", "pre_absret_24h"], "tests": 8, "primary": ["absret_0_4h", "rv_0_4h"]},
+    "F-XEVENT": {"what": "FOMC x pre-event 30-day volatility regime; FOMC x policy action (target change vs hold, DFEDTARU)", "metric": "absret_0_4h", "tests": 2, "min_n_per_cell": 15},
+    "F-ELECT": {"what": "U.S. presidential and midterm elections", "assets": ["BTC daily (2017+)", "DGS10 daily (1962+)", "SP500 daily (~2016+)"], "windows": ["pre_30d", "post_1d", "post_7d", "post_30d", "post_90d"], "inference": "only if n >= 20 events; otherwise descriptive with placebo percentiles and an explicit sample-size warning"},
+    "F-FCAST": {"what": "forecast feature fomc_in_window (scheduled statement inside (o, o+h]; calendars are published in advance, so the feature is point-in-time)", "comparison": "M1_logistic + feature vs M1_logistic on rv_24, move3_24, move5_24, forecast protocol v1 machinery, SCREEN period, block bootstrap, Holm over 3", "promotion": "never automatic; at most a prospective challenger"}
+  },
+  "methods": {
+    "calendar": "rotation test: the calendar labels are compared with returns circularly shifted by a random offset (999 shifts, seed 0), which keeps volatility clustering and dependence intact; two-sided p = (1 + #|null| >= |obs|) / 1000",
+    "event_study": "placebo resampling: event mean vs 2000 means of equally many placebo times drawn from the same period at the same weekday and clock time (non-event days); bootstrap CI over events (2000, seed 0); effects reported as event minus placebo median",
+    "cycle": "rank of the periodogram ordinate at P within ordinates in [P/2, 2P]; also reported separately in each half of the period",
+    "multiple_testing": "per family: Benjamini-Hochberg q = 0.10 on DISCOVERY (exploratory survivors); survivors re-tested once on CONFIRMATION, one-sided in the discovery direction, Holm at alpha 0.05 across that family's survivors",
+    "min_n_inference": 20
+  },
+  "status_rules": {"supported": "survives BH on discovery AND Holm on confirmation in the same direction (still exploratory until prospective evidence)", "inconclusive": "survives discovery but not confirmation, or confirmation n < 20", "rejected": "does not survive BH on discovery", "descriptive_only": "family below min_n_inference"},
+  "validation_of_the_method": "tests must show that synthetic i.i.d. data rarely produce a 'supported' calendar finding and that a planted effect of adequate size is recovered",
+  "budget": {"llm_calls": 0, "network": "official archives and public pages only, cached with checksums", "compute": "bounded: <= 10 minutes per workflow run"}
+}

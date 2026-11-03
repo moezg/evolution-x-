@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import threading
 import time
 import traceback
 import uuid
@@ -24,6 +25,7 @@ from ..research.memory import now
 from .policy import policy, policy_sha
 from .store import Store
 
+_current = threading.local()  # id of the task whose handler is running (records spawned_by)
 TERMINAL = {"done", "failed", "skipped", "cancelled", "rejected"}
 # the research lab is a single-writer store; novelty/formulate must see each other's hypotheses (no duplicate LLM work)
 SERIAL = {"evaluate", "novelty", "formulate"}
@@ -63,7 +65,7 @@ def new_task(
         "INSERT INTO army_tasks VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (
             tid, cycle, stage, role, kind, "pending", 0, policy()["orchestration"]["task_max_attempts"],
-            json.dumps({"deps": deps or [], "barrier": barrier}), json.dumps(payload or {}), None, None, None,
+            json.dumps({"deps": deps or [], "barrier": barrier, "spawned_by": getattr(_current, "task", None)}), json.dumps(payload or {}), None, None, None,
             now(), now(), 0.0, 0,
         ),
     )  # fmt: skip
@@ -187,6 +189,7 @@ def _execute(ctx: Ctx, handlers: dict[str, Handler], t: dict[str, Any]) -> None:
     store = ctx.store
     t0 = time.time()
     before = sum(r["llm_calls"] for r in store.usage(ctx.cycle))
+    _current.task = t["id"]
     try:
         out = handlers[t["kind"]](ctx, {**t, "payload": t["payload"] or {}})
         status = out.pop("_status", "done")
