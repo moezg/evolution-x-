@@ -48,7 +48,8 @@ Status vocabulary:
 | Research memory incl. failures | `hypotheses`, `candidates`, `experiments` | API `/api/research/*` | — | executed |
 | Duplicate detection / novelty | signatures, code hashes, exhaustion stop | — | `test_exhausted_search_space_…` | verified |
 | CandidateGenerator writing new code | `research/generator.py` (offline) | — | `candidates/*/patch.diff` | executed |
-| Real LLM generator | `LLMGenerator` | `EVOX_LLM=anthropic` + key | — | implemented, **unavailable** (no key); never run |
+| Real LLM generator | `research/llm_connectors.py::ClaudeCLIGenerator` (official `claude -p`, no tools, bounded); API-key adapters unused | `evox research run --generator claude-cli` | `artifacts/research/claude_cli/` (journal, `llm_raw/`) | executed (1 valid call); API-key path unavailable |
+| Session-written candidates | `Supervisor.import_candidate` (provenance + declared exposure) | `evox research import` | `artifacts/research/claude_session/`, `research_inputs/claude_session/` | executed |
 | Isolated execution | `research/sandbox.py` (userns + mountns + netns + chroot + rlimits) | — | `test_H_*` | verified (Linux only) |
 | Independent evaluator recomputing from traces | `research/evaluator.py` | — | `test_H_sandbox_blocks_escape_and_forged_reports` | verified |
 | Generator cannot write the registry | process boundary + hidden `artifacts/` | — | same | verified |

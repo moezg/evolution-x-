@@ -30,6 +30,29 @@
    - Leak detection, promotion with real activation, automatic rollback, crash/resume without duplication,
      sandbox escape attempts, user stop, and budget caps.
 
+## Claude-driven cycles (added after the user's request to test with the Claude plan)
+
+Two kinds of LLM involvement, kept separate and labelled:
+
+| | Session-driven cycle | Lab-callable connector |
+|---|---|---|
+| Who wrote the hypothesis and code | Claude in this interactive Claude Code session (claude-opus-5-5), human-driven | `claude -p` (official CLI, the environment's existing authentication; can use plan quota), called by the supervisor |
+| How it entered the lab | `evox research import` with declared provenance and exposure | `evox research run --generator claude-cli` |
+| What the author had seen | development diagnostics, **validation outcomes of 33 trials, the final-vault report** (declared; the validation test is not independent of the author's knowledge) | development diagnostics and earlier ideas with their development-screen results only; no tools, 1 turn |
+| Candidate | `sess-a74fc0848b`: multi-horizon trend ensemble (outside the offline grammar). Code and hypothesis committed before evaluation (`58a6b32`) | `llm-…`: rounds the target exposure to steps of 0.25/0.5 to cut small rebalances |
+| Development screen | passed (0.28 vs −0.01) but beat v0 in only 10/24 windows | passed (0.32 vs −0.01) |
+| Validation (frozen rule) | **refuted**: ΔSharpe −0.61, 90% CI [−1.16, −0.12], P = 0.025, DSR 0.04 (N = 34) | **refuted**: ΔSharpe −0.47, 90% CI [−0.94, −0.00], P = 0.05, DSR 0.04 (N recorded as 68, a double-count since corrected to 35; verdict unaffected) |
+| Cost | n/a (session) | 1 valid call: 10,029 tokens, $0.05 list-price equivalent, 25 s. An earlier campaign `cli-1` made 2 calls whose outputs failed schema validation; their usage was **not recorded** because of a bug, now fixed and regression-tested |
+
+Observations:
+
+- The lab-callable model explained its proposal by saying the executor rebalances on every small signal change.
+  That is wrong: the engine already has a 5% rebalance band, which the prompt did not mention. The independent
+  evaluation still applied unchanged.
+- Neither LLM candidate was promoted.
+- The lab cannot call a model unattended beyond the policy caps: at most 3 calls and $2 equivalent per campaign,
+  no tools. The policy amendment v1→v2 that enabled this was authorized by the user.
+
 ## Acceptance evidence (A–J)
 
 | | Evidence | Status |
@@ -38,7 +61,7 @@
 | B | `evox backtest`, research tasks, final report: causal engine on 2020–2026 BTC/ETH perp 1h with fees, spread, √-impact, participation cap, funding, lot rounding, margin and liquidation; 12 walk-forward windows per instrument | Executed |
 | C | `tests/test_backtest.py::test_leaky_strategy_is_detected` and `tests/test_research.py::test_H_leak_through_input_file_is_caught_by_physical_truncation` (detected even with static checks bypassed) | Executed, passing |
 | D | `evox calibrate`, `artifacts/calibration/report.json`: train-only search, evaluated on validation and held-out days; unfavourable (non-significant) result kept | Executed |
-| E | Autonomous cycle with an offline-generated patch: `test_E_autonomous_cycle_with_generated_patch`, plus 40 real tasks in `artifacts/research/arm_*`. **Patches come from the offline grammar generator, not a real LLM (no key configured).** | Executed |
+| E | Autonomous cycle with an offline-generated patch: `test_E_autonomous_cycle_with_generated_patch`, plus 40 real tasks in `artifacts/research/arm_*` (offline grammar generator). Plus one session-driven Claude cycle (`claude_session`) and one lab-called `claude -p` cycle (`claude_cli`), both refuted | Executed |
 | F | `test_F_controlled_promotion_changes_next_run`, `test_F_automatic_rollback_on_post_activation_failure`, `test_manual_rollback`. Mechanism tests on planted synthetic data, not discoveries | Executed, passing |
 | G | Guided vs random vs frozen at equal budget, final vault: no progress demonstrated | Executed |
 | H | `test_H_*`: hidden registry, vault and data; read-only src and tests; no network; scrubbed secrets; symlink and forged-report outputs ignored; CPU exhaustion killed; out-of-scope patch and leverage exploit rejected | Executed, passing |
@@ -89,10 +112,10 @@ Validation-split usage: 33 trials (18 guided + 15 random). Its evidential value 
 | Item | Status |
 |---|---|
 | Static checks (ruff, format, pyright, bandit `-ll`) | Executed locally: pass |
-| Test suite | 83 passed in 135 s (`uv run pytest -o addopts=""`) |
+| Test suite | 87 passed (last full run: 86 passed in 138 s before the trial-inheritance test was added) |
 | GitHub Actions CI | Workflow written. **Not executed** (no remote); the same commands were run locally |
 | Docker / Compose | **Unavailable**: no Docker daemon in this environment, not executed |
-| LLM candidate generation | **Unavailable**: no API key configured. The interface exists; 0 tokens used. The mock is never counted as an LLM experiment |
+| LLM candidate generation | `claude -p` connector **executed** (1 valid call + 2 invalid outputs); the Anthropic/OpenAI API-key adapters remain unused (no key). The mock is never counted as an LLM experiment |
 | Sandbox on macOS | **Unavailable** by design (needs Linux namespaces); see `docs/MACOS.md` |
 | Real-money trading, order routing, pushes, deployments | Not implemented, by design |
 

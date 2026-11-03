@@ -104,7 +104,7 @@ Independence does not come from different LLM prompts. It comes from:
 |---|---|---|
 | 1. Parameter adaptation | Choice inside `PARAM_GRID` by walk-forward inner selection | Operational |
 | 2. Strategy change | Signal family / filters (e.g. tsmom → breakout) | Operational (offline generator) |
-| 3. Application code change | New strategy modules written as source, with diffs against the parent | Operational for the evolvable zone. The offline grammar generator writes new code; the LLM generator interface exists but **no LLM was available**, so no LLM patch was generated |
+| 3. Application code change | New strategy modules written as source, with diffs against the parent | Operational for the evolvable zone. The offline grammar generator writes new code. A lab-called `claude -p` connector wrote one free-form patch (refuted). A session-written patch was imported (refuted) |
 | 4. Research-process optimisation | Experiment-selection policy (guided vs random) compared at equal budget | Comparison implemented and run (see STATUS) |
 
 None of this changes foundation-model weights. Code and prompt changes are not weight updates.
