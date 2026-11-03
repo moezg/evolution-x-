@@ -1,0 +1,42 @@
+{
+ "note": "compact copies of artifacts/observatory (git-ignored); sha256 refers to the full local files at commit time; regenerate with evox observatory ...",
+ "files": {
+  "audit.json": {
+   "sha256": "28d383cdfe837f8b82a37d24bb394970201a9b5e3d66ac58aa8f5f998a11d66f",
+   "bytes": 7326
+  },
+  "experiments_v1.json": {
+   "sha256": "fa04d67315c76dd18b84530d1a1c6f3f37f62240abda7f31ebd2f50c845a1997",
+   "bytes": 486020,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "realism_archive_v1.json": {
+   "sha256": "388f4ae93d2c0c03b5244b4d7e9f8cd3c85274556b0b34a34446efd7537eb04d",
+   "bytes": 2994
+  },
+  "realism_archive_v2.json": {
+   "sha256": "0a11130bcfb503238bfc94a4ac9f55fc36668e3a60b82c4e753570560b21d1c9",
+   "bytes": 4071
+  },
+  "realism_v1.json": {
+   "sha256": "dcd31c688dfb80c25d51c994c39212f758fa94fdf060a9c72c3d2111023a413d",
+   "bytes": 24833,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "realism_v2.json": {
+   "sha256": "efb3f40b217d4787b2bedf72c50b4a41830a89fb407f9fc69b5745a4955b2ac8",
+   "bytes": 33373,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "volatility_v1.json": {
+   "sha256": "80627242fc02c0951f67c377a8c3d17afd788cdca7e00ce214873f20ac74c369",
+   "bytes": 30404,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "volatility_v2_amplification.json": {
+   "sha256": "21c0357c38d088328ce2888912006a1726d0cfa4ee3156e4de15f72216dc7758",
+   "bytes": 36799,
+   "compact_copy": "runs replaced by runs_index"
+  }
+ }
+}

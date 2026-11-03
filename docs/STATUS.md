@@ -1,3 +1,133 @@
+# Status: v0.4 Emergent Behavior Observatory (2026-11-03)
+
+This mission moved the work from strategy optimization to making **collective behaviour in the synthetic market
+observable and falsifiable**. It claims no trading result. The 60-call LLM campaign was **not** run. No LLM call was
+made, the SOL/BNB vault v2 was not opened, and the consumed BTC/ETH data was not used as validation. Historical BTC
+1-minute **TRAIN** days serve only as stylized-fact targets for the simulator.
+
+Evidence stays in four separate categories; there is no global score. Everything below is **SYNTHETIC** unless it says otherwise.
+
+### 1. Software quality
+| Item | Result |
+|---|---|
+| Capability matrix | Executable probes, not assertions: `evox observatory audit` → `artifacts/observatory/audit.json`. Summary in `docs/AUDIT.md` (v0.4 section) |
+| New shock `mm_withdrawal` | A fraction of market makers stops participating. Their quotes are cancelled and they are inactive, then they return (`sim/simulation.py` `_shock`/`_restore`). Deterministic. Disarmed is bit-identical to no shock (tested) |
+| Read-only sampler | Records stances, near-mid depth by kind and per maker, and panic counters every 10 s. A sampled run has the **same fingerprint** as an unsampled one (tested) |
+| Bug fixed: `Simulation.finished` | It was `True` before the first event because a next-event time of 0 is falsy |
+| Bug fixed: silent no-op knob | `size_scale["leveraged"]` did nothing: leveraged agents size by `leverage_use`. It is now rejected. The v0.1 calibration searched this knob, so its "leveraged" sensitivity coefficient was noise. Calibration filters it, which keeps old runs reproducible. Found because the realism archive held two configs with **identical run fingerprints** |
+| Reproducibility | Every report stores the frozen-spec sha256, seeds, config fingerprints and run fingerprints. Commands: `evox observatory {audit, volatility --tag v1/v2, experiments, realism}` |
+| Tests | 19 new cases in `tests/test_observatory.py`, plus `mm_withdrawal_90` added to the scenario test: shock mechanics, sampler neutrality, detectors on constructed inputs, ARI/Gini/dominance properties (hypothesis), verdict rule, archive admission/eviction/duplicates, rule-change refusal. Full-suite result is in the delivery message |
+
+### 2. Simulator realism
+**Volatility root cause** (pre-registered: `evals/frozen/volatility_diagnosis_v1.json` + `amendment_v2`; 3 seeds × 3600 s per condition).
+
+1-minute return std of the mid, in bps; historical TRAIN median is **4.0**:
+
+| Condition | Mid | Fundamental input | Kurtosis |
+|---|---:|---:|---:|
+| default | 22.6 | 16.3 | 4.8 |
+| realistic fundamental (R: GBM 0.33/yr, no news jumps) | 8.9 | 4.9 | 1.3 |
+| frozen fundamental | 0.9 | 0 | 0.4 |
+| R, no momentum agents | 3.8 | 4.9 | **12.0** |
+| R, no leveraged agents | 4.5 | 4.9 | 5.1 |
+| R, no social channel | 5.1 | 4.9 | 3.6 |
+| R, no noise traders | 8.7 | 4.9 | 0.9 |
+
+- **Cause 1, exogenous specification (measured).** The latent fundamental alone moves 16 bps/min, which is 4× history. Making it realistic removes about 60% of the excess.
+- **Cause 2, positive feedback (measured).** On the realistic base the mid is still 1.8× its own input. Removing momentum, leverage or the social channel each brings it back near the input. The effects are not additive (each one alone nearly closes the gap), which points to one coupled loop rather than three independent sources.
+- **Refuted:**
+  - a microstructure floor (frozen fundamental gives 0.9 bps);
+  - time-scaling or sampling artefacts;
+  - one-sided-book artefacts (no one-sided second after the empty first second of each run);
+  - private belief noise;
+  - retail noise.
+- **Not done on purpose:** no corrective multiplier was applied, and SimConfig defaults are unchanged. R is a named profile used as the observatory base.
+
+**Realism track with a Pareto archive** (`evals/frozen/realism_track_v2.json`, `observatory/realism.py`; 3 fresh seeds × 3600 s; objectives are scale error, shape error and CPU cost against TRAIN-day targets).
+
+| Candidate | Scale error | Shape error | Verdict vs default | Verdict vs R | Archive |
+|---|---:|---:|---|---|---|
+| default | 4.26 | **0.79** | — | not an improvement | Pareto |
+| R | 1.16 | 0.83 | not an improvement¹ | — | Pareto |
+| R + momentum size ×0.5 | 0.51 | 1.33 | not an improvement | not an improvement | Pareto |
+| R + leverage_use 0.35 | 0.60 | 1.31 | not an improvement | improvement² | dominated by R_no_social |
+| R + market-maker size ×2 | 1.10 | 0.90 | not an improvement | not an improvement | Pareto |
+| R + no social | **0.51** | 1.31 | not an improvement | not an improvement | Pareto |
+
+¹ R has a lower scale error in 3 of 3 seeds, but at n = 3 the t-interval includes 0, so the frozen rule says "not an improvement". The rule is underpowered, not wrong.
+² Scale error is significantly lower; shape error is worse by +0.49 but not significantly.
+
+**Result:** no configuration improves both objectives. Weakening the feedback loop fixes the volatility level but degrades the return-shape facts (kurtosis, |r| ACF, vol–volume). The same loop that inflates volatility also produces the stylized facts. This is a trade-off, not an improvement.
+
+The track also caught its own defect, and v1 is kept as evidence. The v1 archive let CPU-time noise decide between two behaviourally identical configs. v2 adds a 25% cost tolerance, fingerprint-duplicate rejection and a second incumbent. Candidates can only set allow-listed SimConfig fields. The archive stores the rules' sha256 and refuses to update when they change (tested).
+
+### 3. Collective behaviour (pre-registered: `evals/frozen/observatory_experiments_v1.json` + amendment 1 written before any registered run)
+Base R, 4 paired seeds (601–604), 1800 s, sampling every 10 s, 56 runs, 82 s wall, **0 LLM calls**.
+
+Verdict rule (amendment 1): "supported" needs both the bootstrap CI and the t-interval to exclude 0. With only the bootstrap it is "weak". With n = 4 every result here is low-power.
+
+**A: stable market without shocks** (full vs no_social vs zero-intelligence = 232 noise + 24 makers, no social)
+| Hypothesis | Result | Verdict |
+|---|---|---|
+| HA1 anchoring | max \|mid/fundamental − 1\| ≤ 0.3%; 0 circuit breakers; 0 liquidations; 0 panics | supported |
+| HA2 amplification replicates on fresh seeds | mid/fundamental volatility ratio 2.1 (1.4–3.0) | supported |
+| HA3 the social channel amplifies volatility | +5.3 bps (t-CI 0.7–9.9), 4/4 seeds | supported (**interaction-dependent**) |
+| HA4 herding needs interaction | herding index +0.03 (t-CI −0.03 to 0.09) | **not supported**. Stance alignment is explained by a common price/news input (**programmed/common-input**). Zero-intelligence noise traders reach 0.89 because they all read the same news number |
+| HA5 stylized facts need strategic agents | \|r\| ACF +0.29 and kurtosis +1.3 vs zero-intelligence, 4/4 | supported. ZI gives Gaussian-like, anti-clustered returns |
+
+Exploratory (not pre-registered, association only):
+- With the social channel the momentum–value stance correlation is −0.68; without it, −0.11.
+- Trend-follower share of aggressive volume is 0.74 vs 0.50.
+- Taker-volume HHI is slightly lower with social, so activity is more dispersed.
+- Trend flow does **not** chase the previous minute's return (corr ≈ −0.1). It moves the same minute's return (0.92), so the measured amplification is contemporaneous.
+- Behaviour clusters recover programmed types only partly (ARI 0.61). Execution, value and whale agents of one type behave differently.
+
+**B: liquidity crisis, market-maker withdrawal for 300 s** (paired with the disarmed same-seed run)
+| Measure in the crisis window | Control | f = 0.5 | f = 0.9 | Verdict at f = 0.9 |
+|---|---:|---:|---:|---|
+| 1-min volatility (bps) | 7.2 | 12.3 | **31.9** | supported (t-CI +11.8 to +37.6) |
+| Impact (bps per BTC of aggressive flow) | 0.18 | 0.31 | 0.55 | supported |
+| Median spread (bps) | 3.47 | 3.63 | 3.93 | weak (bootstrap only) |
+| Median depth, 10 levels (BTC) | 10.2 | 10.0 | 9.5 | not supported |
+| Spread in the 300 s after makers return vs control | — | — | 1.08× | recovery supported (≤ 1.2×) |
+
+- The withdrawal shows up mainly as **volatility and impact**, not as spread or 10-level depth. Non-maker resting orders keep the visible book roughly as deep, but it is much less resilient.
+- **HB6, open question (exploratory):** at f = 0.9 the 2 remaining makers *also* reduce their near-mid depth: −0.40 BTC (t-CI −0.68 to −0.11), 4/4 seeds, about −8%. This is withdrawal that spreads through shared market state. It is a programmed inventory/volatility rule triggered by others' absence, so the label is **interaction-dependent**, not "intent".
+
+**C: liquidation cascade, whale forced liquidation × leveraged agents present/absent**
+| Hypothesis | Result | Verdict |
+|---|---|---|
+| HC1 secondary liquidations | **0** secondary liquidations in all 16 armed runs (250 and 1000 BTC, with and without leveraged agents) | **refuted** |
+| HC2 leverage amplifies the drop | Drop with vs without leveraged agents: −2.7% vs −2.7% (difference 0.04 pp, opposite sign) | not supported |
+| HC3 dose | 1000 BTC drops 2.1 pp more than 250 BTC | supported (an exogenous dose effect, not a cascade) |
+
+Mechanism check: leveraged agents run at a median effective leverage of about 11 (max 16) before the shock, so they sit about 4% from maintenance margin. The forced sale moves the price only about 2.7%. **The precondition for a cascade never arises in this population.** No liquidation cascade has been observed; the detector is tested only on constructed inputs.
+
+**What the observatory can and cannot say:**
+- Herding, liquidity withdrawal, panic contagion, cascades, trend amplification, influence concentration, regime switches and behaviour clustering are all measured on every sampled run, each with a stated "programmed basis".
+- In unshocked runs, panic contagion, liquidation cascades and endogenous maker withdrawal **never fired**.
+- Regime switches were 0–1 per run (descriptive only).
+
+### 4. Research process
+- 4 frozen specs, all written before their runs:
+  - volatility v1 plus amendment v2;
+  - experiments v1 plus amendment 1;
+  - realism track v1, then v2 with documented reasons.
+- One pre-registered change made the rule **stricter** (amendment 1). The realism-track change was caused by a defect and is documented.
+- Cost of this mission's experiments:
+  - experiments: 56 runs, 323 CPU-s;
+  - realism: 2 × 18 runs, about 150 s wall;
+  - volatility: 33 runs.
+- 0 LLM calls; no paid API.
+- Strategy-research status from v0.3 is unchanged: 0 promotions, validation consumed, vault v2 sealed.
+
+### Recommended next experiment
+**C2, a cascade threshold scan.** Factors: whale size {1000, 2000, 4000} BTC × `leverage_use` {0.7, 1.0} with leveraged agents present, 4 paired seeds, disarmed controls, about 48 runs (≈ 70 s wall, 0 LLM).
+
+Why: experiment C falsified a cascade at today's distance to margin. The informative question is whether a cascade appears once the shock exceeds that distance, and whether secondary liquidations add to the drop beyond the dose. Either outcome is new information: a threshold with super-linear drop is emergent amplification, while a purely linear dose means the leverage channel is inert. Pre-register the threshold and the "excess drop beyond the 0-leverage dose curve" before running.
+
+---
+
 # Status: v0.3 research-quality slice (2026-11-03)
 
 v0.3 does not claim a better strategy. It makes the laboratory's hypotheses technically correct and measures

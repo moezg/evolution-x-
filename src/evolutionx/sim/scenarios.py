@@ -69,6 +69,11 @@ SCENARIOS: dict[str, Scenario] = {
         "All cross-venue arbitrageurs offline for 10 minutes.",
         (Shock(type="arb_outage", at_s=900, duration_s=600, magnitude=1.0),),
     ),
+    "mm_withdrawal_90": Scenario(
+        "mm_withdrawal_90",
+        "90% of market makers withdraw (quotes cancelled, inactive) for 5 minutes, then return.",
+        (Shock(type="mm_withdrawal", at_s=900, duration_s=300, magnitude=0.9),),
+    ),
     "momentum_dominance": Scenario(
         "momentum_dominance",
         "Population mix: 120 momentum traders, value traders reduced to 8.",

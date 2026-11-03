@@ -1,0 +1,157 @@
+{
+  "name": "observatory-experiments-v1",
+  "written_utc": "2026-11-03T20:19:51Z",
+  "status": "pre-registered before any A/B/C run; thresholds below are not to be changed after results are seen",
+  "data_policy": "SYNTHETIC only (Mode A). No historical evaluation data, no BTC/ETH holdout, no SOL/BNB reserve. No LLM calls.",
+  "base_profile": {
+    "name": "realistic_fundamental",
+    "overrides": {
+      "world_annual_vol": 0.33,
+      "news_impact": 0.0
+    },
+    "why": "volatility diagnosis v1: the default fundamental alone is 3.5-4x too volatile at 1 min; this profile removes that exogenous excess so endogenous effects are visible. SimConfig defaults are NOT changed."
+  },
+  "common": {
+    "duration_s": 1800,
+    "sampling_step_s": 10,
+    "seeds": [
+      601,
+      602,
+      603,
+      604
+    ],
+    "shock_at_s": 900,
+    "pairing": "every treatment is paired with the same seed in its control; differences are treatment - control; 95% percentile-bootstrap CI over seeds (n=4: low power, CIs are wide by construction)",
+    "detector_constants": "src/evolutionx/observatory/metrics.py module constants (ACTIVE_STANCE 0.05, WITHDRAWAL_FRAC 0.5, CASCADE_GAP_MS 60000, SECONDARY_WINDOW_MS 300000, REGIME_WIN_MIN 10, REGIME_HIGH 1.5, REGIME_MIN_DWELL_MIN 5, PANIC_WINDOW_MS 60000)",
+    "labels": {
+      "interaction-dependent": "the metric changes when an interaction channel is removed (paired CI excludes 0) while the population is unchanged",
+      "programmed/common-input": "the metric is reproduced without the interaction channel, i.e. explained by individual rules reacting to shared inputs",
+      "association": "observed together but no ablation isolates the channel; no causal claim",
+      "inconclusive": "CI includes 0 at n=4"
+    }
+  },
+  "A_stable": {
+    "question": "Does the 256-agent market stay stable without shocks, and which collective properties need interaction?",
+    "conditions": {
+      "full": {},
+      "no_social": {
+        "social_enabled": false,
+        "imitation_enabled": false
+      },
+      "zero_intelligence": {
+        "population_overrides": {
+          "noise": 232,
+          "market_maker": 24,
+          "momentum": 0,
+          "value": 0,
+          "arbitrage": 0,
+          "execution": 0,
+          "whale": 0,
+          "leveraged": 0,
+          "news": 0,
+          "adaptive": 0
+        },
+        "social_enabled": false,
+        "imitation_enabled": false
+      }
+    },
+    "hypotheses": {
+      "HA1-anchoring": {
+        "prediction": "full: max |mid/fundamental - 1| < 3% in every seed and no circuit-breaker halt",
+        "refuted_if": "any seed exceeds 3% or halts"
+      },
+      "HA2-amplification-replicates": {
+        "prediction": "full mid 1m std / fundamental 1m std > 1.3 (mean over seeds), replicating diagnosis v2 on fresh seeds",
+        "refuted_if": "mean ratio <= 1.1"
+      },
+      "HA3-social-amplification": {
+        "prediction": "paired diff (full - no_social) in mid 1m std > 0 with CI excluding 0",
+        "refuted_if": "CI includes 0 or mean <= 0"
+      },
+      "HA4-herding-needs-interaction": {
+        "prediction": "herding index mean: full - no_social > 0 with CI excluding 0",
+        "refuted_if": "CI includes 0 -> herding is explained by common price input (programmed)"
+      },
+      "HA5-stylized-facts-need-strategic-agents": {
+        "prediction": "full has higher |r| ACF(1) and excess kurtosis than zero_intelligence (paired)",
+        "refuted_if": "both paired diffs have CI including 0"
+      }
+    }
+  },
+  "B_liquidity_crisis": {
+    "question": "What happens to spread, depth, volatility and impact when market makers withdraw, and do the remaining makers withdraw too?",
+    "shock": {
+      "type": "mm_withdrawal",
+      "at_s": 900,
+      "duration_s": 300,
+      "magnitude": [
+        0.5,
+        0.9
+      ]
+    },
+    "control": "same seed, shock disarmed (identical to full A condition)",
+    "window": "[900 s, 1200 s) for crisis; [1200 s, 1500 s) for recovery",
+    "hypotheses": {
+      "HB1-spread": {
+        "prediction": "median spread rises vs control, and more at f=0.9 than f=0.5",
+        "refuted_if": "f=0.9 paired diff CI includes 0"
+      },
+      "HB2-depth": {
+        "prediction": "median depth (10 levels, venue 0) falls vs control at f=0.9",
+        "refuted_if": "CI includes 0"
+      },
+      "HB3-volatility": {
+        "prediction": "1m mid return std inside the window rises vs control at f=0.9",
+        "refuted_if": "CI includes 0"
+      },
+      "HB4-impact": {
+        "prediction": "price move per BTC of aggressive flow (sum |r_1m| / sum |flow_1m|) rises at f=0.9",
+        "refuted_if": "CI includes 0"
+      },
+      "HB5-recovery": {
+        "prediction": "in the recovery window median spread is within 20% of control (mean over seeds)",
+        "refuted_if": "> 20% above control"
+      },
+      "HB6-withdrawal-contagion": {
+        "prediction": "NONE (open question): remaining (not withdrawn) makers change their near-mid depth vs the same makers in control",
+        "report": "paired diff with CI; label interaction-dependent if CI excludes 0"
+      }
+    }
+  },
+  "C_liquidation_cascade": {
+    "question": "Does a forced whale liquidation cascade into other accounts, and does the presence of leveraged agents amplify it?",
+    "factors": {
+      "whale_btc": [
+        250,
+        1000
+      ],
+      "leveraged_agents": {
+        "present": 16,
+        "absent": 0
+      }
+    },
+    "control": "same seed and population with the whale shock disarmed (the whale still builds its position before 900 s)",
+    "hypotheses": {
+      "HC1-secondary-liquidations": {
+        "prediction": "with leveraged present and 1000 BTC, armed - disarmed liquidations of non-external accounts in [900, 1200) s > 0 in at least 3 of 4 seeds",
+        "refuted_if": "<= 1 seed"
+      },
+      "HC2-leverage-amplifies-drop": {
+        "prediction": "(armed - disarmed) price drop to the window minimum is larger with leveraged present than absent at 1000 BTC (paired by seed)",
+        "refuted_if": "CI of the difference of differences includes 0 -> no evidence of amplification"
+      },
+      "HC3-dose": {
+        "prediction": "the armed-disarmed drop is larger at 1000 BTC than at 250 BTC with leveraged present",
+        "refuted_if": "CI includes 0"
+      }
+    },
+    "caveat": "removing leveraged agents changes N (256 -> 240); the armed-disarmed difference within each population controls for the baseline shift, not for the changed depth/flow mix"
+  },
+  "stopping_rule": "one run per (condition, seed). No re-runs with new seeds or changed thresholds to rescue a hypothesis; any further runs are a new, separately registered version.",
+  "amendment_1": {
+    "written_utc": "2026-11-03T20:21:52Z",
+    "before_results": "written before any registered A/B/C run; only a 2-seed 420 s code smoke test (different durations, not reported) had been executed",
+    "change": "with n=4 a percentile bootstrap CI is bounded by the min/max paired difference and is close to a sign test. For CI-based hypotheses the verdict is: 'supported' if BOTH the bootstrap CI and the t-interval exclude 0 in the predicted direction; 'weak (bootstrap only)' if only the bootstrap CI does; 'not supported' otherwise ('refuted' is reserved for threshold hypotheses HA1, HA2, HB5, HC1, where the registered threshold is crossed in the wrong direction).",
+    "reason": "more conservative than the original rule; avoids presenting 4/4 same-sign seeds as a 95% result"
+  }
+}

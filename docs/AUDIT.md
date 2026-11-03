@@ -75,3 +75,46 @@ Status vocabulary:
 | Reserved evaluation data | `data/vault_v2.py` | `python -c "from evolutionx.data.vault_v2 import build; build()"` | `data/vault_v2/manifest.json` | built, unrevealed |
 | Simple references with comparable risk | constant-long reference in validation critique | automatic | `validation_summary.reference_buy_and_hold` | executed |
 | Separate simulator calibration | H-cal-1 sensitivity | `run_mm_sensitivity()` | `artifacts/calibration/mm_sensitivity.json` | executed, hypothesis refuted |
+
+## v0.4 capability matrix: Emergent Behavior Observatory mission (2026-11-03)
+
+Statuses use the mission vocabulary: **IMPLEMENTED / PARTIAL / MISSING / UNVERIFIED**.
+- Evidence comes from executable probes: `evox observatory audit` writes `artifacts/observatory/audit.json` (seed 11, 900 s, default config).
+- Code refs are emitted by the probe itself, from a regex over the current source.
+
+### Intended vs actual architecture
+
+| Capability | Status | Evidence (from `audit.json` unless noted) | Code |
+|---|---|---|---|
+| 256 heterogeneous agents | IMPLEMENTED | 256 agents, 10 kinds, 256 distinct parameter sets | `agents/population.py:23` |
+| Independent agent state | IMPLEMENTED | 256 distinct RNG states, all advanced; 256 distinct memory objects; finite capital and margin checks | `agents/base.py:91` |
+| Limited, delayed information | IMPLEMENTED | Observations are built from snapshots at t − latency; the fundamental is a private noisy signal for value/whale only | `sim/simulation.py:204` |
+| Interaction through the order book | IMPLEMENTED | 10,363 trades; 98.4% of volume is between different kinds | `kernel/orderbook.py:64` |
+| Endogenous prices | IMPLEMENTED (with a caveat) | All agents inactive → the mid never moves while the fundamental does. **Caveat:** market makers blend a lagged public index (index_w 0.2) into their quotes | `strategies/market_maker.py:16` |
+| Communication / social influence | IMPLEMENTED | 23 influence events and 11 imitations; cutting the social channel changes the trade fingerprint. Users of the signal: noise, momentum, leveraged, adaptive | `agents/social.py:11` |
+| Leverage and liquidations | IMPLEMENTED | Engine rule tested. **0 agent liquidations** in the default run, in all A runs and in all C runs (only the external whale is liquidated) | `kernel/exchange.py:186` |
+| Cross-venue arbitrage | **PARTIAL** (implemented, inactive) | 0 arbitrage orders. Mean mid gap 1.3 bps vs a 12 bps trigger (2 taker fees + threshold) | `strategies/arbitrage.py:11` |
+| News-reactive agents | PARTIAL | Synthetic random headlines with a sentiment number; no text, no real feed | `sim/world.py:18` |
+| Adaptive / learning agents | PARTIAL | Softmax bandit over 4 fixed modes plus imitation of better peers; no model of other agents | `strategies/adaptive.py:15` |
+| LLM-assisted market agents | MISSING | By design: no market agent calls an LLM | — |
+| LLM research council | PARTIAL | Deterministic mock by default; `claude -p` is used only by the research generator | — |
+| Sandboxed, auditable code evolution | IMPLEMENTED | Namespace sandbox available; hash-chained journal; `tests/test_research.py` | `research/sandbox.py:110` |
+| Historical replay | PARTIAL | Mode B replays closes as the fundamental, not historical order flow | `sim/replay.py` |
+| Emergent Behavior Observatory | PARTIAL (new) | 8 detectors with a stated programmed basis; paired-seed ablations; experiments A/B/C. Panic, cascade and endogenous maker-withdrawal detectors **never fired** in registered runs; they are tested on constructed inputs only | `observatory/metrics.py`, `observatory/experiments.py` |
+| Realism track with a Pareto archive | IMPLEMENTED (new) | Frozen rules sha256-locked; allow-listed candidate space; "not an improvement" returned for 5 of 5 candidates vs default | `observatory/realism.py` |
+| Docker / CI | UNVERIFIED | No Docker daemon; CI never ran on a remote | `Dockerfile`, `.github/workflows/ci.yml` |
+
+### Requirements of this mission
+
+| Requirement | Implementation | Command | Artifact | Status |
+|---|---|---|---|---|
+| Verifiable baseline / capability audit | `observatory/audit.py` | `evox observatory audit` | `artifacts/observatory/audit.json` | executed |
+| Volatility diagnosis (falsifiable, one factor at a time, no corrective constant) | `observatory/volatility.py`, `observatory/market_stats.py`; frozen `volatility_diagnosis_v1.json` plus amendment_v2 | `evox observatory volatility --tag v1` / `--tag v2` | `volatility_v1.json`, `volatility_v2_amplification.json` | executed; 2 causes measured, 5 alternatives refuted |
+| Market-maker withdrawal shock | `sim/config.py` ShockType, `sim/simulation.py`, scenario `mm_withdrawal_90`, dashboard shock panel | — | — | verified (tests) |
+| Observatory detectors | `observatory/sampler.py`, `observatory/metrics.py` | — | per-run `metrics` in `experiments_v1.json` | verified on constructed inputs; executed |
+| Programmed vs emergent | paired ablations (no_social, zero_intelligence, leveraged absent) and labels in the frozen spec | `evox observatory experiments` | `experiments_v1.json` | executed |
+| Experiments A/B/C | `observatory/experiments.py`, frozen `observatory_experiments_v1.json` plus amendment 1 | same | same | executed (56 runs) |
+| Scientific-quality evolution track | `observatory/realism.py`, frozen `realism_track_v2.json` (v1 superseded, reasons inside) | `evox observatory realism` | `realism_v2.json`, `realism_archive_v2.json` (v1 kept) | executed |
+| Track cannot rewrite its rules | sha256 lock and allow-list | `pytest tests/test_observatory.py -k "rules or touch"` | — | verified |
+| Dashboard | `/api/observatory/*` (`api/observatory_routes.py`), `web/src/app/observatory` | `make dev` | — | see delivery message |
+| Holdout / LLM budget untouched | no code path in `observatory/` reads vault v2 or calls an LLM | `grep -r "vault\|claude" src/evolutionx/observatory` | — | verified by inspection (the only match is a descriptive string in `audit.py`) |

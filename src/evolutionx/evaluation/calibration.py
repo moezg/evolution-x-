@@ -35,6 +35,14 @@ FACTS = [
 ]
 
 
+def _size_knobs(knobs: dict[str, float]) -> dict[str, float]:
+    """Order-size knobs that actually act. The search still samples 'leveraged' (keeps old runs reproducible),
+    but it was always a no-op: leveraged agents size by leverage_use (found in the 2026-11-03 realism track)."""
+    from ..agents.population import SCALABLE_KINDS
+
+    return {k: v for k, v in knobs.items() if k in SCALABLE_KINDS}
+
+
 def multi_facts(close: np.ndarray, vol: np.ndarray) -> dict[str, float]:
     f = facts_from_series(close, vol)
     if not f:
@@ -79,7 +87,7 @@ def _sim(args: tuple[dict[str, Any], int, int]) -> dict[str, float]:
         seed=seed,
         duration_s=dur,
         world_annual_vol=knobs["world_annual_vol"],
-        size_scale={k: knobs[k] for k in knobs if k != "world_annual_vol"},
+        size_scale=_size_knobs(knobs),
         invariant_check_every_s=600,
     )
     s = Simulation(cfg).run()
@@ -218,7 +226,7 @@ def _sim_mm(args: tuple[dict[str, Any], float, int, int]) -> dict[str, float]:
         seed=seed,
         duration_s=dur,
         world_annual_vol=knobs["world_annual_vol"],
-        size_scale={k: knobs[k] for k in knobs if k != "world_annual_vol"},
+        size_scale=_size_knobs(knobs),
         param_overrides={"market_maker": {"half_spread_bps": hs, "level_step_bps": 0.75 * hs}},
         invariant_check_every_s=600,
     )

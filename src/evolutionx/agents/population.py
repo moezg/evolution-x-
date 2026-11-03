@@ -54,6 +54,9 @@ def build_population(
     `param_overrides[kind]` replaces the family's central parameters (this is
     how evolved genomes are deployed); individual agents still jitter around it.
     """
+    for kind, k in (size_scale or {}).items():
+        if k != 1.0 and kind not in SCALABLE_KINDS:
+            raise ValueError(f"size_scale[{kind!r}] has no effect: {kind} has no order-size parameter {SIZE_KEYS}")
     rng = random.Random(f"population:{seed}")
     agents: list[Agent] = []
     aid = 0
@@ -84,6 +87,8 @@ def build_population(
 
 
 SIZE_KEYS = ("mean_btc", "max_btc", "quote_btc", "size_btc", "parent_btc")
+# kinds whose order size can be scaled; leveraged agents size by leverage_use x equity, so size_scale was a no-op
+SCALABLE_KINDS = frozenset(k for k, spec in PARAM_SPECS.items() if any(n in SIZE_KEYS for n in spec))
 
 
 def _scaled(params: dict[str, float], k: float) -> dict[str, float]:

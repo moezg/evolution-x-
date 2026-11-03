@@ -16,6 +16,7 @@ ShockType = Literal[
     "funding_spike",
     "news_panic",
     "arb_outage",
+    "mm_withdrawal",
 ]
 
 

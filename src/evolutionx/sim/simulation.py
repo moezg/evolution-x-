@@ -144,7 +144,8 @@ class Simulation:
 
     @property
     def finished(self) -> bool:
-        return self.stopped or (self.q.peek_time() or 10**18) > self.cfg.duration_s * 1000
+        nt = self.q.peek_time()
+        return self.stopped or (10**18 if nt is None else nt) > self.cfg.duration_s * 1000
 
     # ------------------------------------------------------------------ handlers
     def _tick(self, t: int, _: Any) -> None:
@@ -382,6 +383,14 @@ class Simulation:
                 if a.kind == "arbitrage":
                     a.memory["disabled_until"] = t + s.duration_s * 1000
                     self.exchange.cancel_all(a.id)
+        elif s.type == "mm_withdrawal":
+            # a fraction of market makers stops participating: resting quotes cancelled, no wakes act
+            mms = [a for a in self.agents if a.kind == "market_maker"]
+            k = min(len(mms), round(s.magnitude * len(mms)))
+            for a in mms[:k]:
+                a.active = False
+                self.exchange.cancel_all(a.id)
+            self.q.schedule(t + s.duration_s * 1000, "restore", ("mm_withdrawal", i), priority=1)
 
     def _restore(self, t: int, payload: tuple[str, int]) -> None:
         if payload[0] == "liquidity":
@@ -389,6 +398,11 @@ class Simulation:
                 if a.kind == "market_maker":
                     a.memory["liquidity_scale"] = 1.0
             self.sim_events.append(SimEvent(t, "restore", data={"what": "liquidity"}))
+        elif payload[0] == "mm_withdrawal":
+            for a in self.agents:
+                if a.kind == "market_maker":
+                    a.active = True
+            self.sim_events.append(SimEvent(t, "restore", data={"what": "mm_withdrawal"}))
 
     def _ext_order(self, t: int, payload: tuple[int, int, int, int, bool]) -> None:
         aid, venue, side, qty, forced = payload

@@ -38,11 +38,13 @@ live = LiveSession()
 jobs = JobManager()
 archive = Archive()
 
+from .observatory_routes import router as observatory_router  # noqa: E402
 from .research_routes import register_run  # noqa: E402
 from .research_routes import router as research_router  # noqa: E402
 
 register_run(jobs)
 app.include_router(research_router)
+app.include_router(observatory_router)
 
 
 def _require_sim() -> None:

@@ -1,0 +1,223 @@
+{
+ "created_utc": "2026-11-03T20:28:28+00:00",
+ "seed": 11,
+ "duration_s": 900,
+ "fingerprint": "3992f86ea38e1147",
+ "capabilities": {
+  "agents_256_heterogeneous": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "n_agents": 256,
+    "by_kind": {
+     "noise": 64,
+     "momentum": 40,
+     "value": 32,
+     "market_maker": 24,
+     "arbitrage": 20,
+     "execution": 20,
+     "whale": 16,
+     "leveraged": 16,
+     "news": 12,
+     "adaptive": 12
+    },
+    "distinct_param_sets": 256
+   },
+   "code": [
+    "src/evolutionx/agents/population.py:23"
+   ]
+  },
+  "independent_agent_state": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "distinct_rng_states_after_run": 256,
+    "rng_states_changed": 256,
+    "distinct_memory_objects": 256,
+    "finite_capital_and_margin": "ClearingHouse.can_take rejects orders beyond max leverage",
+    "margin_rejections": 0
+   },
+   "code": [
+    "src/evolutionx/agents/base.py:91"
+   ]
+  },
+  "limited_information": {
+   "status": "IMPLEMENTED",
+   "evidence": "agents receive Observation built from snapshots at t - md_latency; fundamental only as private noisy delayed signal for value/whale; tested in tests/test_simulation.py",
+   "code": [
+    "src/evolutionx/sim/simulation.py:204"
+   ]
+  },
+  "order_book_interaction": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "trades": 10363,
+    "kinds_on_either_side": [
+     "adaptive",
+     "execution",
+     "leveraged",
+     "market_maker",
+     "momentum",
+     "noise",
+     "value",
+     "whale"
+    ],
+    "cross_kind_volume_share": 0.984,
+    "kinds_that_sent_orders": [
+     "adaptive",
+     "execution",
+     "leveraged",
+     "market_maker",
+     "momentum",
+     "noise",
+     "value",
+     "whale"
+    ]
+   },
+   "code": [
+    "src/evolutionx/kernel/orderbook.py:64"
+   ]
+  },
+  "endogenous_prices": {
+   "status": "IMPLEMENTED (with a caveat)",
+   "evidence": {
+    "all_agents_inactive_distinct_mids": 1,
+    "fundamental_moved": true,
+    "caveat": "market makers blend a public index (lagged fundamental) into their quote reference (index_w=0.2); price is formed by orders, but MMs anchor partly on the exogenous index"
+   },
+   "code": [
+    "src/evolutionx/strategies/market_maker.py:16"
+   ]
+  },
+  "communication_and_social_influence": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "influence_events": 23,
+    "imitation_events": 11,
+    "trades_changed_when_social_cut": true,
+    "users_of_social_signal": [
+     "noise(herd)",
+     "momentum(social_w)",
+     "leveraged(social_w)",
+     "adaptive(crowd arm)"
+    ]
+   },
+   "code": [
+    "src/evolutionx/agents/social.py:11"
+   ]
+  },
+  "liquidations_and_leverage": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "liquidations_in_run": 0
+   },
+   "code": [
+    "src/evolutionx/kernel/exchange.py:186"
+   ]
+  },
+  "cross_venue_arbitrage": {
+   "status": "PARTIAL (implemented, inactive in this run)",
+   "evidence": {
+    "arbitrage_orders": 0,
+    "cross_venue_mid_gap_bps": 1.2779360322433815,
+    "arbitrage_cost_threshold_bps": 12.0,
+    "note": "arbitrageurs act only when the best bid on one venue exceeds the best ask on the other by more than 2 taker fees + threshold; mid gap alone does not trigger them"
+   },
+   "code": [
+    "src/evolutionx/strategies/arbitrage.py:11"
+   ]
+  },
+  "news_reactive_agents": {
+   "status": "PARTIAL",
+   "evidence": "news are SYNTHETIC random headlines from the world process (no text, no real feed); news agents react to sentiment numbers",
+   "code": [
+    "src/evolutionx/sim/world.py:18"
+   ]
+  },
+  "adaptive_learning_agents": {
+   "status": "PARTIAL",
+   "evidence": "softmax bandit over 4 fixed modes + bounded risk adaptation; no learned model of other agents",
+   "code": [
+    "src/evolutionx/strategies/adaptive.py:15",
+    "src/evolutionx/strategies/adaptive.py:22",
+    "src/evolutionx/strategies/adaptive.py:23",
+    "src/evolutionx/strategies/adaptive.py:35",
+    "src/evolutionx/strategies/adaptive.py:37",
+    "src/evolutionx/strategies/adaptive.py:38"
+   ]
+  },
+  "llm_assisted_market_agents": {
+   "status": "MISSING",
+   "evidence": "no market agent calls an LLM (by design: deterministic, cheap simulation)"
+  },
+  "research_council_llm": {
+   "status": "PARTIAL",
+   "evidence": "council roles run on a deterministic mock by default; claude -p is used only by the research generator"
+  },
+  "code_evolution_sandboxed_auditable": {
+   "status": "IMPLEMENTED",
+   "evidence": {
+    "sandbox_available": true,
+    "tests": "tests/test_research.py::test_H_*",
+    "journal": "hash-chained journal per lab"
+   },
+   "code": [
+    "src/evolutionx/research/sandbox.py:110"
+   ]
+  },
+  "historical_replay_mode": {
+   "status": "PARTIAL",
+   "evidence": "Mode B injects historical closes as the latent fundamental; it does not replay historical order flow"
+  },
+  "emergent_behavior_observatory": {
+   "status": "PARTIAL",
+   "evidence": {
+    "detectors": [
+     "herding",
+     "liquidity_withdrawal",
+     "panic_contagion",
+     "liquidation_cascades",
+     "momentum_amplification",
+     "influence_concentration",
+     "regime_transitions",
+     "behavioral_clustering"
+    ],
+    "ablation_protocol": "observatory/experiments.py (paired seeds, no_social, zero_intelligence)",
+    "never_fired_in_unshocked_runs_A": [
+     "panic_contagion",
+     "liquidation_cascades",
+     "liquidity_withdrawal"
+    ],
+    "secondary_liquidations_in_C": 0
+   },
+   "note": "8 detectors run on every sampled run; panic, cascade and endogenous MM-withdrawal detectors are implemented and unit-tested on constructed inputs but did not fire in the registered runs",
+   "code": [
+    "src/evolutionx/observatory/metrics.py:32",
+    "src/evolutionx/observatory/metrics.py:59",
+    "src/evolutionx/observatory/metrics.py:84",
+    "src/evolutionx/observatory/metrics.py:118",
+    "src/evolutionx/observatory/metrics.py:162",
+    "src/evolutionx/observatory/metrics.py:195",
+    "src/evolutionx/observatory/metrics.py:224",
+    "src/evolutionx/observatory/metrics.py:322"
+   ]
+  },
+  "docker_ci": {
+   "status": "UNVERIFIED",
+   "evidence": "no Docker daemon; CI never ran on a remote"
+  }
+ },
+ "trade_volume_by_kind_pair_btc": {
+  "value->momentum": 162.16,
+  "momentum->value": 159.78,
+  "value->leveraged": 125.32,
+  "adaptive->value": 113.8,
+  "leveraged->value": 111.29,
+  "value->adaptive": 109.81,
+  "market_maker->leveraged": 104.93,
+  "leveraged->market_maker": 101.78,
+  "momentum->market_maker": 98.8,
+  "market_maker->momentum": 92.39,
+  "market_maker->adaptive": 82.91,
+  "adaptive->market_maker": 68.67
+ },
+ "mid_std_check": 7745.1008470211855
+}

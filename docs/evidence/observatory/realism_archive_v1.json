@@ -1,0 +1,107 @@
+{
+ "rules_sha256": "dbfaad6540faf7d9e86807927c409070af81a5e19f49c04ac412d349c84bf1b9",
+ "pareto": [
+  {
+   "name": "R_momentum_size_0.5",
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "size_scale": {
+     "momentum": 0.5
+    }
+   },
+   "objectives_mean": {
+    "scale_error": 0.3505717414044022,
+    "shape_error": 1.1938045507715966,
+    "cost_cpu_s_per_sim_hour": 17.964552524333232
+   },
+   "verdict_vs_incumbent": "improvement",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true
+  },
+  {
+   "name": "R_leveraged_size_0.5",
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "size_scale": {
+     "leveraged": 0.5
+    }
+   },
+   "objectives_mean": {
+    "scale_error": 1.262798185282426,
+    "shape_error": 0.689875828026973,
+    "cost_cpu_s_per_sim_hour": 15.805803607999982
+   },
+   "verdict_vs_incumbent": "improvement",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true
+  },
+  {
+   "name": "R_mm_size_2",
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "size_scale": {
+     "market_maker": 2.0
+    }
+   },
+   "objectives_mean": {
+    "scale_error": 1.5804016885959928,
+    "shape_error": 0.958248239468627,
+    "cost_cpu_s_per_sim_hour": 14.585270039333258
+   },
+   "verdict_vs_incumbent": "improvement",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true
+  },
+  {
+   "name": "R_no_social",
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "social_enabled": false,
+    "imitation_enabled": false
+   },
+   "objectives_mean": {
+    "scale_error": 0.339660005381813,
+    "shape_error": 1.3945103026992574,
+    "cost_cpu_s_per_sim_hour": 11.693988559666726
+   },
+   "verdict_vs_incumbent": "improvement",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true
+  }
+ ],
+ "history": [
+  {
+   "name": "default",
+   "overrides": {},
+   "objectives_mean": {
+    "scale_error": 4.992647811279418,
+    "shape_error": 1.3074465493988148,
+    "cost_cpu_s_per_sim_hour": 16.650722012333443
+   },
+   "verdict_vs_incumbent": "incumbent",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true,
+   "dominated_by": "R_leveraged_size_0.5"
+  },
+  {
+   "name": "realistic_fundamental",
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0
+   },
+   "objectives_mean": {
+    "scale_error": 1.262798185282426,
+    "shape_error": 0.689875828026973,
+    "cost_cpu_s_per_sim_hour": 18.177529645666635
+   },
+   "verdict_vs_incumbent": "improvement",
+   "evaluated_utc": "2026-11-03T20:25:44+00:00",
+   "admitted": true,
+   "dominated_by": "R_leveraged_size_0.5"
+  }
+ ]
+}

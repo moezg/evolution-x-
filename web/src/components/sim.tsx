@@ -230,6 +230,7 @@ const SHOCKS: Record<string, { mag: number; dur: number; help: string; step: str
   funding_spike: { mag: 0.0075, dur: 900, help: "funding rate per interval (0.0075 = 0.75%)", step: "0.0005" },
   news_panic: { mag: 4, dur: 300, help: "negative sentiment magnitude", step: "0.5" },
   arb_outage: { mag: 1, dur: 600, help: "1 = arbitrage connectivity down", step: "1" },
+  mm_withdrawal: { mag: 0.9, dur: 300, help: "fraction of market makers that stop quoting", step: "0.1" },
 };
 
 export function ShockPanel({ disabled }: { disabled?: boolean }) {

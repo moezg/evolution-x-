@@ -28,6 +28,22 @@ CONDITIONS: dict[str, dict[str, Any]] = {
     "no_social": {"social_enabled": False, "imitation_enabled": False},
 }
 
+# amendment_v2 of the protocol (positive-feedback amplification), base R = realistic fundamental
+_R: dict[str, Any] = {"world_annual_vol": 0.33, "news_impact": 0.0}
+AMPLIFICATION_V2: dict[str, dict[str, Any]] = {
+    "R": _R,
+    "R_low_belief": {**_R, "param_overrides": {"value": {"info_noise_bps": 2.0}, "whale": {"info_noise_bps": 1.0}}},
+    "R_no_momentum": {**_R, "population_overrides": {"momentum": 0}},
+    "R_no_leverage": {**_R, "population_overrides": {"leveraged": 0}},
+    "R_no_social": {**_R, "social_enabled": False, "imitation_enabled": False},
+    "R_no_noise": {**_R, "population_overrides": {"noise": 0}},
+}
+
+
+def run_amplification_v2(workers: int = 4) -> dict[str, Any]:
+    """Re-runs the amendment_v2 study exactly as recorded in volatility_v2_amplification.json."""
+    return run(list(AMPLIFICATION_V2), extra=AMPLIFICATION_V2, tag="v2_amplification", workers=workers)
+
 
 def _run(args: tuple[str, dict[str, Any], int, int]) -> dict[str, Any]:
     name, over, seed, dur = args

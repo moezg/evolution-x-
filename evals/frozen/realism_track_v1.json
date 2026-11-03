@@ -1,0 +1,17 @@
+{
+  "name": "realism-track-v1",
+  "purpose": "scientific-quality evolution track for the SIMULATOR (not for trading strategies): candidate configurations are judged on several objectives at once and kept in a Pareto archive. The track can conclude 'not an improvement'.",
+  "targets": "historical BTCUSDT 1m TRAIN days only (2026-09-01..05), 60-minute windows, median and IQR per fact (evolutionx.evaluation.calibration.window_targets('train')). Validation/held-out calibration days are NOT used: they were already exposed in the v0.1 calibration and would not be independent.",
+  "estimator": "same multi_facts() estimator for historical windows and for each simulated 3600 s run (1m closes from the venue-0 mid)",
+  "objectives": {
+    "scale_error": {"facts": ["ret_std_bps", "ret5_std_bps", "ret15_std_bps"], "per_fact": "|sim - median| / IQR", "aggregate": "mean", "direction": "minimize"},
+    "shape_error": {"facts": ["excess_kurtosis", "acf_ret_lag1", "acf_absret_lag1", "vol_volume_corr"], "per_fact": "|sim - median| / IQR", "aggregate": "mean", "direction": "minimize"},
+    "cost_cpu_s_per_sim_hour": {"direction": "minimize"}
+  },
+  "seeds": [701, 702, 703],
+  "duration_s": 3600,
+  "candidate_space": "a candidate is ONLY a dict of SimConfig overrides restricted to allowed_fields; it cannot supply code, targets, objectives, seeds or duration",
+  "allowed_fields": ["world_annual_vol", "news_rate_per_hour", "news_impact", "social_enabled", "imitation_enabled", "social_k", "imitation_prob", "size_scale", "population_overrides", "param_overrides", "heterogeneity"],
+  "verdict_rule": "paired by seed against the incumbent (default config). 'improvement' = no objective worse (t-interval of paired diff not entirely above 0 for any error objective) AND at least one error objective better (t-interval entirely below 0); 'trade-off' = some objective better and some worse; 'not an improvement' = otherwise. Cost is compared on means only (timing noise).",
+  "archive_rule": "a candidate enters the Pareto archive if no archived entry dominates it on mean objectives; entries it dominates are moved to history with dominated_by. The archive stores the sha256 of this file and refuses to update if the rules change."
+}

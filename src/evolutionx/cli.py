@@ -334,6 +334,30 @@ def cmd_calibrate(a: argparse.Namespace) -> None:
     print("selected knobs:", {k: round(v, 3) for k, v in r["selected_knobs"].items()})
 
 
+def cmd_observatory(a: argparse.Namespace) -> None:
+    """Emergent Behavior Observatory (SYNTHETIC simulator research; no holdout data, no LLM calls)."""
+    if a.action == "audit":
+        from .observatory.audit import run_audit
+
+        r = run_audit()
+        _print({k: v["status"] for k, v in r["capabilities"].items()})
+    elif a.action == "volatility":
+        from .observatory import volatility
+
+        r = volatility.run() if a.tag == "v1" else volatility.run_amplification_v2()
+        _print({c: round(v["mid_ret_std_bps.1m"]["mean"], 2) for c, v in r["summary"].items()})
+    elif a.action == "experiments":
+        from .observatory.experiments import run as run_exp
+
+        r = run_exp(tuple(a.only.split(",")))
+        _print({e: {h: v.get("verdict") for h, v in r[e]["hypotheses"].items()} for e in ("A", "B", "C") if e in r})
+    elif a.action == "realism":
+        from .observatory import realism
+
+        r = realism.evaluate(realism.CANDIDATES_V2)
+        _print({n: v["verdict_vs"] for n, v in r["results"].items()} | {"pareto": r["pareto"]})
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -390,6 +414,10 @@ def main() -> None:
     sp = add("council", cmd_council)
     sp.add_argument("--question", default="What mechanisms drive the observed dynamics, and what should we test next?")
     sp.add_argument("--experiment", default=None)
+    sp = add("observatory", cmd_observatory)
+    sp.add_argument("action", choices=["audit", "volatility", "experiments", "realism"])
+    sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
+    sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
     sp = add("backtest", cmd_backtest)
     sp.add_argument("--strategy", default="v0", help="v0 | champion | path/to/strategy.py")
     sp.add_argument("--symbol", default="BTCUSDT")

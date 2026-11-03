@@ -67,6 +67,7 @@ def test_observation_never_contains_future_data():
         "news_panic",
         "arb_outage",
         "flash_sell",
+        "mm_withdrawal_90",
     ],
 )
 def test_scenarios_execute_and_preserve_invariants(name):

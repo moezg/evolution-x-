@@ -26,6 +26,50 @@ def _grep(rel: str, pattern: str) -> list[str]:
     return [f"src/evolutionx/{rel}:{i}" for i, ln in enumerate(p.read_text().splitlines(), 1) if re.search(pattern, ln)]
 
 
+def _observatory_status() -> dict[str, Any]:
+    """Which detectors exist, and which ever fired in the registered experiments (evidence, not intent)."""
+    p = Path("artifacts/observatory/experiments_v1.json")
+    det = [
+        "herding",
+        "liquidity_withdrawal",
+        "panic_contagion",
+        "liquidation_cascades",
+        "momentum_amplification",
+        "influence_concentration",
+        "regime_transitions",
+        "behavioral_clustering",
+    ]
+    ev: dict[str, Any] = {
+        "detectors": det,
+        "ablation_protocol": "observatory/experiments.py (paired seeds, no_social, zero_intelligence)",
+    }
+    if p.exists():
+        runs = json.loads(p.read_text()).get("runs", [])
+        a_runs = [r for r in runs if r["exp"] == "A"]
+        ev["never_fired_in_unshocked_runs_A"] = [
+            k
+            for k, path in {
+                "panic_contagion": ("panic_contagion", "panic_events"),
+                "liquidation_cascades": ("liquidation_cascades", "liquidations"),
+                "liquidity_withdrawal": ("liquidity_withdrawal", "withdrawal_episodes"),
+            }.items()
+            if all(not r["metrics"][path[0]][path[1]] for r in a_runs)
+        ]
+        ev["secondary_liquidations_in_C"] = sum(
+            r["windows"]["crisis"]["liquidations_agents"] for r in runs if r["exp"] == "C"
+        )
+    return {
+        "status": "PARTIAL",
+        "evidence": ev,
+        "note": "8 detectors run on every sampled run; panic, cascade and endogenous MM-withdrawal detectors are "
+        "implemented and unit-tested on constructed inputs but did not fire in the registered runs",
+        "code": _grep(
+            "observatory/metrics.py",
+            r"^def (herding|liquidity_withdrawal|panic_contagion|liquidation_cascades|momentum_amplification|influence_concentration|regime_transitions|behavioral_clustering)\(",
+        ),
+    }
+
+
 def run_audit(seed: int = 11, duration_s: int = 900) -> dict[str, Any]:
     sim = Simulation(SimConfig(seed=seed, duration_s=duration_s))
     rng_before = {a.id: hashlib.sha256(repr(a.rng.getstate()).encode()).hexdigest()[:12] for a in sim.agents}
@@ -165,10 +209,7 @@ def run_audit(seed: int = 11, duration_s: int = 900) -> dict[str, Any]:
             "status": "PARTIAL",
             "evidence": "Mode B injects historical closes as the latent fundamental; it does not replay historical order flow",
         },
-        "emergent_behavior_observatory": {
-            "status": "PARTIAL (this mission)",
-            "evidence": "see observatory/metrics.py and experiments",
-        },
+        "emergent_behavior_observatory": _observatory_status(),
         "docker_ci": {"status": "UNVERIFIED", "evidence": "no Docker daemon; CI never ran on a remote"},
     }
     rep = {
