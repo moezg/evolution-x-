@@ -180,13 +180,16 @@ class Supervisor:
         mode = camp["mode"]
         data = self._data_for(mode)
         self._ensure_champion()
-        self.lab.memory.x("UPDATE campaigns SET status='running', updated=? WHERE id=?", (now(), cid))
+        if camp["status"] not in ("search_space_exhausted",):
+            self.lab.memory.x("UPDATE campaigns SET status='running', updated=? WHERE id=?", (now(), cid))
         steps = 0
         t_start = time.time()
         try:
             while steps < max_steps:
                 self._check_stop()
                 camp = self._campaign(cid)
+                if camp["status"] == "search_space_exhausted":
+                    break
                 task = self._next_task(camp)
                 if task is None:
                     self._finish(
@@ -376,23 +379,65 @@ class Supervisor:
         )
         return ck
 
+    def _exploration_parents(self, data: DataSource, mode: str, champ: dict[str, Any]) -> list[dict[str, Any]]:
+        """Champion first, then evaluated non-rejected candidates ranked by DEVELOPMENT OOS Sharpe only
+        (validation results never feed back into generation)."""
+        out = [{"id": f"v{champ['version']}", "kind": "champion", "sha": champ["sha256"], "dev_sharpe": None}]
+        rows = self.lab.memory.q(
+            "SELECT id, code_sha256, path, status FROM candidates WHERE status IN "
+            "('refuted','inconclusive','promote','promoted')"
+        )
+        ranked = []
+        for r in rows:
+            key = self._experiment_key(r["code_sha256"], data, "eval")
+            res = self.lab.memory.get_experiment(key)
+            if res and r["code_sha256"] != champ["sha256"]:
+                ranked.append(
+                    {
+                        "id": r["id"],
+                        "kind": "candidate",
+                        "sha": r["code_sha256"],
+                        "path": r["path"],
+                        "dev_sharpe": res["development"]["portfolio_oos_sharpe"],
+                        "diagnostics": res["diagnostics"],
+                    }
+                )
+        ranked.sort(key=lambda x: (-x["dev_sharpe"], x["id"]))
+        return out + ranked
+
     def _s_hypothesize(self, camp, task, ck, data):  # noqa: ANN001, ANN202
+        from .hypothesizer import ALL_OPS
+
         tested = {h["signature"] for h in self.lab.memory.q("SELECT signature FROM hypotheses")}
         rng = random.Random(f"{camp['config']['seed']}|{task['id']}")
-        op, why, ranking = choose(camp["selector"], ck["diagnostics"], tested, ck["parent_sha"], rng)
-        sig = signature(ck["parent_sha"], op)
-        prior = self.lab.memory.q("SELECT id, status FROM hypotheses WHERE signature=?", (sig,))
+        act = self.lab.registry.active()
+        assert act is not None
+        parents = self._exploration_parents(data, camp["mode"], {"version": act["version"], "sha256": act["sha256"]})
+        open_parents = [p for p in parents if any(signature(p["sha"], op) not in tested for op in ALL_OPS)]
+        if not open_parents:
+            ck["_next"] = "DONE"
+            ck["search_space_exhausted"] = True
+            self.lab.journal.append("formulator", "search_space_exhausted", {"task": task["id"]})
+            self._finish(camp["id"], "search_space_exhausted")
+            return ck
+        if camp["selector"] == "guided":
+            parent = open_parents[0]
+        else:
+            parent = open_parents[rng.randrange(len(open_parents))]
+        diag = ck["diagnostics"] if parent["kind"] == "champion" else parent["diagnostics"]
+        op, why, ranking = choose(camp["selector"], diag, tested, parent["sha"], rng)
+        sig = signature(parent["sha"], op)
         ck.update(
             operator=op,
             why=why,
             ranking=ranking,
             signature=sig,
-            novelty=(
-                "re-test with new random parameters of a previously tested (parent, operator) pair: "
-                f"{[p['id'] for p in prior]}"
-            )
-            if prior
-            else "first test of this operator on this parent",
+            design_parent=parent["id"],
+            design_parent_kind=parent["kind"],
+            design_parent_sha=parent["sha"],
+            design_parent_dev_sharpe=parent["dev_sharpe"],
+            novelty=f"first test of operator {op} on parent {parent['id']} "
+            f"({'active champion' if parent['kind'] == 'champion' else 'exploration parent ranked by development OOS Sharpe'})",
         )
         return ck
 
@@ -485,7 +530,7 @@ class Supervisor:
         act = self.lab.registry.active()
         assert act is not None
         if act["sha256"] != ck["parent_sha"]:
-            raise CandidateFailure("stale_parent", "patch was designed against a parent that is no longer active")
+            raise CandidateFailure("stale_parent", "the champion changed after this task was designed; re-plan")
         bad = [f for f in ck["files"] if not any(f.startswith(p) for p in self.policy["evolvable_paths"])]
         if bad:
             raise CandidateFailure("scope", bad)
