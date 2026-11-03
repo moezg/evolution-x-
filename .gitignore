@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+artifacts/
+data/historical/*.npy
+web/node_modules/
+web/.next/
+web/out/
+.env
+*.egg-info/

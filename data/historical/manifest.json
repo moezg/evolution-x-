@@ -1,0 +1,83 @@
+{
+  "BTCUSDT-1m-2026-09-01.npy": {
+    "day": "2026-09-01",
+    "fetched_utc": "2026-11-03T12:56:22+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "a71f1d7887a3df468117bd3d7701a9831f43379b37e19cae74f12bd822919464",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-01.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-02.npy": {
+    "day": "2026-09-02",
+    "fetched_utc": "2026-11-03T12:56:23+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "3b21f40eed73e4ddc50dcba291642aa34ea4f6e3060c24180288694899cf4d4d",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-02.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-03.npy": {
+    "day": "2026-09-03",
+    "fetched_utc": "2026-11-03T12:56:23+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "4020f5149bf3e33ad65f82636ceb2d8a141de071e8ee885412deb855560ae7af",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-03.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-04.npy": {
+    "day": "2026-09-04",
+    "fetched_utc": "2026-11-03T12:56:24+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "81064e4b9e326105763003b522214c8ce884a5203428f7b1e0e2bb6893988839",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-04.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-05.npy": {
+    "day": "2026-09-05",
+    "fetched_utc": "2026-11-03T12:56:24+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "9f3603aa9f5a1a0e35891644fe6da763526c1c72f1156840e5e4508eeb271afb",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-05.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-15.npy": {
+    "day": "2026-09-15",
+    "fetched_utc": "2026-11-03T12:56:25+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "5df805be9b40714e06fe39896e2c7a42f7aeac6d78628fe6990fd0dfa1639680",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-15.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-09-16.npy": {
+    "day": "2026-09-16",
+    "fetched_utc": "2026-11-03T12:56:25+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "ae7443820ed7319a4752e2cc87aea3ede088149a25e7e0dbfca76963499bde5a",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-09-16.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-10-01.npy": {
+    "day": "2026-10-01",
+    "fetched_utc": "2026-11-03T12:56:26+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "bec170c60fd2745c9c6e8e9322603899b1dba61c10db4b8be4f07b58dc4683b8",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-10-01.zip",
+    "symbol": "BTCUSDT"
+  },
+  "BTCUSDT-1m-2026-10-02.npy": {
+    "day": "2026-10-02",
+    "fetched_utc": "2026-11-03T12:56:27+00:00",
+    "kind": "historical",
+    "rows": 1440,
+    "sha256_archive": "32b8f49f574e771b6fadb7a2ec7ee24c7a32be3901793368d84ebcd4b7b93ca5",
+    "source": "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2026-10-02.zip",
+    "symbol": "BTCUSDT"
+  }
+}
