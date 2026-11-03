@@ -43,7 +43,7 @@ MECH_METRICS = (
 
 
 def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _excerpt(rel: str, start_pat: str, n: int) -> dict[str, Any]:

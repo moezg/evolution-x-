@@ -4,14 +4,14 @@ import { useWidth } from "./useWidth";
 import { defaultFmt, niceTicks } from "./charts";
 import { SERIES } from "@/lib/colors";
 import { fmtAny } from "@/lib/format";
-import type { Checks, DataFile, PerWindow } from "@/lib/research";
+import type { Checks, DataFile, PerWindow, RateCI } from "@/lib/research";
 
 const MUTED = "#9a9890";
 const GRID = "#2c2c2a";
 
 /* ---------------------------------------------------------------- provenance */
 
-export type Provenance = "HISTORICAL BACKTEST" | "SYNTHETIC" | "HYPOTHESIS" | "MECHANISM TEST" | "HISTORICAL TARGETS" | "NOT BLIND ANYMORE";
+export type Provenance = "HISTORICAL BACKTEST" | "SYNTHETIC" | "HYPOTHESIS" | "MECHANISM TEST" | "HISTORICAL TARGETS" | "NOT BLIND ANYMORE" | "PILOT";
 
 const PROV_CLS: Record<Provenance, string> = {
   "HISTORICAL BACKTEST": "border-[#c98500] bg-[#c98500]/15 text-[#f2c14e]",
@@ -20,6 +20,7 @@ const PROV_CLS: Record<Provenance, string> = {
   HYPOTHESIS: "border-[#9085e9] bg-[#9085e9]/15 text-[#c3bdf5]",
   "MECHANISM TEST": "border-[#199e70] bg-[#199e70]/15 text-[#7fe0b5]",
   "NOT BLIND ANYMORE": "border-down bg-down/15 text-[#f3a7a7]",
+  PILOT: "border-warn bg-warn/15 text-warn",
 };
 
 const PROV_TITLE: Record<Provenance, string> = {
@@ -29,6 +30,7 @@ const PROV_TITLE: Record<Provenance, string> = {
   HYPOTHESIS: "Pre-registered statement that has not been confirmed by a test.",
   "MECHANISM TEST": "Controlled example isolating one mechanism; not evidence about real markets.",
   "NOT BLIND ANYMORE": "The final vault split has been revealed at least once; any later evaluation on it is not blind.",
+  PILOT: "Small pilot run to check mechanisms and cost; sample size too small for any inferential claim.",
 };
 
 export function Prov({ kind }: { kind: Provenance }) {
@@ -95,6 +97,163 @@ export function CheckChips({ checks, compact = false }: { checks: Checks | null 
           </li>
         );
       })}
+    </ul>
+  );
+}
+
+/* ---------------------------------------------------------------- outcome classes / premises */
+
+/** Fixed order + colour per descriptive outcome class (colour follows the class, never its rank). */
+export const CLASS_ORDER = [
+  "confirmed",
+  "mechanism_observed_no_benefit",
+  "unstable_across_periods",
+  "benefit_absorbed_by_costs",
+  "insufficient_evidence",
+  "mechanism_not_observed",
+  "duplicate",
+  "rejected_gate",
+  "technically_false_premise",
+  "generation_failed",
+];
+
+const CLASS_COLORS: Record<string, string> = {
+  confirmed: "#1baf7a",
+  mechanism_observed_no_benefit: "#199e70",
+  unstable_across_periods: "#3987e5",
+  benefit_absorbed_by_costs: "#c98500",
+  insufficient_evidence: "#8a8984",
+  mechanism_not_observed: "#9085e9",
+  duplicate: "#5d5c58",
+  rejected_gate: "#d95926",
+  technically_false_premise: "#d55181",
+  generation_failed: "#e66767",
+};
+
+export function classColor(c: string): string {
+  return CLASS_COLORS[c] ?? "#6f6e69";
+}
+
+export function sortClasses(keys: string[]): string[] {
+  const idx = (k: string) => (CLASS_ORDER.includes(k) ? CLASS_ORDER.indexOf(k) : CLASS_ORDER.length);
+  return [...keys].sort((a, b) => idx(a) - idx(b) || a.localeCompare(b));
+}
+
+export function ClassChip({ c }: { c: string | null | undefined }) {
+  if (!c) return <span className="text-[11px] text-muted" title="no classification recorded (task written before classification existed)">—</span>;
+  const col = classColor(c);
+  return (
+    <span
+      className="inline-flex items-center gap-1 whitespace-nowrap rounded border px-1.5 py-px text-[10px] font-semibold text-ink"
+      style={{ borderColor: `${col}99`, background: `${col}26` }}
+      title={`descriptive outcome class: ${c}`}
+    >
+      <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: col }} />
+      {c.replace(/_/g, " ")}
+    </span>
+  );
+}
+
+const PREMISE_CLS: Record<string, string> = {
+  accepted: "border-up/60 bg-up/10 text-up",
+  verified: "border-up/60 bg-up/10 text-up",
+  falsified: "border-down/60 bg-down/10 text-[#f3a7a7]",
+  rejected_false_premise: "border-down/60 bg-down/10 text-[#f3a7a7]",
+  unverifiable: "border-warn/60 bg-warn/10 text-warn",
+  rejected_unverifiable: "border-warn/60 bg-warn/10 text-warn",
+  invalid: "border-[#d55181]/60 bg-[#d55181]/10 text-[#f0a3c2]",
+  rejected_malformed: "border-[#d55181]/60 bg-[#d55181]/10 text-[#f0a3c2]",
+};
+const PREMISE_MARK: Record<string, string> = { accepted: "✓", verified: "✓", falsified: "✗", rejected_false_premise: "✗", unverifiable: "?", rejected_unverifiable: "?", invalid: "!", rejected_malformed: "!" };
+
+/** Premise verdict (accepted / rejected_*) or a single premise status (verified / falsified / unverifiable / invalid). */
+export function PremiseChip({ v }: { v: string | null | undefined }) {
+  if (!v) return <span className="text-[11px] text-muted" title="no premise check recorded">—</span>;
+  return (
+    <span className={`inline-block whitespace-nowrap rounded border px-1.5 py-px text-[10px] font-semibold ${PREMISE_CLS[v] ?? "border-line2 bg-panel2 text-ink2"}`}>
+      <span aria-hidden>{PREMISE_MARK[v] ?? "·"} </span>
+      {v.replace(/_/g, " ")}
+    </span>
+  );
+}
+
+/** k/n with a horizontal 0..1 track, point estimate and Wilson 95% interval. */
+export function RateBar({ label, r, color = "#3987e5" }: { label: string; r: RateCI | null | undefined; color?: string }) {
+  if (!r) {
+    return (
+      <div className="flex items-baseline justify-between gap-2 text-xs">
+        <span className="text-ink2">{label}</span>
+        <span className="text-muted">not reported</span>
+      </div>
+    );
+  }
+  const [lo, hi] = r.wilson95 ?? [NaN, NaN];
+  const pct = (v: number) => `${Math.max(0, Math.min(1, v)) * 100}%`;
+  const ok = Number.isFinite(lo) && Number.isFinite(hi);
+  return (
+    <div className="min-w-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-2 text-xs">
+        <span className="text-ink2">{label}</span>
+        <span className="tnum text-ink">
+          {r.k}/{r.n}
+          <span className="text-muted">
+            {" "}
+            · {(r.rate * 100).toFixed(0)}% · 95% [{ok ? `${(lo * 100).toFixed(0)}–${(hi * 100).toFixed(0)}%` : "—"}]
+          </span>
+        </span>
+      </div>
+      <div
+        className="relative mt-1 h-3 rounded bg-line"
+        role="img"
+        aria-label={`${label}: ${r.k} of ${r.n}, Wilson 95% interval ${ok ? `${(lo * 100).toFixed(1)} to ${(hi * 100).toFixed(1)} percent` : "not reported"}`}
+      >
+        {[0.25, 0.5, 0.75].map((t) => (
+          <span key={t} aria-hidden className="absolute top-0 h-full w-px bg-[#3a3a37]" style={{ left: pct(t) }} />
+        ))}
+        {ok && <span aria-hidden className="absolute top-[3px] h-1.5 rounded-sm" style={{ left: pct(lo), width: `calc(${pct(hi)} - ${pct(lo)})`, background: color, opacity: 0.45 }} />}
+        {ok && <span aria-hidden className="absolute top-0 h-full w-px" style={{ left: pct(lo), background: color }} />}
+        {ok && <span aria-hidden className="absolute top-0 h-full w-px" style={{ left: `calc(${pct(hi)} - 1px)`, background: color }} />}
+        <span
+          aria-hidden
+          className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 border-2 border-[#161615]"
+          style={{ left: pct(r.rate), background: color }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** Horizontal stacked bar of class counts (fixed class order/colours). */
+export function ClassBar({ classes, label, total }: { classes: Record<string, number>; label: string; total?: number }) {
+  const keys = sortClasses(Object.keys(classes).filter((k) => classes[k] > 0));
+  const sum = keys.reduce((a, k) => a + classes[k], 0);
+  const n = total ?? sum;
+  if (!sum) return <span className="text-[11px] text-muted">no classified tasks</span>;
+  return (
+    <div className="flex h-4 w-full overflow-hidden rounded bg-line" role="img" aria-label={`${label}: ${keys.map((k) => `${k.replace(/_/g, " ")} ${classes[k]}`).join(", ")}`}>
+      {keys.map((k) => (
+        <span
+          key={k}
+          className="flex h-full items-center justify-center overflow-hidden text-[9px] font-semibold text-white/95"
+          style={{ width: `${(classes[k] / n) * 100}%`, background: classColor(k), borderRight: "1px solid #161615" }}
+          title={`${k.replace(/_/g, " ")}: ${classes[k]} of ${n}`}
+        >
+          {classes[k]}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export function ClassLegend({ classes }: { classes: string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink2" aria-label="Class legend">
+      {sortClasses(classes).map((k) => (
+        <li key={k} className="flex items-center gap-1.5">
+          <span aria-hidden className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: classColor(k) }} />
+          {k.replace(/_/g, " ")}
+        </li>
+      ))}
     </ul>
   );
 }

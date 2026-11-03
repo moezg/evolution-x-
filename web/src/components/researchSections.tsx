@@ -2,7 +2,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { DiffView } from "./labs";
 import { EmptyState, ErrorNote, JsonTable, Panel } from "./ui";
-import { CheckChips, Hash, IntervalPlot, Prov, SplitTimeline, SPLIT_COLORS, Verdict, WindowBars } from "./research";
+import { CheckChips, ClassChip, Hash, IntervalPlot, PremiseChip, Prov, SplitTimeline, SPLIT_COLORS, Verdict, WindowBars } from "./research";
+import { ClassificationSection, DossierSection, externalHypothesis, hasMotivation, MechanismSection, MotivationSection, PremisesSection } from "./researchEvidence";
 import { usePoll } from "@/lib/hooks";
 import { fmtAny, fmtTime, humanize, num, signed } from "@/lib/format";
 import type {
@@ -183,6 +184,23 @@ export function DataCoverage({ rev }: { rev: number }) {
 
 /* ================================================================ 4. tasks table */
 
+/** Why a task did not succeed: premise verdict if rejected, else the rejection gate, else the descriptive class. */
+function rejectionReason(t: TaskRow): { src: string; text: string } | null {
+  if (t.premise_verdict && t.premise_verdict.startsWith("rejected")) return { src: "premise", text: t.premise_verdict };
+  if (t.rejection?.gate) return { src: "gate", text: t.rejection.gate };
+  if (t.classification) return { src: "class", text: t.classification };
+  return null;
+}
+
+function PremiseCounts({ c }: { c: TaskRow["premise_counts"] }) {
+  if (!c) return null;
+  return (
+    <span className="ml-1 text-[10px] text-muted tnum" title={`premises: ${c.verified} verified, ${c.falsified} falsified, ${c.unverifiable} unverifiable, ${c.invalid} invalid`}>
+      {c.verified}✓ {c.falsified}✗ {c.unverifiable}? {c.invalid}!
+    </span>
+  );
+}
+
 const GROUPS: { key: string; label: string; match: (t: TaskRow) => boolean }[] = [
   { key: "pending", label: "Pending (open, not started)", match: (t) => t.status === "open" && t.stage === "OBSERVE" },
   { key: "running", label: "Running (open)", match: (t) => t.status === "open" && t.stage !== "OBSERVE" },
@@ -229,6 +247,10 @@ export function TasksTable({ lab, rev, onOpen, selected }: { lab: string; rev: n
                       </th>
                       <th scope="col" className="num">P(Δ&gt;0)</th>
                       <th scope="col">Promotion checks</th>
+                      <th scope="col" title="Premise verdict; counts = verified ✓ / falsified ✗ / unverifiable ? / invalid !">Premises</th>
+                      <th scope="col" title="Was the declared mechanism observed on development (candidate vs parent)?">Mechanism</th>
+                      <th scope="col" title="Descriptive outcome class; it does not prove the cause">Class</th>
+                      <th scope="col" title="Premise verdict if rejected, else rejection gate, else outcome class">Rejection reason</th>
                       <th scope="col">Outcome</th>
                     </tr>
                   </thead>
@@ -244,6 +266,7 @@ export function TasksTable({ lab, rev, onOpen, selected }: { lab: string; rev: n
                         <td className="text-ink2">
                           {t.operator ?? "—"}
                           {t.design_parent ? <span className="text-muted"> ← {t.design_parent}</span> : null}
+                          {t.generator ? <div className="text-[10px] text-muted">{t.generator}</div> : null}
                         </td>
                         <td>
                           <Verdict v={t.verdict ?? (t.status === "failed" ? "failed" : null)} />
@@ -263,6 +286,35 @@ export function TasksTable({ lab, rev, onOpen, selected }: { lab: string; rev: n
                         <td className="num">{isNum(t.prob_positive) ? num(t.prob_positive, 3) : "—"}</td>
                         <td>
                           <CheckChips checks={t.checks} compact />
+                        </td>
+                        <td>
+                          <PremiseChip v={t.premise_verdict} />
+                          <PremiseCounts c={t.premise_counts} />
+                        </td>
+                        <td className="text-[11px]">
+                          {t.mechanism_observed === true ? (
+                            <span className="text-up">✓ observed</span>
+                          ) : t.mechanism_observed === false ? (
+                            <span className="text-down">✗ not observed</span>
+                          ) : (
+                            <span className="text-muted" title="no mechanism test declared or recorded">—</span>
+                          )}
+                        </td>
+                        <td>
+                          <ClassChip c={t.classification} />
+                        </td>
+                        <td className="text-[11px]">
+                          {(() => {
+                            const r = rejectionReason(t);
+                            return r ? (
+                              <span>
+                                <span className="text-muted">{r.src}: </span>
+                                <span className={r.src === "class" ? "text-ink2" : "font-semibold text-[#f0a3c2]"}>{r.text.replace(/_/g, " ")}</span>
+                              </span>
+                            ) : (
+                              <span className="text-muted">—</span>
+                            );
+                          })()}
                         </td>
                         <td className="!whitespace-normal text-[11px] text-ink2">
                           {t.error && <span className="text-down">{t.error.slice(0, 120)}</span>}
@@ -291,7 +343,8 @@ export function TasksTable({ lab, rev, onOpen, selected }: { lab: string; rev: n
         })}
       </div>
       <p className="mt-2 text-[11px] text-muted">
-        Check chips: ES effect size · PI probability of improvement · D drawdown · CR cost robustness (2× costs) · DS deflated Sharpe.
+        Check chips: ES effect size · PI probability of improvement · D drawdown · CR cost robustness (2× costs) · DS deflated Sharpe. Class = descriptive outcome
+        class from development measurements; it does not prove the cause. “—” in Premises/Class = not recorded for this (older) task.
       </p>
     </Panel>
   );
@@ -506,6 +559,12 @@ export function TaskDrawer({ lab, id, onClose }: { lab: string; id: string; onCl
               )}
             </section>
 
+            {/* ---- LLM motivation */}
+            {ck.external && hasMotivation(externalHypothesis(ck.external)) && <MotivationSection ext={ck.external} />}
+
+            {/* ---- verified premises */}
+            <PremisesSection pc={d.premise_check ?? null} />
+
             {/* ---- candidate */}
             {(prop || d.candidate?.diff) && (
               <section aria-labelledby="cand-h" className="space-y-2">
@@ -604,6 +663,10 @@ export function TaskDrawer({ lab, id, onClose }: { lab: string; id: string; onCl
                 </div>
               </details>
             )}
+
+            {/* ---- mechanism + descriptive class */}
+            <MechanismSection m={d.mechanism ?? null} />
+            <ClassificationSection c={d.classification ?? null} />
 
             {/* ---- validation decision */}
             {dec && (
@@ -711,6 +774,7 @@ export function TaskDrawer({ lab, id, onClose }: { lab: string; id: string; onCl
                 <Field k="Novelty">{ck.novelty ?? "—"}</Field>
               </dl>
             </section>
+            <DossierSection dz={d.dossier ?? null} taskDossierSha={typeof ck.dossier_sha256 === "string" ? ck.dossier_sha256 : undefined} />
             <details className="rounded-md border border-line bg-panel p-2 text-xs">
               <summary className="cursor-pointer text-ink2">Raw checkpoint</summary>
               <pre className="mt-2 max-h-80 overflow-auto whitespace-pre-wrap break-all font-mono text-[11px] text-ink2">{JSON.stringify(ck, null, 2)}</pre>

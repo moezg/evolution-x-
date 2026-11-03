@@ -162,7 +162,7 @@ def code_ref(rel: str, pattern: str) -> dict[str, Any]:
     p = SRC / rel
     text = p.read_text()
     line = next((i for i, ln in enumerate(text.splitlines(), 1) if re.search(pattern, ln)), None)
-    return {"file": f"src/evolutionx/{rel}", "line": line, "sha256": hashlib.sha256(text.encode()).hexdigest()[:16]}
+    return {"file": f"src/evolutionx/{rel}", "line": line, "sha256": hashlib.sha256(text.encode()).hexdigest()}
 
 
 def feature_registry() -> dict[str, dict[str, Any]]:
@@ -254,7 +254,7 @@ def verify(
             ):
                 res.update(status="invalid", evidence=f"metric must be one of {PARENT_METRICS}; op in {list(OPS)}")
             else:
-                vals = {s: parent[s][m] for s in syms}
+                vals = {s: float(parent[s][m]) for s in syms}
                 ok = all(OPS[op](v, float(chk["value"])) for v in vals.values() if math.isfinite(v))
                 res.update(
                     status="verified" if ok else "falsified",

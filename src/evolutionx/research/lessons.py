@@ -11,6 +11,7 @@ Classes (descriptive; a class never proves the cause of a failure):
   unstable_across_periods        development and validation disagree, or instruments/windows disagree
   mechanism_observed_no_benefit  mechanism moved as predicted (or none declared) but no net benefit
   insufficient_evidence          validation inconclusive under the frozen rule
+  no_benefit_mechanism_undeclared no material benefit and no mechanism was declared (nothing to attribute)
   confirmed                      passed the frozen promotion rule (exploratory if validation is compromised)
 """
 
@@ -33,6 +34,7 @@ CLASSES = (
     "unstable_across_periods",
     "mechanism_observed_no_benefit",
     "insufficient_evidence",
+    "no_benefit_mechanism_undeclared",
     "confirmed",
 )
 
@@ -110,7 +112,9 @@ def classify(
         }
     if verdict == "inconclusive":
         return {"class": "insufficient_evidence", "note": note, "detail": detail}
-    return {"class": "mechanism_observed_no_benefit", "note": note, "detail": detail}
+    if mech.get("declared"):
+        return {"class": "mechanism_observed_no_benefit", "note": note, "detail": detail}
+    return {"class": "no_benefit_mechanism_undeclared", "note": note, "detail": detail}
 
 
 def lessons(roots: list[Path], limit: int = 40) -> list[dict[str, Any]]:

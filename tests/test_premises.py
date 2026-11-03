@@ -183,7 +183,12 @@ def test_classification_distinguishes_outcomes():
     big = {"passed": True, "candidate_dev_oos_sharpe": 0.4, "champion_dev_oos_sharpe": -0.01}
     tiny = {"passed": True, "candidate_dev_oos_sharpe": -0.007, "champion_dev_oos_sharpe": -0.01}
     assert classify({"verdict": "refuted", "screen": big}, pd_, pd_)["class"] == "unstable_across_periods"
-    assert classify({"verdict": "refuted", "screen": tiny}, pd_, pd_)["class"] == "mechanism_observed_no_benefit"
+    assert classify({"verdict": "refuted", "screen": tiny}, pd_, pd_)["class"] == "no_benefit_mechanism_undeclared"
+    mech_ok = {"declared": True, "observed": True}
+    assert (
+        classify({"verdict": "refuted", "screen": tiny, "mechanism": mech_ok}, pd_, pd_)["class"]
+        == "mechanism_observed_no_benefit"
+    )
     assert (
         classify({"verdict": "inconclusive", "screen": {"passed": True}}, pd_, pd_)["class"] == "insufficient_evidence"
     )

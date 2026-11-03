@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/research")
 def _lab(name: str):  # noqa: ANN202
     from ..research.supervisor import Lab, Supervisor
 
-    if not re.fullmatch(r"[a-z0-9_]+", name) or not (ROOT / name / "research.db").exists():
+    if not re.fullmatch(r"[A-Za-z0-9_]+", name) or not (ROOT / name / "research.db").exists():
         raise HTTPException(404, "lab not found")
     lab = Lab(ROOT / name, repo=Path.cwd())
     return lab, Supervisor(lab)
@@ -223,7 +223,7 @@ class RunReq(BaseModel):
 def register_run(app_jobs: Any) -> None:
     @router.post("/{name}/run")
     def run(name: str, req: RunReq) -> dict[str, Any]:
-        if not re.fullmatch(r"[a-z0-9_]+", name):
+        if not re.fullmatch(r"[A-Za-z0-9_]+", name):
             raise HTTPException(400, "bad lab name")
 
         def fn(progress, **p):  # noqa: ANN001, ANN003, ANN202
@@ -306,12 +306,19 @@ def comparison(tag: str) -> dict[str, Any]:
 def lessons_view() -> dict[str, Any]:
     from ..research.lessons import operator_summary
 
-    roots = [ROOT / n for n in ("arm_guided", "arm_random", "claude_session", "claude_cli")]
+    roots = sorted(
+        p.parent
+        for p in ROOT.glob("*/research.db")
+        if "superseded" not in p.parent.name and p.parent.name not in ("ui_smoke", "main", "final")
+    )
     summ = Path("artifacts/research/analysis/reclassification_summary.json")
     return {
         "summary_by_change_type": operator_summary(roots),
         "classes_by_lab": json.loads(summ.read_text()) if summ.exists() else None,
-        "note": "descriptive classes from development measurements; a class does not prove the cause",
+        "scope": [r.name for r in roots],
+        "note": "descriptive classes from development measurements; a class does not prove the cause. Generation "
+        "memory (arm C) used only arm_guided, arm_random, claude_session, claude_cli and the arm's own lab; this view "
+        "covers every non-superseded lab.",
     }
 
 

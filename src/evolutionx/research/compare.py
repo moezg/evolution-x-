@@ -148,6 +148,11 @@ def report(tag: str, arms: list[str]) -> dict[str, Any]:
         "protocol": json.loads(spec_text)["name"],
         "protocol_sha256": hashlib.sha256(spec_text.encode()).hexdigest(),
         "label": "PILOT: mechanism + cost check; no inferential claim",
+        "notes": [
+            "classes are read from lab state at report time (reclassify may have refined them after the run log)",
+            "duplicate = code hash seen in ANY lab (cross-lab measurement); the per-lab gate only blocks duplicates "
+            "within the same lab, so lab views can show duplicate_of = null",
+        ],
         "arms": {
             a: arm_metrics(ROOT / f"cmp_{tag}_{a}") for a in arms if (ROOT / f"cmp_{tag}_{a}" / "research.db").exists()
         },

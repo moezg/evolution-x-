@@ -132,6 +132,236 @@ export interface TaskRow {
   activation: { activated?: boolean; version?: number; rolled_back_to?: number; reason?: string } & Dict | null;
   duplicate_of: string | null;
   updated: string;
+  /** descriptive outcome class (null for rows written before classification existed) */
+  classification?: OutcomeClass | null;
+  premise_verdict?: PremiseVerdict | null;
+  premise_counts?: PremiseCounts | null;
+  mechanism_observed?: boolean | null;
+  generator?: string | null;
+}
+
+export type OutcomeClass =
+  | "generation_failed"
+  | "technically_false_premise"
+  | "rejected_gate"
+  | "duplicate"
+  | "mechanism_not_observed"
+  | "benefit_absorbed_by_costs"
+  | "unstable_across_periods"
+  | "mechanism_observed_no_benefit"
+  | "insufficient_evidence"
+  | "confirmed";
+
+export type PremiseVerdict = "accepted" | "rejected_false_premise" | "rejected_malformed" | "rejected_unverifiable";
+export type PremiseStatus = "verified" | "falsified" | "unverifiable" | "invalid";
+
+export interface PremiseCounts {
+  verified: number;
+  falsified: number;
+  unverifiable: number;
+  invalid: number;
+}
+
+export interface PremiseCheckSpec {
+  type: string;
+  metric?: string;
+  symbol?: string;
+  op?: string;
+  value?: unknown;
+  feature?: string;
+  method?: string;
+  expect?: string;
+  reason?: string;
+  [k: string]: unknown;
+}
+
+export interface PremiseResult {
+  id: string;
+  claim: string;
+  check: PremiseCheckSpec;
+  status: PremiseStatus | string;
+  evidence?: string;
+}
+
+export interface PremiseCheck {
+  verdict: PremiseVerdict | string;
+  results: PremiseResult[];
+  counts: PremiseCounts;
+}
+
+export interface MechanismTest {
+  metric: string;
+  symbol: string;
+  direction: string;
+  min_relative_change: number;
+}
+
+export interface Mechanism {
+  declared: boolean;
+  test?: MechanismTest;
+  per_symbol?: Record<string, { candidate?: number; parent?: number; relative_change?: number; ok?: boolean }>;
+  observed?: boolean | null;
+}
+
+export interface Classification {
+  class: OutcomeClass | string;
+  note?: string;
+  detail?: {
+    dev_deltas_vs_parent?: Record<string, number>;
+    mechanism?: Mechanism;
+    validation_verdict?: string | null;
+    dev_oos_gain_vs_champion?: number;
+    dev_screen_passed?: boolean;
+    instruments_disagree?: boolean;
+    [k: string]: unknown;
+  };
+  reclassified_utc?: string;
+  method?: string;
+}
+
+export interface EngineFeature {
+  present: boolean;
+  description?: string;
+  probe_evidence?: string;
+  code?: { file: string; line: number; sha256: string };
+}
+
+export interface ParentBehaviour {
+  method?: string;
+  segments?: number[];
+  ruined_segments?: number[];
+  per_year?: Record<string, { net_sharpe?: number; max_drawdown?: number; liquidations?: number }>;
+  [metric: string]: unknown;
+}
+
+export interface Dossier {
+  dossier_sha256: string;
+  git_commit?: string;
+  generated_utc?: string;
+  sources?: Record<string, string>;
+  engine_features?: Record<string, EngineFeature>;
+  rebalance_rule?: string;
+  parent_behaviour?: Record<string, ParentBehaviour>;
+  has_lessons?: boolean;
+  size_chars?: number;
+}
+
+/** LLM-authored hypothesis under task.checkpoint.external.hypothesis */
+export interface ExternalHypothesis {
+  statement?: string;
+  mechanism?: string;
+  alternatives?: string[];
+  prediction?: string;
+  current_behavior?: string;
+  change?: string;
+  mechanism_effect?: string;
+  refutation_observation?: string;
+  motivated_by?: string[];
+  new_information?: string;
+}
+
+export interface External {
+  hypothesis?: ExternalHypothesis | string | null;
+  generator?: string;
+  operator?: string;
+  exposure?: string[];
+  provenance?: string;
+  llm_call?: { cost_usd_equiv?: number; tokens?: number; models?: string[]; wall_s?: number; is_error?: boolean; stop_reason?: string };
+  [k: string]: unknown;
+}
+
+/* ---------------------------------------------------------------- research-method comparison */
+
+export interface RateCI {
+  k: number;
+  n: number;
+  rate: number;
+  wilson95: [number, number];
+}
+
+export interface ArmCost {
+  wall_s?: number;
+  sandbox_runs?: number;
+  llm_calls?: number;
+  llm_tokens?: number;
+  llm_cost_usd_api_equivalent_estimate?: number;
+  per_informative?: { wall_s?: number; llm_usd_api_equivalent?: number };
+  billing_note?: string;
+}
+
+export interface ComparisonRow {
+  task: string;
+  status?: string;
+  error?: string;
+  premise_verdict?: string | null;
+  premise_counts?: PremiseCounts | null;
+  candidate?: string | null;
+  executable?: boolean | null;
+  duplicate?: boolean | null;
+  duplicate_of?: string | null;
+  behavioural_duplicate_of?: string | null;
+  mechanism_observed?: boolean | null;
+  class?: string | null;
+  verdict?: string | null;
+  motivated_by?: string[] | null;
+  change?: string | null;
+}
+
+export interface ComparisonArm {
+  lab: string;
+  campaign: string;
+  status: string;
+  tasks: number;
+  premise_correct_rate?: RateCI;
+  executable_rate?: RateCI;
+  duplicate_rate?: RateCI;
+  behavioural_duplicate_rate?: RateCI;
+  mechanism_observed_rate?: RateCI;
+  unstable_share?: RateCI;
+  confirmed?: number;
+  classes?: Record<string, number>;
+  cost?: ArmCost;
+  rows?: ComparisonRow[];
+}
+
+export interface Comparison {
+  tag: string;
+  created_utc: string;
+  protocol: string;
+  protocol_sha256: string;
+  label: string;
+  arms: Record<string, ComparisonArm>;
+}
+
+export interface Lessons {
+  summary_by_change_type: Record<
+    string,
+    { n: number; mechanism_declared: number; mechanism_observed: number; classes: Record<string, number>; metric?: string; median_relative_change_of_mechanism_metric: number | null }
+  >;
+  classes_by_lab: Record<string, Record<string, number>>;
+  note?: string;
+}
+
+export interface Exposure {
+  name?: string;
+  written_utc?: string;
+  principle: string;
+  datasets: Record<string, { status: string; [k: string]: unknown }>;
+  actors: Record<string, { saw?: string[]; never?: string[]; consequence?: string; role?: string; [k: string]: unknown }>;
+  next_confirmation?: string;
+  vault_v2_manifest?: {
+    spec?: { instruments?: string[]; start?: string; end_exclusive?: string; chosen_utc?: string; selection_rule?: string; [k: string]: unknown };
+    built_utc?: string;
+    instruments?: Record<string, { bars?: number; qc?: Record<string, number>; sha256?: string; checksums_verified?: boolean }>;
+  };
+}
+
+export interface PremiseAudit {
+  subject: string;
+  parent: string;
+  parent_behaviour_development?: Record<string, ParentBehaviour>;
+  features?: Record<string, EngineFeature>;
+  verification: PremiseCheck;
 }
 
 export interface SymbolDiag {
@@ -214,6 +444,7 @@ export interface Checkpoint {
   design_parent?: string;
   candidate_id?: string;
   generator?: string;
+  external?: External;
   [k: string]: unknown;
 }
 
@@ -270,6 +501,10 @@ export interface TaskDetail {
     diagnostics?: Record<string, SymbolDiag>;
     timing?: Dict;
   } | null;
+  premise_check?: PremiseCheck | null;
+  classification?: Classification | null;
+  mechanism?: Mechanism | null;
+  dossier?: Dossier | null;
 }
 
 export interface Hypothesis {

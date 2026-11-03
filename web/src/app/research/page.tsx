@@ -13,6 +13,7 @@ import {
   TasksTable,
   useRefreshOn,
 } from "@/components/researchSections";
+import { ComparisonPanel, ExposurePanel, LessonsPanel, PremiseAuditPanel } from "@/components/researchMethod";
 import { apiPost, errorMessage } from "@/lib/api";
 import { useJob, usePoll } from "@/lib/hooks";
 import { fmtAny, fmtTime, humanize } from "@/lib/format";
@@ -491,6 +492,10 @@ const SECTIONS = [
   ["tasks", "Experiments"],
   ["lineage", "Lineage"],
   ["hypotheses", "Hypotheses"],
+  ["comparison", "Method comparison"],
+  ["lessons", "Lessons"],
+  ["premise-audit", "Premise audit"],
+  ["exposure", "Independence"],
   ["budget", "Budget & controls"],
   ["journal", "Journal"],
   ["final", "Final"],
@@ -537,6 +542,13 @@ export default function ResearchPage() {
     [labs, selectLab],
   );
   const closeTask = useCallback(() => setOpenTask(null), []);
+  const openTaskIn = useCallback(
+    (l: string, id: string) => {
+      selectLab(l);
+      setOpenTask(id);
+    },
+    [selectLab],
+  );
   // job tracking lives at page level so it survives switching to a newly created lab
   const [jobRef, setJobRef] = useState<{ id: string; lab: string } | null>(null);
   const job = useJob(jobRef?.id ?? null, () => onChanged(jobRef && jobRef.lab !== lab ? jobRef.lab : undefined));
@@ -641,6 +653,11 @@ export default function ResearchPage() {
           <HypothesesPanel lab={lab} rev={rev} />
         </div>
       )}
+
+      <ComparisonPanel onOpenTask={labs.data?.length ? openTaskIn : undefined} />
+      <LessonsPanel />
+      <PremiseAuditPanel />
+      <ExposurePanel />
 
       {o && (
         <Panel id="budget" title="Budget & controls" subtitle="Every control calls the backend and then re-reads the persisted lab state.">
