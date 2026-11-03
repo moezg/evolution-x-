@@ -207,7 +207,20 @@ def cmd_backtest(a: argparse.Namespace) -> None:
     proto = protocol()
     d = load_split(a.symbol, a.split)
     lit = literal_symbols(src)
-    decs, _ = sandbox_decisions(src, [("bt", d, lit["PARAMS"])], EvalConfig(proto, 0), "bt")
+    from .research import sandbox
+
+    if sandbox.AVAILABLE:
+        decs, _ = sandbox_decisions(src, [("bt", d, lit["PARAMS"])], EvalConfig(proto, 0), "bt")
+    elif a.strategy == "v0":  # trusted in-repo file: in-process execution is acceptable without a sandbox
+        import importlib
+
+        from .backtest.interface import decisions_for, load_module_strategy
+
+        decs = [decisions_for(load_module_strategy(importlib.import_module("evolutionx.evolvable.tsmom_v0")), d)]
+    else:
+        raise SystemExit(
+            "sandbox unavailable on this host (needs Linux user/mount/net namespaces): generated code is not executed"
+        )
     r = run_backtest(d, decs[0], CostModel.from_protocol(proto, a.symbol, a.costs))
     print(f"[HISTORICAL BACKTEST] {a.symbol} {a.split} params={lit['PARAMS']} cost_multiplier={a.costs}")
     _print(summarize(r))

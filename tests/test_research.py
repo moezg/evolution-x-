@@ -324,3 +324,19 @@ def test_design_uses_exploration_parent_source_and_records_lineage(tmp_path):
     with pytest.raises(CandidateFailure):  # tampered parent source is refused
         (d / "strategy.py").write_text(parent.source + "\n# tampered\n")
         sup._s_design({"id": "c", "config": {"seed": 0}, "budget": {"sandbox": {}}}, {"id": "t2"}, dict(ck), DATA)
+
+
+def test_exhausted_search_space_stops_instead_of_proposing_duplicates(tmp_path):
+    from evolutionx.research.hypothesizer import ALL_OPS, signature
+
+    lab = Lab(tmp_path / "lab")
+    lab.registry.bootstrap(ANTI, "anti")
+    sha = lab.registry.active()["sha256"]
+    for op in ALL_OPS:  # every operator already tested on the only available parent
+        lab.memory.x("INSERT INTO hypotheses VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                     (f"h-{op}", signature(sha, op), op, op, "v0", None, "refuted", "{}", "", "x", "x"))
+    sup = Supervisor(lab, DATA, PROTO, policy(), FixedGenerator([GOOD]))
+    sup.create_campaign("c", "research", "guided", 5, 600)
+    st = sup.run("c")
+    assert st["campaign"]["status"] == "search_space_exhausted"
+    assert len(lab.memory.q("SELECT id FROM tasks")) == 1 and not lab.memory.q("SELECT id FROM candidates")
