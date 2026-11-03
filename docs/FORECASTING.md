@@ -74,5 +74,7 @@ To build prospective evidence, run `issue` once a day (any time before 00:00 UTC
 - **Funding features are excluded** (amendment 1): funding archives publish monthly, so they would leak unavailable information into retrospective tests.
 - **Overlapping windows.** 72 h targets on daily origins overlap. The block bootstrap (10 origins) only approximates the dependence.
 - **The ledger is tamper-evident, not tamper-proof.** Publishing its head hash externally (for example in a pushed commit) would add an independent timestamp. That has not been done, because pushing needs authorization.
+- **B0's own warm-up.** B0 is flagged `insufficient_training` for its first ~55 DEV origins but is still scored, as the fallback of last resort.
+- **Proxy for abstention rule 4.** Until 60 prospective forecasts per target × model are resolved, rule 4 uses the scored backtest series as a proxy (recorded per forecast as `trailing_skill_source`). The first 32 forecasts used this proxy before the field existed.
 - **Small model set.** No LLM forecasting and no external information (news, order flow, options) yet.
 - **The simulator features add no measurable skill** on any target, so they are excluded under the pre-registered rule. H1 is kept only as an experimental model in retrospective runs and is not issued prospectively.

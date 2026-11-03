@@ -19,6 +19,13 @@
        0.5210017900527334,
        1.2285641723153506
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.9497716894977168,
       "abstentions": {
        "insufficient_training": 55
@@ -35,6 +42,13 @@
        0.1330183336686248,
        0.4209494908614294,
        1.000451887730292
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.663013698630137,
       "abstentions": {
@@ -53,6 +67,13 @@
        0.021703433088381296,
        0.2896005926370641,
        0.8644070775747801
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.8429223744292238,
       "abstentions": {
@@ -73,6 +94,13 @@
        0.3137075251200429,
        0.8550706059542964
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.806392694063927,
       "abstentions": {
        "out_of_range": 1,
@@ -91,6 +119,13 @@
        0.03187969650556188,
        0.3077451210118365,
        0.8730028120186282
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.8328767123287671,
       "abstentions": {
@@ -115,6 +150,13 @@
        0.4327969189853706,
        1.0001132687747434
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -129,6 +171,13 @@
        0.1077402169293642,
        0.47729242064706523,
        1.017578850160263
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.21100917431192662,
       "abstentions": {
@@ -147,6 +196,13 @@
        0.30886932377267085,
        0.8553446768190948
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -161,6 +217,13 @@
        -0.008531910747039184,
        0.3013567271376442,
        0.8683464947679357
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.9926605504587156,
       "abstentions": {
@@ -178,6 +241,13 @@
        -0.014318876750441523,
        0.30350752394514147,
        0.8548818396676905
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 1.0,
       "abstentions": {}
@@ -198,6 +268,13 @@
        0.60979585501063,
        1.214685250524821
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -212,6 +289,13 @@
        0.11809723601285993,
        0.43433403341148547,
        1.0177323837005887
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.9442148760330579,
       "abstentions": {
@@ -230,6 +314,13 @@
        0.2899674649755897,
        0.8915450618691052
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -245,6 +336,13 @@
        0.2917408698392393,
        0.8891579686370059
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -259,6 +357,13 @@
        0.03505523708631775,
        0.2839294760626356,
        0.891849406411343
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 1.0,
       "abstentions": {}
@@ -1944,8 +2049,8 @@
       },
       "coverage": 0.8401826484018264,
       "abstentions": {
-       "insufficient_training": 55,
-       "negative_trailing_skill": 120
+       "negative_trailing_skill": 120,
+       "insufficient_training": 55
       }
      },
      "M1_logistic": {
@@ -1988,9 +2093,9 @@
       },
       "coverage": 0.1232876712328767,
       "abstentions": {
+       "negative_trailing_skill": 904,
        "out_of_range": 1,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 904
+       "insufficient_training": 55
       }
      },
      "M2_gbm": {
@@ -2042,9 +2147,9 @@
       },
       "coverage": 0.06575342465753424,
       "abstentions": {
+       "negative_trailing_skill": 967,
        "out_of_range": 1,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 967
+       "insufficient_training": 55
       }
      },
      "H1_hybrid": {
@@ -2087,9 +2192,9 @@
       },
       "coverage": 0.12054794520547946,
       "abstentions": {
+       "negative_trailing_skill": 895,
        "out_of_range": 13,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 895
+       "insufficient_training": 55
       }
      }
     },
@@ -2440,6 +2545,13 @@
        0.4161568163576219,
        1.012963440407258
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.9497716894977168,
       "abstentions": {
        "insufficient_training": 55
@@ -2456,6 +2568,13 @@
        0.07179933997663035,
        0.3169325003928558,
        0.6582928299730789
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.6904109589041096,
       "abstentions": {
@@ -2474,6 +2593,13 @@
        0.04780937389160744,
        0.25875711092533804,
        0.6216157683143463
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.8337899543378996,
       "abstentions": {
@@ -2494,6 +2620,13 @@
        0.2854741546480877,
        0.6438252541108143
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.7698630136986301,
       "abstentions": {
        "out_of_range": 1,
@@ -2512,6 +2645,13 @@
        0.04898614982201366,
        0.27924014304245337,
        0.6520115909364386
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.8210045662100457,
       "abstentions": {
@@ -2536,6 +2676,13 @@
        0.3797670546748364,
        0.6335886447192386
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -2550,6 +2697,13 @@
        0.12153805239437765,
        0.3617467865608941,
        0.6371294647483196
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.3761467889908257,
       "abstentions": {
@@ -2568,6 +2722,13 @@
        0.2521622233130434,
        0.501082023829319
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.9908256880733946,
       "abstentions": {
        "negative_trailing_skill": 5
@@ -2585,6 +2746,13 @@
        0.255466089210187,
        0.5007333998110152
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 0.9706422018348624,
       "abstentions": {
        "negative_trailing_skill": 16
@@ -2601,6 +2769,13 @@
        0.06386643958244242,
        0.26258607312484317,
        0.5217394290622154
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 0.9798165137614679,
       "abstentions": {
@@ -2623,6 +2798,13 @@
        0.5211741480822517,
        0.8606667941161813
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -2637,6 +2819,13 @@
        0.07459153007027053,
        0.2969862372740353,
        0.5513284913218715
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 1.0,
       "abstentions": {}
@@ -2653,6 +2842,13 @@
        0.25030763528580013,
        0.5094767507832206
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -2668,6 +2864,13 @@
        0.26096401514691847,
        0.5172968547111961
       ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
+      ],
       "coverage": 1.0,
       "abstentions": {}
      },
@@ -2682,6 +2885,13 @@
        0.07603056063397928,
        0.243747651482788,
        0.5048820136536075
+      ],
+      "error_quantile_levels": [
+       0.05,
+       0.25,
+       0.5,
+       0.75,
+       0.95
       ],
       "coverage": 1.0,
       "abstentions": {}
@@ -3966,9 +4176,9 @@
       },
       "coverage": 0.6164383561643836,
       "abstentions": {
+       "negative_trailing_skill": 364,
        "out_of_range": 1,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 364
+       "insufficient_training": 55
       }
      },
      "H1_hybrid": {
@@ -4660,8 +4870,8 @@
       },
       "coverage": 0.6748858447488585,
       "abstentions": {
-       "insufficient_training": 55,
-       "negative_trailing_skill": 301
+       "negative_trailing_skill": 301,
+       "insufficient_training": 55
       }
      },
      "M1_logistic": {
@@ -4722,9 +4932,9 @@
       },
       "coverage": 0.091324200913242,
       "abstentions": {
+       "negative_trailing_skill": 939,
        "out_of_range": 1,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 939
+       "insufficient_training": 55
       }
      },
      "M2_gbm": {
@@ -4785,9 +4995,9 @@
       },
       "coverage": 0.25753424657534246,
       "abstentions": {
+       "negative_trailing_skill": 757,
        "out_of_range": 1,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 757
+       "insufficient_training": 55
       }
      },
      "H1_hybrid": {
@@ -4857,9 +5067,9 @@
       },
       "coverage": 0.06575342465753424,
       "abstentions": {
+       "negative_trailing_skill": 955,
        "out_of_range": 13,
-       "insufficient_training": 55,
-       "negative_trailing_skill": 955
+       "insufficient_training": 55
       }
      }
     },
@@ -5981,23 +6191,13 @@
  "holm_rv_SCREEN": {
   "rv_24:M1_logistic-vs-B1_ewma_gauss": {
    "p": 0.0,
-   "threshold": 0.0125,
+   "threshold": 0.025,
    "reject_null": true
   },
   "rv_72:M1_logistic-vs-B1_ewma_gauss": {
    "p": 0.001,
-   "threshold": 0.016666666666666666,
-   "reject_null": true
-  },
-  "rv_24:H1_hybrid-vs-M1_logistic": {
-   "p": 0.894,
-   "threshold": 0.025,
-   "reject_null": false
-  },
-  "rv_72:H1_hybrid-vs-M1_logistic": {
-   "p": 0.9925,
    "threshold": 0.05,
-   "reject_null": false
+   "reject_null": true
   }
  },
  "simulator_inclusion": {
@@ -6006,9 +6206,9 @@
   "decision": "EXCLUDE simulator features from all non-experimental models"
  },
  "protocol": "forecast-protocol-v1",
- "protocol_sha256": "26852f0fd0e02393067ac6cc280254f4a7f154a976cba870da7b0296c03bf960",
- "code_version": "10d4f9edcb0c0d87",
- "created_utc": "2026-11-03T21:49:38+00:00",
+ "protocol_sha256": "e5013e8f965b01fadc683fadd9cd48a59de6f4b897927d36c76387a5bb9764a7",
+ "code_version": "38d9e125cde9f370",
+ "created_utc": "2026-11-03T21:56:37+00:00",
  "lag_h": 24,
  "data_end_utc": "2026-11-03T00:00:00+00:00",
  "simulator": {
@@ -6019,7 +6219,7 @@
  },
  "label": "RETROSPECTIVE rolling-origin backtest on previously seen data: exploratory/screening evidence only",
  "cost": {
-  "wall_s": 121.2,
+  "wall_s": 92.6,
   "llm_calls": 0
  }
 }

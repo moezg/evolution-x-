@@ -13,6 +13,7 @@ const NAV = [
   { href: "/scenarios", label: "Scenarios" },
   { href: "/council", label: "Council" },
   { href: "/research", label: "Research" },
+  { href: "/forecast", label: "Forecast" },
 ];
 
 interface Health {
@@ -35,7 +36,7 @@ export function Header() {
         </Link>
         <span
           className="rounded-full border border-warn/60 bg-warn/10 px-2.5 py-0.5 text-[11px] font-bold tracking-wider text-warn"
-          title="All markets are simulated. There is no connection to any real exchange."
+          title="Simulations are synthetic; forecasts use real BTC data as paper forecasts only. No orders are sent to any exchange."
         >
           RESEARCH-ONLY · NO REAL TRADING
         </span>

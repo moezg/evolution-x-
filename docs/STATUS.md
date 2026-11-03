@@ -22,7 +22,7 @@ prospective forecasts (origin 2026-11-04 00:00 UTC) are recorded but not yet res
   - P(up) over 24/72 h.
 
 ### 2. Retrospective rolling-origin backtest
-Previously exposed data, so screening evidence only. The run is `artifacts/forecast/backtest_v1.json`, code `10d4f9ed`, 89 s. A run on the pre-typing-fix code `4b9e4800` gave identical results.
+Previously exposed data, so screening evidence only. The run is `artifacts/forecast/backtest_v1.json`, code `38d9e125`, 89 s. Earlier runs on code `4b9e4800` and `10d4f9ed` gave identical scored forecasts. Protocol amendment 2 records two corrections found in a dashboard code review: the realized-vol Holm family is back to its registered 2 tests (both still reject), and prospective abstention rule 4 uses resolved ledger forecasts, with a recorded backtest proxy until 60 exist.
 
 Brier skill vs climatology B0 on SCREEN (2024-01 to 2025-06, n = 545 daily origins):
 

@@ -102,4 +102,5 @@ def summarize_rv(f: np.ndarray, y: np.ndarray, f_ref: np.ndarray) -> dict[str, A
         "qlike": float(qlike(f, y).mean()),
         "mse_skill_vs_B0": 1 - mse / float(sq_err(f_ref, y).mean()),
         "error_quantiles": [float(q) for q in np.quantile(f - y, [0.05, 0.25, 0.5, 0.75, 0.95])],
+        "error_quantile_levels": [0.05, 0.25, 0.5, 0.75, 0.95],
     }

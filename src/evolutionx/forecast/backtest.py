@@ -238,7 +238,8 @@ def run(with_sim: bool = True, workers: int = 4, models: tuple[str, ...] = MODEL
             comps[key] = {p: compare(res, a, b, p) for p in PERIODS}
             if t.kind == "binary":
                 pvals[key] = comps[key]["SCREEN"]["p_better"]
-    rv_p = {k: v["SCREEN"]["p_better"] for k, v in comps.items() if k.startswith("rv_")}
+    # registered rv family: M1 vs B1 at both horizons only (H1 rv comparisons are reported, not in this family)
+    rv_p = {k: v["SCREEN"]["p_better"] for k, v in comps.items() if k.startswith("rv_") and "M1_logistic-vs-B1" in k}
     report["comparisons"] = comps
     report["holm_binary_SCREEN"] = S.holm(pvals)
     report["holm_rv_SCREEN"] = S.holm(rv_p)
@@ -252,6 +253,8 @@ def run(with_sim: bool = True, workers: int = 4, models: tuple[str, ...] = MODEL
             "forecast": {
                 m: [None if not math.isfinite(v) else round(float(v), 5) for v in r["scored"][m]] for m in models
             },
+            "raw": {m: [None if not math.isfinite(v) else round(float(v), 5) for v in r["raw"][m]] for m in models},
+            "note": "forecast = scored value (B0 fallback where abstained); raw = the model's own output",
             "abstained": {m: [r["reason"][m][i] for i in range(len(r["origins"]))] for m in models},
         }
         for r in results

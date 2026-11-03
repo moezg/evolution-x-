@@ -36,6 +36,22 @@ def _sim_decision() -> bool:
     return json.loads(p.read_text()).get("simulator_inclusion", {}).get("decision", "").startswith("KEEP")
 
 
+def _trailing_skill_from_ledger(led: ForecastLedger, target: str, model: str) -> float | None:
+    """Abstention rule 4 as registered: skill of the model's last 180 RESOLVED prospective forecasts vs B0."""
+    fc, rs = led.forecasts(), led.resolutions()
+    rows = sorted(
+        (fc[f]["data"]["origin_ms"], fc[f]["data"]["value"], fc[f]["data"]["fallback_B0"], r["data"]["outcome"])
+        for f, r in rs.items()
+        if fc[f]["data"]["target"] == target and fc[f]["data"]["model"] == model and fc[f]["data"]["value"] is not None
+    )[-180:]
+    if len(rows) < 60:
+        return None
+    a = np.array(rows, dtype=float)
+    loss = S.brier if not target.startswith("rv_") else S.sq_err
+    lb = loss(a[:, 2], a[:, 3]).mean()
+    return float(1 - loss(a[:, 1], a[:, 3]).mean() / lb) if lb > 0 else None
+
+
 def _trailing_skill_from_backtest(target: str, model: str) -> float | None:
     """Abstention rule 4 at issue time: skill of the model's last 180 scored backtest forecasts vs B0."""
     p = OUT / "backtest_v1.json"
@@ -112,8 +128,14 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
                 z = (xx - mu) / np.where(sd > 0, sd, 1)
                 if not np.all(np.isfinite(z)) or np.max(np.abs(z)) > ZMAX:
                     reason = "out_of_range"
+            ts_source = None
             if reason is None and m != "B0_climatology":
-                ts = _trailing_skill_from_backtest(t.name, m)
+                # registered source: resolved prospective forecasts (>= 60); until then the scored backtest series
+                # is used as a documented proxy (protocol amendment_2)
+                ts = _trailing_skill_from_ledger(led, t.name, m)
+                ts_source = "ledger"
+                if ts is None:
+                    ts, ts_source = _trailing_skill_from_backtest(t.name, m), "backtest_proxy"
                 if ts is not None and ts < 0:
                     reason = "negative_trailing_skill"
             if not math.isfinite(val):
@@ -138,6 +160,7 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
                 "fallback_B0": fallback,
                 "scored_value": fallback if reason else val,
                 "training_n": int(ok.sum()),
+                "trailing_skill_source": ts_source,
                 "inputs": {
                     "bars_digest": bars.digest(0, len(bars)),
                     "n_bars": len(bars),

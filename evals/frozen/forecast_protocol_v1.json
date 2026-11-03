@@ -70,5 +70,14 @@
     "before": "before any model was fitted or scored",
     "finding": "funding-rate archives are published monthly only (daily fundingRate archive: HTTP 404), so funding is unavailable at prospective issue time for up to a month",
     "change": "funding features are REMOVED from all models (and from simulator inputs, which use funding = 0 regime); keeping them would make retrospective information unrealistically richer than prospective information"
+  },
+  "amendment_2": {
+    "written_utc": "2026-11-03T21:54:43Z",
+    "after": "after the first retrospective run and the first 32 prospective forecasts; prompted by a dashboard code review, not by results",
+    "corrections": [
+      "the rv Holm family is restored to the registered 2 tests (M1 vs B1, 24 h and 72 h); the first report had also included the 2 H1-vs-M1 rv tests, which tightened thresholds (conclusions unchanged: both registered tests reject)",
+      "abstention rule 4 at prospective issue time now uses the model's last 180 RESOLVED prospective forecasts as registered; while fewer than 60 exist it falls back to the scored backtest series, recorded per forecast as trailing_skill_source = backtest_proxy. The first 32 forecasts used the backtest proxy without recording it.",
+      "known limitation, not changed: B0 itself is flagged 'insufficient_training' for the first ~55 DEV origins and is still scored (it is the fallback of last resort)"
+    ]
   }
 }
