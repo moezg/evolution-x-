@@ -2,7 +2,7 @@
 
 v0.3 does not claim a better strategy. It makes the laboratory's hypotheses technically correct and measures
 how the research process behaves. The negative result of v0.2 stands: **no champion has been validated**
-(0 promotions in 51 tasks across all labs).
+(0 promotions in 56 tasks across all non-superseded labs).
 
 Evidence is kept in four separate categories; there is no global score.
 
@@ -26,7 +26,7 @@ Evidence is kept in four separate categories; there is no global score.
 ### 3. Strategy robustness [HISTORICAL BACKTEST]
 - **Promotions:** 0. No candidate in any arm passed the frozen promotion rule.
 - **Simple reference beats every candidate.** On validation, every candidate evaluated in v0.3 had a negative Sharpe (−0.01 to −0.52), while a constant 50% long exposure had **+0.66**. Beating the weak v0 would not have justified the added complexity.
-- **Validation is compromised for confirmation** (reused by 50+ trials, and seen by this session). The final BTC/ETH split is consumed. A new reserved set, **vault v2 (SOL/BNB 2024–2026)**, was built and checksummed; only QC counts were computed. It is not independent of the regime knowledge of 2024–2026 (see `evals/frozen/exposure_registry.json`).
+- **Validation is compromised for confirmation** (48 distinct validation trials across labs, and seen by this session). The final BTC/ETH split is consumed. A new reserved set, **vault v2 (SOL/BNB 2024–2026)**, was built and checksummed; only QC counts were computed. It is not independent of the regime knowledge of 2024–2026 (see `evals/frozen/exposure_registry.json`).
 
 ### 4. Research-process efficiency (pilot, pre-registered: `evals/frozen/generator_comparison_v1.json`)
 PILOT with n = 3 tasks per arm: a mechanism and cost check only, no inferential claim (all Wilson intervals overlap).
