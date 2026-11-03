@@ -91,6 +91,22 @@ def test_untrusted_text_cannot_escape_its_delimiters():
     assert w.count("</untrusted_source>") == 1 and w.endswith("</untrusted_source>")
 
 
+def test_overlong_llm_text_is_truncated_not_discarded(tmp_path, monkeypatch):
+    out = {
+        "concerns": ["c"] * 20,
+        "most_likely_failure": "x" * 5000,
+        "additional_test": "matched-exposure benchmark " * 100,
+    }
+    meta = {"result": json.dumps(out), "total_cost_usd": 0.0}
+    monkeypatch.setattr(llm.shutil, "which", lambda b: "/bin/claude")
+    monkeypatch.setattr(
+        llm.subprocess, "run", lambda *a, **k: SimpleNamespace(returncode=0, stdout=json.dumps(meta), stderr="")
+    )
+    res, info = llm.LLM(Store(tmp_path), "c1").ask("E3", "p", llm.CritiqueOut)
+    assert res is not None and len(res.most_likely_failure) <= 600 and len(res.concerns) == 8
+    assert set(info["truncated_fields"]) == {"concerns", "most_likely_failure", "additional_test"}
+
+
 def test_llm_output_cannot_set_status_or_extra_fields(tmp_path, monkeypatch):
     store = Store(tmp_path)
     out = {

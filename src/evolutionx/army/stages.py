@@ -266,11 +266,55 @@ def market(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def forecast_live(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
+    """Read-only live observation (B1): resolve matured prospective forecasts, then issue the next origin once."""
+    from ..forecast import prospective as P
+    from ..forecast.domain import DAY
+    from ..forecast.ledger import ForecastLedger
+
+    out: dict[str, Any] = {"resolve": P.resolve(fetch=True)}
+    ctx.store.add_usage(ctx.cycle, "B1", ext=1)
+    nxt = (int(time.time() * 1000) // DAY + 1) * DAY
+    issued = {e["data"]["origin_ms"] for e in ForecastLedger().forecasts().values()}
+    if nxt in issued:
+        out["issue"] = {"skipped": "origin already issued", "origin_ms": nxt}
+    else:
+        r = P.issue(fetch=False)
+        out["issue"] = {k: r[k] for k in ("origin_utc", "as_of_utc", "lag_h")} | {"n": len(r["forecasts"])}
+    return out
+
+
 def forecast_watch(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     r = drift.check()
     if r["alerts"]:
         ctx.store.log("F3", "forecast_degradation", {"alerts": r["alerts"]})
+        new_task(
+            ctx.store,
+            ctx.cycle,
+            "forecast_reevaluate",
+            "E2",
+            "REASSESS",
+            {"alerts": r["alerts"], "status": r["status"]},
+        )
     return {k: r[k] for k in ("resolved", "open", "min_resolved_for_assessment", "alerts", "status")}
+
+
+def forecast_reevaluate(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
+    """Degradation trigger: record the need and the frozen route (challenger re-evaluation), never auto-switch."""
+    rec = {
+        "alerts": t["payload"]["alerts"],
+        "action": "run `evox forecast evolve` for the alerting targets (trial-counted) and keep issuing champion + challengers",
+        "never": "no automatic champion switch; no trading",
+    }
+    ctx.store.mem.put_experiment(
+        hashlib.sha256(json.dumps(rec, sort_keys=True).encode()).hexdigest()[:20],
+        "forecast",
+        "drift-trigger",
+        "",
+        "",
+        rec,
+    )
+    return rec
 
 
 # ============================================================================ FORMULATE (C1-C3, C4)
@@ -895,6 +939,8 @@ def control(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
 
 HANDLERS = {
     "control": control,
+    "forecast_live": forecast_live,
+    "forecast_reevaluate": forecast_reevaluate,
     "discover": discover, "verify": verify, "novelty": novelty, "market": market, "forecast_watch": forecast_watch,
     "formulate": formulate, "synthesis": synthesis, "contract": contract, "render": render, "gap_proposal": gap_proposal,
     "test": test, "security": security, "test_proposal": test_proposal, "challenge": challenge, "evaluate": evaluate,
@@ -907,7 +953,8 @@ def seed(store: Any, cycle: str, cfg: dict[str, Any]) -> None:
         new_task(store, cycle, "discover", r, "DISCOVER")
     for r in ("B1", "B2", "B3", "B4"):
         new_task(store, cycle, "market", r, "UNDERSTAND")
-    new_task(store, cycle, "forecast_watch", "F3", "REASSESS")
+    live = new_task(store, cycle, "forecast_live", "B1", "UNDERSTAND") if cfg.get("live_forecasts", True) else None
+    new_task(store, cycle, "forecast_watch", "F3", "REASSESS", deps=[live] if live else [])
     new_task(store, cycle, "synthesis", "C4", "FORMULATE")
     for ctl in cfg.get("controls", []):
         new_task(store, cycle, "control", "D2", "IMPLEMENT", {"control": ctl})

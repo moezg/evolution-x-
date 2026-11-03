@@ -116,10 +116,31 @@ class LLM:
             data = json.loads(m.group(0))
             allowed = set(schema.model_fields)
             dropped = sorted(set(data) - allowed)
-            out = schema.model_validate({k: v for k, v in data.items() if k in allowed})
-            return out, {**info, "dropped_keys": dropped}
+            kept, truncated = _fit(schema, {k: v for k, v in data.items() if k in allowed})
+            out = schema.model_validate(kept)
+            return out, {**info, "dropped_keys": dropped, "truncated_fields": truncated}
         except (json.JSONDecodeError, ValidationError) as e:
             return None, {**info, "reason": f"invalid output: {str(e)[:300]}", "raw": text[:500]}
+
+
+def _fit(schema: type[BaseModel], data: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
+    """Truncate over-long TEXT (strings and list items/lengths) to the schema caps instead of discarding a whole
+    answer (cycle 3: two useful answers were rejected for one long field). Types are still validated after."""
+    truncated = []
+    for name, f in schema.model_fields.items():
+        if name not in data:
+            continue
+        caps = {type(m).__name__: m for m in f.metadata}
+        v = data[name]
+        if isinstance(v, str) and "MaxLen" in caps and len(v) > caps["MaxLen"].max_length:
+            data[name] = v[: caps["MaxLen"].max_length - 1] + "…"
+            truncated.append(name)
+        elif isinstance(v, list):
+            if "MaxLen" in caps and len(v) > caps["MaxLen"].max_length:
+                data[name] = v[: caps["MaxLen"].max_length]
+                truncated.append(name)
+            data[name] = [x[:600] if isinstance(x, str) else x for x in data[name]]
+    return data, truncated
 
 
 def wrap_untrusted(item: dict[str, Any]) -> str:
