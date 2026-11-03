@@ -182,11 +182,16 @@ def cmd_audit(a: argparse.Namespace) -> None:
         _print(capture_baseline(run_tests=not a.no_tests))
 
 
-def _lab(root: str):  # noqa: ANN202
+def _lab(root: str, generator: str = "offline"):  # noqa: ANN202
     from .research.supervisor import Lab, Supervisor
 
     lab = Lab(Path(root), repo=Path.cwd())
-    return lab, Supervisor(lab)
+    sup = Supervisor(lab)
+    if generator == "claude-cli":
+        from .research.llm_connectors import ClaudeCLIGenerator
+
+        sup.generator = ClaudeCLIGenerator(sup.policy["llm"]["connectors"]["claude-cli"])
+    return lab, sup
 
 
 def cmd_backtest(a: argparse.Namespace) -> None:
@@ -227,8 +232,28 @@ def cmd_backtest(a: argparse.Namespace) -> None:
 
 
 def cmd_research(a: argparse.Namespace) -> None:
-    lab, sup = _lab(a.root)
-    if a.action == "run":
+    lab, sup = _lab(a.root, a.generator)
+    if a.inherit_trials_from:
+        print(
+            "inherited validation trials:",
+            sup.inherit_validation_trials([Path(r) for r in a.inherit_trials_from.split(",")]),
+        )
+    if a.action == "import":
+        hyp = json.loads(Path(a.hypothesis).read_text())
+        meta = hyp.pop("_provenance", {})
+        r = sup.import_candidate(
+            a.campaign,
+            a.mode,
+            Path(a.source).read_text(),
+            hyp,
+            meta.get("generator", "unknown"),
+            meta.get("provenance", ""),
+            meta.get("exposure", []),
+            meta.get("risk", ""),
+        )
+        print("imported:", r)
+        st = sup.run(a.campaign)
+    elif a.action == "run":
         sup.create_campaign(a.campaign, a.mode, a.selector, a.tasks, a.wall, a.seed)
         st = sup.run(a.campaign)
     elif a.action == "status":
@@ -337,7 +362,18 @@ def main() -> None:
     sp.add_argument("--costs", type=float, default=1.0, help="cost multiplier (sensitivity)")
     sp.add_argument("--root", default="artifacts/research/main")
     sp = add("research", cmd_research)
-    sp.add_argument("action", choices=["run", "status", "stop", "resume", "rollback", "verify", "final-report"])
+    sp.add_argument(
+        "action", choices=["run", "import", "status", "stop", "resume", "rollback", "verify", "final-report"]
+    )
+    sp.add_argument("--generator", default="offline", choices=["offline", "claude-cli"])
+    sp.add_argument("--source", help="import: candidate module path")
+    sp.add_argument(
+        "--hypothesis",
+        help="import: pre-registration JSON (statement, mechanism, alternatives, prediction, _provenance)",
+    )
+    sp.add_argument(
+        "--inherit-trials-from", default="", help="comma-separated lab roots whose validation trials count for DSR"
+    )
     sp.add_argument("--root", default="artifacts/research/main")
     sp.add_argument("--roots", default="", help="final-report: comma-separated lab roots to compare")
     sp.add_argument("--campaign", default=None)

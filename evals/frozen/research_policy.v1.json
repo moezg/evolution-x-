@@ -1,0 +1,16 @@
+{
+  "name": "research-policy-v1",
+  "note": "Trusted caps. Campaign requests are clipped to these values; nothing generated at run time can raise them.",
+  "caps": {"max_tasks": 60, "max_wall_s": 14400, "max_llm_tokens": 0, "max_disk_mb": 2048,
+           "sandbox": {"cpu_s": 300, "mem_bytes": 2147483648, "wall_s": 600}},
+  "task": {"max_attempts": 2, "deadline_s": 1800},
+  "modes": {
+    "smoke": {"auto_activate": false, "causality_checks": 4, "dev_tail_bars": 17520, "symbols": ["BTCUSDT"]},
+    "research": {"auto_activate": false, "causality_checks": 12, "dev_tail_bars": null, "symbols": null},
+    "autonomous-experimental": {"auto_activate": true, "causality_checks": 12, "dev_tail_bars": null, "symbols": null}
+  },
+  "protected_paths": ["src/evolutionx/kernel/", "src/evolutionx/backtest/", "src/evolutionx/stats/",
+                      "src/evolutionx/research/", "src/evolutionx/evaluation/", "src/evolutionx/data/",
+                      "evals/frozen/", "tests/", "data/", "artifacts/"],
+  "evolvable_paths": ["src/evolutionx/evolvable/generated/"]
+}

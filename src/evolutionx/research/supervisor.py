@@ -103,7 +103,7 @@ class Supervisor:
         self.protocol = protocol or json.loads(PROTOCOL.read_text())
         self.protocol_sha = _sha(json.dumps(self.protocol, sort_keys=True))
         self._data = data
-        self.generator = generator or OfflineGenerator()
+        self.generator: Any = generator or OfflineGenerator()
 
     # ---------------------------------------------------------------- campaign lifecycle
     def create_campaign(
@@ -408,6 +408,23 @@ class Supervisor:
     def _s_hypothesize(self, camp, task, ck, data):  # noqa: ANN001, ANN202
         from .hypothesizer import ALL_OPS
 
+        ext = ck.get("external")
+        if ext is None and getattr(self.generator, "formulates_hypothesis", False):
+            ext = self._llm_propose(camp, task, ck, data)
+            ck["external"] = ext
+        if ext is not None:
+            ck.update(
+                operator=ext["operator"],
+                why=ext["why"],
+                ranking=[],
+                signature=signature(ck["parent_sha"], "external:" + ext["code_sha256"]),
+                design_parent=f"v{ck['parent_version']}",
+                design_parent_kind="champion",
+                design_parent_sha=ck["parent_sha"],
+                novelty=ext["novelty"],
+            )
+            return ck
+
         tested = {h["signature"] for h in self.lab.memory.q("SELECT signature FROM hypotheses")}
         rng = random.Random(f"{camp['config']['seed']}|{task['id']}")
         act = self.lab.registry.active()
@@ -456,6 +473,10 @@ class Supervisor:
             data_sha(data),
             camp["budget"],
             f"experiment:{self._experiment_key(ck['parent_sha'], data, 'eval')[:16]}",
+            hypothesis=(ck.get("external") or {}).get("hypothesis"),
+            extra={"provenance": {k: v for k, v in (ck.get("external") or {}).items() if k not in ("source",)}}
+            if ck.get("external")
+            else None,
         )
         hid = f"h-{task['id']}"
         self.lab.memory.x("UPDATE tasks SET task=? WHERE id=?", (json.dumps(t, default=str), task["id"]))
@@ -466,7 +487,7 @@ class Supervisor:
                 ck["signature"],
                 t["hypothesis"],
                 ck["operator"],
-                f"v{ck['parent_version']}",
+                ck.get("design_parent", f"v{ck['parent_version']}"),
                 None,
                 "pending",
                 json.dumps({}),
@@ -490,11 +511,42 @@ class Supervisor:
             parent_id = ck["design_parent"]
         if _sha(src) != ck.get("design_parent_sha", ck["parent_sha"]):
             raise CandidateFailure("integrity", "design parent source does not match its recorded hash")
-        spec = self._spec_of(src)
-        rng = random.Random(f"{camp['config']['seed']}|{task['id']}|design")
-        prop = self.generator.propose(
-            ck["operator"], {"id": parent_id, "spec": spec, "source": src}, rng, {"sandbox": camp["budget"]["sandbox"]}
-        )
+        ext = ck.get("external")
+        if ext is not None:
+            from .contract import static_check as _sc
+            from .generator import Proposal, code_hash, diff
+
+            esrc = ext["source"]
+            if code_hash(esrc) != ext["code_sha256"]:
+                raise CandidateFailure("integrity", "external source changed after pre-registration")
+            cid = ext["candidate_id"]
+            prop = Proposal(
+                cid,
+                parent_id,
+                ext["operator"],
+                ext["hypothesis"],
+                {"external": True},
+                esrc,
+                diff(src, esrc, parent_id, cid),
+                [f"src/evolutionx/evolvable/generated/{cid}.py"],
+                "standard contract",
+                ext["hypothesis"]["prediction"],
+                ext.get("risk", "n/a"),
+                {"sandbox": camp["budget"]["sandbox"]},
+                "standard gates + frozen promotion rule",
+                ext["generator"],
+                ext["code_sha256"],
+                _sc(esrc),
+            )
+        else:
+            spec = self._spec_of(src)
+            rng = random.Random(f"{camp['config']['seed']}|{task['id']}|design")
+            prop = self.generator.propose(
+                ck["operator"],
+                {"id": parent_id, "spec": spec, "source": src},
+                rng,
+                {"sandbox": camp["budget"]["sandbox"]},
+            )
         d = self.lab.root / "candidates" / prop.candidate_id
         d.mkdir(parents=True, exist_ok=True)
         (d / "strategy.py").write_text(prop.source)
@@ -664,6 +716,143 @@ class Supervisor:
         )
         ck["archived"] = {"verdict": verdict, "hypothesis_status": hstatus}
         return ck
+
+    # ---------------------------------------------------------------- external authors (LLM, session import)
+    def _llm_propose(self, camp, task, ck, data) -> dict[str, Any]:  # noqa: ANN001
+        """One bounded call to the configured LLM connector. Caps come from the frozen policy."""
+        cap = self.policy["llm"]["connectors"]["claude-cli"]
+        c = self._campaign(camp["id"])["consumed"]
+        if c.get("llm_calls", 0) >= cap["max_calls_per_campaign"]:
+            raise BudgetExhausted("LLM call budget exhausted")
+        if c.get("llm_cost_usd_equiv", 0.0) >= cap["max_cost_usd_equiv_per_campaign"]:
+            raise BudgetExhausted("LLM cost budget exhausted")
+        if c.get("llm_tokens", 0) >= camp["budget"]["max_llm_tokens"]:
+            raise BudgetExhausted("LLM token budget exhausted")
+        _, src = self.lab.registry.load_source(ck["parent_version"])
+        tested = []
+        for h in self.lab.memory.q("SELECT statement, operator, candidate_id FROM hypotheses"):
+            exp = (
+                self.lab.memory.q(
+                    "SELECT result FROM experiments WHERE candidate_id=? AND stage='eval'", (h["candidate_id"],)
+                )
+                if h["candidate_id"]
+                else []
+            )
+            dev = exp[0]["result"]["development"]["portfolio_oos_sharpe"] if exp else None
+            tested.append({"idea": h["statement"], "operator": h["operator"], "development_oos_sharpe": dev})
+        c["llm_calls"] = c.get("llm_calls", 0) + 1  # counted BEFORE the call: failed calls still consume quota
+        self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
+        prop, call = self.generator.propose_free(
+            {"id": f"v{ck['parent_version']}", "source": src},
+            ck["diagnostics"],
+            tested[-30:],
+            {"sandbox": camp["budget"]["sandbox"]},
+        )
+        c = self._campaign(camp["id"])["consumed"]
+        c["llm_tokens"] = c.get("llm_tokens", 0) + call["tokens"]
+        c["llm_cost_usd_equiv"] = round(c.get("llm_cost_usd_equiv", 0.0) + call["cost_usd_equiv"], 4)
+        self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), camp["id"]))
+        self.lab.journal.append(
+            "generator",
+            "llm_call",
+            {k: call[k] for k in ("models", "tokens", "cost_usd_equiv", "wall_s", "session_id", "stop_reason")},
+        )
+        return {
+            "candidate_id": prop.candidate_id,
+            "source": prop.source,
+            "code_sha256": prop.code_sha256,
+            "hypothesis": prop.hypothesis,
+            "operator": "llm_free_form",
+            "generator": prop.generator,
+            "why": "hypothesis formulated by the LLM from development-only diagnostics",
+            "novelty": prop.spec.get("change_summary", ""),
+            "llm_call": {k: v for k, v in call.items() if k != "text"},
+            "exposure": ["parent source", "development diagnostics", "tested ideas with development screen results"],
+            "provenance": "claude -p (official CLI, environment's existing authentication; may use plan quota)",
+        }
+
+    def import_candidate(
+        self,
+        campaign_id: str,
+        mode: str,
+        source: str,
+        hypothesis: dict[str, Any],
+        generator: str,
+        provenance: str,
+        exposure: list[str],
+        risk: str = "",
+    ) -> dict[str, Any]:
+        """Queue a candidate written outside the lab (e.g. in an interactive Claude Code session) as one task."""
+        from .generator import code_hash
+
+        for k in ("statement", "mechanism", "alternatives", "prediction"):
+            if not hypothesis.get(k):
+                raise ValueError(f"hypothesis.{k} is required (pre-registration)")
+        self.create_campaign(campaign_id, mode, "import", 1, self.policy["caps"]["max_wall_s"])
+        camp = self._campaign(campaign_id)
+        n = self.lab.memory.q("SELECT COUNT(*) n FROM tasks WHERE campaign_id=?", (campaign_id,))[0]["n"]
+        if n:
+            raise ValueError("campaign already has its imported task")
+        sha = code_hash(source)
+        ext = {
+            "candidate_id": "sess-" + sha[:10],
+            "source": source,
+            "code_sha256": sha,
+            "hypothesis": hypothesis,
+            "operator": "session_import",
+            "generator": generator,
+            "why": "imported from an interactive session",
+            "novelty": hypothesis.get("novelty", ""),
+            "provenance": provenance,
+            "exposure": exposure,
+            "risk": risk,
+        }
+        pol = self.policy["task"]
+        tid = f"{campaign_id}-t001"
+        self.lab.memory.x(
+            "INSERT INTO tasks VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (
+                tid,
+                campaign_id,
+                1,
+                "OBSERVE",
+                "open",
+                0,
+                pol["max_attempts"],
+                pol["deadline_s"],
+                None,
+                json.dumps({"started": time.time(), "external": ext}),
+                None,
+                now(),
+                now(),
+            ),
+        )
+        c = camp["consumed"]
+        c["tasks"] = 1
+        self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), campaign_id))
+        self.lab.journal.append(
+            "human",
+            "candidate_imported",
+            {"task": tid, "code_sha256": sha, "generator": generator, "provenance": provenance, "exposure": exposure},
+        )
+        return {"task": tid, "candidate_id": ext["candidate_id"], "code_sha256": sha}
+
+    def inherit_validation_trials(self, other_roots: list[Path]) -> int:
+        """Count validation trials run in other labs on the same split, so the DSR's N is honest."""
+        n = 0
+        for r in other_roots:
+            other = Memory(r / "research.db")
+            for t in other.q("SELECT candidate_id, params, metric, value FROM trials WHERE split='validation'"):
+                cid = f"inherited:{r.name}:{t['candidate_id']}"
+                if not self.lab.memory.q("SELECT id FROM trials WHERE candidate_id=?", (cid,)):
+                    self.lab.memory.add_trial(
+                        cid, "validation", t["params"] if isinstance(t["params"], dict) else {}, t["metric"], t["value"]
+                    )
+                    n += 1
+        self.lab.journal.append(
+            "supervisor", "inherited_validation_trials", {"from": [str(r) for r in other_roots], "n": n}
+        )
+        return n
 
     # ---------------------------------------------------------------- post-activation control
     def smoke_check(self, source: str, data: DataSource) -> dict[str, Any]:

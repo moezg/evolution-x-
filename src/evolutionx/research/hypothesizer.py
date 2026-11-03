@@ -77,8 +77,10 @@ def build_task(
     data_manifest_sha: str,
     budget: dict[str, Any],
     champion_ref: str,
+    hypothesis: dict[str, Any] | None = None,
+    extra: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    h = OPERATORS[op]
+    h = hypothesis or OPERATORS[op]
     rule = protocol["promotion_rule"]
     task = {
         "id": task_id,
@@ -132,5 +134,6 @@ def build_task(
         "stopping_rule": "one candidate per task, fixed sample (full validation split); no re-testing on validation "
         "with extra data or seeds",
     }
+    task.update(extra or {})
     task["preregistration_sha256"] = hashlib.sha256(json.dumps(task, sort_keys=True, default=str).encode()).hexdigest()
     return task

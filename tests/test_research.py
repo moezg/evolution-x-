@@ -342,3 +342,57 @@ def test_exhausted_search_space_stops_instead_of_proposing_duplicates(tmp_path):
     st = sup.run("c")
     assert st["campaign"]["status"] == "search_space_exhausted"
     assert len(lab.memory.q("SELECT id FROM tasks")) == 1 and not lab.memory.q("SELECT id FROM candidates")
+
+
+HYP = {"statement": "Planted trend is exploitable", "mechanism": "test", "alternatives": ["none"],
+       "prediction": "higher validation Sharpe"}
+
+
+def test_session_import_goes_through_the_same_gates(tmp_path):
+    lab, sup = lab_with(tmp_path, ANTI, FixedGenerator([GOOD]))
+    r = sup.import_candidate("imp1", "autonomous-experimental", GOOD, dict(HYP), "claude-code-session:test",
+                             "interactive session", ["dev diagnostics"])
+    sup.run("imp1")
+    t = lab.memory.q("SELECT * FROM tasks WHERE id=?", (r["task"],))[0]
+    assert t["status"] == "done" and t["task"]["hypothesis"] == HYP["statement"]
+    assert t["task"]["provenance"]["generator"] == "claude-code-session:test"
+    assert t["checkpoint"]["verdict"] == "promote" and t["checkpoint"]["activation"]["activated"]
+    bad = GOOD.replace("from __future__ import annotations", "from __future__ import annotations\nimport os")
+    sup.import_candidate("imp2", "research", bad, dict(HYP), "claude-code-session:test", "x", [])
+    sup.run("imp2")
+    assert lab.memory.q("SELECT checkpoint FROM tasks WHERE id='imp2-t001'")[0]["checkpoint"]["rejection"]["gate"] == \
+        "static_admissibility"
+    with pytest.raises(ValueError):
+        sup.import_candidate("imp3", "research", GOOD, {"statement": "x"}, "g", "p", [])
+
+
+class FakeLLM:
+    """Test double for the connector interface (NOT an LLM; used only to test budget accounting)."""
+
+    formulates_hypothesis = True
+    name = "fake-llm"
+
+    def __init__(self):
+        self.calls = 0
+
+    def propose_free(self, parent, diagnostics, tested, budget):  # noqa: ANN001
+        from evolutionx.research.generator import diff
+
+        self.calls += 1
+        src = GOOD.replace("good_trend", f"good_{self.calls}")
+        p = Proposal(f"llm-{self.calls}", parent["id"], "llm_free_form", dict(HYP), {"change_summary": "x"}, src,
+                     diff(parent["source"], src, "p", "c"), ["src/evolutionx/evolvable/generated/x.py"], "c", "b", "r",
+                     budget, "e", "fake-llm", code_hash(src), [])
+        return p, {"tokens": 1000, "cost_usd_equiv": 0.9, "models": ["fake"], "wall_s": 0.0, "session_id": "s",
+                   "stop_reason": "end_turn"}
+
+
+def test_llm_connector_budget_caps_are_enforced(tmp_path):
+    lab, sup = lab_with(tmp_path, ANTI, FakeLLM(), auto=False)
+    sup.create_campaign("l", "research", "guided", 10, 600)
+    st = sup.run("l")
+    c = st["campaign"]["consumed"]
+    assert c["llm_calls"] == 3 and sup.generator.calls == 3  # $0.9 x 3 > $2 cap -> stops; max 3 calls anyway
+    assert st["campaign"]["status"] == "budget_exhausted"
+    events = [e["event"] for e in lab.journal.tail(200)]
+    assert events.count("llm_call") == 3
