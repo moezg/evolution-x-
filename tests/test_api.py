@@ -36,3 +36,17 @@ def test_live_simulation_endpoints():
 def test_validation_errors():
     assert client.post("/api/sim/start", json={"scenario": "nope"}).status_code == 400
     assert client.post("/api/proposals/x/decision", json={"decision": "maybe", "reviewer": "a"}).status_code == 422
+
+
+def test_job_endpoints_accept_json_body_and_run():
+    r = client.post("/api/council/run", json={"question": "what drives spreads?"})
+    assert r.status_code == 200, r.text
+    jid = r.json()["id"]
+    for _ in range(300):
+        j = client.get(f"/api/jobs/{jid}").json()
+        if j["status"] in ("finished", "failed"):
+            break
+        time.sleep(0.1)
+    assert j["status"] == "finished", j.get("error")
+    assert len(j["result"]["roles"]) == 8
+    assert client.post("/api/experiments", json={"scenario": "nope"}).status_code == 400

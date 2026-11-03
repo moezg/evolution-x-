@@ -35,7 +35,8 @@ function layoutPositions(net: Network, mode: Layout): Map<number, [number, numbe
   let temp = 0.08;
   const dx = new Float64Array(n);
   const dy = new Float64Array(n);
-  for (let it = 0; it < 220; it++) {
+  const iters = n > 400 ? 120 : 220;
+  for (let it = 0; it < iters; it++) {
     dx.fill(0);
     dy.fill(0);
     for (let i = 0; i < n; i++) {

@@ -302,7 +302,7 @@ export function PairedRunBars({ perRun }: { perRun: { seed: number; regime: stri
               {bar(r.u_challenger, cx - bw - 1, "#3987e5", "challenger")}
               {bar(r.u_champion, cx + 1, "#898781", "champion")}
               <text x={cx} y={height - 28} textAnchor="middle" fontSize={9} fill={MUTED}>s{r.seed}</text>
-              <text x={cx} y={height - 16} textAnchor="middle" fontSize={9} fill={MUTED}>{r.regime.length > 12 ? r.regime.slice(0, 11) + "…" : r.regime}</text>
+              {gw >= 56 && <text x={cx} y={height - 16} textAnchor="middle" fontSize={9} fill={MUTED}>{r.regime.length > 12 ? r.regime.slice(0, 11) + "…" : r.regime}</text>}
             </g>
           );
         })}

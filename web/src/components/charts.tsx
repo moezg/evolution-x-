@@ -295,7 +295,8 @@ export function BarChart({
           </g>
         ))}
         {bars.map((b, i) => {
-          const x = m.l + i * bw + gap / 2;
+          const vw = Math.min(Math.max(0.5, bw - gap), 28);
+          const x = m.l + i * bw + (bw - vw) / 2;
           const y = sy(Math.max(0, b.value));
           const h = Math.abs(sy(b.value) - sy(0));
           return (
@@ -304,7 +305,7 @@ export function BarChart({
               <rect
                 x={x}
                 y={b.value >= 0 ? y : sy(0)}
-                width={Math.max(0.5, bw - gap)}
+                width={vw}
                 height={Math.max(b.value !== 0 ? 1 : 0, h)}
                 rx={bw > 8 ? 2 : 0}
                 fill={b.color ?? color}

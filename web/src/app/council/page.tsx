@@ -174,7 +174,7 @@ export default function CouncilPage() {
   return (
     <div className="space-y-4">
       <PageTitle title="Research council" />
-      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
         <Panel title="Convene the council" subtitle="Eight role agents analyse read-only context; every claim is labelled as observation, hypothesis, assumption or conclusion.">
           <form onSubmit={run} className="space-y-3" aria-label="Run research council">
             <label className="field">

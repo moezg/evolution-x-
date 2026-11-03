@@ -188,6 +188,9 @@ function AgentPanel({ id, onClose, onSelect, label }: { id: number; onClose: () 
     return () => window.removeEventListener("keydown", k);
   }, [onClose]);
   const a = d.data && d.data.id === id ? d.data : undefined;
+  const [allLineage, setAllLineage] = useState(false);
+  const lineage = [...(a?.lineage ?? [])].reverse();
+  const shownLineage = allLineage ? lineage : lineage.slice(0, 6);
   const eq = a?.equity_curve ?? [];
   const obs = a?.observable_inputs as Record<string, unknown> | undefined;
   const view = obs?.home_venue_view as Record<string, number | boolean> | undefined;
@@ -366,11 +369,14 @@ function AgentPanel({ id, onClose, onSelect, label }: { id: number; onClose: () 
             <KeyValue data={a.memory} />
           </Section>
 
-          <Section title={`Strategy lineage (${a.lineage?.length ?? 0} changes)`}>
+          <Section title={`Strategy lineage (${a.lineage?.length ?? 0} changes, newest first)`}>
             {a.lineage?.length ? (
+              <>
               <ol className="relative space-y-3 border-l border-line2 pl-4">
-                {a.lineage.map((l, i) => {
-                  const keys = Array.from(new Set([...Object.keys(l.before ?? {}), ...Object.keys(l.after ?? {})]));
+                {shownLineage.map((l, i) => {
+                  const keys = Array.from(new Set([...Object.keys(l.before ?? {}), ...Object.keys(l.after ?? {})])).filter(
+                    (k) => JSON.stringify(l.before?.[k]) !== JSON.stringify(l.after?.[k]),
+                  );
                   return (
                     <li key={i} className="relative">
                       <span aria-hidden className="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full border-2 border-panel bg-accent" />
@@ -385,7 +391,7 @@ function AgentPanel({ id, onClose, onSelect, label }: { id: number; onClose: () 
                       </div>
                       {keys.length > 0 && (
                         <table className="data mt-1">
-                          <thead><tr><th>Param</th><th className="num">Before</th><th className="num">After</th></tr></thead>
+                          <thead><tr><th>Changed param</th><th className="num">Before</th><th className="num">After</th></tr></thead>
                           <tbody>
                             {keys.map((k) => {
                               const b = l.before?.[k];
@@ -406,6 +412,12 @@ function AgentPanel({ id, onClose, onSelect, label }: { id: number; onClose: () 
                   );
                 })}
               </ol>
+              {lineage.length > 6 && (
+                <button className="btn btn-sm mt-2" onClick={() => setAllLineage((v) => !v)} aria-expanded={allLineage}>
+                  {allLineage ? "Show latest 6" : `Show all ${lineage.length} changes`}
+                </button>
+              )}
+              </>
             ) : (
               <p className="text-xs text-muted">Still running its initial strategy (v{a.strategy_version}). No imitation or adaptation yet.</p>
             )}

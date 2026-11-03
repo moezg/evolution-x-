@@ -6,6 +6,7 @@ Research-only: there is no endpoint that can place orders on a real exchange.
 from __future__ import annotations
 
 import asyncio
+import functools
 import json
 import os
 from pathlib import Path
@@ -243,6 +244,7 @@ def get_job(jid: str) -> dict[str, Any]:
 
 
 def _quota(fn):  # noqa: ANN001, ANN202
+    @functools.wraps(fn)  # keep the real signature so FastAPI parses the request body
     def wrapped(*a: Any, **k: Any) -> Any:
         try:
             return fn(*a, **k)
@@ -483,7 +485,7 @@ WEB_OUT = Path(os.environ.get("EVOX_WEB_DIR", "web/out"))
 if WEB_OUT.exists():
     app.mount("/_next", StaticFiles(directory=WEB_OUT / "_next"), name="next-assets")
 
-    @app.get("/{path:path}", include_in_schema=False)
+    @app.api_route("/{path:path}", methods=["GET", "HEAD"], include_in_schema=False)
     def spa(path: str) -> FileResponse:
         f = WEB_OUT / path
         if path and f.is_file() and WEB_OUT.resolve() in f.resolve().parents:

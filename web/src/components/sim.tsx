@@ -209,7 +209,7 @@ export function SimControls({ state }: { state: SimState }) {
           className="btn btn-danger ml-auto px-4 py-2 text-sm"
           onClick={() => act("stop", "/api/sim/stop")}
           disabled={!live || busy === "stop"}
-          aria-label="Emergency stop: halt the simulation event loop immediately"
+          aria-label="EMERGENCY STOP — halt the simulation event loop immediately"
         >
           ■ EMERGENCY STOP
         </button>
