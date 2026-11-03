@@ -80,8 +80,14 @@ def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
             )  # fmt: skip
             ctx.store.edge(f"source:{it.id}", "discovered_by", f"role:{role}", {"query": q, "cycle": ctx.cycle})
             new.append({**row, "family": cls["family"], "relevance": _relevance(row, cls)})
-    new.sort(key=lambda r: -r["relevance"])
-    picked = [r for r in new if r["relevance"] > 0][: int(ctx.config.get("verify_per_scout", 2))]
+    # research queue: sources discovered earlier by these queries but never verified stay eligible
+    backlog = []
+    for r in ctx.store.q("SELECT * FROM army_sources WHERE status='discovered'"):
+        if r["query"] in queries[:2] and r["id"] not in {n["id"] for n in new}:
+            cls = r["mechanism"] or M.classify(r["title"], r["abstract"])
+            backlog.append({**r, "family": cls["family"], "relevance": _relevance(r, cls), "from_backlog": True})
+    pool = sorted(new + backlog, key=lambda r: -r["relevance"])
+    picked = [r for r in pool if r["relevance"] > 0][: int(ctx.config.get("verify_per_scout", 2))]
     for r in picked:
         vt = new_task(ctx.store, ctx.cycle, "verify", "A3", "VERIFY", {"source_id": r["id"]})
         new_task(ctx.store, ctx.cycle, "novelty", "A4", "UNDERSTAND", {"source_id": r["id"]}, deps=[vt])
@@ -89,6 +95,7 @@ def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
         "queries": queries[:2],
         "returned": len(found),
         "new_sources": [r["id"] for r in new],
+        "backlog_considered": [r["id"] for r in backlog],
         "selected_for_verification": [r["id"] for r in picked],
     }
 
