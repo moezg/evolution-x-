@@ -1,0 +1,1666 @@
+{
+ "protocol": "cascade-c2x-v1",
+ "protocol_sha256": "5b47a212d537e18752c16080f9f2e05c0d409b59ed8eb92b0a0ecaa8c7b0b235",
+ "label": "EXPLORATORY - same seeds as C2 confirmatory; not independent; counterfactual model variants",
+ "created_utc": "2026-11-03T21:16:52+00:00",
+ "X1": {
+  "runs": [
+   {
+    "condition": "default",
+    "seed": 901,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.000665420784243129,
+     0.0011313857720865487
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 902,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0007979356623083428,
+     0.0010483421351366333
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 903,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0006807463362144724,
+     0.0016190928186106655
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 904,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.000835353745872336,
+     0.0012346715745814006
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 905,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0007453267577985366,
+     0.0013780186930854267
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 906,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.00063213297958179,
+     0.0009199160696505978
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 907,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005447164944583071,
+     0.0016170723803669764
+    ]
+   },
+   {
+    "condition": "default",
+    "seed": 908,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0006991753406328673,
+     0.0011994209260544398
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 901,
+    "leveraged_long": 14,
+    "leveraged_short": 2,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.03976346358311669,
+    "eff_leverage_longs": [
+     3.11,
+     0.33,
+     9.78,
+     16.96,
+     2.06,
+     10.86,
+     7.4,
+     9.54,
+     12.82,
+     12.21,
+     14.07,
+     10.91,
+     12.73,
+     14.22
+    ],
+    "funding_path": [
+     0.000665420784243129,
+     0.0012794344621736807
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 902,
+    "leveraged_long": 4,
+    "leveraged_short": 12,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.08819746304211701,
+    "eff_leverage_longs": [
+     3.72,
+     1.81,
+     9.4,
+     1.15
+    ],
+    "funding_path": [
+     0.0007979356623083428,
+     0.0010443051197844882
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 903,
+    "leveraged_long": 15,
+    "leveraged_short": 1,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.03543353020998093,
+    "eff_leverage_longs": [
+     7.43,
+     11.74,
+     17.14,
+     17.85,
+     18.27,
+     2.89,
+     8.53,
+     11.82,
+     15.27,
+     12.93,
+     5.03,
+     0.93,
+     12.22,
+     15.35,
+     11.43
+    ],
+    "funding_path": [
+     0.0006807463362144724,
+     0.000931045997634181
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 904,
+    "leveraged_long": 13,
+    "leveraged_short": 3,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.045477612394891995,
+    "eff_leverage_longs": [
+     8.4,
+     10.99,
+     11.51,
+     13.8,
+     13.14,
+     11.88,
+     13.43,
+     10.03,
+     5.54,
+     15.49,
+     8.27,
+     11.24,
+     4.67
+    ],
+    "funding_path": [
+     0.000835353745872336,
+     0.0010608865839252255
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 905,
+    "leveraged_long": 1,
+    "leveraged_short": 15,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.24666495372937772,
+    "eff_leverage_longs": [
+     3.82
+    ],
+    "funding_path": [
+     0.0007453267577985366,
+     0.0014032241652251229
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 906,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.00063213297958179,
+     0.0015796234060278887
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 907,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005447164944583071,
+     0.0017146298423387854
+    ]
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 908,
+    "leveraged_long": 12,
+    "leveraged_short": 4,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.05250469130790908,
+    "eff_leverage_longs": [
+     5.39,
+     9.0,
+     10.4,
+     8.13,
+     4.06,
+     11.3,
+     12.47,
+     13.99,
+     10.27,
+     6.61,
+     9.09,
+     7.16
+    ],
+    "funding_path": [
+     0.0006991753406328673,
+     0.0012501966872445047
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 901,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.000576675808725851,
+     0.0010775066863253496
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 902,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0007133711267634968,
+     0.0012270112785052823
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 903,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005869536932560758,
+     0.000984423415681991
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 904,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.000756428127207939,
+     0.0009764867184856263
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 905,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0006851176520503335,
+     0.0013472583419103113
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 906,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005645430304911692,
+     0.001115326615840771
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 907,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005550369818856674,
+     0.0016875226554748412
+    ]
+   },
+   {
+    "condition": "no_social",
+    "seed": 908,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0006273200322322861,
+     0.0009619111709511254
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 901,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.000576675808725851,
+     0.0011036250795931567
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 902,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0007133711267634968,
+     0.0016348080952728963
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 903,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005869536932560758,
+     0.0015859743488754038
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 904,
+    "leveraged_long": 4,
+    "leveraged_short": 12,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.1903820205581612,
+    "eff_leverage_longs": [
+     4.51,
+     2.52,
+     1.05,
+     4.84
+    ],
+    "funding_path": [
+     0.000756428127207939,
+     0.00114182423222422
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 905,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0006851176520503335,
+     0.0012116225417992139
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 906,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005645430304911692,
+     0.0014190311634226767
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 907,
+    "leveraged_long": 0,
+    "leveraged_short": 16,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": null,
+    "eff_leverage_longs": [],
+    "funding_path": [
+     0.0005550369818856674,
+     0.0016134625453715315
+    ]
+   },
+   {
+    "condition": "neither",
+    "seed": 908,
+    "leveraged_long": 3,
+    "leveraged_short": 13,
+    "leveraged_flat": 0,
+    "min_down_distance_longs": 0.6105417489871336,
+    "eff_leverage_longs": [
+     1.62,
+     1.25,
+     1.51
+    ],
+    "funding_path": [
+     0.0006273200322322861,
+     0.00116652430653876
+    ]
+   }
+  ],
+  "mean_leveraged_long": {
+   "default": 0.0,
+   "no_funding_term": 7.375,
+   "no_social": 0.0,
+   "neither": 0.875
+  },
+  "selected_for_X2": "no_funding_term"
+ },
+ "X2": {
+  "configs": {
+   "2000btc|lu1.0|no_funding_term": {
+    "whale_btc": 2000,
+    "leverage_use": 1.0,
+    "n_seeds": 8,
+    "seeds_with_secondary_liquidation": 0,
+    "wilson95": [
+     0.0,
+     0.324
+    ],
+    "seeds_with_chain": 0,
+    "incremental_drop": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "incremental_at": {
+     "10": {
+      "n": 8,
+      "mean": 0.0,
+      "std": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "t_lo": 0.0,
+      "t_hi": 0.0,
+      "frac_positive": 0.0,
+      "effect_size_dz": null
+     },
+     "60": {
+      "n": 8,
+      "mean": 0.0,
+      "std": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "t_lo": 0.0,
+      "t_hi": 0.0,
+      "frac_positive": 0.0,
+      "effect_size_dz": null
+     },
+     "300": {
+      "n": 8,
+      "mean": 0.0,
+      "std": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "t_lo": 0.0,
+      "t_hi": 0.0,
+      "frac_positive": 0.0,
+      "effect_size_dz": null
+     }
+    },
+    "direct_drop_B_mean": -0.03656027972610357,
+    "direct_impact_mean": -0.014960446661052437,
+    "secondary_liquidations_mean": 0.0,
+    "secondary_breaches_A_mean": 0.0,
+    "secondary_breaches_B_mean": 0.0,
+    "stop_losses_A_mean": 0.0,
+    "min_margin_distance_leveraged_down": [
+     0.03976346358311669,
+     0.08819746304211701,
+     0.03543353020998093,
+     0.045477612394891995,
+     0.24666495372937772,
+     null,
+     null,
+     0.05250469130790908
+    ],
+    "whale_position_btc_at_shock": [
+     1471.9575,
+     1613.3968,
+     1449.5383,
+     1606.7865,
+     1488.3065,
+     1530.8592,
+     1641.0727,
+     1483.6856
+    ],
+    "all_pre_shock_identical": true,
+    "classification": {
+     "label": "no_secondary_liquidations",
+     "criteria": {
+      "a_secondary_in_2of8": false,
+      "b_t_interval_below_0": false,
+      "c_ge_10pct_of_direct": false,
+      "d_chain_in_2of8": false
+     }
+    },
+    "pairs": [
+     {
+      "seed": 901,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.04158059011965809,
+      "drop_B": -0.04158059011965809,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.017837993998880197,
+      "direct_impact_B": -0.017837993998880197,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 902,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.03830398380213673,
+      "drop_B": -0.03830398380213673,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.016743053051067158,
+      "direct_impact_B": -0.016743053051067158,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 903,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.03561749287615712,
+      "drop_B": -0.03561749287615712,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.016718388259966077,
+      "direct_impact_B": -0.016718388259966077,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 904,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.03638500862893668,
+      "drop_B": -0.03638500862893668,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.017321093897277318,
+      "direct_impact_B": -0.017321093897277318,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 905,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.031485761693796355,
+      "drop_B": -0.031485761693796355,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.011598339530861645,
+      "direct_impact_B": -0.011598339530861645,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 906,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.030290620911086585,
+      "drop_B": -0.030290620911086585,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.010462504561107644,
+      "direct_impact_B": -0.010462504561107644,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 907,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.03260223781257521,
+      "drop_B": -0.03260223781257521,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.007991112660736932,
+      "direct_impact_B": -0.007991112660736932,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     },
+     {
+      "seed": 908,
+      "secondary_liquidations_A": 0,
+      "secondary_breaches_A": 0,
+      "secondary_breaches_B": 0,
+      "induced_breaches": [],
+      "chain_observed": false,
+      "drop_A": -0.04621654196448177,
+      "drop_B": -0.04621654196448177,
+      "incremental_drop": 0.0,
+      "incremental_at": {
+       "10": 0.0,
+       "60": 0.0,
+       "300": 0.0
+      },
+      "direct_impact_A": -0.021011087328522526,
+      "direct_impact_B": -0.021011087328522526,
+      "first_divergence_s": null,
+      "pre_shock_identical": true,
+      "stop_losses_A": 0,
+      "stop_losses_B": 0
+     }
+    ]
+   }
+  },
+  "threshold": {
+   "lu1.0": {
+    "seeds_with_secondary_by_size": {
+     "2000": 0
+    },
+    "onset_bracket_btc": null,
+    "statement": "threshold not observed within the tested range",
+    "monotone_in_size": true,
+    "shape": "not applicable (no onset)"
+   }
+  },
+  "deleveraging_traces": [
+   {
+    "condition": "no_funding_term",
+    "seed": 901,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 2.78,
+      "min_down_distance": 0.03976346358311669
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.01853301905211846,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 2.769,
+      "min_down_distance": 0.018727376367327502
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.020419901555308928,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 2.575,
+      "min_down_distance": 0.0166886903065415
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.022689989273364852,
+      "leveraged_longs": 11,
+      "long_gross_usd_m": 1.926,
+      "min_down_distance": 0.030665145374340702
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.02522875452083506,
+      "leveraged_longs": 11,
+      "long_gross_usd_m": 1.555,
+      "min_down_distance": 0.0280489787577334
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.03134292839023434,
+      "leveraged_longs": 7,
+      "long_gross_usd_m": 0.735,
+      "min_down_distance": 0.021774236256578004
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.03560116433478533,
+      "leveraged_longs": 5,
+      "long_gross_usd_m": 0.636,
+      "min_down_distance": 0.018016103751227162
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.03927333616200612,
+      "leveraged_longs": 4,
+      "long_gross_usd_m": 0.546,
+      "min_down_distance": 0.014384375422863853
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.04018088006544529,
+      "leveraged_longs": 4,
+      "long_gross_usd_m": 0.545,
+      "min_down_distance": 0.011874493335629075
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.02281041116421445,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 4.418,
+      "min_down_distance": 0.031191860472853074
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.021931274056237404,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 2.534,
+      "min_down_distance": 0.04509423305838835
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.306223165103
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 902,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 4,
+      "long_gross_usd_m": 0.317,
+      "min_down_distance": 0.08819746304211701
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.017672407753084873,
+      "leveraged_longs": 4,
+      "long_gross_usd_m": 0.312,
+      "min_down_distance": 0.06968723518612957
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.019904137402564692,
+      "leveraged_longs": 4,
+      "long_gross_usd_m": 0.311,
+      "min_down_distance": 0.06802088809810465
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.022893953671246026,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.047,
+      "min_down_distance": 0.5308098541184317
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.026019309370060473,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.046,
+      "min_down_distance": 0.5292501546740034
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.029269797299716904,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.046,
+      "min_down_distance": 0.5280098918525286
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.03402138032077284,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.046,
+      "min_down_distance": 0.5256791316744177
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.03682534203834098,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.046,
+      "min_down_distance": 0.5245328789732543
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.03780984670195442,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.046,
+      "min_down_distance": 0.5238944316540565
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.01953423112226238,
+      "leveraged_longs": 15,
+      "long_gross_usd_m": 5.306,
+      "min_down_distance": 0.03214551466463905
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.01930682972043718,
+      "leveraged_longs": 15,
+      "long_gross_usd_m": 2.855,
+      "min_down_distance": 0.05569278284534776
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.343704357506
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 903,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 15,
+      "long_gross_usd_m": 3.921,
+      "min_down_distance": 0.03543353020998093
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.016493071065977416,
+      "leveraged_longs": 15,
+      "long_gross_usd_m": 3.758,
+      "min_down_distance": 0.016393562182297587
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.01757138063458963,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 3.334,
+      "min_down_distance": 0.01482509143213849
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.019796193262319184,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 2.405,
+      "min_down_distance": 0.017363764314566363
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.021988302521405156,
+      "leveraged_longs": 12,
+      "long_gross_usd_m": 1.915,
+      "min_down_distance": 0.0150276257230752
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.028554220955761322,
+      "leveraged_longs": 9,
+      "long_gross_usd_m": 0.981,
+      "min_down_distance": 0.019820681649476295
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.03216380404272645,
+      "leveraged_longs": 7,
+      "long_gross_usd_m": 0.714,
+      "min_down_distance": 0.016344012792728364
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.03545954953937425,
+      "leveraged_longs": 5,
+      "long_gross_usd_m": 0.555,
+      "min_down_distance": 0.01316643190037327
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.034869495527179106,
+      "leveraged_longs": 5,
+      "long_gross_usd_m": 0.555,
+      "min_down_distance": 0.014239452988693797
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.018337819732802796,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 3.977,
+      "min_down_distance": 0.029986645480081762
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.017409339131310042,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 1.853,
+      "min_down_distance": 0.06972079736131934
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.314979394775
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 904,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 2.733,
+      "min_down_distance": 0.045477612394891995
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.01795280707820124,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 2.798,
+      "min_down_distance": 0.023058148618384032
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.019579341586823507,
+      "leveraged_longs": 13,
+      "long_gross_usd_m": 2.437,
+      "min_down_distance": 0.02159286833658876
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.021573652073606286,
+      "leveraged_longs": 11,
+      "long_gross_usd_m": 1.658,
+      "min_down_distance": 0.01983249167738583
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.024438554059793116,
+      "leveraged_longs": 10,
+      "long_gross_usd_m": 1.589,
+      "min_down_distance": 0.02289874690474196
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.02849113251252655,
+      "leveraged_longs": 9,
+      "long_gross_usd_m": 1.248,
+      "min_down_distance": 0.018676138165720554
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.0316507630102697,
+      "leveraged_longs": 8,
+      "long_gross_usd_m": 0.956,
+      "min_down_distance": 0.015573301649259642
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.03566722718859461,
+      "leveraged_longs": 7,
+      "long_gross_usd_m": 0.92,
+      "min_down_distance": 0.011005498969568931
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.03522779590406799,
+      "leveraged_longs": 6,
+      "long_gross_usd_m": 0.856,
+      "min_down_distance": 0.011134513042478337
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.020129244880822128,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 2.543,
+      "min_down_distance": 0.03372170688542489
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.020293110330009134,
+      "leveraged_longs": 12,
+      "long_gross_usd_m": 1.096,
+      "min_down_distance": 0.11062532086939147
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.24210169518
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 905,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.088,
+      "min_down_distance": 0.24666495372937772
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.012341400376423728,
+      "leveraged_longs": 1,
+      "long_gross_usd_m": 0.087,
+      "min_down_distance": 0.23576398616580826
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.014059913935101087,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.017182417071485157,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.020246101422533136,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.02678050600466486,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.029601253944009587,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.02934546636912383,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.031485761693796466,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.013650406677530258,
+      "leveraged_longs": 16,
+      "long_gross_usd_m": 7.046,
+      "min_down_distance": 0.03145295007671777
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.012940462290938926,
+      "leveraged_longs": 16,
+      "long_gross_usd_m": 2.857,
+      "min_down_distance": 0.11093909130830537
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.439637896095
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 906,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.01095589598629132,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.012681693742985112,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.015349653025903187,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.018627794482593885,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.0245164071206726,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.027217523099164587,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.02812380611152132,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.028386090419793453,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.011101801942685396,
+      "leveraged_longs": 16,
+      "long_gross_usd_m": 8.427,
+      "min_down_distance": 0.03128141974633492
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.014900800445520446,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.488045296474
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 907,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.007600352238474217,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.010833946420584883,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.015966181401490975,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.02068350737954161,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.0291123544138312,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.031059540475667502,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.030767524591855944,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.03147841910820948,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.013523122431318813,
+      "leveraged_longs": 16,
+      "long_gross_usd_m": 7.946,
+      "min_down_distance": 0.033358213168326954
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.017893767416750195,
+      "leveraged_longs": 0,
+      "long_gross_usd_m": 0.0,
+      "min_down_distance": null
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.473462330861
+   },
+   {
+    "condition": "no_funding_term",
+    "seed": 908,
+    "path": [
+     {
+      "t_s": 899,
+      "mid_rel": 0.0,
+      "leveraged_longs": 12,
+      "long_gross_usd_m": 1.746,
+      "min_down_distance": 0.05250469130790908
+     },
+     {
+      "t_s": 902,
+      "mid_rel": -0.02174967134602468,
+      "leveraged_longs": 11,
+      "long_gross_usd_m": 1.545,
+      "min_down_distance": 0.02990455082972396
+     },
+     {
+      "t_s": 905,
+      "mid_rel": -0.022664598315888074,
+      "leveraged_longs": 9,
+      "long_gross_usd_m": 1.128,
+      "min_down_distance": 0.029167630312856054
+     },
+     {
+      "t_s": 910,
+      "mid_rel": -0.02563394924162743,
+      "leveraged_longs": 7,
+      "long_gross_usd_m": 0.575,
+      "min_down_distance": 0.05123058419059582
+     },
+     {
+      "t_s": 915,
+      "mid_rel": -0.02822996883601414,
+      "leveraged_longs": 7,
+      "long_gross_usd_m": 0.573,
+      "min_down_distance": 0.047839119111390334
+     },
+     {
+      "t_s": 930,
+      "mid_rel": -0.03425304764850223,
+      "leveraged_longs": 6,
+      "long_gross_usd_m": 0.535,
+      "min_down_distance": 0.04223022873974859
+     },
+     {
+      "t_s": 945,
+      "mid_rel": -0.037721560924817155,
+      "leveraged_longs": 6,
+      "long_gross_usd_m": 0.533,
+      "min_down_distance": 0.039264426201662955
+     },
+     {
+      "t_s": 960,
+      "mid_rel": -0.0424230060230788,
+      "leveraged_longs": 6,
+      "long_gross_usd_m": 0.53,
+      "min_down_distance": 0.034191552199865936
+     },
+     {
+      "t_s": 1000,
+      "mid_rel": -0.045775235769956124,
+      "leveraged_longs": 6,
+      "long_gross_usd_m": 0.529,
+      "min_down_distance": 0.0304445805375604
+     },
+     {
+      "t_s": 1100,
+      "mid_rel": -0.025420477162322874,
+      "leveraged_longs": 11,
+      "long_gross_usd_m": 3.887,
+      "min_down_distance": 0.031335193531209664
+     },
+     {
+      "t_s": 1200,
+      "mid_rel": -0.02495371099503607,
+      "leveraged_longs": 14,
+      "long_gross_usd_m": 1.91,
+      "min_down_distance": 0.07566318749890305
+     }
+    ],
+    "leveraged_equity_usd_m_end": 0.28045300021
+   }
+  ],
+  "scale_check": {
+   "leveraged_max_gross_usd_m_at_initial_capital": [
+    6.664000812923216,
+    6.007627957770779
+   ],
+   "primary_forced_notional_usd_m": [
+    87.038425683574,
+    95.45853609107401,
+    85.960825167031,
+    95.212341653178,
+    88.058467477373,
+    90.77766081363801,
+    96.955251540905,
+    87.749049777753
+   ]
+  }
+ },
+ "cost": {
+  "runs": 48,
+  "wall_s": 47.9,
+  "llm_calls": 0
+ },
+ "runs_index": [
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 901,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "9ff82711fac0c2aa",
+   "run_fingerprint": "2f0c28e6515dd32b",
+   "wall_s": 5.07
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 901,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "1132a7276c5d72d1",
+   "run_fingerprint": "2f0c28e6515dd32b",
+   "wall_s": 4.88
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 902,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0ac2fc54609c156e",
+   "run_fingerprint": "fc5d63dcc2b5a8da",
+   "wall_s": 5.61
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 902,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "c8f6f921caebf49d",
+   "run_fingerprint": "fc5d63dcc2b5a8da",
+   "wall_s": 5.39
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 903,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "d28352d6ad3d3c34",
+   "run_fingerprint": "acdd6bb24b7595b5",
+   "wall_s": 4.97
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 903,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "929a25b3577e262f",
+   "run_fingerprint": "acdd6bb24b7595b5",
+   "wall_s": 5.14
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 904,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "6c342ca748707d9d",
+   "run_fingerprint": "92c065cebd4e438a",
+   "wall_s": 5.22
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 904,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "e00134d751258af1",
+   "run_fingerprint": "92c065cebd4e438a",
+   "wall_s": 5.23
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 905,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "9bea9a116beeef4f",
+   "run_fingerprint": "5a79f9aeb622ee61",
+   "wall_s": 5.33
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 905,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "791fc7d6635a493f",
+   "run_fingerprint": "5a79f9aeb622ee61",
+   "wall_s": 4.82
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 906,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "da5baf5345aeac2f",
+   "run_fingerprint": "70aa21e2e9a7577b",
+   "wall_s": 5.19
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 906,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "456ec3d6d2450ce1",
+   "run_fingerprint": "70aa21e2e9a7577b",
+   "wall_s": 5.6
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 907,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0283cd3e495bafeb",
+   "run_fingerprint": "235fad10cec52287",
+   "wall_s": 4.59
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 907,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "9087b74063369bf5",
+   "run_fingerprint": "235fad10cec52287",
+   "wall_s": 5.11
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "A",
+   "seed": 908,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "c0343678e13aedb3",
+   "run_fingerprint": "1fc13362fad5f4ed",
+   "wall_s": 5.46
+  },
+  {
+   "config": "2000btc|lu1.0|no_funding_term",
+   "arm": "B",
+   "seed": 908,
+   "role": "exploratory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "ca22438844ad33bf",
+   "run_fingerprint": "1fc13362fad5f4ed",
+   "wall_s": 5.07
+  }
+ ]
+}

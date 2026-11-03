@@ -64,6 +64,12 @@ class SimConfig(BaseModel):
     shocks: list[Shock] = Field(default_factory=list)
     replay_dataset: str | None = None  # path to historical parquet/csv for Mode B
     invariant_check_every_s: int = 60
+    # KC-2 counterfactual switch (experiments only): False records margin breaches of agent accounts but does not
+    # execute their forced liquidation. Exogenous (external) accounts are always liquidated. Nonphysical.
+    execute_secondary_liquidations: bool = True
 
     def fingerprint(self) -> str:
-        return hashlib.sha256(json.dumps(self.model_dump(mode="json"), sort_keys=True).encode()).hexdigest()[:16]
+        d = self.model_dump(mode="json")
+        if d.get("execute_secondary_liquidations") is True:  # KC-2 default: keep pre-KC-2 fingerprints stable
+            del d["execute_secondary_liquidations"]
+        return hashlib.sha256(json.dumps(d, sort_keys=True).encode()).hexdigest()[:16]

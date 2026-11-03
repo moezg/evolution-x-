@@ -38,6 +38,8 @@ def index() -> dict[str, Any]:
         "observatory_experiments_v1.json",
         "realism_track_v1.json",
         "realism_track_v2.json",
+        "cascade_c2_v1.json",
+        "cascade_c2x_v1.json",
     ):
         p = FROZEN / name
         if p.exists():
@@ -80,3 +82,70 @@ def realism(runs: bool = False) -> dict[str, Any]:
         "report": _strip_runs(_read(OUT / f"realism_{VERSION}.json"), runs),
         "archive": _read(OUT / f"realism_archive_{VERSION}.json"),
     }
+
+
+CASCADE_FILES = {
+    "confirmatory": "cascade_c2_confirmatory.json",
+    "pilot": "cascade_c2_pilot.json",
+    "exploratory": "cascade_c2x_exploratory.json",
+}
+
+
+def _cascade(role: str) -> dict[str, Any]:
+    if role not in CASCADE_FILES:
+        raise HTTPException(404, "unknown role")
+    return _read(OUT / CASCADE_FILES[role])
+
+
+@router.get("/cascade")
+def cascade() -> dict[str, Any]:
+    """C2 summary: protocols (with amendments), per-configuration results, threshold, X1/X2, run index."""
+    out: dict[str, Any] = {
+        "protocol": _read(FROZEN / "cascade_c2_v1.json"),
+        "protocol_exploratory": _read(FROZEN / "cascade_c2x_v1.json"),
+    }
+    for role, name in CASCADE_FILES.items():
+        p = OUT / name
+        if not p.exists():
+            out[role] = None
+            continue
+        d = json.loads(p.read_text())
+        runs = d.pop("runs", [])
+        d["run_index"] = [
+            {
+                k: r[k]
+                for k in (
+                    "config",
+                    "arm",
+                    "seed",
+                    "role",
+                    "whale_btc",
+                    "leverage_use",
+                    "run_fingerprint",
+                    "config_fingerprint",
+                )
+            }
+            for r in runs
+        ]
+        out[role] = d
+    return out
+
+
+@router.get("/cascade/pair")
+def cascade_pair(config: str, seed: int, role: str = "confirmatory") -> dict[str, Any]:
+    """Both arms of one paired run: trajectories, event traces, propagation, margin distribution."""
+    runs = _cascade(role).get("runs", [])
+    arms = {r["arm"]: r for r in runs if r["config"] == config and r["seed"] == seed}
+    if set(arms) != {"A", "B"}:
+        raise HTTPException(404, "pair not found")
+    return {
+        "config": config,
+        "seed": seed,
+        "role": role,
+        "arms": {k: {kk: vv for kk, vv in v.items() if kk != "trade_hashes_from_shock"} for k, v in arms.items()},
+    }
+
+
+@router.get("/knowledge")
+def knowledge() -> dict[str, Any]:
+    return _read(OUT / "knowledge_c2.json")

@@ -1,0 +1,791 @@
+{
+ "configs": {
+  "1000btc|lu0.7": {
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.023929657358794598,
+   "direct_impact_mean": -0.0032519991208250776,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    999.9936
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.023929657358794598,
+     "drop_B": -0.023929657358794598,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0032519991208250776,
+     "direct_impact_B": -0.0032519991208250776,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "2000btc|lu0.7": {
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.0311316903306309,
+   "direct_impact_mean": -0.009145929261580532,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1745.0419
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.0311316903306309,
+     "drop_B": -0.0311316903306309,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.009145929261580532,
+     "direct_impact_B": -0.009145929261580532,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "4000btc|lu0.7": {
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.0312755928455164,
+   "direct_impact_mean": -0.009147021327274851,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1793.5046
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.0312755928455164,
+     "drop_B": -0.0312755928455164,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.009147021327274851,
+     "direct_impact_B": -0.009147021327274851,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "1000btc|lu1.0": {
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.023635959709111032,
+   "direct_impact_mean": -0.0033609288034209817,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    999.9936
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.023635959709111032,
+     "drop_B": -0.023635959709111032,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0033609288034209817,
+     "direct_impact_B": -0.0033609288034209817,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "2000btc|lu1.0": {
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.030823265249938392,
+   "direct_impact_mean": -0.008761723651250275,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1750.0702
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.030823265249938392,
+     "drop_B": -0.030823265249938392,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008761723651250275,
+     "direct_impact_B": -0.008761723651250275,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "4000btc|lu1.0": {
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "n_seeds": 1,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.793
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 1,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 1,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.0324049050028512,
+   "direct_impact_mean": -0.009367764071298357,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1824.5774
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 900,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.0324049050028512,
+     "drop_B": -0.0324049050028512,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.009367764071298357,
+     "direct_impact_B": -0.009367764071298357,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  }
+ },
+ "threshold": {
+  "lu0.7": {
+   "seeds_with_secondary_by_size": {
+    "1000": 0,
+    "2000": 0,
+    "4000": 0
+   },
+   "onset_bracket_btc": null,
+   "statement": "threshold not observed within the tested range",
+   "monotone_in_size": true,
+   "shape": "not applicable (no onset)"
+  },
+  "lu1.0": {
+   "seeds_with_secondary_by_size": {
+    "1000": 0,
+    "2000": 0,
+    "4000": 0
+   },
+   "onset_bracket_btc": null,
+   "statement": "threshold not observed within the tested range",
+   "monotone_in_size": true,
+   "shape": "not applicable (no onset)"
+  }
+ },
+ "protocol": "cascade-c2-v1",
+ "protocol_sha256": "cd53e43585c7df01b5bad4b7e66b1ecc598a4be09e4892a35c3ff10750713d46",
+ "role": "pilot",
+ "label": "EXPLORATORY pilot - SYNTHETIC; no historical data, no holdout, no LLM",
+ "created_utc": "2026-11-03T21:09:58+00:00",
+ "cost": {
+  "runs": 12,
+  "wall_s": 17.6,
+  "cpu_s_sum": 67.6,
+  "llm_calls": 0
+ },
+ "runs_index": [
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "e9ca42911e447969",
+   "run_fingerprint": "abf21eb87505093a",
+   "wall_s": 6.07
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "51d146182eb226aa",
+   "run_fingerprint": "abf21eb87505093a",
+   "wall_s": 5.74
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "31738510a13db77d",
+   "run_fingerprint": "4f87c75ab2f08b7d",
+   "wall_s": 6.13
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "389b881a94ce2871",
+   "run_fingerprint": "4f87c75ab2f08b7d",
+   "wall_s": 5.41
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "7f3766f7224c55c2",
+   "run_fingerprint": "ff33bbafb6627c13",
+   "wall_s": 6.17
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "2821de145590203f",
+   "run_fingerprint": "ff33bbafb6627c13",
+   "wall_s": 5.8
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0fc0d33200ce8f24",
+   "run_fingerprint": "dc0ddde4786f8515",
+   "wall_s": 5.51
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "592cc95bd7b9910a",
+   "run_fingerprint": "dc0ddde4786f8515",
+   "wall_s": 5.6
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "c1371951edc850c8",
+   "run_fingerprint": "ea63df0207edda4e",
+   "wall_s": 5.41
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "d1567d12ae139fa3",
+   "run_fingerprint": "ea63df0207edda4e",
+   "wall_s": 5.07
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "d582542bbb5a092d",
+   "run_fingerprint": "fa962617d9752345",
+   "wall_s": 4.94
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 900,
+   "role": "pilot",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "768a28bf20bdbf86",
+   "run_fingerprint": "fa962617d9752345",
+   "wall_s": 5.78
+  }
+ ]
+}

@@ -1,3 +1,123 @@
+# Status: v0.5 critical thresholds for liquidation cascades (2026-11-03)
+
+**Answer to the mission question:** the artificial society did **not** produce a liquidation feedback cascade.
+
+- In 96 confirmatory runs (whale 1000/2000/4000 BTC nominal × leverage_use 0.7/1.0 × 8 seeds × 2 arms), no agent account ever reached a margin breach.
+- With secondary liquidation execution switched off, every run is **bit-identical** to its normal-mechanics pair (48/48 run fingerprints equal).
+- The whole observed loss (−2.5% to −3.6%) is the mechanical consequence of the whale's forced sale, plus ordinary trading reactions that are the same in both arms.
+- The threshold was **not observed within the tested range**.
+
+All results are SYNTHETIC. There were 0 LLM calls, no exchange transactions, and no holdout access. The 60-call campaign was not run, and simulator defaults are unchanged.
+
+### 1. Protocol and reproducibility
+- **Pre-registration:** `evals/frozen/cascade_c2_v1.json`, sha `d9a0a4bb…` in the report. It contains inspection facts, design, measurements, causal definitions, hypotheses H1–H3, the classification rule and the stopping rule. Two amendments were written before the confirmatory runs:
+  - **Amendment 1, measurement only:** the primary forced sale is a process lasting 80–160 s, not a single sweep.
+  - **Amendment 2, after the exploratory pilot (seed 900):** whale build-up saturates, and the leveraged agents are short at the shock. The design was not changed.
+- **Seeds:** pilot 900 (exploratory, not used in statistics); confirmatory 901–908.
+- **Commands:**
+  - `evox observatory cascade --role pilot|confirmatory`
+  - `evox observatory cascade-x`
+  - `evox observatory knowledge`
+- **Artifacts:** `artifacts/observatory/cascade_c2_{pilot,confirmatory}.json`, `cascade_c2x_exploratory.json` and `knowledge_c2.json`. Compact copies are in `docs/evidence/observatory/`.
+- **Cost:** 96 confirmatory runs, 135 s wall (527 CPU-s), plus 12 pilot and 48 exploratory runs.
+
+### 2. Causal comparison (arm A normal, arm B secondary execution suppressed; paired by seed)
+| Config (nominal) | Reached whale BTC (mean, range) | Primary forced sale | Arm-B max drop | Secondary breaches A / B | Secondary liquidations | A − B incremental drop | Class |
+|---|---|---|---:|---|---:|---:|---|
+| 1000, lu 0.7 | 1000 | $59M over 83 s | −2.49% | 0 / 0 | 0 | 0 (identical runs) | no_secondary_liquidations |
+| 2000, lu 0.7 | 1557 (1465–1679) | $92M over 144 s | −3.31% | 0 / 0 | 0 | 0 | no_secondary_liquidations |
+| 4000, lu 0.7 | 1605 (1533–1759) | $95M over 152 s | −3.39% | 0 / 0 | 0 | 0 | no_secondary_liquidations |
+| 1000, lu 1.0 | 1000 | $59M over 85 s | −2.49% | 0 / 0 | 0 | 0 | no_secondary_liquidations |
+| 2000, lu 1.0 | 1582 (1499–1686) | $94M over 149 s | −3.42% | 0 / 0 | 0 | 0 | no_secondary_liquidations |
+| 4000, lu 1.0 | 1625 (1518–1801) | $96M over 161 s | −3.55% | 0 / 0 | 0 | 0 | no_secondary_liquidations |
+
+Other measurements, both arms identical:
+
+- **Volatility:** 1-minute volatility rises from 15–28 to 54–64 bps in the 300 s window.
+- **Depth:** 10-level depth falls from 6–8 BTC to a minimum of 1.5–2.4 BTC.
+- **Spread:** the median spread does *not* widen (3.9–5.9 → 3.3–3.6 bps).
+- **Recovery:** half-recovery takes 35–205 s.
+- **Circuit breakers and stops:** 0 circuit breakers; 0 leveraged stop-loss exits.
+- **First-tick impact:** −0.4% to −1.3%. Most of the drop comes later, during the multi-tick forced sale.
+
+The causal chain "shock → breach → forced liquidation → pressure → further breach" is **not observed**: its first link, a breach, never occurs.
+
+### 3. Threshold analysis
+- For both leverage levels, 0 of 8 seeds have secondary liquidations at every size (Wilson 95% CI 0–0.32).
+- The onset bracket is undefined, and no threshold curve was fitted.
+- **Dose caveat:** the whale build-up saturates at about 1,500–1,800 BTC, so the 2000 and 4000 BTC nominal cells test nearly the same reached dose. The tested range is effectively 1000–1800 BTC.
+
+### 4. Why there is no cascade: mechanism found (exploratory, `cascade_c2x_v1.json`, same seeds, not independent)
+1. **Positioning, endogenous and funding-driven.**
+   - All 768 leveraged agent-observations were **short** at the shock (2.8–4.8% from margin on the *upside*, 14–20× effective leverage). The forced sale moved the price in their favour.
+   - Cause: the whale's long build-up lifts the perpetual premium, so funding turns positive (about +0.12% per 300 s). The leveraged signal subtracts funding × 2000, clipped at 0.5, and social herding spreads the short.
+   - X1 ablation, mean leveraged longs out of 16:
+
+     | Condition | Mean longs |
+     |---|---:|
+     | default | 0 |
+     | no funding term | **7.4** |
+     | no social | 0 |
+     | neither | 0.9 |
+
+   - Without the whale, positioning is mixed. The funding term is the main driver; prediction ≥ 8 was narrowly missed, the refutation level < 4 was not reached.
+2. **Voluntary deleveraging pre-empts margin.**
+   - With the funding term removed (X2), leveraged agents are long at the shock, yet there are still 0 breaches in 16 runs.
+   - Traces show their long exposure falling about 80% within 60 s ($2.8–3.9M → $0.55M) through ordinary momentum trading. The nearest margin distance shrinks to about 1.2% but never reaches 0.
+3. **Insufficient fuel.**
+   - The entire leveraged sector can hold about **$6–7M** gross, against an $86–97M primary forced sale (about 7%).
+   - Even a complete secondary liquidation could add little selling pressure.
+
+**What is missing.** A crowded, slow-to-react leveraged position on the *same side* as the forced seller, large enough to matter. In this simulator the funding rate is about 1000× typical real 8-hour funding: it pushes leverage to the opposite side, and the sector is small. The model was **not** changed to force a cascade.
+
+### 5. Research memory and controlled self-evolution (`observatory/knowledge.py`, existing `Memory` schema, `artifacts/observatory/knowledge.db`)
+- **Mechanisms recorded:**
+  - C2-H1 `not_observed`;
+  - funding-contrarian positioning `exploratory_supported`;
+  - voluntary deleveraging `exploratory_supported`.
+- **Gaps recorded:** funding magnitude; leveraged capacity; whale build-up saturation.
+- **Dedup:** a second ingest of C2 was refused as a duplicate. Replications must declare themselves and use new seeds (tested).
+- **Proposals, never applied, judged only by the frozen realism rules (v2):**
+
+  | Proposal | Verdict | Note |
+  |---|---|---|
+  | P1: leveraged funding_sens 2 | not an improvement vs both baselines | |
+  | P3: 64 leveraged agents | not an improvement | scale error 8.9 vs 1.2: the change that would fuel cascades makes volatility much less realistic |
+  | P2: funding_k 1e-4 | `needs_human_rules_review` | outside the frozen candidate space |
+
+- **Next-experiment ranking** (bits per 100 runs; priors are stated judgement inputs):
+
+  | Candidate | Score |
+  |---|---:|
+  | C3-funding | 1.91 |
+  | C3-fuel | 1.91 |
+  | mirror squeeze | 1.47 |
+  | C3 factorial | 1.46 |
+  | repeat of C2 | blocked as already run |
+
+### 6. Tests
+- `tests/test_cascade.py`, 12 tests:
+  - the margin distance matches the engine's breach rule (property test);
+  - no trading without resources;
+  - breach vs execution, and primary vs secondary classification, in both arms, with accounting and fee checks;
+  - the primary liquidation survives the switch;
+  - measurement is read-only and deterministic;
+  - KC-2 default neutrality;
+  - the classifier cannot report "cascade" without secondary liquidations or a chain (property test);
+  - identical arms are not classified as a cascade;
+  - dedup, ranking, and the proposal guard.
+- Full-suite result is in the delivery message.
+
+### 7. Recommended next experiment
+**C3-funding.** Set `funding_k` = 1e-4, a realistic funding magnitude, with whale 2000 BTC, leverage_use 1.0, fresh seeds 909–916, arms A/B: 32 runs, about 1 minute, 0 LLM calls.
+
+- It is tied for the best expected information per run.
+- It tests the root-cause gap directly: do leveraged agents stay crowded on the whale's side when funding is realistic?
+- If they do and there are still no breaches, the binding constraint is fuel and deleveraging speed, and C3-fuel is next.
+- `funding_k` changes the model, so the experiment must be pre-registered as a realism-relevant model variant and judged on realism before any cascade claim.
+
+---
+
 # Status: v0.4 Emergent Behavior Observatory (2026-11-03)
 
 This mission moved the work from strategy optimization to making **collective behaviour in the synthetic market

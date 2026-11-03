@@ -15,8 +15,8 @@
    "bytes": 2994
   },
   "realism_archive_v2.json": {
-   "sha256": "0a11130bcfb503238bfc94a4ac9f55fc36668e3a60b82c4e753570560b21d1c9",
-   "bytes": 4071
+   "sha256": "f4213254926beac2a3e6dfc1785e68c43b6eeb255da5b6e7239f20ad35d3a9d1",
+   "bytes": 6181
   },
   "realism_v1.json": {
    "sha256": "dcd31c688dfb80c25d51c994c39212f758fa94fdf060a9c72c3d2111023a413d",
@@ -36,6 +36,35 @@
   "volatility_v2_amplification.json": {
    "sha256": "21c0357c38d088328ce2888912006a1726d0cfa4ee3156e4de15f72216dc7758",
    "bytes": 36799,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "cascade_c2_pilot.json": {
+   "sha256": "bc0fabba8389af1240e6b3cd588dd0ba4bc31b80e2d862a93bd9022edf6f27cb",
+   "bytes": 290573,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "cascade_c2_confirmatory.json": {
+   "sha256": "291b1bbc651ff9111079b5a6fa8fb450eb33c7e32d1afbc727e78e1134281a70",
+   "bytes": 2251221,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "cascade_c2x_exploratory.json": {
+   "sha256": "269b30c52efbf98ec9b4e66f27ff916d936f5d2e069a3e282edfee072654a2f2",
+   "bytes": 404155,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "knowledge_c2.json": {
+   "sha256": "b233b31e52c4df08840d497849d8812b9ee4a6fb9324fb9b0e8d001aca790fca",
+   "bytes": 8785
+  },
+  "realism_v2_P1-funding-sensitivity.json": {
+   "sha256": "ac02621cd754302340697b15e5f9623a9a71a1ac82ac9260395c05e65a76936c",
+   "bytes": 15906,
+   "compact_copy": "runs replaced by runs_index"
+  },
+  "realism_v2_P3-leveraged-population.json": {
+   "sha256": "968a359ee209613d59024c0dfcdf3f32409482d97ba76d46f8bf8a4b219ef69b",
+   "bytes": 15825,
    "compact_copy": "runs replaced by runs_index"
   }
  }

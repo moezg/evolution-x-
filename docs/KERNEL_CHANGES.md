@@ -24,3 +24,22 @@ against the recorded baseline (`artifacts/baseline/b89ad877b237/manifest.json`).
   fingerprints. No bankruptcy occurs in those runs, so trade histories are unchanged.
 - **Remaining limitation:** pro-rata to cash is a simplification. Real venues use ADL ranking by profit and
   leverage.
+
+## KC-2: margin-breach record and secondary-liquidation counterfactual switch (2026-11-03)
+
+- **Why:** experiment C2 has to tell an agent's margin **breach** apart from an **executed** forced liquidation. It also has to run a causal counterfactual in which secondary liquidations are not executed.
+- **Change (`kernel/exchange.py` `run_liquidations`):**
+  - Every transition of an account into breach is appended to `Exchange.breaches` as {t, agent, equity, gross, executed}.
+  - Forced-liquidation fills are summed per account in `Exchange.forced_notional`.
+  - An optional `suppress(agent)` predicate records a breach without executing it.
+  - `Simulation` passes the predicate only when `SimConfig.execute_secondary_liquidations=False`, and only for the 256 agents. External (primary) accounts are always liquidated.
+  - Liquidation-log entries now carry `role` ∈ {primary, secondary}.
+- **Default behaviour unchanged:**
+  - With the switch at its default (`True`), the field is left out of `SimConfig.fingerprint()`, so config fingerprints stay as they were.
+  - The baseline manifest reproduces (`evox audit --verify artifacts/baseline/b89ad877b237/manifest.json`).
+  - Four registered v0.4 runs (one each from A, B and two from C) reproduce their run and config fingerprints.
+- **Nature:** `execute_secondary_liquidations=False` is a deliberately nonphysical counterfactual, for experiments only. Breached agents keep trading, and can only reduce positions while their equity is ≤ 0.
+- **Reference tests:**
+  - `tests/test_cascade.py::test_breach_vs_liquidation_and_primary_secondary_classification`
+  - `tests/test_cascade.py::test_kc2_default_is_neutral`
+  - `tests/test_cascade.py::test_primary_liquidation_survives_the_counterfactual_switch`

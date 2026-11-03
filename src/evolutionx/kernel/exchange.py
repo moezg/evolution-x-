@@ -7,11 +7,13 @@ circuit breakers, and performs forced liquidations. Emits immutable events.
 from __future__ import annotations
 
 from collections import deque
+from collections.abc import Callable
 from dataclasses import dataclass
 
 from .clearing import ClearingHouse
 from .events import SimEvent, Trade
 from .orderbook import BUY, SELL, Order, OrderBook
+from .units import notional
 
 
 @dataclass(slots=True)
@@ -57,6 +59,9 @@ class Exchange:
         self.initial_price = initial_price
         self.trades: list[Trade] = []
         self.events: list[SimEvent] = []
+        self.breached: set[int] = set()  # accounts currently below maintenance margin
+        self.breaches: list[dict[str, int | bool]] = []  # each transition into breach (executed or suppressed)
+        self.forced_notional: dict[int, int] = {}  # micro-USDT executed by forced liquidation, per account
         self._next_order_id = 0
         self._next_trade_id = 0
         self.agent_orders: dict[int, dict[int, Order]] = {}
@@ -183,25 +188,49 @@ class Exchange:
                 v.ref_mids.clear()
                 self.events.append(SimEvent(t, "circuit_breaker", -1, v.idx, {"mid": m, "ref": ref}))
 
-    def run_liquidations(self, t: int) -> list[int]:
-        """Force-close accounts below maintenance margin. Returns liquidated agent ids."""
+    def run_liquidations(self, t: int, suppress: Callable[[int], bool] | None = None) -> list[int]:
+        """Force-close accounts below maintenance margin. Returns liquidated agent ids.
+
+        Every transition of an account into breach is recorded in `breaches` (whether or not it is executed).
+        `suppress(agent)` -> True records the breach but does NOT execute the liquidation (KC-2: nonphysical
+        causal counterfactual for experiments only; default None keeps the original behaviour exactly).
+        """
         marks = self.marks()
         liquidated = []
         for agent, acct in self.clearing.accounts.items():
             if not self.clearing.needs_liquidation(agent, marks):
                 acct.liquidating = False
+                self.breached.discard(agent)
+                continue
+            skip = suppress is not None and suppress(agent)
+            if agent not in self.breached:
+                self.breached.add(agent)
+                self.breaches.append(
+                    {
+                        "t": t,
+                        "agent": agent,
+                        "equity": acct.equity(marks),
+                        "gross": acct.gross_notional(marks),
+                        "executed": not skip,
+                    }
+                )
+            if skip:
                 continue
             self.cancel_all(agent)
             eq_before = acct.equity(marks)
             new_episode = not acct.liquidating
             acct.liquidating = True
             closed = 0
+            n_trades = len(self.trades)
             for vi, pos in enumerate(list(acct.positions)):
                 if pos == 0 or self.venues[vi].halted(t):
                     continue
                 side = SELL if pos > 0 else BUY
                 self.submit(t, agent, vi, side, abs(pos), None, ioc=True, forced=True)
                 closed += abs(pos) - abs(acct.positions[vi])
+            self.forced_notional[agent] = self.forced_notional.get(agent, 0) + sum(
+                notional(tr.price, tr.qty) for tr in self.trades[n_trades:]
+            )
             cover = self.clearing.cover_bankruptcy(agent)
             if not any(acct.positions):
                 acct.liquidating = False

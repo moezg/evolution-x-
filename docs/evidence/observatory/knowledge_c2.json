@@ -1,0 +1,355 @@
+{
+ "created_utc": "2026-11-03T21:19:30+00:00",
+ "log": [
+  "skip: C2-H1: identical conditions already run (be3155251f0c622613d6:9d36d48f)"
+ ],
+ "mechanisms": [
+  {
+   "id": "C2-H1",
+   "statement": "a whale forced sale (1000-4000 BTC nominal, leverage_use 0.7/1.0) triggers a liquidation feedback cascade",
+   "status": "not_observed",
+   "evidence": {
+    "artifact": "artifacts/observatory/cascade_c2_confirmatory.json",
+    "protocol_sha256": "d9a0a4bbf6171d7ad3441fa7020b8fce9cbd474a2154af825f79e57cf70018bf",
+    "runs": 96,
+    "secondary_breaches_total": 0,
+    "threshold": "not observed within the tested range"
+   },
+   "classification": "mechanism",
+   "updated": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "C2x-funding-contrarian",
+   "statement": "funding-aware leveraged agents take the side opposite the whale's crowded long (funding term), removing cascade fuel",
+   "status": "exploratory_supported",
+   "evidence": {
+    "artifact": "artifacts/observatory/cascade_c2x_exploratory.json",
+    "mean_leveraged_long_of_16": {
+     "default": 0.0,
+     "neither": 0.875,
+     "no_funding_term": 7.375,
+     "no_social": 0.0
+    },
+    "note": "same seeds as C2; exploratory"
+   },
+   "classification": "mechanism",
+   "updated": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "C2x-voluntary-deleveraging",
+   "statement": "leveraged longs cut ~80% of exposure through ordinary momentum trading during the slow forced sale, before margin",
+   "status": "exploratory_supported",
+   "evidence": {
+    "scale_check": {
+     "leveraged_max_gross_usd_m_at_initial_capital": [
+      6.664000812923216,
+      6.007627957770779
+     ],
+     "primary_forced_notional_usd_m": [
+      87.038425683574,
+      95.45853609107401,
+      85.960825167031,
+      95.212341653178,
+      88.058467477373,
+      90.77766081363801,
+      96.955251540905,
+      87.749049777753
+     ]
+    },
+    "traces": "X2.deleveraging_traces"
+   },
+   "classification": "mechanism",
+   "updated": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "gap:funding-magnitude",
+   "statement": "funding of ~0.1% per 300 s interval during the whale build-up is ~1000x a typical 8-hour perp funding rate; with funding_sens 2000 it saturates the leveraged signal",
+   "status": "open",
+   "evidence": {
+    "config": "SimConfig.funding_k=0.1, funding_interval_s=300",
+    "funding_path_seed901": [
+     0.000665420784243129,
+     0.0011313857720865487
+    ]
+   },
+   "classification": "simulator_gap",
+   "updated": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "gap:leveraged-capacity",
+   "statement": "the whole leveraged sector can hold ~$6-7M gross vs a ~$90M primary forced sale (~7%)",
+   "status": "open",
+   "evidence": {
+    "leveraged_max_gross_usd_m_at_initial_capital": [
+     6.664000812923216,
+     6.007627957770779
+    ],
+    "primary_forced_notional_usd_m": [
+     87.038425683574,
+     95.45853609107401,
+     85.960825167031,
+     95.212341653178,
+     88.058467477373,
+     90.77766081363801,
+     96.955251540905,
+     87.749049777753
+    ]
+   },
+   "classification": "simulator_gap",
+   "updated": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "gap:whale-build-up-saturation",
+   "statement": "the whale_liquidation shock cannot build more than ~1500-1800 BTC (market-buy chunks partly unfilled); an experiment-tool limit, not a market mechanism",
+   "status": "open",
+   "evidence": {
+    "reached_btc": {
+     "1000btc|lu0.7": [
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936
+     ],
+     "1000btc|lu1.0": [
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936,
+      999.9936
+     ],
+     "2000btc|lu0.7": [
+      1496.4211,
+      1609.7837,
+      1544.6699,
+      1591.5749,
+      1514.2231,
+      1555.4861,
+      1678.517,
+      1465.3302
+     ],
+     "2000btc|lu1.0": [
+      1513.6703,
+      1630.5992,
+      1602.2039,
+      1630.8865,
+      1515.3593,
+      1579.4142,
+      1686.2234,
+      1498.6849
+     ],
+     "4000btc|lu0.7": [
+      1534.1157,
+      1677.1636,
+      1566.0817,
+      1633.2352,
+      1566.3909,
+      1571.8671,
+      1759.2716,
+      1532.9058
+     ],
+     "4000btc|lu1.0": [
+      1517.7067,
+      1699.2003,
+      1571.0367,
+      1648.3241,
+      1582.733,
+      1651.1122,
+      1801.2025,
+      1531.1398
+     ]
+    }
+   },
+   "classification": "simulator_gap",
+   "updated": "2026-11-03T21:19:30+00:00"
+  }
+ ],
+ "proposals": [
+  {
+   "id": "P1-funding-sensitivity",
+   "gap": "funding-magnitude",
+   "spec": {
+    "gap": "funding-magnitude",
+    "in_track_space": true,
+    "overrides": {
+     "news_impact": 0.0,
+     "param_overrides": {
+      "leveraged": {
+       "funding_sens": 2.0
+      }
+     },
+     "world_annual_vol": 0.33
+    },
+    "rationale": "agent-side proxy for realistic funding: same funding term with 1000x lower sensitivity"
+   },
+   "status": "proposed",
+   "created": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "P2-funding-rate",
+   "gap": "funding-magnitude",
+   "spec": {
+    "gap": "funding-magnitude",
+    "in_track_space": false,
+    "overrides": {
+     "funding_k": 0.0001
+    },
+    "rationale": "root-cause fix of the funding magnitude; funding_k is outside the frozen candidate space"
+   },
+   "status": "needs_human_rules_review",
+   "created": "2026-11-03T21:19:30+00:00"
+  },
+  {
+   "id": "P3-leveraged-population",
+   "gap": "leveraged-capacity",
+   "spec": {
+    "gap": "leveraged-capacity",
+    "in_track_space": true,
+    "overrides": {
+     "news_impact": 0.0,
+     "population_overrides": {
+      "leveraged": 64
+     },
+     "world_annual_vol": 0.33
+    },
+    "rationale": "4x leveraged speculators"
+   },
+   "status": "proposed",
+   "created": "2026-11-03T21:19:30+00:00"
+  }
+ ],
+ "proposal_specs": [
+  {
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "param_overrides": {
+     "leveraged": {
+      "funding_sens": 2.0
+     }
+    }
+   },
+   "rationale": "agent-side proxy for realistic funding: same funding term with 1000x lower sensitivity",
+   "gap": "funding-magnitude",
+   "in_track_space": true
+  },
+  {
+   "overrides": {
+    "funding_k": 0.0001
+   },
+   "rationale": "root-cause fix of the funding magnitude; funding_k is outside the frozen candidate space",
+   "gap": "funding-magnitude",
+   "in_track_space": false
+  },
+  {
+   "overrides": {
+    "world_annual_vol": 0.33,
+    "news_impact": 0.0,
+    "population_overrides": {
+     "leveraged": 64
+    }
+   },
+   "rationale": "4x leveraged speculators",
+   "gap": "leveraged-capacity",
+   "in_track_space": true
+  }
+ ],
+ "proposal_evaluations": [],
+ "next_experiment_ranking": [
+  {
+   "id": "C3-fuel",
+   "hypothesis_id": "C3-fuel",
+   "conditions": {
+    "whale_btc": 2000,
+    "leverage_use": 1.0,
+    "leveraged_agents": 64
+   },
+   "runs": 32,
+   "prior_positive": 0.15,
+   "why": "4x leveraged agents: more fuel, but funding still pushes them short",
+   "already_run": false,
+   "bits": 0.61,
+   "bits_per_100_runs": 1.906
+  },
+  {
+   "id": "C3-funding",
+   "hypothesis_id": "C3-funding",
+   "conditions": {
+    "whale_btc": 2000,
+    "leverage_use": 1.0,
+    "funding_k": 0.0001
+   },
+   "runs": 32,
+   "prior_positive": 0.15,
+   "why": "realistic funding magnitude: leveraged may stay long, but the sector is ~7% of the shock",
+   "already_run": false,
+   "bits": 0.61,
+   "bits_per_100_runs": 1.906
+  },
+  {
+   "id": "C2-mirror-squeeze",
+   "hypothesis_id": "C2-mirror",
+   "conditions": {
+    "shock": "short whale forced buy",
+    "whale_btc": 2000
+   },
+   "runs": 32,
+   "prior_positive": 0.1,
+   "why": "funding would make leveraged agents long against a short whale: the same anti-crowding",
+   "already_run": false,
+   "bits": 0.469,
+   "bits_per_100_runs": 1.466
+  },
+  {
+   "id": "C3-fuel-x-funding",
+   "hypothesis_id": "C3-factorial",
+   "conditions": {
+    "whale_btc": 2000,
+    "leverage_use": 1.0,
+    "leveraged_agents": [
+     16,
+     64
+    ],
+    "funding_k": [
+     0.1,
+     0.0001
+    ]
+   },
+   "runs": 64,
+   "prior_positive": 0.35,
+   "why": "both blockers removed in one cell, plus the interaction; seeds 909-916 (fresh)",
+   "already_run": false,
+   "bits": 0.934,
+   "bits_per_100_runs": 1.459
+  },
+  {
+   "id": "C2-more-seeds",
+   "hypothesis_id": "C2-H1",
+   "conditions": {
+    "grid": "C2",
+    "whale_btc": [
+     1000,
+     2000,
+     4000
+    ],
+    "leverage_use": [
+     0.7,
+     1.0
+    ]
+   },
+   "runs": 96,
+   "prior_positive": 0.02,
+   "why": "same grid: 0 breaches in 96 runs, a repeat is nearly uninformative (and blocked as a duplicate)",
+   "already_run": true,
+   "bits": 0.141,
+   "bits_per_100_runs": 0.147
+  }
+ ],
+ "note": "priors in the ranking are explicit judgement inputs; proposals are never applied automatically"
+}

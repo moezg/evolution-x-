@@ -351,6 +351,31 @@ def cmd_observatory(a: argparse.Namespace) -> None:
 
         r = run_exp(tuple(a.only.split(",")))
         _print({e: {h: v.get("verdict") for h, v in r[e]["hypotheses"].items()} for e in ("A", "B", "C") if e in r})
+    elif a.action == "cascade":
+        from .observatory import cascade
+
+        r = cascade.run(a.role)
+        _print({c: v["classification"]["label"] for c, v in r["configs"].items()} | {"threshold": r["threshold"]})
+    elif a.action == "cascade-x":
+        from .observatory import cascade
+
+        r = cascade.run_x()
+        _print(
+            {
+                "X1_mean_leveraged_long": r["X1"]["mean_leveraged_long"],
+                "X2": {c: v["classification"]["label"] for c, v in r["X2"]["configs"].items()},
+            }
+        )
+    elif a.action == "knowledge":
+        from .observatory import cascade
+
+        r = cascade.ingest_knowledge(evaluate=not a.no_evaluate)
+        _print(
+            {
+                "log": r["log"],
+                "next": [(n["id"], n["bits_per_100_runs"], n["already_run"]) for n in r["next_experiment_ranking"]],
+            }
+        )
     elif a.action == "realism":
         from .observatory import realism
 
@@ -415,7 +440,11 @@ def main() -> None:
     sp.add_argument("--question", default="What mechanisms drive the observed dynamics, and what should we test next?")
     sp.add_argument("--experiment", default=None)
     sp = add("observatory", cmd_observatory)
-    sp.add_argument("action", choices=["audit", "volatility", "experiments", "realism"])
+    sp.add_argument(
+        "action", choices=["audit", "volatility", "experiments", "realism", "cascade", "cascade-x", "knowledge"]
+    )
+    sp.add_argument("--role", default="confirmatory", choices=["pilot", "confirmatory"], help="cascade: C2 role")
+    sp.add_argument("--no-evaluate", action="store_true", help="knowledge: skip realism evaluation of proposals")
     sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
     sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
     sp = add("backtest", cmd_backtest)

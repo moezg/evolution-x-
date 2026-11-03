@@ -1,0 +1,26 @@
+{
+  "name": "cascade-c2x-v1",
+  "written_utc": "2026-11-03T21:13:42Z",
+  "status": "EXPLORATORY. Written after the C2 confirmatory null and before any C2x run. Cannot confirm or refute C2 H1; uses the same seeds 901-908, so it is NOT independent evidence.",
+  "motivation": "C2 confirmatory: 0 breaches in 96 runs; all 768 leveraged agent-observations were SHORT at the shock. Inspection (seeds 901-902): with the whale build-up, funding turns positive (~+0.12%/interval) and leveraged signals are -0.9 to -1.0 with neighbour stance -0.84 to -0.94; without the whale, positioning is mixed.",
+  "explanation_under_test": "leveraged agents take the opposite side of the whale because (i) their funding term (signal -= clip(funding x funding_sens, +-0.5)) and/or (ii) social herding push them short; therefore the forced sale hits no leveraged longs and no downward cascade can start",
+  "X1_positioning": {
+    "design": "whale 2000 BTC (nominal), leverage_use 1.0, base R, runs stop at 899 s (before the shock), seeds 901-908",
+    "conditions": {
+      "default": {},
+      "no_funding_term": {"param_overrides.leveraged.funding_sens": 0},
+      "no_social": {"social_enabled": false, "imitation_enabled": false},
+      "neither": {"param_overrides.leveraged.funding_sens": 0, "social_enabled": false, "imitation_enabled": false}
+    },
+    "measure": "number of the 16 leveraged agents long / short at 899 s; mean margin distance downward of longs",
+    "prediction": "default: >= 14/16 short in every seed; removing the funding term makes leveraged agents long or mixed (mean longs >= 8/16)",
+    "refuted_if": "removing the funding term leaves mean longs < 4/16 AND removing social also leaves mean longs < 4/16"
+  },
+  "X2_cascade_with_channel_removed": {
+    "design": "same as C2 arms A/B (2000 BTC nominal, leverage_use 1.0, seeds 901-908) under the X1 condition with the most leveraged longs (chosen by the X1 result by the rule: max mean longs; tie -> no_funding_term)",
+    "nature": "counterfactual model variant for explanation testing only; it is NOT a proposed simulator change and cannot be promoted",
+    "measure_and_rules": "identical to cascade_c2_v1 (classification rule, incremental drop, chain definition)",
+    "prediction": "if positioning is the only blocker, secondary breaches appear in arm B and secondary liquidations in arm A in >= 2/8 seeds",
+    "refuted_if": "0/8 seeds with secondary breaches although leveraged agents are long at the shock -> margin distance (not positioning) is the binding constraint"
+  }
+}

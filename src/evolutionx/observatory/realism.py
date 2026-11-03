@@ -137,7 +137,7 @@ def update_archive(arc: dict[str, Any], entry: dict[str, Any], tol: dict[str, fl
     return arc
 
 
-def evaluate(candidates: dict[str, dict[str, Any]], workers: int = 4) -> dict[str, Any]:
+def evaluate(candidates: dict[str, dict[str, Any]], workers: int = 4, tag: str | None = None) -> dict[str, Any]:
     spec, sha = rules()
     arc = load_archive(sha)
     incumbents = spec["incumbents"]
@@ -187,7 +187,8 @@ def evaluate(candidates: dict[str, dict[str, Any]], workers: int = 4) -> dict[st
         "cost": {"runs": len(rows), "wall_s": round(time.perf_counter() - t0, 1), "llm_calls": 0},
         "runs": rows,
     }
-    (ARCHIVE.parent / f"realism_{VERSION}.json").write_text(json.dumps(_clean(rep), indent=2, default=float))
+    name = f"realism_{VERSION}.json" if tag is None else f"realism_{VERSION}_{tag}.json"  # batches never overwrite
+    (ARCHIVE.parent / name).write_text(json.dumps(_clean(rep), indent=2, default=float))
     return rep
 
 

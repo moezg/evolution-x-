@@ -118,3 +118,30 @@ Statuses use the mission vocabulary: **IMPLEMENTED / PARTIAL / MISSING / UNVERIF
 | Track cannot rewrite its rules | sha256 lock and allow-list | `pytest tests/test_observatory.py -k "rules or touch"` | — | verified |
 | Dashboard | `/api/observatory/*` (`api/observatory_routes.py`), `web/src/app/observatory` | `make dev` | — | see delivery message |
 | Holdout / LLM budget untouched | no code path in `observatory/` reads vault v2 or calls an LLM | `grep -r "vault\|claude" src/evolutionx/observatory` | — | verified by inspection (the only match is a descriptive string in `audit.py`) |
+
+## v0.5: liquidation cascade threshold mission (2026-11-03)
+
+### Inspection before implementation (code facts used to design C2)
+| Question | Finding | Code |
+|---|---|---|
+| Margin accounting | Breach when equity < 0.02 × gross notional, checked once per 1 s tick on mids. The whole position goes out as a forced IOC market order on each non-halted venue; while the account stays in breach, the unfilled remainder is retried every tick | `kernel/clearing.py` `needs_liquidation`; `kernel/exchange.py` `run_liquidations` |
+| Margin distance vs leverage | Breach after a uniform move x with E + N·x < mm·G·(1+x), so x* = (mm·G − E)/(N − mm·G). At 20× long that is about 3% | `observatory/cascade.py` `margin_distance`; property test against the engine |
+| Meaning of `leverage_use` | Target = signal × min(equity, 2 × capital) × 20 × leverage_use; flat if \|signal\| < 0.25. Each agent's value is the centre ±30%, clipped to [0.1, 1.0]. Pre-trade cap: gross ≤ 20 × equity | `strategies/leveraged.py`, `agents/population.py`, `kernel/clearing.py` `can_take` |
+| Other exits before margin | Stop-loss at about 150 bps, checked only on wake; funding term subtracted from the signal | `strategies/leveraged.py` |
+| `size_scale` defect | C2 varies `param_overrides.leveraged.leverage_use`, never `size_scale`; `size_scale['leveraged']` raises | `agents/population.py` (v0.4) |
+| Primary shock | External whale builds a long (market-buy chunks from 60 s to shock − 120 s), its collateral is cut to 1% of gross, and the engine liquidates it. **The build-up saturates near 1,500–1,800 BTC** | `sim/simulation.py` `_setup_whale`, `_shock` |
+
+### Requirements
+| Requirement | Implementation | Command | Artifact | Status |
+|---|---|---|---|---|
+| Pre-registered protocol | `evals/frozen/cascade_c2_v1.json` (+ amendments 1–2 before confirmatory runs) | — | — | written before runs |
+| Breach vs executed liquidation; primary vs secondary | KC-2 (`docs/KERNEL_CHANGES.md`) | — | `breaches`, `role` in each run | verified (tests) |
+| Arm B counterfactual | `SimConfig.execute_secondary_liquidations` | — | — | verified; default neutral (baseline and v0.4 fingerprints reproduce) |
+| C2 executable, reproducible seeds | `observatory/cascade.py` | `evox observatory cascade --role pilot` / `--role confirmatory` | `cascade_c2_pilot.json`, `cascade_c2_confirmatory.json` | executed (12 + 96 runs) |
+| Causal comparison | paired A − B, per-second trade-tape hashes for divergence | same | same | executed: 48/48 pairs identical |
+| Threshold analysis | `_threshold`, Wilson intervals, no curve fit | same | `threshold` | executed: not observed within the tested range |
+| Mechanism (exploratory) | X1 positioning ablation, X2 counterfactual variant, deleveraging traces, scale check | `evox observatory cascade-x` | `cascade_c2x_exploratory.json` | executed (48 runs) |
+| Research memory / self-evolution | `observatory/knowledge.py` on `research/memory.py` | `evox observatory knowledge` | `knowledge.db`, `knowledge_c2.json` | executed; proposals evaluated, none applied |
+| API | `/api/observatory/cascade`, `/cascade/pair`, `/knowledge` | — | — | executed |
+| Dashboard | `web/src/app/observatory/cascade` | `make dev` | — | see delivery message |
+| No holdout / LLM / exchange | no code path in `observatory/` touches the vault, an LLM or a network | `grep -rn "vault\|claude\|httpx" src/evolutionx/observatory` | — | verified by inspection |

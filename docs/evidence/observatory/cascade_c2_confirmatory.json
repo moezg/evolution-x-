@@ -1,0 +1,2723 @@
+{
+ "configs": {
+  "1000btc|lu0.7": {
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.024869688399778475,
+   "direct_impact_mean": -0.003976358198397839,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.02617828944557421,
+     "drop_B": -0.02617828944557421,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.002690390091184769,
+     "direct_impact_B": -0.002690390091184769,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.02518222370462453,
+     "drop_B": -0.02518222370462453,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.002970371650022452,
+     "direct_impact_B": -0.002970371650022452,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.025942538589861508,
+     "drop_B": -0.025942538589861508,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0069611038235454226,
+     "direct_impact_B": -0.0069611038235454226,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.023300910324502544,
+     "drop_B": -0.023300910324502544,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.004928553882276976,
+     "direct_impact_B": -0.004928553882276976,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.021814028462609936,
+     "drop_B": -0.021814028462609936,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0032707864096988004,
+     "direct_impact_B": -0.0032707864096988004,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.024487795797242695,
+     "drop_B": -0.024487795797242695,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.004726417933675897,
+     "direct_impact_B": -0.004726417933675897,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.023762604015376887,
+     "drop_B": -0.023762604015376887,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0021384669422613856,
+     "direct_impact_B": -0.0021384669422613856,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.028289116858435492,
+     "drop_B": -0.028289116858435492,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.00412477485451701,
+     "direct_impact_B": -0.00412477485451701,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "2000btc|lu0.7": {
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.033110081500543384,
+   "direct_impact_mean": -0.011590765002649023,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1496.4211,
+    1609.7837,
+    1544.6699,
+    1591.5749,
+    1514.2231,
+    1555.4861,
+    1678.517,
+    1465.3302
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.032699150021892165,
+     "drop_B": -0.032699150021892165,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.00868065209744695,
+     "direct_impact_B": -0.00868065209744695,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03410720916031318,
+     "drop_B": -0.03410720916031318,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012387977920335747,
+     "direct_impact_B": -0.012387977920335747,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03506699105801159,
+     "drop_B": -0.03506699105801159,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.01555049915871387,
+     "direct_impact_B": -0.01555049915871387,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03285516387019394,
+     "drop_B": -0.03285516387019394,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.013699371005288508,
+     "direct_impact_B": -0.013699371005288508,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.028248567030721428,
+     "drop_B": -0.028248567030721428,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008632807958774746,
+     "direct_impact_B": -0.008632807958774746,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03024779967840452,
+     "drop_B": -0.03024779967840452,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.01074081980702124,
+     "direct_impact_B": -0.01074081980702124,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.032396227244672615,
+     "drop_B": -0.032396227244672615,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008646668987365436,
+     "direct_impact_B": -0.008646668987365436,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03925954394013764,
+     "drop_B": -0.03925954394013764,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.014387323086245685,
+     "direct_impact_B": -0.014387323086245685,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "4000btc|lu0.7": {
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.03386659652056914,
+   "direct_impact_mean": -0.011320775394111873,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1534.1157,
+    1677.1636,
+    1566.0817,
+    1633.2352,
+    1566.3909,
+    1571.8671,
+    1759.2716,
+    1532.9058
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03444888159972914,
+     "drop_B": -0.03444888159972914,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008684911397956796,
+     "direct_impact_B": -0.008684911397956796,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.035862993552498335,
+     "drop_B": -0.035862993552498335,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012633818245494699,
+     "direct_impact_B": -0.012633818245494699,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.031438983420237654,
+     "drop_B": -0.031438983420237654,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011791008707229267,
+     "direct_impact_B": -0.011791008707229267,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03267130197180035,
+     "drop_B": -0.03267130197180035,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012997874356595163,
+     "direct_impact_B": -0.012997874356595163,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03107119495776267,
+     "drop_B": -0.03107119495776267,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.010204739841576327,
+     "direct_impact_B": -0.010204739841576327,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.031222737979752835,
+     "drop_B": -0.031222737979752835,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011637451404567178,
+     "direct_impact_B": -0.011637451404567178,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03430575360885846,
+     "drop_B": -0.03430575360885846,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.009754528198162693,
+     "direct_impact_B": -0.009754528198162693,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.039910925073913694,
+     "drop_B": -0.039910925073913694,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012861871001312863,
+     "direct_impact_B": -0.012861871001312863,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "1000btc|lu1.0": {
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.024946336934225655,
+   "direct_impact_mean": -0.003998326629211069,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936,
+    999.9936
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.026204798939910567,
+     "drop_B": -0.026204798939910567,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0023837209495702893,
+     "direct_impact_B": -0.0023837209495702893,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.024858564001835615,
+     "drop_B": -0.024858564001835615,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.002874010729174703,
+     "direct_impact_B": -0.002874010729174703,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.026089768019211923,
+     "drop_B": -0.026089768019211923,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.006971707568388608,
+     "direct_impact_B": -0.006971707568388608,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.02498777909106953,
+     "drop_B": -0.02498777909106953,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0052088929746854085,
+     "direct_impact_B": -0.0052088929746854085,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.021478668162893455,
+     "drop_B": -0.021478668162893455,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0033062145672874133,
+     "direct_impact_B": -0.0033062145672874133,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.02358697214829608,
+     "drop_B": -0.02358697214829608,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.004732940554488918,
+     "direct_impact_B": -0.004732940554488918,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.023413839432789962,
+     "drop_B": -0.023413839432789962,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0019569455314742967,
+     "direct_impact_B": -0.0019569455314742967,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.028950305677798105,
+     "drop_B": -0.028950305677798105,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.0045521801586189126,
+     "direct_impact_B": -0.0045521801586189126,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "2000btc|lu1.0": {
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.034198035806898966,
+   "direct_impact_mean": -0.011930182874852688,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1513.6703,
+    1630.5992,
+    1602.2039,
+    1630.8865,
+    1515.3593,
+    1579.4142,
+    1686.2234,
+    1498.6849
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.032947385408634844,
+     "drop_B": -0.032947385408634844,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008612825996042406,
+     "direct_impact_B": -0.008612825996042406,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03336027772921624,
+     "drop_B": -0.03336027772921624,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011013408484212395,
+     "direct_impact_B": -0.011013408484212395,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03159210996021378,
+     "drop_B": -0.03159210996021378,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012110100204509977,
+     "direct_impact_B": -0.012110100204509977,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03531869536154275,
+     "drop_B": -0.03531869536154275,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.016643927404047076,
+     "direct_impact_B": -0.016643927404047076,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.028076172762817264,
+     "drop_B": -0.028076172762817264,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008377255084239477,
+     "direct_impact_B": -0.008377255084239477,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03044436269276818,
+     "drop_B": -0.03044436269276818,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.010617959380852304,
+     "direct_impact_B": -0.010617959380852304,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03314926304668209,
+     "drop_B": -0.03314926304668209,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008669936945913226,
+     "direct_impact_B": -0.008669936945913226,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.04869601949331659,
+     "drop_B": -0.04869601949331659,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.01939604949900464,
+     "direct_impact_B": -0.01939604949900464,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  },
+  "4000btc|lu1.0": {
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "n_seeds": 8,
+   "seeds_with_secondary_liquidation": 0,
+   "wilson95": [
+    0.0,
+    0.324
+   ],
+   "seeds_with_chain": 0,
+   "incremental_drop": {
+    "n": 8,
+    "mean": 0.0,
+    "std": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "t_lo": 0.0,
+    "t_hi": 0.0,
+    "frac_positive": 0.0,
+    "effect_size_dz": null
+   },
+   "incremental_at": {
+    "10": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "60": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    },
+    "300": {
+     "n": 8,
+     "mean": 0.0,
+     "std": 0.0,
+     "lo": 0.0,
+     "hi": 0.0,
+     "t_lo": 0.0,
+     "t_hi": 0.0,
+     "frac_positive": 0.0,
+     "effect_size_dz": null
+    }
+   },
+   "direct_drop_B_mean": -0.03552496930186094,
+   "direct_impact_mean": -0.01310173971140513,
+   "secondary_liquidations_mean": 0.0,
+   "secondary_breaches_A_mean": 0.0,
+   "secondary_breaches_B_mean": 0.0,
+   "stop_losses_A_mean": 0.0,
+   "min_margin_distance_leveraged_down": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "whale_position_btc_at_shock": [
+    1517.7067,
+    1699.2003,
+    1571.0367,
+    1648.3241,
+    1582.733,
+    1651.1122,
+    1801.2025,
+    1531.1398
+   ],
+   "all_pre_shock_identical": true,
+   "classification": {
+    "label": "no_secondary_liquidations",
+    "criteria": {
+     "a_secondary_in_2of8": false,
+     "b_t_interval_below_0": false,
+     "c_ge_10pct_of_direct": false,
+     "d_chain_in_2of8": false
+    }
+   },
+   "pairs": [
+    {
+     "seed": 901,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.033439657787715626,
+     "drop_B": -0.033439657787715626,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.008785895243754283,
+     "direct_impact_B": -0.008785895243754283,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 902,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03506561177833911,
+     "drop_B": -0.03506561177833911,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.012603755089519053,
+     "direct_impact_B": -0.012603755089519053,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 903,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.0348015045414064,
+     "drop_B": -0.0348015045414064,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.015576608224369015,
+     "direct_impact_B": -0.015576608224369015,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 904,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.031235257708227215,
+     "drop_B": -0.031235257708227215,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011943921783461375,
+     "direct_impact_B": -0.011943921783461375,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 905,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.032568420187368274,
+     "drop_B": -0.032568420187368274,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011666224779812273,
+     "direct_impact_B": -0.011666224779812273,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 906,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.03136652259874395,
+     "drop_B": -0.03136652259874395,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.011773471790958223,
+     "direct_impact_B": -0.011773471790958223,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 907,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.042261493881073475,
+     "drop_B": -0.042261493881073475,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.015244280890677642,
+     "direct_impact_B": -0.015244280890677642,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    },
+    {
+     "seed": 908,
+     "secondary_liquidations_A": 0,
+     "secondary_breaches_A": 0,
+     "secondary_breaches_B": 0,
+     "induced_breaches": [],
+     "chain_observed": false,
+     "drop_A": -0.04346128593201348,
+     "drop_B": -0.04346128593201348,
+     "incremental_drop": 0.0,
+     "incremental_at": {
+      "10": 0.0,
+      "60": 0.0,
+      "300": 0.0
+     },
+     "direct_impact_A": -0.01721975988868918,
+     "direct_impact_B": -0.01721975988868918,
+     "first_divergence_s": null,
+     "pre_shock_identical": true,
+     "stop_losses_A": 0,
+     "stop_losses_B": 0
+    }
+   ]
+  }
+ },
+ "threshold": {
+  "lu0.7": {
+   "seeds_with_secondary_by_size": {
+    "1000": 0,
+    "2000": 0,
+    "4000": 0
+   },
+   "onset_bracket_btc": null,
+   "statement": "threshold not observed within the tested range",
+   "monotone_in_size": true,
+   "shape": "not applicable (no onset)"
+  },
+  "lu1.0": {
+   "seeds_with_secondary_by_size": {
+    "1000": 0,
+    "2000": 0,
+    "4000": 0
+   },
+   "onset_bracket_btc": null,
+   "statement": "threshold not observed within the tested range",
+   "monotone_in_size": true,
+   "shape": "not applicable (no onset)"
+  }
+ },
+ "protocol": "cascade-c2-v1",
+ "protocol_sha256": "d9a0a4bbf6171d7ad3441fa7020b8fce9cbd474a2154af825f79e57cf70018bf",
+ "role": "confirmatory",
+ "label": "CONFIRMATORY - SYNTHETIC; no historical data, no holdout, no LLM",
+ "created_utc": "2026-11-03T21:12:49+00:00",
+ "cost": {
+  "runs": 96,
+  "wall_s": 135.0,
+  "cpu_s_sum": 527.4,
+  "llm_calls": 0
+ },
+ "runs_index": [
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "e93c2236986cf1d4",
+   "run_fingerprint": "f539e86327136824",
+   "wall_s": 5.66
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "247461b620d378b1",
+   "run_fingerprint": "f539e86327136824",
+   "wall_s": 5.77
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "21f040258eab14e4",
+   "run_fingerprint": "4d823273bc09fc94",
+   "wall_s": 5.41
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "9cb133d51cc21a1c",
+   "run_fingerprint": "4d823273bc09fc94",
+   "wall_s": 5.83
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "26c6236924e3290d",
+   "run_fingerprint": "1162eb2d6cbbb0d2",
+   "wall_s": 5.03
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "079ab5c55b9ab900",
+   "run_fingerprint": "1162eb2d6cbbb0d2",
+   "wall_s": 5.14
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "319f8a556774b0e9",
+   "run_fingerprint": "3ad14534bd9f2f46",
+   "wall_s": 6.43
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "a14d13d8de50cda4",
+   "run_fingerprint": "3ad14534bd9f2f46",
+   "wall_s": 6.13
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "78eea9d1cbbc0708",
+   "run_fingerprint": "3d3e733a4bc56abd",
+   "wall_s": 5.78
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "c16fd1173a9a0d34",
+   "run_fingerprint": "3d3e733a4bc56abd",
+   "wall_s": 5.72
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "2a60ec83d322b4b4",
+   "run_fingerprint": "ad6ea565e8b49875",
+   "wall_s": 5.87
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "a518a82443e2ef60",
+   "run_fingerprint": "ad6ea565e8b49875",
+   "wall_s": 5.4
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "76e4a4cae11ee14a",
+   "run_fingerprint": "9fcb72f054957c05",
+   "wall_s": 5.73
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "77b1c5f71e8872d1",
+   "run_fingerprint": "9fcb72f054957c05",
+   "wall_s": 5.51
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "592282967d312170",
+   "run_fingerprint": "b8e69b4cc20bd2ae",
+   "wall_s": 6.15
+  },
+  {
+   "config": "1000btc|lu0.7",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "01ff739c6672dfa4",
+   "run_fingerprint": "b8e69b4cc20bd2ae",
+   "wall_s": 6.73
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "6face9ba19ed43e8",
+   "run_fingerprint": "a10691cbe7b43516",
+   "wall_s": 5.53
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "3d5c799661a9ca9a",
+   "run_fingerprint": "a10691cbe7b43516",
+   "wall_s": 5.28
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "38be38af5d02e417",
+   "run_fingerprint": "f585f1978d008654",
+   "wall_s": 5.79
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "2bdf30f710a28c9f",
+   "run_fingerprint": "f585f1978d008654",
+   "wall_s": 5.7
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "6cc3c6916b65cab1",
+   "run_fingerprint": "a81d29a0d2f47f9b",
+   "wall_s": 5.22
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "b6590d5efa56ad33",
+   "run_fingerprint": "a81d29a0d2f47f9b",
+   "wall_s": 5.19
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0ccbb3a8e5c13736",
+   "run_fingerprint": "82b35b4b35680e9c",
+   "wall_s": 6.41
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "d87a24977cc04572",
+   "run_fingerprint": "82b35b4b35680e9c",
+   "wall_s": 6.56
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "4c1088168c6275b3",
+   "run_fingerprint": "1920199fc34e1a3d",
+   "wall_s": 5.92
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "4607fbb3ec8ed2c7",
+   "run_fingerprint": "1920199fc34e1a3d",
+   "wall_s": 4.93
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "bdb60d7657bbca1b",
+   "run_fingerprint": "9a2bd63006f99c3f",
+   "wall_s": 5.17
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "36ba44a3f0179260",
+   "run_fingerprint": "9a2bd63006f99c3f",
+   "wall_s": 4.87
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "8984d6010d0eb493",
+   "run_fingerprint": "3bcdaac536e04034",
+   "wall_s": 5.22
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "471d96c8c5554743",
+   "run_fingerprint": "3bcdaac536e04034",
+   "wall_s": 5.33
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "65e2b19d7b01d6b0",
+   "run_fingerprint": "c08ce9dd8f45f345",
+   "wall_s": 5.34
+  },
+  {
+   "config": "1000btc|lu1.0",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 1000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "c8fd77e0c773cfda",
+   "run_fingerprint": "c08ce9dd8f45f345",
+   "wall_s": 5.29
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "1c8ca5b93c81bc1f",
+   "run_fingerprint": "5495fe6673eab118",
+   "wall_s": 5.33
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "820f510d436c13e0",
+   "run_fingerprint": "5495fe6673eab118",
+   "wall_s": 5.49
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "3ed870ca13b5196c",
+   "run_fingerprint": "edf831a4aab3d746",
+   "wall_s": 5.92
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "95a7e0df9b0a3a4e",
+   "run_fingerprint": "edf831a4aab3d746",
+   "wall_s": 5.81
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "f7274a3bddba8f4e",
+   "run_fingerprint": "29fe00c19b452fe2",
+   "wall_s": 5.69
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "87d959ebb233370e",
+   "run_fingerprint": "29fe00c19b452fe2",
+   "wall_s": 5.82
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "a986996ba189e8e3",
+   "run_fingerprint": "821875f09cb78aac",
+   "wall_s": 5.51
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "f60a2c67029ae586",
+   "run_fingerprint": "821875f09cb78aac",
+   "wall_s": 5.95
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "a0df415c84fc1e49",
+   "run_fingerprint": "9c39671d9f8bdd83",
+   "wall_s": 4.96
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "c5bc40ffcaff700a",
+   "run_fingerprint": "9c39671d9f8bdd83",
+   "wall_s": 5.29
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "4d434f6a5d290cf3",
+   "run_fingerprint": "9bb335ba38bebf8d",
+   "wall_s": 5.16
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "0696aa0fa18cf382",
+   "run_fingerprint": "9bb335ba38bebf8d",
+   "wall_s": 5.15
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "da1e3fd756a5d2f8",
+   "run_fingerprint": "6c877d76dd0c7b15",
+   "wall_s": 5.56
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "5d93a6acacfa8c2b",
+   "run_fingerprint": "6c877d76dd0c7b15",
+   "wall_s": 5.03
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "f9f79d87b2ffba4a",
+   "run_fingerprint": "c5382051a7da4932",
+   "wall_s": 5.45
+  },
+  {
+   "config": "2000btc|lu0.7",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "79aa4d96ab6db7de",
+   "run_fingerprint": "c5382051a7da4932",
+   "wall_s": 5.29
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "ae02cbea22bd5517",
+   "run_fingerprint": "f39d5957fe4d88d4",
+   "wall_s": 5.55
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "50ef195f91cf764a",
+   "run_fingerprint": "f39d5957fe4d88d4",
+   "wall_s": 4.94
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "9db3b1e0ab3a17d6",
+   "run_fingerprint": "5283da6c9c2649f6",
+   "wall_s": 5.59
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "808a7d6d454dd904",
+   "run_fingerprint": "5283da6c9c2649f6",
+   "wall_s": 5.46
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "44c883d8e8bd66c2",
+   "run_fingerprint": "1b222dbdc5f02e5e",
+   "wall_s": 4.9
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "ed6469e7dc179441",
+   "run_fingerprint": "1b222dbdc5f02e5e",
+   "wall_s": 5.13
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "de4c457d974a09f0",
+   "run_fingerprint": "89ba0b6416b23387",
+   "wall_s": 5.71
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "177bc53369d8ced8",
+   "run_fingerprint": "89ba0b6416b23387",
+   "wall_s": 5.85
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "307da098e0a25c1a",
+   "run_fingerprint": "e27cc6fec7fd0226",
+   "wall_s": 4.94
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "920c2ce3dc694355",
+   "run_fingerprint": "e27cc6fec7fd0226",
+   "wall_s": 5.78
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "4d939fcdba7d0019",
+   "run_fingerprint": "c83883560e97ae0e",
+   "wall_s": 6.04
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "504b0eb2d0d2d1dc",
+   "run_fingerprint": "c83883560e97ae0e",
+   "wall_s": 5.8
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "881a058de7911657",
+   "run_fingerprint": "8b837125201c7fda",
+   "wall_s": 5.18
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "c154460b966d88f5",
+   "run_fingerprint": "8b837125201c7fda",
+   "wall_s": 5.46
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "e0d64913b158cfef",
+   "run_fingerprint": "5b41b5500006713e",
+   "wall_s": 5.56
+  },
+  {
+   "config": "2000btc|lu1.0",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 2000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "29cc3cf874a09ab7",
+   "run_fingerprint": "5b41b5500006713e",
+   "wall_s": 5.33
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "0c5e629b8f352965",
+   "run_fingerprint": "ec37ab76e27f5aa6",
+   "wall_s": 5.62
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "cb00cc1c6fd96600",
+   "run_fingerprint": "ec37ab76e27f5aa6",
+   "wall_s": 5.36
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "2087b83bd881f482",
+   "run_fingerprint": "86b8d35dae82a2b0",
+   "wall_s": 5.31
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "70887797f5fbecd1",
+   "run_fingerprint": "86b8d35dae82a2b0",
+   "wall_s": 5.61
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "c07bd79b0a095d94",
+   "run_fingerprint": "4af7fa1acfbb544d",
+   "wall_s": 4.7
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "67c7b8e7997d28e1",
+   "run_fingerprint": "4af7fa1acfbb544d",
+   "wall_s": 4.86
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "68cffacb07562904",
+   "run_fingerprint": "2727d5d2e803805d",
+   "wall_s": 6.14
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "765ccdda449ca905",
+   "run_fingerprint": "2727d5d2e803805d",
+   "wall_s": 5.87
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "66021ea1704329e0",
+   "run_fingerprint": "79a681f4785cc5bb",
+   "wall_s": 5.21
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "2a0ea0f8ae7cefe3",
+   "run_fingerprint": "79a681f4785cc5bb",
+   "wall_s": 5.76
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "44453d7e1a594a61",
+   "run_fingerprint": "3b259a8970d06880",
+   "wall_s": 4.98
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "971c02fdddf0895d",
+   "run_fingerprint": "3b259a8970d06880",
+   "wall_s": 5.33
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "9027bfab3606d6a3",
+   "run_fingerprint": "0c654f21d2d37eee",
+   "wall_s": 5.2
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "80e3f09380cd829e",
+   "run_fingerprint": "0c654f21d2d37eee",
+   "wall_s": 4.67
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "2750b05d88582739",
+   "run_fingerprint": "2a34f7ad57371ef0",
+   "wall_s": 5.27
+  },
+  {
+   "config": "4000btc|lu0.7",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 0.7,
+   "config_fingerprint": "0279de1549452a58",
+   "run_fingerprint": "2a34f7ad57371ef0",
+   "wall_s": 5.48
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "2a08724e7274a03f",
+   "run_fingerprint": "683d6888b012c515",
+   "wall_s": 5.04
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 901,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "57c4458b3602195b",
+   "run_fingerprint": "683d6888b012c515",
+   "wall_s": 4.93
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0107709cb8f6ba62",
+   "run_fingerprint": "4cb5724cc2ea1799",
+   "wall_s": 5.4
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 902,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "aba091bf9d848033",
+   "run_fingerprint": "4cb5724cc2ea1799",
+   "wall_s": 6.04
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "17d416d244717c7d",
+   "run_fingerprint": "9e03c7ce54113edb",
+   "wall_s": 5.74
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 903,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "4b339b67c0dc65b8",
+   "run_fingerprint": "9e03c7ce54113edb",
+   "wall_s": 5.78
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "d5970369ebceb191",
+   "run_fingerprint": "235509fbdedcc7c6",
+   "wall_s": 5.24
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 904,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "2dc7e4118bbf49a5",
+   "run_fingerprint": "235509fbdedcc7c6",
+   "wall_s": 5.85
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "02af89f822ca53f1",
+   "run_fingerprint": "565f796b1119d030",
+   "wall_s": 5.95
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 905,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "754cd9f6532521e9",
+   "run_fingerprint": "565f796b1119d030",
+   "wall_s": 5.51
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "a390f65b57d37325",
+   "run_fingerprint": "ceb95a05ef0a83d3",
+   "wall_s": 5.34
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 906,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "6689dd3ddf5a8d78",
+   "run_fingerprint": "ceb95a05ef0a83d3",
+   "wall_s": 5.28
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "53cf307cf1a862db",
+   "run_fingerprint": "d0ec6fd01f5894f3",
+   "wall_s": 5.24
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 907,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "ad75aff96481c18a",
+   "run_fingerprint": "d0ec6fd01f5894f3",
+   "wall_s": 5.27
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "A",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "0b46d7c52bfa9f37",
+   "run_fingerprint": "3cdf4aa832ccc0d2",
+   "wall_s": 5.69
+  },
+  {
+   "config": "4000btc|lu1.0",
+   "arm": "B",
+   "seed": 908,
+   "role": "confirmatory",
+   "whale_btc": 4000,
+   "leverage_use": 1.0,
+   "config_fingerprint": "6edd39562395ecdb",
+   "run_fingerprint": "3cdf4aa832ccc0d2",
+   "wall_s": 5.09
+  }
+ ]
+}

@@ -156,10 +156,13 @@ class Simulation:
             )
         ex = self.exchange
         ex.update_circuit_breakers(t)
-        for aid in ex.run_liquidations(t):
+        n_agents = len(self.agents)
+        suppress = None if self.cfg.execute_secondary_liquidations else (lambda aid: aid < n_agents)
+        for aid in ex.run_liquidations(t, suppress):
             ev = ex.events[-1]
-            kind = self.agents[aid].kind if aid < len(self.agents) else "external"
-            self.liquidation_log.append({"t": t, "agent": aid, "kind": kind, **ev.data})
+            kind = self.agents[aid].kind if aid < n_agents else "external"
+            role = "primary" if aid >= n_agents else "secondary"
+            self.liquidation_log.append({"t": t, "agent": aid, "kind": kind, "role": role, **ev.data})
         index = usd_to_ticks(self.world.value_as_of(max(0, t - 60_000)))
         snap = take_snapshot(ex, t, self.funding_rate, index)
         self.feed.publish(snap)

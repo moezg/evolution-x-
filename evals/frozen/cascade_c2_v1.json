@@ -1,0 +1,135 @@
+{
+  "name": "cascade-c2-v1",
+  "written_utc": "2026-11-03T21:07:31Z",
+  "status": "pre-registered before any C2 run (pilot or confirmatory). Thresholds and metrics below are fixed.",
+  "question": "Does a critical threshold exist beyond which an initial forced sale generates secondary liquidations that amplify market losses beyond the primary shock's direct price impact?",
+  "valid_outcomes": [
+    "measurable critical transition",
+    "graded response without a threshold",
+    "secondary liquidations without meaningful price amplification",
+    "no secondary liquidations in the tested range"
+  ],
+  "data_policy": "SYNTHETIC only. No historical evaluation data, no BTC/ETH holdout, no SOL/BNB vault, no LLM calls.",
+  "inspection_facts_before_design": {
+    "liquidation_rule": "an account is in breach when equity < maintenance_margin (0.02) x gross notional, evaluated once per 1 s tick on venue mids (kernel/clearing.py needs_liquidation, kernel/exchange.py run_liquidations); the full position is sent as a forced IOC market order on every non-halted venue",
+    "margin_distance": "for a uniform relative price move x: breach when E + N x < mm G (1+x), N = net notional, G = gross notional; x* = (mm G - E)/(N - mm G); distance = |x*|",
+    "leverage_use": "leveraged policy target = signal x min(equity, 2 x initial capital) x max_leverage (20) x leverage_use; |signal| < 0.25 -> flat; per-agent values are the centre jittered +/-30% and clipped to [0.1, 1.0], so centre 1.0 gives [0.7, 1.0] and centre 0.7 gives [0.49, 0.91]",
+    "stop_loss": "leveraged agents also run a stop-loss at stop_bps (centre 150 bps, jittered) checked only when they wake; it can close a position before maintenance margin is reached",
+    "size_scale_defect": "C2 varies leverage through param_overrides.leveraged.leverage_use, never size_scale; size_scale['leveraged'] now raises (v0.4 fix)",
+    "primary_shock": "whale_liquidation: an external account builds a long of the given size from 60 s to (shock - 120 s) in alternating-venue chunks, then its collateral is withdrawn to 1% of gross and the engine force-liquidates it on the next tick"
+  },
+  "design": {
+    "base_profile": {
+      "world_annual_vol": 0.33,
+      "news_impact": 0.0
+    },
+    "population": "default 256 agents (16 leveraged), defaults unchanged except leverage_use centre",
+    "duration_s": 1800,
+    "shock_at_s": 900,
+    "whale_btc": [
+      1000,
+      2000,
+      4000
+    ],
+    "leverage_use": [
+      0.7,
+      1.0
+    ],
+    "arms": {
+      "A": "normal mechanics (execute_secondary_liquidations = true)",
+      "B": "secondary forced-liquidation execution suppressed (execute_secondary_liquidations = false); breaches are still computed and recorded; the external whale is always liquidated. Deliberately nonphysical counterfactual."
+    },
+    "pilot": {
+      "seeds": [
+        900
+      ],
+      "runs": 12,
+      "role": "EXPLORATORY feasibility only (runtime, whale build-up reaches its size, halts). Its results are not used for any confirmatory statistic and may only motivate a documented feasibility amendment before the confirmatory runs."
+    },
+    "confirmatory": {
+      "seeds": [
+        901,
+        902,
+        903,
+        904,
+        905,
+        906,
+        907,
+        908
+      ],
+      "runs": 96
+    },
+    "pairing": "for each (size, leverage_use, seed) arms A and B share the identical config except the switch; trajectories must be identical until the first secondary breach (checked from per-second trade hashes)"
+  },
+  "measurements": {
+    "pre_window_s": [
+      600,
+      900
+    ],
+    "shock_window_s": [
+      900,
+      1200
+    ],
+    "recovery_until_s": 1800,
+    "per_run": [
+      "pre-shock 10-level depth (median, venue 0) and near-mid depth within 20 bps; minimum 10-level depth in the shock window",
+      "direct impact of the primary liquidation: venue-average mid at the primary liquidation tick vs the last pre-shock tick",
+      "primary forced notional and closed lots; whale position reached vs requested",
+      "margin breaches (transition into breach) of agent accounts, executed or not; executed secondary liquidations, their forced notional; time from primary liquidation to first secondary breach and first secondary liquidation",
+      "margin distance distribution of all agent accounts with positions at the last pre-shock tick (min, quantiles, leveraged only)",
+      "maximum adverse move: min venue-average mid in the shock window vs pre-shock",
+      "mid at +10 s, +60 s, +300 s after the primary liquidation",
+      "1-minute volatility and median spread in the shock window vs pre window",
+      "half-recovery time: first time after the trough at which the mid regains 50% of the drop (censored at 1800 s)",
+      "propagation: breaches and secondary liquidations per 10 s bin in the shock window; generation of each breach (1 + generation of the most recent forced execution strictly before it; primary = 0)",
+      "voluntary deleveraging (exploratory): leveraged stop-loss exits and noise panic sales in the shock window"
+    ]
+  },
+  "causal_definitions": {
+    "breach_vs_liquidation": "a breach is the margin condition; a liquidation is an executed forced order. Arm B has breaches without secondary liquidations.",
+    "primary_vs_secondary": "primary = forced liquidation of the external whale account; secondary = forced liquidation of any of the 256 agents",
+    "incremental_drop": "paired (A - B) difference of the maximum adverse move; negative = deeper in A",
+    "induced_breach": "an agent breached in arm A during the shock window that is not breached in arm B of the same seed during the shock window",
+    "chain_observed_in_seed": "arm A has at least one secondary liquidation followed (strictly later) by an induced breach"
+  },
+  "hypotheses": {
+    "H1-cascade": {
+      "claim": "some grid configuration produces a liquidation feedback cascade",
+      "supported_if": "for that configuration ALL hold: (a) secondary liquidations in >= 2 of 8 seeds; (b) incremental drop t-interval (n = 8) entirely below 0; (c) mean incremental drop >= 10% of the mean arm-B drop magnitude; (d) chain observed in >= 2 of 8 seeds",
+      "null_H0": "for every configuration at least one of (a)-(d) fails: observed losses are the direct mechanical consequence of the whale's forced sale"
+    },
+    "H2-onset": {
+      "claim": "the onset of secondary liquidations is monotone in whale size at fixed leverage_use",
+      "report": "per configuration the fraction of seeds with >= 1 secondary liquidation (Wilson 95% CI); onset bracket = (largest size with 0/8, smallest size with >= 2/8). If no configuration reaches 2/8: 'threshold not observed within the tested range'."
+    },
+    "H3-shape": {
+      "claim": "if an onset exists, the incremental drop jumps rather than growing proportionally",
+      "report": "'transition-like' only if incremental drop is negligible (t-interval includes 0 AND |mean| < 10% of arm-B drop) at the lower bracket and meets H1 (b)+(c) at the upper; otherwise 'graded'. With 3 sizes the sharpness of a transition cannot be estimated; no threshold curve is fitted."
+    }
+  },
+  "classification_per_configuration": [
+    "no_secondary_liquidations",
+    "secondary_without_amplification",
+    "amplification_without_chain",
+    "cascade"
+  ],
+  "classification_rule": "no_secondary_liquidations if (a) fails; secondary_without_amplification if (a) holds and (b) or (c) fails; amplification_without_chain if (a)-(c) hold and (d) fails; cascade only if (a)-(d) hold",
+  "statistics": "unit of replication = seed (never individual events within a run); paired differences over 8 seeds with bootstrap and t-intervals; Wilson intervals for seed fractions",
+  "stopping_rule": "one confirmatory run per (configuration, arm, seed). Any further sizes/leverage/seeds are a new exploratory protocol version and cannot confirm H1 on these seeds.",
+  "amendment_1": {
+    "written_utc": "2026-11-03T21:09:36Z",
+    "before": "written before the pilot and before any confirmatory run; motivated only by a code smoke test (seed 1, 700 s) and an inspection run (seed 901, 2000 BTC, lu 1.0, 1500 s, NOT part of the protocol's statistics)",
+    "finding": "the primary forced sale is not a single sweep: the external account stays in liquidation and sells ~20-40 BTC per tick for 30 s or more as the book refills; the whale also reaches less than the requested size because its build-up market orders are partly unfilled (1514 of 2000 BTC in the inspection run)",
+    "change": "ADD descriptive measurements only: primary selling duration, BTC sold, mid at the end of primary selling, primary BTC per 10 s; and report the whale's reached position next to the nominal size. 'direct_impact' (first tick) stays as registered but is NOT the causal baseline: the causal baseline for the primary shock is arm B, which contains the full primary process. Hypotheses, thresholds and decision rules are unchanged."
+  },
+  "amendment_2": {
+    "written_utc": "2026-11-03T21:10:34Z",
+    "before": "after the exploratory pilot (seed 900, artifacts/observatory/cascade_c2_pilot.json), before any confirmatory run",
+    "pilot_feasibility_findings": [
+      "whale build-up saturates: nominal 2000 and 4000 BTC reach only ~1745-1825 BTC (market-buy chunks partly unfilled, 0 rejections); the dose axis is effectively {1000, ~1750, ~1800} BTC",
+      "all 16 leveraged agents were SHORT at the shock (margin distance 'up', 2.9-4.8%, effective leverage 14-20x) in all 6 pilot configurations"
+    ],
+    "change": "NONE to design, hypotheses, thresholds or seeds. The threshold analysis additionally reports the reached whale position per configuration; conclusions about 'size' refer to the reached position. The pilot is not used in any confirmatory statistic.",
+    "exploratory_followup_declared_now": "if the confirmatory result is null and leveraged agents are short at the shock, a separately versioned EXPLORATORY protocol (cascade_c2x) may test the positioning explanation with a mirrored shock (forced BUY by a short whale). It cannot confirm H1 of this protocol."
+  }
+}
