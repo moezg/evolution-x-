@@ -406,6 +406,14 @@ def cmd_forecast(a: argparse.Namespace) -> None:
         _print(fn() if fn else P.score())
 
 
+def cmd_army(a: argparse.Namespace) -> None:
+    """24-role research army (research only; never trades)."""
+    from .army.cli import run
+
+    cfg = json.loads(a.config) if a.config else None
+    _print(run(a.action, a.cycles, cfg, a.key, a.value))
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -470,6 +478,12 @@ def main() -> None:
     sp.add_argument("--no-evaluate", action="store_true", help="knowledge: skip realism evaluation of proposals")
     sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
     sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
+    sp = add("army", cmd_army)
+    sp.add_argument("action", choices=["status", "tick", "run", "resume", "pause", "stop", "start", "set"])
+    sp.add_argument("--cycles", type=int, default=1)
+    sp.add_argument("--config", default=None, help="JSON overrides of the cycle config")
+    sp.add_argument("--key", default=None, help="set: control key (llm_enabled, source_arxiv_enabled, ...)")
+    sp.add_argument("--value", default=None, help="set: JSON value")
     sp = add("forecast", cmd_forecast)
     sp.add_argument("action", choices=["fetch", "backtest", "issue", "resolve", "score", "evolve"])
     sp.add_argument("--no-sim", action="store_true", help="backtest without simulator features")

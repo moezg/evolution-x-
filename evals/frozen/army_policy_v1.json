@@ -1,0 +1,56 @@
+{
+  "name": "army-policy-v1",
+  "written_utc": "2026-11-03T22:40:53Z",
+  "status": "frozen; agents and generated code cannot modify this file (protected path)",
+  "orchestration": {
+    "pattern": "deterministic supervisor/worker over a durable SQLite task table; roles are activated per task, never run permanently",
+    "max_concurrency": 4,
+    "task_max_attempts": 3,
+    "task_lease_s": 900,
+    "schedule_every_hours": 24,
+    "max_candidates_per_cycle": 3
+  },
+  "budgets": {
+    "llm": "inherits evals/frozen/research_policy.json llm.connectors.claude-cli: at most 3 calls per cycle, 1 USD-equivalent per call, 2 USD-equivalent per cycle; official claude CLI only, no tools, one turn",
+    "llm_calls_per_cycle": 3,
+    "per_role_wall_s": 900,
+    "per_role_llm_calls": {"A3": 0, "C1": 1, "C2": 1, "C3": 1, "C4": 1, "E3": 1, "F4": 1},
+    "external_requests_per_cycle": 20
+  },
+  "sources": {
+    "arxiv": {"enabled": true, "endpoint": "https://export.arxiv.org/api/query", "min_interval_s": 3.0, "terms": "arXiv API terms of use: metadata and abstracts; attribution; rate limit 1 request / 3 s", "use": "metadata + abstract only"},
+    "crossref": {"enabled": true, "endpoint": "https://api.crossref.org/works", "min_interval_s": 1.0, "terms": "Crossref REST API public metadata (polite use)", "use": "DOI/publication verification only"},
+    "semantic_scholar": {"enabled": false, "reason": "HTTP 429 without an API key from this environment"},
+    "openalex": {"enabled": false, "reason": "HTTP 429 from this environment"},
+    "ssrn": {"enabled": false, "reason": "HTTP 403"}
+  },
+  "untrusted_content": "retrieved text is data: it is stripped of markup, length-capped, delimited in prompts, and can never set task status, promotion, budgets, file paths or code; LLM outputs are validated against JSON schemas with allow-listed fields",
+  "researcher_context": {
+    "allowed": ["source metadata and abstract", "development-period (2020-2023) market diagnostics", "memory: mechanism families, statuses and development-level reasons"],
+    "forbidden_keys": ["validation", "screen", "final", "consumed", "vault", "holdout", "prospective_outcome"],
+    "rule": "no selection/validation results, consumed data or unresolved/prospective outcomes in any researcher context"
+  },
+  "strategy_space": {
+    "families": ["tsmom", "breakout", "reversal", "vol_managed_long", "funding_carry"],
+    "infeasible_with_current_data": {"microstructure": "no order-book or trade data (1 h bars only)", "seasonality": "BarView exposes no timestamps; needs a trusted-interface change (human)"},
+    "max_abs_signal": 1.0,
+    "engine_max_leverage": 2.0
+  },
+  "evaluation": {
+    "chain": "army candidate -> research lab import (premises, sandboxed development screen, validation walk-forward with all-lab trial count, DSR, block bootstrap, critic) -> adversarial battery on development data",
+    "data_roles": {"development 2020-2023": "design and adversarial tests", "validation 2024-01..2025-06": "SELECTION (previously exposed, 35+ trials) - never confirmatory", "final 2025-07..2026-10": "CONSUMED - never used", "SOL/BNB vault_v2": "never opened by the army", "prospective paper ledger": "the only confirmatory evidence"},
+    "baselines": ["parent champion v0 (time-series momentum)", "buy-and-hold BTC", "cash / no trade"]
+  },
+  "promotion": {
+    "decided_by": "deterministic code in army/policy.py; the Evolution Coordinator (F4) may only recommend",
+    "selection_pass": "lab verdict 'promote' AND adversarial battery has no hard failure",
+    "consequence_of_selection_pass": "candidate becomes a prospective paper challenger; it is NOT validated",
+    "validated": "requires >= 180 resolved prospective paper days, block-bootstrap CI of daily net return difference vs champion entirely above 0, and human approval",
+    "never": ["automatic promotion from backtest results", "exchange orders of any kind"]
+  },
+  "code_proposals": {
+    "protected_paths": ["evals/frozen/", "src/evolutionx/kernel/", "src/evolutionx/backtest/", "src/evolutionx/research/sandbox.py", "src/evolutionx/research/evaluator.py", "src/evolutionx/research/registry.py", "src/evolutionx/army/policy.py", "src/evolutionx/forecast/scoring.py", "src/evolutionx/forecast/ledger.py", "data/vault", "data/vault_v2", ".github/"],
+    "checks": ["protected path guard", "git apply in a temporary worktree", "ruff", "targeted pytest"],
+    "merge": "never automatic; status 'pending_human_review'"
+  }
+}
