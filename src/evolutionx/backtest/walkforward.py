@@ -14,7 +14,7 @@ MONTH_MS = 30 * 86_400_000
 
 def windows(
     open_time: np.ndarray, train_months: int, test_months: int, step_months: int, embargo_bars: int
-) -> list[dict[str, int]]:
+) -> list[dict[str, tuple[int, int]]]:
     t0 = open_time[0]
     out = []
     k = 0
@@ -37,8 +37,14 @@ def _slice(d: dict[str, np.ndarray], a: int, b: int) -> dict[str, np.ndarray]:
 
 
 def segment_daily(data: dict[str, np.ndarray], dec: np.ndarray, a: int, b: int, cost: CostModel) -> np.ndarray:
+    return segment_daily_with_days(data, dec, a, b, cost)[1]
+
+
+def segment_daily_with_days(
+    data: dict[str, np.ndarray], dec: np.ndarray, a: int, b: int, cost: CostModel
+) -> tuple[np.ndarray, np.ndarray]:
     res = run_backtest(_slice(data, a, b), dec[a:b], cost)
-    return daily_returns(res.equity, res.open_time)[1]
+    return daily_returns(res.equity, res.open_time)
 
 
 def walk_forward(
@@ -47,14 +53,16 @@ def walk_forward(
     """decisions_by_param: param-set key -> full-series causal decisions (computed once per param set)."""
     ws = windows(data["open_time"], wf["train_months"], wf["test_months"], wf["step_months"], wf["embargo_bars"])
     oos: list[np.ndarray] = []
+    oos_days: list[np.ndarray] = []
     per_window = []
     for w in ws:
         a, b = w["train"]
         scores = {k: sharpe(segment_daily(data, d, a, b, cost)) for k, d in decisions_by_param.items()}
         best = max(sorted(scores), key=lambda k: scores[k])
         ta, tb = w["test"]
-        r = segment_daily(data, decisions_by_param[best], ta, tb, cost)
+        dd, r = segment_daily_with_days(data, decisions_by_param[best], ta, tb, cost)
         oos.append(r)
+        oos_days.append(dd)
         per_window.append(
             {
                 "train": [int(data["open_time"][a]), int(data["open_time"][b - 1])],
@@ -66,7 +74,9 @@ def walk_forward(
             }
         )
     allr = np.concatenate(oos) if oos else np.array([])
+    alld = np.concatenate(oos_days) if oos_days else np.array([], dtype=np.int64)
     return {
+        "oos_days": alld,
         "n_windows": len(ws),
         "n_trials": len(ws) * len(decisions_by_param),
         "oos_daily": allr,

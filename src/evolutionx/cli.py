@@ -182,6 +182,75 @@ def cmd_audit(a: argparse.Namespace) -> None:
         _print(capture_baseline(run_tests=not a.no_tests))
 
 
+def _lab(root: str):  # noqa: ANN202
+    from .research.supervisor import Lab, Supervisor
+
+    lab = Lab(Path(root), repo=Path.cwd())
+    return lab, Supervisor(lab)
+
+
+def cmd_backtest(a: argparse.Namespace) -> None:
+    from .backtest.engine import CostModel, run_backtest
+    from .backtest.metrics import summarize
+    from .data.datasets import load_split, protocol
+    from .research.contract import literal_symbols
+    from .research.evaluator import EvalConfig, sandbox_decisions
+
+    if a.strategy == "v0":
+        src = Path("src/evolutionx/evolvable/tsmom_v0.py").read_text()
+    elif a.strategy == "champion":
+        lab, _ = _lab(a.root)
+        v, src = lab.registry.load_source()
+        print(f"active champion: v{v} ({(lab.registry.active() or {}).get('candidate_id')})")
+    else:
+        src = Path(a.strategy).read_text()
+    proto = protocol()
+    d = load_split(a.symbol, a.split)
+    lit = literal_symbols(src)
+    decs, _ = sandbox_decisions(src, [("bt", d, lit["PARAMS"])], EvalConfig(proto, 0), "bt")
+    r = run_backtest(d, decs[0], CostModel.from_protocol(proto, a.symbol, a.costs))
+    print(f"[HISTORICAL BACKTEST] {a.symbol} {a.split} params={lit['PARAMS']} cost_multiplier={a.costs}")
+    _print(summarize(r))
+
+
+def cmd_research(a: argparse.Namespace) -> None:
+    lab, sup = _lab(a.root)
+    if a.action == "run":
+        sup.create_campaign(a.campaign, a.mode, a.selector, a.tasks, a.wall, a.seed)
+        st = sup.run(a.campaign)
+    elif a.action == "status":
+        st = (
+            sup.status(a.campaign) if a.campaign else {"active": lab.registry.active(), "journal": lab.journal.verify()}
+        )
+    elif a.action == "stop":
+        sup.request_stop("human", a.reason)
+        st = {"stop_requested": True}
+    elif a.action == "resume":
+        sup.human_resume("human", confirm=a.confirm)
+        st = sup.run(a.campaign) if a.campaign else {"stop_cleared": True}
+    elif a.action == "rollback":
+        st = lab.registry.rollback("human", a.reason)
+    elif a.action == "verify":
+        st = {
+            "journal": lab.journal.verify(),
+            "versions": [
+                {
+                    "version": m["version"],
+                    "sha256_ok": __import__("hashlib")
+                    .sha256((lab.root / "registry" / "versions" / f"v{m['version']}" / "strategy.py").read_bytes())
+                    .hexdigest()
+                    == m["sha256"],
+                }
+                for m in lab.registry.versions()
+            ],
+        }
+    else:
+        from .research.final import final_report
+
+        st = final_report([Path(r) for r in a.roots.split(",")], a.campaign or "final-comparison", a.reason)
+    _print(st)
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -238,6 +307,24 @@ def main() -> None:
     sp = add("council", cmd_council)
     sp.add_argument("--question", default="What mechanisms drive the observed dynamics, and what should we test next?")
     sp.add_argument("--experiment", default=None)
+    sp = add("backtest", cmd_backtest)
+    sp.add_argument("--strategy", default="v0", help="v0 | champion | path/to/strategy.py")
+    sp.add_argument("--symbol", default="BTCUSDT")
+    sp.add_argument("--split", default="development", choices=["development", "validation"])
+    sp.add_argument("--costs", type=float, default=1.0, help="cost multiplier (sensitivity)")
+    sp.add_argument("--root", default="artifacts/research/main")
+    sp = add("research", cmd_research)
+    sp.add_argument("action", choices=["run", "status", "stop", "resume", "rollback", "verify", "final-report"])
+    sp.add_argument("--root", default="artifacts/research/main")
+    sp.add_argument("--roots", default="", help="final-report: comma-separated lab roots to compare")
+    sp.add_argument("--campaign", default=None)
+    sp.add_argument("--mode", default="smoke", choices=["smoke", "research", "autonomous-experimental"])
+    sp.add_argument("--selector", default="guided", choices=["guided", "random"])
+    sp.add_argument("--tasks", type=int, default=2)
+    sp.add_argument("--wall", type=int, default=900)
+    sp.add_argument("--seed", type=int, default=0)
+    sp.add_argument("--reason", default="")
+    sp.add_argument("--confirm", action="store_true", help="resume: explicit human confirmation after a stop")
     sp = add("audit", cmd_audit)
     sp.add_argument("--no-tests", action="store_true")
     sp.add_argument("--verify", default=None, help="path to a baseline manifest to re-check")
