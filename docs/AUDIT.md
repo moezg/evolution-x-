@@ -186,3 +186,21 @@ The reuse audit is in `docs/FORECASTING.md`. Requirements of the mission:
 | Self-evolving code in isolated workspaces, human merge | `army/codeprop.py` | — | executed (1 pending review); protected-path block tested |
 | Dashboard `/research-army` | `api/army_routes.py`, `web/src/app/research-army` | `make dev` | see delivery message |
 | No trading, no holdout access | no order code; `vault_v2` never read | `grep -rn "vault_v2" src/evolutionx/army` | verified |
+
+## Quantitative intelligence (2026-11-03)
+
+| Requirement | Implementation | Command | Status |
+|---|---|---|---|
+| 12 specialist roles (G1–G4, H1–H4, I1–I4) | `army/roles.py`, `quant/workflow.py` | `GET /api/army/roles` | implemented; G4/I3/I4 record data gaps (honest) |
+| Event Registry: versioned, provenance, as-known | `quant/events.py` → `data/quant/events/registry.jsonl` | `evox quant events` | executed (128 events, hash chain ok) |
+| Universal Event Study Engine | `quant/eventstudy.py` | `evox quant run` | executed (FOMC hourly; elections daily, 3 assets) |
+| Systematic day-of-month scanner incl. the 14th | `quant/calendar.py` | same | executed (124 tests; 14th rejected) |
+| Election-cycle study with sample-size disclosure | `eventstudy.election_study` | same | executed (descriptive only) |
+| FOMC event study (authoritative dates) | federalreserve.gov + FRED | same | executed (absret 4 h supported) |
+| Statistical testing registry + multiple comparisons | `quant/stats.py` (`stat_tests`) | `GET /api/quant/tests` | 263 tests recorded |
+| Research memory integration | `q_memory` → hypotheses + graph edges | `GET /api/army/memory` | 258 records |
+| One discovery workflow involving the agents | army orchestrator, `{"workflow": "quant"}` | `evox quant run` | executed (15 tasks) |
+| Forecasting integration where incremental skill can be evaluated | `quant/forecast_link.py` | same; challengers via `forecast_live` | executed; 1 challenger feature issued prospectively |
+| False anomalies not promoted; planted signals recovered | `tests/test_quant.py` | `pytest tests/test_quant.py` | verified (see QUANT.md) |
+| Dashboard backed by results | `api/quant_routes.py`, `web/src/app/quant` | `make dev` | see delivery message |
+| No holdout / no LLM campaign | no vault access; 0 LLM calls | `grep -rn vault_v2 src/evolutionx/quant` | verified |

@@ -1,0 +1,387 @@
+{
+ "cycle": "c20261103T2323577382",
+ "cycles": {
+  "F-CYCLE:ret:7.0d": {
+   "DISCOVERY": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.0006140585083035964,
+    "band_median": 0.0010336341189669809,
+    "ratio_to_band_median": 0.5940772436162319,
+    "band_size": 420,
+    "p_rank": 0.6745843230403801
+   },
+   "DISC_H1": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.0010457605599493523,
+    "band_median": 0.0012510988590317973,
+    "ratio_to_band_median": 0.8358736421186151,
+    "band_size": 210,
+    "p_rank": 0.5829383886255924
+   },
+   "DISC_H2": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.00018535499604373877,
+    "band_median": 0.0009522061704102808,
+    "ratio_to_band_median": 0.19465846977642892,
+    "band_size": 210,
+    "p_rank": 0.8578199052132701
+   },
+   "CONFIRMATION": {
+    "period_days": 7.0,
+    "nearest_period": 7.0,
+    "power": 0.0008714313863167553,
+    "band_median": 0.00039969253350184323,
+    "ratio_to_band_median": 2.1802543537199615,
+    "band_size": 301,
+    "p_rank": 0.22847682119205298
+   },
+   "holm": {
+    "p": 0.6745843230403801,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:ret:30.44d": {
+   "DISCOVERY": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.001961123062122844,
+    "band_median": 0.0012715968032528443,
+    "ratio_to_band_median": 1.5422522745465683,
+    "band_size": 96,
+    "p_rank": 0.35051546391752575
+   },
+   "DISC_H1": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.0005853977193579789,
+    "band_median": 0.0016801767870889897,
+    "ratio_to_band_median": 0.3484143596414141,
+    "band_size": 48,
+    "p_rank": 0.8367346938775511
+   },
+   "DISC_H2": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.00153263367899135,
+    "band_median": 0.0009390359686156422,
+    "ratio_to_band_median": 1.6321352218816592,
+    "band_size": 48,
+    "p_rank": 0.40816326530612246
+   },
+   "CONFIRMATION": {
+    "period_days": 30.44,
+    "nearest_period": 30.434782608695652,
+    "power": 0.0012828040473339454,
+    "band_median": 0.0003513353347696175,
+    "ratio_to_band_median": 3.651224116626708,
+    "band_size": 69,
+    "p_rank": 0.1
+   },
+   "holm": {
+    "p": 0.35051546391752575,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:ret:91.31d": {
+   "DISCOVERY": {
+    "period_days": 91.31,
+    "nearest_period": 93.42857142857142,
+    "power": 0.0023914510825516315,
+    "band_median": 0.0012900272776602956,
+    "ratio_to_band_median": 1.8537988490359467,
+    "band_size": 32,
+    "p_rank": 0.2727272727272727
+   },
+   "DISC_H1": {
+    "period_days": 91.31,
+    "nearest_period": 89.18181818181819,
+    "power": 0.001714562676013801,
+    "band_median": 0.0019699039283920887,
+    "ratio_to_band_median": 0.8703788298007471,
+    "band_size": 16,
+    "p_rank": 0.7058823529411765
+   },
+   "DISC_H2": {
+    "period_days": 91.31,
+    "nearest_period": 89.18181818181819,
+    "power": 0.0026174197950842738,
+    "band_median": 0.0010109721201856032,
+    "ratio_to_band_median": 2.589012835095536,
+    "band_size": 16,
+    "p_rank": 0.17647058823529413
+   },
+   "CONFIRMATION": {
+    "period_days": 91.31,
+    "nearest_period": 93.33333333333333,
+    "power": 3.892405418072568e-05,
+    "band_median": 0.0003561588607376937,
+    "ratio_to_band_median": 0.10928846217697424,
+    "band_size": 23,
+    "p_rank": 0.9583333333333334
+   },
+   "holm": {
+    "p": 0.2727272727272727,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:ret:365.25d": {
+   "DISCOVERY": {
+    "period_days": 365.25,
+    "nearest_period": 392.4,
+    "power": 0.00030917013240000507,
+    "band_median": 0.003222479952136443,
+    "ratio_to_band_median": 0.09594167752541988,
+    "band_size": 8,
+    "p_rank": 1.0
+   },
+   "DISC_H1": {
+    "period_days": 365.25,
+    "nearest_period": 326.99999999999994,
+    "power": 0.0026131137539099057,
+    "band_median": 0.0037283642941925,
+    "ratio_to_band_median": 0.7008740422657281,
+    "band_size": 4,
+    "p_rank": 0.8
+   },
+   "DISC_H2": {
+    "period_days": 365.25,
+    "nearest_period": 326.99999999999994,
+    "power": 0.0024266806074007114,
+    "band_median": 0.002530555641737559,
+    "ratio_to_band_median": 0.9589516892560704,
+    "band_size": 4,
+    "p_rank": 0.8
+   },
+   "CONFIRMATION": {
+    "period_days": 365.25,
+    "nearest_period": 350.0,
+    "power": 0.0006267192159113903,
+    "band_median": 0.0005949837017816112,
+    "ratio_to_band_median": 1.0533384595825914,
+    "band_size": 6,
+    "p_rank": 0.5714285714285714
+   },
+   "holm": {
+    "p": 1.0,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:absret:7.0d": {
+   "DISCOVERY": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.006511818876898963,
+    "band_median": 0.0006175238855104764,
+    "ratio_to_band_median": 10.54504777821827,
+    "band_size": 420,
+    "p_rank": 0.004750593824228029
+   },
+   "DISC_H1": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.002958146124572655,
+    "band_median": 0.0007839760377419887,
+    "ratio_to_band_median": 3.7732608933976106,
+    "band_size": 210,
+    "p_rank": 0.08056872037914692
+   },
+   "DISC_H2": {
+    "period_days": 7.0,
+    "nearest_period": 7.007142857142857,
+    "power": 0.006454151908388079,
+    "band_median": 0.0004507196352691829,
+    "ratio_to_band_median": 14.319659946772614,
+    "band_size": 210,
+    "p_rank": 0.009478672985781991
+   },
+   "CONFIRMATION": {
+    "period_days": 7.0,
+    "nearest_period": 7.0,
+    "power": 0.007449769197363543,
+    "band_median": 0.0001737270954240702,
+    "ratio_to_band_median": 42.88202239943376,
+    "band_size": 301,
+    "p_rank": 0.006622516556291391
+   },
+   "holm": {
+    "p": 0.004750593824228029,
+    "p_adj": 0.03800475059382423,
+    "reject": true
+   },
+   "status": "inconclusive"
+  },
+  "F-CYCLE:absret:30.44d": {
+   "DISCOVERY": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.00033911465730195495,
+    "band_median": 0.0005922044996931477,
+    "ratio_to_band_median": 0.572631004117105,
+    "band_size": 96,
+    "p_rank": 0.6907216494845361
+   },
+   "DISC_H1": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.0024752190694649094,
+    "band_median": 0.001252931158798196,
+    "ratio_to_band_median": 1.9755427519570385,
+    "band_size": 48,
+    "p_rank": 0.14285714285714285
+   },
+   "DISC_H2": {
+    "period_days": 30.44,
+    "nearest_period": 30.656249999999996,
+    "power": 0.0006118430245437916,
+    "band_median": 0.00032477659902610187,
+    "ratio_to_band_median": 1.8838888835541339,
+    "band_size": 48,
+    "p_rank": 0.3673469387755102
+   },
+   "CONFIRMATION": {
+    "period_days": 30.44,
+    "nearest_period": 30.434782608695652,
+    "power": 0.0011961825875097672,
+    "band_median": 0.00029953626272688017,
+    "ratio_to_band_median": 3.9934483278255266,
+    "band_size": 69,
+    "p_rank": 0.05714285714285714
+   },
+   "holm": {
+    "p": 0.6907216494845361,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:absret:91.31d": {
+   "DISCOVERY": {
+    "period_days": 91.31,
+    "nearest_period": 93.42857142857142,
+    "power": 7.961585139859968e-05,
+    "band_median": 0.0016618893826842347,
+    "ratio_to_band_median": 0.04790682955685444,
+    "band_size": 32,
+    "p_rank": 0.9696969696969697
+   },
+   "DISC_H1": {
+    "period_days": 91.31,
+    "nearest_period": 89.18181818181819,
+    "power": 0.0013198582540067609,
+    "band_median": 0.0015786769417235245,
+    "ratio_to_band_median": 0.8360534186087512,
+    "band_size": 16,
+    "p_rank": 0.7058823529411765
+   },
+   "DISC_H2": {
+    "period_days": 91.31,
+    "nearest_period": 89.18181818181819,
+    "power": 0.0028696939400039635,
+    "band_median": 0.0011675086934039213,
+    "ratio_to_band_median": 2.457963659043299,
+    "band_size": 16,
+    "p_rank": 0.17647058823529413
+   },
+   "CONFIRMATION": {
+    "period_days": 91.31,
+    "nearest_period": 93.33333333333333,
+    "power": 0.000178753642052477,
+    "band_median": 0.0005122032599900002,
+    "ratio_to_band_median": 0.3489896609716362,
+    "band_size": 23,
+    "p_rank": 0.6666666666666666
+   },
+   "holm": {
+    "p": 0.9696969696969697,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  },
+  "F-CYCLE:absret:365.25d": {
+   "DISCOVERY": {
+    "period_days": 365.25,
+    "nearest_period": 392.4,
+    "power": 0.01798313441282182,
+    "band_median": 0.004986355763178352,
+    "ratio_to_band_median": 3.6064683843094247,
+    "band_size": 8,
+    "p_rank": 0.3333333333333333
+   },
+   "DISC_H1": {
+    "period_days": 365.25,
+    "nearest_period": 326.99999999999994,
+    "power": 0.0013055514258463485,
+    "band_median": 0.00734691448174574,
+    "ratio_to_band_median": 0.17770064277869876,
+    "band_size": 4,
+    "p_rank": 1.0
+   },
+   "DISC_H2": {
+    "period_days": 365.25,
+    "nearest_period": 326.99999999999994,
+    "power": 0.0003553792932941954,
+    "band_median": 0.001401648495486414,
+    "ratio_to_band_median": 0.253543805339632,
+    "band_size": 4,
+    "p_rank": 1.0
+   },
+   "CONFIRMATION": {
+    "period_days": 365.25,
+    "nearest_period": 350.0,
+    "power": 0.004600163385575886,
+    "band_median": 0.00021577047654792897,
+    "ratio_to_band_median": 21.31970721468956,
+    "band_size": 6,
+    "p_rank": 0.2857142857142857
+   },
+   "holm": {
+    "p": 0.3333333333333333,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "rejected"
+  }
+ },
+ "diagnostics": {
+  "period": "DISCOVERY",
+  "n": 1962,
+  "acf_ret": [
+   -0.05393531536215994,
+   0.0462114225626896,
+   0.004778074038105317,
+   0.010638981791862493,
+   0.02569229122919153,
+   0.015849206249271896,
+   -0.015609197184909666,
+   -0.018729866916456697,
+   0.008299667200968228,
+   0.0524232204221295
+  ],
+  "acf_absret": [
+   0.13754945799868018,
+   0.08763040151304213,
+   0.0944470378158152,
+   0.162866237151339,
+   0.11771038182512397,
+   0.11282805423496836,
+   0.11047281029298256,
+   0.10732065187555262,
+   0.08016308450668883,
+   0.08187420840903602
+  ],
+  "bartlett_95_band": 0.044249316816601623,
+  "note": "ACF of returns near zero and of |returns| strongly positive = volatility clustering without linear predictability (G2)"
+ }
+}

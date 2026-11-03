@@ -1,0 +1,144 @@
+{
+ "cycle": "c20261103T2323577382",
+ "results": {
+  "F-FCAST:fomc_in_window:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0017044614411114156,
+    "lo": -0.005157486400938479,
+    "hi": 0.0011740010106774832,
+    "p_better": 0.1525
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0011349962873373905,
+    "lo": -0.0012333280857593069,
+    "hi": 0.0035986659705214345,
+    "p_better": 0.829
+   },
+   "feature_rate": 0.021527213647441104,
+   "holm": {
+    "p": 0.1525,
+    "p_adj": 0.61,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST:fomc_in_window:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.00014462697188631095,
+    "lo": -0.0007688789967385684,
+    "hi": 0.0010436265019265797,
+    "p_better": 0.628
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0003711929261030867,
+    "lo": -0.0005698835216731972,
+    "hi": 0.0013754871876477078,
+    "p_better": 0.7875
+   },
+   "feature_rate": 0.021527213647441104,
+   "holm": {
+    "p": 0.628,
+    "p_adj": 0.714,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST:fomc_in_window:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.00019306309374155515,
+    "lo": -0.0007257358442434275,
+    "hi": 0.00032211457540372,
+    "p_better": 0.238
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.00014876373079074332,
+    "lo": -0.0008510968785964892,
+    "hi": 0.0005236709399460942,
+    "p_better": 0.3255
+   },
+   "feature_rate": 0.021527213647441104,
+   "holm": {
+    "p": 0.238,
+    "p_adj": 0.714,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST:saturday_target_day:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.04945567823963406,
+    "lo": -0.06010978032423147,
+    "hi": -0.03744627957516531,
+    "p_better": 0.0
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.02348157318714025,
+    "lo": -0.03141458571706213,
+    "hi": -0.016382628100073265,
+    "p_better": 0.0
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.0,
+    "p_adj": 0.0,
+    "reject": true
+   },
+   "status": "candidate_feature (prospective challenger only)"
+  },
+  "F-FCAST:saturday_target_day:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.006807949600189828,
+    "lo": -0.009262937986753584,
+    "hi": -0.004403554799186106,
+    "p_better": 0.0
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.0033824562557566045,
+    "lo": -0.005370420516516169,
+    "hi": -0.001542006983967757,
+    "p_better": 0.0015
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.0,
+    "p_adj": 0.0,
+    "reject": true
+   },
+   "status": "candidate_feature (prospective challenger only)"
+  },
+  "F-FCAST:saturday_target_day:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.00021853946889997014,
+    "lo": -0.000935702067120714,
+    "hi": 0.0005657957473139804,
+    "p_better": 0.274
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.0008373410768794512,
+    "lo": -0.0018062799472635621,
+    "hi": 4.898533038591565e-05,
+    "p_better": 0.0355
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.274,
+    "p_adj": 0.714,
+    "reject": false
+   },
+   "status": "not_promoted"
+  }
+ },
+ "note": "loss differences are H1 - M1 (negative = the feature helps); Brier for binary targets, MSE of log RV for rv_24"
+}

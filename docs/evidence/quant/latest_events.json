@@ -1,0 +1,2554 @@
+{
+ "cycle": "c20261103T2323577382",
+ "events": [
+  {
+   "attributes": {
+    "year": 1962
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1962",
+   "event_time_utc": "1962-11-06T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1964
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1964",
+   "event_time_utc": "1964-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1966
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1966",
+   "event_time_utc": "1966-11-08T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1968
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1968",
+   "event_time_utc": "1968-11-05T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1970
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1970",
+   "event_time_utc": "1970-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1972
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1972",
+   "event_time_utc": "1972-11-07T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1974
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1974",
+   "event_time_utc": "1974-11-05T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1976
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1976",
+   "event_time_utc": "1976-11-02T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1978
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1978",
+   "event_time_utc": "1978-11-07T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1980
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1980",
+   "event_time_utc": "1980-11-04T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1982
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1982",
+   "event_time_utc": "1982-11-02T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1984
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1984",
+   "event_time_utc": "1984-11-06T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1986
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1986",
+   "event_time_utc": "1986-11-04T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1988
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1988",
+   "event_time_utc": "1988-11-08T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1990
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1990",
+   "event_time_utc": "1990-11-06T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1992
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1992",
+   "event_time_utc": "1992-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1994
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1994",
+   "event_time_utc": "1994-11-08T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1996
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1996",
+   "event_time_utc": "1996-11-05T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 1998
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_1998",
+   "event_time_utc": "1998-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2000
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2000",
+   "event_time_utc": "2000-11-07T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2002
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2002",
+   "event_time_utc": "2002-11-05T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2004
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2004",
+   "event_time_utc": "2004-11-02T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2006
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2006",
+   "event_time_utc": "2006-11-07T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2008
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2008",
+   "event_time_utc": "2008-11-04T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2010
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2010",
+   "event_time_utc": "2010-11-02T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2012
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2012",
+   "event_time_utc": "2012-11-06T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2014
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2014",
+   "event_time_utc": "2014-11-04T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "year": 2016
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2016",
+   "event_time_utc": "2016-11-08T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-02-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-02-01",
+   "event_time_utc": "2017-02-01T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-03-15",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-03-15",
+   "event_time_utc": "2017-03-15T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-05-03",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-05-03",
+   "event_time_utc": "2017-05-03T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-06-14",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-06-14",
+   "event_time_utc": "2017-06-14T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-07-26",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-07-26",
+   "event_time_utc": "2017-07-26T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-09-20",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-09-20",
+   "event_time_utc": "2017-09-20T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-11-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-11-01",
+   "event_time_utc": "2017-11-01T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2017-12-13",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2017-12-13",
+   "event_time_utc": "2017-12-13T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "f804d3a8fa32ba06051451ae999fd042e9cab2c52ff71c83bf9adb633a6513b9",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-01-31",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-01-31",
+   "event_time_utc": "2018-01-31T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-03-21",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-03-21",
+   "event_time_utc": "2018-03-21T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-05-02",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-05-02",
+   "event_time_utc": "2018-05-02T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-06-13",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-06-13",
+   "event_time_utc": "2018-06-13T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-08-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-08-01",
+   "event_time_utc": "2018-08-01T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-09-26",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-09-26",
+   "event_time_utc": "2018-09-26T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "year": 2018
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2018",
+   "event_time_utc": "2018-11-06T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-11-08",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-11-08",
+   "event_time_utc": "2018-11-08T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2018-12-19",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2018-12-19",
+   "event_time_utc": "2018-12-19T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "b2b50d56ea92388d0bcc962d6e617314a9ecf7062131f85fcb5d743c623594c6",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2018.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-01-30",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-01-30",
+   "event_time_utc": "2019-01-30T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-03-20",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-03-20",
+   "event_time_utc": "2019-03-20T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-05-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-05-01",
+   "event_time_utc": "2019-05-01T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-06-19",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-06-19",
+   "event_time_utc": "2019-06-19T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-07-31",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-07-31",
+   "event_time_utc": "2019-07-31T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-09-18",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-09-18",
+   "event_time_utc": "2019-09-18T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-10-04",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-10-04",
+   "event_time_utc": "2019-10-04T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "unscheduled",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-10-30",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-10-30",
+   "event_time_utc": "2019-10-30T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2019-12-11",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2019-12-11",
+   "event_time_utc": "2019-12-11T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "8f04886bc7835636d399188d1dc95ddd1b52f7510e535385e38accdecfff2a87",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2019.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-01-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-01-29",
+   "event_time_utc": "2020-01-29T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-03-02",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.5
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-03-02",
+   "event_time_utc": "2020-03-02T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "unscheduled",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-03-15",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -1.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-03-15",
+   "event_time_utc": "2020-03-15T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "unscheduled",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-03-19",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-03-19",
+   "event_time_utc": "2020-03-19T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "notation_vote",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-03-23",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-03-23",
+   "event_time_utc": "2020-03-23T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "notation_vote",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-03-31",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-03-31",
+   "event_time_utc": "2020-03-31T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "notation_vote",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-04-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-04-29",
+   "event_time_utc": "2020-04-29T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-06-10",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-06-10",
+   "event_time_utc": "2020-06-10T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-07-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-07-29",
+   "event_time_utc": "2020-07-29T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-08-27",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-08-27",
+   "event_time_utc": "2020-08-27T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "notation_vote",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-09-16",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-09-16",
+   "event_time_utc": "2020-09-16T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "year": 2020
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2020",
+   "event_time_utc": "2020-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-11-05",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-11-05",
+   "event_time_utc": "2020-11-05T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2020-12-16",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2020-12-16",
+   "event_time_utc": "2020-12-16T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "ee064fe5b41be7e03c2beb545330de52ce829d753bf24701644297f59ceeeeea",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2020.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-01-27",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-01-27",
+   "event_time_utc": "2021-01-27T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-03-17",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-03-17",
+   "event_time_utc": "2021-03-17T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-04-28",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-04-28",
+   "event_time_utc": "2021-04-28T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-06-16",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-06-16",
+   "event_time_utc": "2021-06-16T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-07-28",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-07-28",
+   "event_time_utc": "2021-07-28T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-09-22",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-09-22",
+   "event_time_utc": "2021-09-22T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-11-03",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-11-03",
+   "event_time_utc": "2021-11-03T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2021-12-15",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2021-12-15",
+   "event_time_utc": "2021-12-15T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-01-26",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-01-26",
+   "event_time_utc": "2022-01-26T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-03-16",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-03-16",
+   "event_time_utc": "2022-03-16T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-05-04",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.5
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-05-04",
+   "event_time_utc": "2022-05-04T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-06-15",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.75
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-06-15",
+   "event_time_utc": "2022-06-15T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-07-27",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.75
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-07-27",
+   "event_time_utc": "2022-07-27T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-09-21",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.75
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-09-21",
+   "event_time_utc": "2022-09-21T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-11-02",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.75
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-11-02",
+   "event_time_utc": "2022-11-02T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "year": 2022
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2022",
+   "event_time_utc": "2022-11-08T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2022-12-14",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.5
+   },
+   "category": "fomc",
+   "event_id": "fomc_2022-12-14",
+   "event_time_utc": "2022-12-14T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-02-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-02-01",
+   "event_time_utc": "2023-02-01T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-03-22",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-03-22",
+   "event_time_utc": "2023-03-22T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-05-03",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-05-03",
+   "event_time_utc": "2023-05-03T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-06-14",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-06-14",
+   "event_time_utc": "2023-06-14T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-07-26",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-07-26",
+   "event_time_utc": "2023-07-26T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-09-20",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-09-20",
+   "event_time_utc": "2023-09-20T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-11-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-11-01",
+   "event_time_utc": "2023-11-01T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2023-12-13",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2023-12-13",
+   "event_time_utc": "2023-12-13T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-01-31",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-01-31",
+   "event_time_utc": "2024-01-31T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-03-20",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-03-20",
+   "event_time_utc": "2024-03-20T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-05-01",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-05-01",
+   "event_time_utc": "2024-05-01T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-06-12",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-06-12",
+   "event_time_utc": "2024-06-12T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-07-31",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-07-31",
+   "event_time_utc": "2024-07-31T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-09-18",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": -0.5
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-09-18",
+   "event_time_utc": "2024-09-18T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "year": 2024
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2024",
+   "event_time_utc": "2024-11-05T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "presidential",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-11-07",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-11-07",
+   "event_time_utc": "2024-11-07T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2024-12-18",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2024-12-18",
+   "event_time_utc": "2024-12-18T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-01-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-01-29",
+   "event_time_utc": "2025-01-29T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-03-19",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-03-19",
+   "event_time_utc": "2025-03-19T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-05-07",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-05-07",
+   "event_time_utc": "2025-05-07T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-06-18",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-06-18",
+   "event_time_utc": "2025-06-18T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-07-30",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-07-30",
+   "event_time_utc": "2025-07-30T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-08-22",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-08-22",
+   "event_time_utc": "2025-08-22T00:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "notation_vote",
+   "supersedes": 1,
+   "time_precision": "day (release time not standardised)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-09-17",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-09-17",
+   "event_time_utc": "2025-09-17T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-10-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-10-29",
+   "event_time_utc": "2025-10-29T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "cut",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2025-12-10",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": -0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2025-12-10",
+   "event_time_utc": "2025-12-10T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-01-28",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-01-28",
+   "event_time_utc": "2026-01-28T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-03-18",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-03-18",
+   "event_time_utc": "2026-03-18T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-04-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-04-29",
+   "event_time_utc": "2026-04-29T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-06-17",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-06-17",
+   "event_time_utc": "2026-06-17T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-07-29",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-07-29",
+   "event_time_utc": "2026-07-29T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hike",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-09-16",
+    "future": false,
+    "sep": true,
+    "target_upper_change_pp": 0.25
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-09-16",
+   "event_time_utc": "2026-09-16T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "action": "hold",
+    "action_source": "FRED DFEDTARU (effective-date series)",
+    "final_meeting_day": "2026-10-28",
+    "future": false,
+    "sep": false,
+    "target_upper_change_pp": 0.0
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-10-28",
+   "event_time_utc": "2026-10-28T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": 1,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 2
+  },
+  {
+   "attributes": {
+    "year": 2026
+   },
+   "category": "us_election",
+   "derivation": "computed from statute 2 U.S.C. 7 (Tuesday after the first Monday in November, even years)",
+   "event_id": "us_election_2026",
+   "event_time_utc": "2026-11-03T00:00:00+00:00",
+   "market_reference": "close of election day (UTC daily candle) / next trading day close for daily FRED series",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_sha256": null,
+   "source_url": "https://www.law.cornell.edu/uscode/text/2/7",
+   "subcategory": "midterm",
+   "supersedes": null,
+   "time_precision": "day",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2026-12-09",
+    "future": true,
+    "sep": true
+   },
+   "category": "fomc",
+   "event_id": "fomc_2026-12-09",
+   "event_time_utc": "2026-12-09T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-01-27",
+    "future": true,
+    "sep": false
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-01-27",
+   "event_time_utc": "2027-01-27T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-03-17",
+    "future": true,
+    "sep": true
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-03-17",
+   "event_time_utc": "2027-03-17T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-04-28",
+    "future": true,
+    "sep": false
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-04-28",
+   "event_time_utc": "2027-04-28T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-06-09",
+    "future": true,
+    "sep": true
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-06-09",
+   "event_time_utc": "2027-06-09T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-07-28",
+    "future": true,
+    "sep": false
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-07-28",
+   "event_time_utc": "2027-07-28T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-09-15",
+    "future": true,
+    "sep": true
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-09-15",
+   "event_time_utc": "2027-09-15T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-10-27",
+    "future": true,
+    "sep": false
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-10-27",
+   "event_time_utc": "2027-10-27T18:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  },
+  {
+   "attributes": {
+    "final_meeting_day": "2027-12-08",
+    "future": true,
+    "sep": true
+   },
+   "category": "fomc",
+   "event_id": "fomc_2027-12-08",
+   "event_time_utc": "2027-12-08T19:00:00+00:00",
+   "registered_utc": "2026-11-03T23:13:54+00:00",
+   "source_retrieved_utc": "2026-11-03T23:13:28+00:00",
+   "source_sha256": "14a3d3f4bf3556469430febd85d9cbcf9f72e476a6bb296afa2003b36027a574",
+   "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+   "subcategory": "scheduled",
+   "supersedes": null,
+   "time_precision": "minute (scheduled 14:00 ET statement)",
+   "version": 1
+  }
+ ],
+ "elections": {
+  "unchanged": 33
+ },
+ "fomc": {
+  "unchanged": 95
+ },
+ "policy_actions": {
+  "linked": 30,
+  "unlinked_changes": 2,
+  "versions": 0
+ },
+ "verify": {
+  "ok": true,
+  "entries": 214,
+  "head": "86337ec1e651d41f90da797721ca90abc97ae87c52b074b5238dd85dc788f7be"
+ },
+ "counts": {
+  "us_election": 33,
+  "fomc": 95
+ }
+}

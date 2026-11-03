@@ -1,3 +1,27 @@
+# Status: quantitative intelligence and cycle discovery (2026-11-03)
+
+The research army now has **36 roles** (new divisions G, H, I) and a pre-registered quant workflow. Details, answers and limitations are in `docs/QUANT.md`.
+
+- **Registered run:** 263 tests; 0 LLM calls; about 20 s.
+- **Supported (exploratory)**, i.e. survived discovery and chronological confirmation:
+  - Saturday BTC |return| lower;
+  - Saturday left-tail days fewer;
+  - FOMC: larger |4 h| move after the statement.
+- **Rejected:**
+  - every day-of-month test, **including the 14th**;
+  - months and turn-of-month;
+  - all return-direction effects.
+- **Elections:** descriptive only (n < 20 for every asset).
+- **Forecasting:** the Saturday feature improves the 24 h realized-vol and 3%-move forecasts on previously exposed data. It is now a **prospective challenger**; the champion is unchanged.
+- **Promotions: 0.** Prospective confirmations: 0 (nothing has resolved yet).
+- **Method validation:**
+  - It caught a powerless test design before the registered run (amendment 2).
+  - False "supported" results: 2 of 20 null runs (tail metric).
+  - Planted 0.67σ effect recovered 10/10.
+- **Stage 0:** the Research Army dashboard and its backend fixes are committed.
+
+---
+
 # Status: v0.6 research army (2026-11-03)
 
 A 24-role research organization now runs durable, restartable research cycles: DISCOVER → VERIFY → UNDERSTAND →

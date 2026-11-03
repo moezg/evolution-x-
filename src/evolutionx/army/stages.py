@@ -287,6 +287,9 @@ def forecast_live(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     else:
         r = P.issue(fetch=False)
         out["issue"] = {k: r[k] for k in ("origin_utc", "as_of_utc", "lag_h")} | {"n": len(r["forecasts"])}
+    from ..quant.forecast_link import issue_challengers
+
+    out["challengers"] = issue_challengers()  # quant-discovery challengers; skipped when already issued
     return out
 
 
