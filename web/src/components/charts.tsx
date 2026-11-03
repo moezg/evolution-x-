@@ -69,6 +69,17 @@ export function clockFmt(t: number): string {
   return h ? `${h}:${String(m).padStart(2, "0")}${sec ? ":" + String(sec).padStart(2, "0") : ""}` : `${m}:${String(sec).padStart(2, "0")}`;
 }
 
+/** Formatter whose precision follows the tick step, so narrow ranges stay distinguishable. */
+export function stepFormatter(ticks: number[]): (v: number) => string {
+  const step = ticks.length > 1 ? Math.abs(ticks[1] - ticks[0]) : 0;
+  const maxAbs = Math.max(0, ...ticks.map(Math.abs));
+  if (maxAbs >= 1e6 && step >= 1e5) return (v) => (v / 1e6).toFixed(step >= 1e6 ? 0 : 1) + "M";
+  if (maxAbs >= 1e4 && step >= 1e3) return (v) => (v / 1e3).toFixed(step >= 1e4 ? 0 : step >= 1e3 ? 0 : 1) + "k";
+  if (step >= 1 || step === 0) return (v) => (maxAbs >= 1e4 ? v.toLocaleString("en-US", { maximumFractionDigits: 0 }) : defaultFmt(v));
+  const d = Math.min(8, Math.max(0, -Math.floor(Math.log10(step))));
+  return (v) => v.toFixed(d);
+}
+
 export interface LineSeries {
   name: string;
   color: string;
@@ -83,7 +94,7 @@ export function LineChart({
   series,
   height = 200,
   xFormat = (v) => String(v),
-  yFormat = defaultFmt,
+  yFormat: yFormatProp,
   label,
   zeroLine = false,
   yDomain,
@@ -112,7 +123,9 @@ export function LineChart({
   const xspan = xs[1] - xs[0] || 1;
   const sx = (v: number) => m.l + ((v - xs[0]) / xspan) * iw;
   const sy = (v: number) => m.t + ih - ((v - y0) / (y1 - y0 || 1)) * ih;
-  const yt = niceTicks(y0, y1, Math.max(2, Math.floor(ih / 40)));
+  const yt = niceTicks(y0, y1, Math.max(3, Math.floor(ih / 36)));
+  const yFormat = yFormatProp ?? stepFormatter(yt);
+  const tipFormat = yFormatProp ?? ((v: number) => v.toLocaleString("en-US", { maximumFractionDigits: Math.abs(v) >= 100 ? 2 : 5 }));
   const xt = (timeAxis ? timeTicks : niceTicks)(xs[0], xs[1], Math.max(2, Math.floor(iw / 90)));
 
   const paths = useMemo(
@@ -232,7 +245,7 @@ export function LineChart({
               <span aria-hidden className="inline-block h-0.5 w-3" style={{ background: s.color }} />
               <span className="text-ink2">{s.name}</span>
               <span className="ml-auto pl-2 text-ink tnum">
-                {s.values[hover] === null || s.values[hover] === undefined ? "—" : yFormat(s.values[hover] as number)}
+                {s.values[hover] === null || s.values[hover] === undefined ? "—" : tipFormat(s.values[hover] as number)}
               </span>
             </div>
           ))}
