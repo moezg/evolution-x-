@@ -961,6 +961,11 @@ HANDLERS = {
 
 
 def seed(store: Any, cycle: str, cfg: dict[str, Any]) -> None:
+    if cfg.get("workflow") == "quant":  # quantitative / calendar / event discovery workflow (divisions G, H, I)
+        from ..quant.workflow import seed as quant_seed
+
+        quant_seed(store, cycle, cfg)
+        return
     for r in ("A1", "A2"):
         new_task(store, cycle, "discover", r, "DISCOVER")
     for r in ("B1", "B2", "B3", "B4"):
@@ -971,3 +976,8 @@ def seed(store: Any, cycle: str, cfg: dict[str, Any]) -> None:
     for ctl in cfg.get("controls", []):
         new_task(store, cycle, "control", "D2", "IMPLEMENT", {"control": ctl})
     new_task(store, cycle, "reassess", "F4", "REASSESS", barrier=True)
+
+
+from ..quant.workflow import QUANT_HANDLERS  # noqa: E402  (registered after the core handlers)
+
+HANDLERS.update(QUANT_HANDLERS)

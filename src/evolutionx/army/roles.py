@@ -1,4 +1,4 @@
-"""The 24 logical research roles (6 divisions x 4). Roles are activated per task; none runs permanently.
+"""The 36 logical research roles (9 divisions x 4). Roles are activated per task; none runs permanently.
 
 `impl` says honestly how a role works today:
   deterministic      - code only
@@ -216,6 +216,105 @@ ROLES: tuple[Role, ...] = (
         "REASSESS",
     ),
 )
+QUANT_ROLES: tuple[Role, ...] = (
+    Role(
+        "G1",
+        "Quantitative and Statistical Intelligence",
+        "Quantitative Research Scientist",
+        "turns supported findings into forecast features and tests incremental skill (F-FCAST)",
+        "deterministic",
+        "EVALUATE",
+    ),
+    Role(
+        "G2",
+        "Quantitative and Statistical Intelligence",
+        "Time-Series Scientist",
+        "ACF of returns and |returns|, volatility clustering diagnostics",
+        "deterministic",
+        "UNDERSTAND",
+    ),
+    Role(
+        "G3",
+        "Quantitative and Statistical Intelligence",
+        "Cycle Discovery Scientist",
+        "periodogram band-rank tests with stability checks (F-CYCLE)",
+        "deterministic",
+        "TEST",
+    ),
+    Role(
+        "G4",
+        "Quantitative and Statistical Intelligence",
+        "Statistical Arbitrage Scientist",
+        "cointegration / relative value - NOT implemented in this slice (needs a second spot asset); records the gap",
+        "deterministic",
+        "UNDERSTAND",
+    ),
+    Role(
+        "H1",
+        "Temporal and Calendar Intelligence",
+        "Calendar Anomaly Scientist",
+        "day-of-month (incl. the 14th), weekday, month, turn-of-month scans with rotation tests (F-DOM/DOW/MOY/TOM)",
+        "deterministic",
+        "TEST",
+    ),
+    Role(
+        "H2",
+        "Temporal and Calendar Intelligence",
+        "Recurring Event Scientist",
+        "catalogue of recurring events with data coverage (FOMC available; options expiry, index rebalances unavailable)",
+        "deterministic",
+        "UNDERSTAND",
+    ),
+    Role(
+        "H3",
+        "Temporal and Calendar Intelligence",
+        "Multi-Scale Cycle Scientist",
+        "stability of calendar effects and cycles across years and halves",
+        "deterministic",
+        "CHALLENGE",
+    ),
+    Role(
+        "H4",
+        "Temporal and Calendar Intelligence",
+        "Cycle Interaction Scientist",
+        "event x regime interactions with minimum cell sizes (F-XEVENT)",
+        "deterministic",
+        "TEST",
+    ),
+    Role(
+        "I1",
+        "Political, Macroeconomic and Geopolitical Intelligence",
+        "Political Cycle Scientist",
+        "U.S. presidential and midterm elections (statutory dates), per-asset event studies (F-ELECT)",
+        "deterministic",
+        "TEST",
+    ),
+    Role(
+        "I2",
+        "Political, Macroeconomic and Geopolitical Intelligence",
+        "Monetary Policy Scientist",
+        "FOMC calendar from federalreserve.gov, policy actions from FRED, hourly BTC event study (F-FOMC)",
+        "deterministic",
+        "TEST",
+    ),
+    Role(
+        "I3",
+        "Political, Macroeconomic and Geopolitical Intelligence",
+        "Economic Calendar Scientist",
+        "CPI/NFP/GDP release studies - BLOCKED (bls.gov HTTP 403, no consensus data); records the data gap",
+        "deterministic",
+        "UNDERSTAND",
+    ),
+    Role(
+        "I4",
+        "Political, Macroeconomic and Geopolitical Intelligence",
+        "Geopolitical and Cross-Asset Scientist",
+        "cross-asset election responses (BTC, 10y yield, S&P 500); geopolitical events NOT ingested (no verified timestamped source)",
+        "deterministic",
+        "UNDERSTAND",
+    ),
+)
+ROLES = ROLES + QUANT_ROLES
 ROLE = {r.id: r for r in ROLES}
 
 

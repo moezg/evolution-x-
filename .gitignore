@@ -18,3 +18,5 @@ dist/
 data/vault_v2/*.npz
 data/fresh/*.zip
 data/fresh/*.CHECKSUM
+data/quant/binance/
+!data/quant/binance/manifest_*.json

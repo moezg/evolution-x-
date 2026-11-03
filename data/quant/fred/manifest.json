@@ -1,0 +1,20 @@
+{
+ "DGS10": {
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+  "sha256": "a960c659b08dec31394a7150119fd54dcd45091ec4cc017e318ba54aa11adfac",
+  "bytes": 269267,
+  "retrieved_utc": "2026-11-03T23:09:56+00:00"
+ },
+ "SP500": {
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
+  "sha256": "65da0f088df36f6994bf64ca89fd630b0cc9fdb492beee08422970fa3bbc0bbd",
+  "bytes": 48884,
+  "retrieved_utc": "2026-11-03T23:09:56+00:00"
+ },
+ "DFEDTARU": {
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFEDTARU",
+  "sha256": "0b5d303cf57849965cbbcbd908cc8302ce6164163d81334bc1be68d648e7df15",
+  "bytes": 104538,
+  "retrieved_utc": "2026-11-03T23:09:56+00:00"
+ }
+}

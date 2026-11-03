@@ -20,12 +20,12 @@ from evolutionx.research.contract import static_check
 
 
 # --------------------------------------------------------------------------- roles and policy
-def test_24_roles_in_6_divisions_of_4():
-    assert len(ROLES) == 24 and len({r.id for r in ROLES}) == 24
+def test_36_roles_in_9_divisions_of_4():
+    assert len(ROLES) == 36 and len({r.id for r in ROLES}) == 36
     divs: dict[str, int] = {}
     for r in ROLES:
         divs[r.division] = divs.get(r.division, 0) + 1
-    assert len(divs) == 6 and set(divs.values()) == {4}
+    assert len(divs) == 9 and set(divs.values()) == {4}
 
 
 def test_eligibility_cannot_be_validated_without_prospective_evidence_and_human():

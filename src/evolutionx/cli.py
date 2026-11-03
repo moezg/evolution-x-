@@ -414,6 +414,31 @@ def cmd_army(a: argparse.Namespace) -> None:
     _print(run(a.action, a.cycles, cfg, a.key, a.value))
 
 
+def cmd_quant(a: argparse.Namespace) -> None:
+    """Quantitative / calendar / political-macro event discovery (research only)."""
+    if a.action == "fetch":
+        from .quant import data as D
+
+        _print({"fred": D.fetch_fred(), "btc_1d": D.fetch_btc("1d"), "btc_1h": D.fetch_btc("1h")})
+    elif a.action == "events":
+        from .quant import events as E
+
+        r = E.Registry()
+        _print(
+            {
+                "elections": E.build_elections(r),
+                "fomc": E.build_fomc(r),
+                "actions": E.attach_policy_actions(r),
+                "verify": r.j.verify(),
+            }
+        )
+    else:
+        from .army.cli import run
+
+        r = run("run", 1, {"workflow": "quant", "controls": [], "note": "quant discovery workflow"})
+        _print({k: v for k, v in r["cycles"][0].items() if k != "usage"})
+
+
 def cmd_serve(a: argparse.Namespace) -> None:
     import uvicorn
 
@@ -478,6 +503,8 @@ def main() -> None:
     sp.add_argument("--no-evaluate", action="store_true", help="knowledge: skip realism evaluation of proposals")
     sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
     sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
+    sp = add("quant", cmd_quant)
+    sp.add_argument("action", choices=["fetch", "events", "run"])
     sp = add("army", cmd_army)
     sp.add_argument("action", choices=["status", "tick", "run", "resume", "pause", "stop", "start", "set"])
     sp.add_argument("--cycles", type=int, default=1)
