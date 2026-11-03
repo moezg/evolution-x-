@@ -92,6 +92,11 @@ def tasks(name: str) -> list[dict[str, Any]]:
                 "checks": d.get("checks"),
                 "activation": ck.get("activation"),
                 "duplicate_of": ck.get("duplicate_of"),
+                "classification": (ck.get("classification") or {}).get("class"),
+                "premise_verdict": (ck.get("premise_check") or {}).get("verdict"),
+                "premise_counts": (ck.get("premise_check") or {}).get("counts"),
+                "mechanism_observed": (ck.get("mechanism") or ck.get("mechanism_v2") or {}).get("observed"),
+                "generator": (ck.get("external") or {}).get("generator") or ck.get("generator"),
                 "updated": t["updated"],
             }
         )
@@ -119,7 +124,30 @@ def task(name: str, tid: str) -> dict[str, Any]:
     if exp:
         exp = {k: v for k, v in exp.items() if k not in ("_dec",)}
         exp["development"] = {k: v for k, v in exp["development"].items() if k not in ("daily", "day_index")}
-    return {"task": t, "candidate": cand, "experiment": exp}
+    dossier = None
+    dp = lab.root / "dossiers" / f"{tid}.json"
+    if dp.exists():
+        dj = json.loads(dp.read_text())
+        dossier = {
+            "dossier_sha256": dj.get("dossier_sha256"),
+            "git_commit": dj.get("git_commit"),
+            "generated_utc": dj.get("generated_utc"),
+            "sources": dj.get("sources"),
+            "engine_features": dj.get("execution", {}).get("engine_features"),
+            "rebalance_rule": dj.get("execution", {}).get("rebalance_rule"),
+            "parent_behaviour": dj.get("parent", {}).get("measured_behaviour_development"),
+            "has_lessons": "lessons_from_memory" in dj,
+            "size_chars": len(dp.read_text()),
+        }
+    return {
+        "task": t,
+        "candidate": cand,
+        "experiment": exp,
+        "dossier": dossier,
+        "premise_check": ck.get("premise_check"),
+        "classification": ck.get("classification"),
+        "mechanism": ck.get("mechanism") or ck.get("mechanism_v2"),
+    }
 
 
 @router.get("/{name}/hypotheses")
@@ -254,3 +282,51 @@ def calibration() -> dict[str, Any]:
     liq = Path("artifacts/analysis/liquidity_supply.json")
     r["liquidity_supply"] = json.loads(liq.read_text()) if liq.exists() else None
     return r
+
+
+@router.get("/comparisons")
+def comparisons() -> list[dict[str, Any]]:
+    out = []
+    for p in sorted((ROOT / "comparisons").glob("*.json")):
+        r = json.loads(p.read_text())
+        for a in r.get("arms", {}).values():
+            a.pop("rows", None)
+        out.append(r)
+    return out
+
+
+@router.get("/comparisons/{tag}")
+def comparison(tag: str) -> dict[str, Any]:
+    if not re.fullmatch(r"[a-z0-9_\-]+", tag) or not (ROOT / "comparisons" / f"{tag}.json").exists():
+        raise HTTPException(404, "comparison not found")
+    return json.loads((ROOT / "comparisons" / f"{tag}.json").read_text())
+
+
+@router.get("/lessons")
+def lessons_view() -> dict[str, Any]:
+    from ..research.lessons import operator_summary
+
+    roots = [ROOT / n for n in ("arm_guided", "arm_random", "claude_session", "claude_cli")]
+    summ = Path("artifacts/research/analysis/reclassification_summary.json")
+    return {
+        "summary_by_change_type": operator_summary(roots),
+        "classes_by_lab": json.loads(summ.read_text()) if summ.exists() else None,
+        "note": "descriptive classes from development measurements; a class does not prove the cause",
+    }
+
+
+@router.get("/exposure")
+def exposure() -> dict[str, Any]:
+    p = Path("evals/frozen/exposure_registry.json")
+    reg = json.loads(p.read_text())
+    v2 = Path("data/vault_v2/manifest.json")
+    reg["vault_v2_manifest"] = json.loads(v2.read_text()) if v2.exists() else None
+    return reg
+
+
+@router.get("/premise-audit")
+def premise_audit() -> dict[str, Any]:
+    p = ROOT / "premise_audit" / "cli2_premises.json"
+    if not p.exists():
+        raise HTTPException(404, "no premise audit")
+    return json.loads(p.read_text())

@@ -89,6 +89,18 @@ def arm_metrics(root: Path) -> dict[str, Any]:
                 "change": ((ck.get("external") or {}).get("novelty") or ck.get("operator") or "")[:300],
             }
         )
+    # behavioural duplicates: identical development OOS Sharpe AND identical validation delta to another candidate
+    sigs: dict[tuple, str] = {}
+    for db in ROOT.glob("*/research.db"):
+        for t in Lab(db.parent).memory.q("SELECT id, checkpoint FROM tasks"):
+            ck = t["checkpoint"] or {}
+            sg = _behaviour_sig(ck)
+            if sg and f"{db.parent.name}/{t['id']}" not in sigs.values():
+                sigs.setdefault(sg, f"{db.parent.name}/{t['id']}")
+    for r, t in zip(rows, tasks, strict=True):
+        sg = _behaviour_sig(t["checkpoint"] or {})
+        first = sigs.get(sg) if sg else None
+        r["behavioural_duplicate_of"] = first if first and first != f"{root.name}/{t['id']}" else None
     hyp = [r for r in rows if r["hypothesis"]]
     cand = [r for r in rows if r["candidate"]]
     inf = [r for r in rows if r["executable"]]
@@ -107,6 +119,7 @@ def arm_metrics(root: Path) -> dict[str, Any]:
         "premise_correct_rate": rate(sum(r["premise_verdict"] == "accepted" for r in hyp), len(hyp)),
         "executable_rate": rate(len(inf), len(cand)),
         "duplicate_rate": rate(sum(r["duplicate"] for r in cand), len(cand)),
+        "behavioural_duplicate_rate": rate(sum(bool(r["behavioural_duplicate_of"]) for r in cand), len(cand)),
         "mechanism_observed_rate": rate(sum(bool(r["mechanism_observed"]) for r in mech), len(mech)),
         "unstable_share": rate(sum(r["class"] == "unstable_across_periods" for r in inf), len(inf)),
         "confirmed": sum(r["verdict"] == "promote" for r in rows),
@@ -143,3 +156,10 @@ def report(tag: str, arms: list[str]) -> dict[str, Any]:
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{tag}.json").write_text(json.dumps(rep, indent=2, default=str))
     return rep
+
+
+def _behaviour_sig(ck: dict[str, Any]) -> tuple | None:
+    sc, d = ck.get("screen") or {}, (ck.get("decision") or {}).get("bootstrap") or {}
+    if "candidate_dev_oos_sharpe" not in sc or "delta_sharpe" not in d:
+        return None
+    return (round(sc["candidate_dev_oos_sharpe"], 6), round(d["delta_sharpe"], 6))

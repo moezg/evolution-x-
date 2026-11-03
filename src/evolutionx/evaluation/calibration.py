@@ -197,3 +197,74 @@ def run_calibration(
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "report.json").write_text(json.dumps(report, indent=2, default=float))
     return report
+
+
+MM_HYPOTHESIS = {
+    "id": "H-cal-1",
+    "written_utc": "2026-11-03T16:55:00Z",
+    "statement": "The simulator's 1-minute volatility floor is set by market-maker quote placement (half-spread and level "
+    "spacing), which calibration v1 did not vary.",
+    "prediction": "1-minute return std decreases monotonically as MM half_spread_bps and level_step_bps decrease "
+    "(one-at-a-time, other knobs at calibrated v1 values); elasticity d log(vol)/d log(half_spread) > 0.3.",
+    "refutation": "elasticity below 0.1 or non-monotonic response: quote placement is not the binding constraint.",
+    "design": "one-at-a-time grid half_spread_bps in {1,2,4,8} with level_step_bps = 0.75 x half_spread, 3 seeds each, "
+    "1800 s runs, TRAIN-day targets only; no validation/held-out days are used for this sensitivity study",
+}
+
+
+def _sim_mm(args: tuple[dict[str, Any], float, int, int]) -> dict[str, float]:
+    knobs, hs, seed, dur = args
+    cfg = SimConfig(
+        seed=seed,
+        duration_s=dur,
+        world_annual_vol=knobs["world_annual_vol"],
+        size_scale={k: knobs[k] for k in knobs if k != "world_annual_vol"},
+        param_overrides={"market_maker": {"half_spread_bps": hs, "level_step_bps": 0.75 * hs}},
+        invariant_check_every_s=600,
+    )
+    s = Simulation(cfg).run()
+    s.exchange.check_invariants()
+    mids = np.array([r[1] for r in s.series], float) / 100
+    vols = np.array([r[-2] for r in s.series], float) / 1e4
+    idx = np.arange(59, len(mids), 60)
+    f = multi_facts(mids[idx], np.diff(np.r_[0, vols[idx]]))
+    f["half_spread_bps"] = hs
+    return f
+
+
+def run_mm_sensitivity(seeds: int = 3, duration_s: int = 1800, workers: int = 4) -> dict[str, Any]:
+    v1 = json.loads((OUT / "report.json").read_text())["selected_knobs"]
+    grid = [1.0, 2.0, 4.0, 8.0]
+    jobs = [(v1, hs, 7000 + s, duration_s) for hs in grid for s in range(seeds)]
+    with ProcessPoolExecutor(workers) as ex:
+        res = list(ex.map(_sim_mm, jobs))
+    tr = target_stats(window_targets("train"))
+    rows = []
+    for hs in grid:
+        fs = [f for f in res if f["half_spread_bps"] == hs]
+        rows.append(
+            {
+                "half_spread_bps": hs,
+                "ret_std_bps": mean_ci([f.get("ret_std_bps", float("nan")) for f in fs]),
+                "train_distance": mean_ci([distance(f, tr) for f in fs]),
+            }
+        )
+    x = np.log([r["half_spread_bps"] for r in rows])
+    y = np.log([r["ret_std_bps"]["mean"] for r in rows])
+    elasticity = float(np.polyfit(x, y, 1)[0])
+    mono = bool(np.all(np.diff(y) > 0))
+    verdict = (
+        "supported" if elasticity > 0.3 and mono else "refuted" if elasticity < 0.1 or not mono else "inconclusive"
+    )
+    rep = {
+        "hypothesis": MM_HYPOTHESIS,
+        "base_knobs": v1,
+        "rows": rows,
+        "elasticity": elasticity,
+        "monotonic": mono,
+        "verdict": verdict,
+        "train_target_ret_std_bps": tr["ret_std_bps"][0],
+        "label": "SYNTHETIC simulator vs HISTORICAL train-day targets",
+    }
+    (OUT / "mm_sensitivity.json").write_text(json.dumps(rep, indent=2, default=float))
+    return rep

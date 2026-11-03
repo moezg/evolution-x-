@@ -193,6 +193,8 @@ PARENT_METRICS = (
     "small_change_execution_ratio",
     "fills_per_day",
     "mean_abs_exposure",
+    "sharpe_low_vol_tercile",
+    "sharpe_high_vol_tercile",
 )
 
 

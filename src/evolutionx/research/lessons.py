@@ -22,6 +22,7 @@ from typing import Any
 
 from .memory import Memory
 
+MIN_USEFUL_DEV_GAIN = 0.10  # same minimal useful effect as the frozen promotion rule (Sharpe units)
 CLASSES = (
     "generation_failed",
     "technically_false_premise",
@@ -96,7 +97,12 @@ def classify(
     screen = ck.get("screen") or {}
     signs = [v.get("oos_sharpe", 0) for v in ((cand_dev or {}).get("per_symbol") or {}).values()]
     instr_disagree = len(signs) > 1 and min(signs) < 0 < max(signs)
-    if (screen.get("passed") and verdict == "refuted") or instr_disagree:
+    dev_gain = screen.get("candidate_dev_oos_sharpe", float("nan")) - screen.get(
+        "champion_dev_oos_sharpe", float("nan")
+    )
+    material_dev_gain = math.isfinite(dev_gain) and dev_gain >= MIN_USEFUL_DEV_GAIN
+    detail["dev_oos_gain_vs_champion"] = dev_gain
+    if (material_dev_gain and verdict == "refuted") or (material_dev_gain and instr_disagree):
         return {
             "class": "unstable_across_periods",
             "note": note,
