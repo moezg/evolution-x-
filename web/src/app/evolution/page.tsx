@@ -154,7 +154,7 @@ export default function EvolutionPage() {
         </label>
       </PageTitle>
 
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
         <Panel title="Run evolution" subtitle="Multi-objective search with train / validation / held-out seeds. Champions change only via a significant paired challenge.">
           <RunForm onDone={lin.refresh} />
         </Panel>
@@ -188,7 +188,7 @@ export default function EvolutionPage() {
       </div>
 
       {runCands.length > 0 && (
-        <div className="grid gap-4 xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
           <Panel
             title="Generational comparison"
             subtitle="Each dot is a candidate (validation objectives, higher is better on both axes). Color = generation; dashed line = 2-D Pareto front."
@@ -215,9 +215,9 @@ export default function EvolutionPage() {
             <LineageTree candidates={runCands} onSelect={setSel} selected={sel?.id} />
             <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink2" aria-label="Origin legend">
               {Object.entries(ORIGIN_COLORS).map(([k, c]) => (
-                <li key={k} className="flex items-center gap-1"><span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: c }} />{k.replace("_", " ")}</li>
+                <li key={k} className="flex items-center gap-1"><span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: c }} />origin: {k.replace("_", " ")}</li>
               ))}
-              <li className="flex items-center gap-1"><span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full border-2 border-[#f2c14e]" />champion</li>
+              <li className="flex items-center gap-1"><span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full border-2 border-[#f2c14e]" />status: champion</li>
               <li className="flex items-center gap-1"><span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full border-2 border-dashed border-down" />rejected / failed</li>
             </ul>
             {sel && (
@@ -228,7 +228,7 @@ export default function EvolutionPage() {
                   <span className="text-muted">gen {sel.generation} · {sel.origin.replace("_", " ")}{sel.parents?.length ? ` · parents ${sel.parents.join(", ")}` : ""}</span>
                   <button className="btn btn-sm ml-auto" onClick={() => setSel(null)}>Close</button>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div><h4 className="mb-1 text-[11px] uppercase text-muted">Genome</h4><KeyValue data={sel.genome} /></div>
                   <div>
                     <h4 className="mb-1 text-[11px] uppercase text-muted">Objectives</h4>
@@ -242,7 +242,7 @@ export default function EvolutionPage() {
         </div>
       )}
 
-      <div className="grid gap-4 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <Panel
           title="Champion history"
           subtitle="Every promotion is versioned and can be rolled back."

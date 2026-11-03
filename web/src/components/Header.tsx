@@ -26,7 +26,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-page/95 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[1600px] flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2">
-        <Link href="/" className="flex items-baseline gap-2 font-semibold tracking-[0.18em] text-ink">
+        <Link href="/" prefetch={false} className="flex items-baseline gap-2 font-semibold tracking-[0.18em] text-ink">
           <span aria-hidden className="text-accent">◆</span>
           EVOLUTION&nbsp;X
         </Link>
@@ -50,6 +50,7 @@ export function Header() {
               <Link
                 key={n.href}
                 href={n.href}
+                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={`whitespace-nowrap rounded-md px-3 py-1.5 text-sm ${
                   active ? "bg-panel2 font-semibold text-ink ring-1 ring-line2" : "text-ink2 hover:bg-panel hover:text-ink"

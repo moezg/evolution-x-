@@ -31,7 +31,7 @@ export function Panel({
         <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
           <div className="min-w-0">
             {title && (
-              <h2 id={hid} className="text-sm font-semibold text-ink">
+              <h2 id={hid} className="break-words text-sm font-semibold text-ink [overflow-wrap:anywhere]">
                 {title}
               </h2>
             )}
@@ -114,7 +114,7 @@ export function NoSimCta({ compact = false }: { compact?: boolean }) {
     <div className={`rounded-lg border border-accent/40 bg-accent/10 ${compact ? "p-3" : "p-6"} text-center`}>
       <p className="font-medium">No simulation running</p>
       <p className="mt-1 text-sm text-ink2">Start a synthetic market run to populate live data.</p>
-      <Link href="/#start" className="btn btn-primary mt-3">
+      <Link href="/#start" prefetch={false} className="btn btn-primary mt-3">
         Start a simulation
       </Link>
     </div>

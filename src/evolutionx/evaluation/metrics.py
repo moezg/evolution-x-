@@ -51,7 +51,7 @@ def run_metrics(sim, shock_at_s: int | None = None, window_s: int = 300) -> dict
         if sim.cfg.n_venues > 1
         else 0.0,
         "facts": facts,
-        "realism": realism_score(facts),
+        "realism": realism_score(facts, _reference_bands()),
         "events_per_s": sim.events_processed / max(sim.wall_time_s, 1e-9),
         "wall_time_s": sim.wall_time_s,
     }
@@ -72,6 +72,16 @@ def run_metrics(sim, shock_at_s: int | None = None, window_s: int = 300) -> dict
         }
     out["by_kind"] = performance_by_kind(sim)
     return _finite(out)
+
+
+def _reference_bands() -> dict[str, tuple[float, float]] | None:
+    """Historical TRAIN bands when data is available locally, else literature bands."""
+    from .reference import historical_bands
+
+    try:
+        return historical_bands()
+    except (OSError, ValueError):
+        return None
 
 
 def performance_by_kind(sim) -> dict[str, dict[str, float]]:  # noqa: ANN001

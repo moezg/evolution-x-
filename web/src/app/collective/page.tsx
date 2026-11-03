@@ -56,7 +56,7 @@ export default function CollectivePage() {
         <Kpi label="Liquidations" value={st.data?.liquidations ?? "—"} tone={(st.data?.liquidations ?? 0) > 0 ? "down" : undefined} />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <Panel
           title="Interaction graph"
           subtitle={net.data ? `${net.data.nodes.length} agents · ${net.data.edges.length} edges · social influence ${net.data.enabled ? "enabled" : "disabled"}. Fill = kind, size = reputation, outline = stance. Click a node to open the agent.` : undefined}
@@ -107,7 +107,7 @@ export default function CollectivePage() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Panel title="Influence / contagion per minute" subtitle="Count of social-influence stance updates in each virtual minute.">
           {ipmBars.length > 1 ? (
             <BarChart bars={ipmBars} height={170} color="#9085e9" label="Influence events per minute" yFormat={(v) => v.toFixed(0)} />
@@ -124,7 +124,7 @@ export default function CollectivePage() {
         </Panel>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <Panel title="Strategy performance by kind" subtitle="CVaR5 = mean of the worst 5% of agent returns within the kind.">
           {kinds.length ? (
             <div className="overflow-x-auto">

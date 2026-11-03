@@ -42,6 +42,7 @@ body {
   outline-offset: 2px;
 }
 
+@layer components {
 /* Form controls */
 .field {
   display: flex;
@@ -140,6 +141,8 @@ table.data th.num {
 }
 table.data tbody tr:hover {
   background: #1f1f1d;
+}
+
 }
 
 input[type="range"] {

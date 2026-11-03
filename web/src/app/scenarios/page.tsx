@@ -168,7 +168,7 @@ function ExperimentDetail({ id }: { id: string }) {
             Dots = individual replicates; ◆ = mean; bars = 95% t-interval. Treatment and baseline share seeds, so the paired Δ row is the primary comparison.
           </p>
           {e.summary && Object.keys(e.summary).length ? (
-            <div className="grid gap-3 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {Object.entries(e.summary).map(([k, m]) => <MetricCard key={k} name={k} m={m} />)}
             </div>
           ) : (
@@ -190,7 +190,7 @@ export default function ScenariosPage() {
   return (
     <div className="space-y-4">
       <PageTitle title="Scenario lab" />
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
         <Panel title="Configure & launch" subtitle="Run paired treatment/baseline replicates of a scenario.">
           <LaunchForm onDone={(j) => {
             list.refresh();

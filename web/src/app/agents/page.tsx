@@ -86,7 +86,7 @@ export default function AgentsPage() {
       <PageTitle title="Agent explorer">
         <ProvenanceBadge label={st.data?.data_label} />
       </PageTitle>
-      <div className={`grid gap-4 ${sel !== null ? "xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]" : ""}`}>
+      <div className={`grid grid-cols-1 gap-4 ${sel !== null ? "xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]" : ""}`}>
         <Panel
           title={`Agents (${rows.length}${agents.data ? ` of ${agents.data.length}` : ""})`}
           subtitle="Click a row (or press Enter) to open its detail panel. Click column headers to sort."

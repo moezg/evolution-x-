@@ -207,7 +207,7 @@ export function LineageTree({ candidates, onSelect, selected }: { candidates: Ca
   }, [candidates]);
   if (!candidates.length) return <p className="text-xs text-muted">No candidates.</p>;
   const maxN = Math.max(...byGen.map(([, a]) => a.length));
-  const rowH = 26;
+  const rowH = 30;
   const m = { l: 10, r: 10, t: 24, b: 10 };
   const colW = Math.max(70, (width - m.l - m.r) / Math.max(1, byGen.length));
   const svgW = Math.max(width, m.l + m.r + colW * byGen.length);
@@ -254,7 +254,7 @@ export function LineageTree({ candidates, onSelect, selected }: { candidates: Ca
             <g key={c.id} transform={`translate(${p[0]},${p[1]})`} style={{ cursor: onSelect ? "pointer" : undefined }}
               onMouseEnter={() => setHover(c.id)} onMouseLeave={() => setHover(null)} onClick={() => onSelect?.(c)}
               opacity={hl && !related.has(c.id) ? 0.35 : c.status === "retired" ? 0.5 : 1}>
-              <circle r={champ ? 8 : 6} fill={ORIGIN_COLORS[c.origin] ?? "#6f6e69"}
+              <circle r={champ ? 9 : 7} fill={ORIGIN_COLORS[c.origin] ?? "#6f6e69"}
                 stroke={champ ? "#f2c14e" : bad ? "#e66767" : selected === c.id ? "#f0efec" : "#161615"}
                 strokeWidth={champ || bad || selected === c.id ? 2.5 : 1.5} strokeDasharray={bad ? "2 2" : undefined} />
               {c.pareto_rank === 0 && <circle r={2} fill="#f0efec" />}

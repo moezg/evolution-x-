@@ -24,7 +24,9 @@ export function CandleChart({
   historical,
   height = 360,
   label,
+  dataLabel = "synthetic",
 }: {
+  dataLabel?: string;
   candles: Candle[];
   historical?: { t: number; close: number }[] | null;
   height?: number;
@@ -36,6 +38,7 @@ export function CandleChart({
   const vs = useRef<ISeriesApi<"Histogram"> | null>(null);
   const hs = useRef<ISeriesApi<"Line"> | null>(null);
   const fitted = useRef(false);
+  const titleRef = useRef("");
 
   useEffect(() => {
     if (!el.current) return;
@@ -68,6 +71,7 @@ export function CandleChart({
       wickDownColor: DOWN,
       title: "SYNTHETIC",
     });
+    titleRef.current = "";
     vs.current = c.addSeries(
       HistogramSeries,
       { priceFormat: { type: "volume" }, color: "#3987e5", title: "volume BTC" },
@@ -92,6 +96,11 @@ export function CandleChart({
   useEffect(() => {
     const c = chart.current;
     if (!c || !cs.current || !vs.current) return;
+    const title = dataLabel === "counterfactual_synthetic" ? "COUNTERFACTUAL · SYNTHETIC" : "SYNTHETIC";
+    if (titleRef.current !== title) {
+      cs.current.applyOptions({ title });
+      titleRef.current = title;
+    }
     const seen = new Set<number>();
     const rows = candles.filter((k) => (seen.has(k.t) ? false : (seen.add(k.t), true))).sort((a, b) => a.t - b.t);
     cs.current.setData(rows.map((k) => ({ time: k.t as UTCTimestamp, open: k.open, high: k.high, low: k.low, close: k.close })));
@@ -117,7 +126,7 @@ export function CandleChart({
       c.timeScale().fitContent();
       fitted.current = true;
     }
-  }, [candles, historical]);
+  }, [candles, historical, dataLabel]);
 
   return <div ref={el} role="img" aria-label={label} style={{ height }} className="w-full" />;
 }

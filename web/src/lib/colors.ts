@@ -38,7 +38,7 @@ export function stanceColor(s: number): string {
 }
 
 /** Sequential blue ramp for ordered values (e.g. generation). */
-const SEQ = ["#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95"];
+const SEQ = ["#e6f0fd", "#b7d3f6", "#86b6ef", "#5598e7", "#3987e5", "#2a78d6", "#1c5cab"];
 export function seqColor(i: number, n: number): string {
   if (n <= 1) return SEQ[3];
   const idx = Math.round((i / (n - 1)) * (SEQ.length - 1));

@@ -85,7 +85,7 @@ export default function OverviewPage() {
             <Kpi label="Insurance fund" value={usd(state.insurance_fund_usd, 0)} sub={`fees ${usd(state.fee_pool_usd, 0)}`} />
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
             <Panel
               className="xl:col-span-2"
               title={
@@ -119,7 +119,8 @@ export default function OverviewPage() {
                   <CandleChart
                     candles={candles.data.candles}
                     historical={candles.data.historical}
-                    height={420}
+                    height={460}
+                    dataLabel={label}
                     label={`Candlestick chart for ${v?.name ?? "venue"}, ${label} data`}
                   />
                   {!!candles.data.historical?.length && (
@@ -158,7 +159,7 @@ export default function OverviewPage() {
             </Panel>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Panel
               title={
                 <span className="flex flex-wrap items-center gap-2">
@@ -212,7 +213,7 @@ export default function OverviewPage() {
             </Panel>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,0.8fr)_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,0.8fr)_minmax(0,1fr)]">
             <Panel title="Agent population by kind" subtitle={`${state.n_agents ?? "—"} agents`}>
               <ErrorNote error={agents.error} what="agents" />
               <PopulationTable agents={agents.data} counts={state.counts} />

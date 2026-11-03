@@ -38,7 +38,7 @@ export function ProposalsSection() {
       <div role="note" className="mb-4 rounded-md border border-warn/50 bg-warn/10 px-3 py-2 text-xs text-warn">
         Approval records a decision; merging into main is a manual human step — nothing is auto-merged or deployed.
       </div>
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
         <div className="space-y-3">
           <form onSubmit={generate} className="space-y-2" aria-label="Generate code proposal">
             <label className="field">
@@ -174,7 +174,7 @@ function ProposalDetail({ p, onDecided }: { p: Proposal; onDecided: () => void }
         </div>
       ) : p.status === "awaiting_approval" ? (
         <form className="space-y-2 rounded border border-line bg-panel p-3" onSubmit={(e) => e.preventDefault()} aria-label="Record decision">
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <label className="field">
               Reviewer name (required)
               <input className="input" required value={reviewer} onChange={(e) => setReviewer(e.target.value)} autoComplete="name" />

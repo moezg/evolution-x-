@@ -91,7 +91,7 @@ function Synthesis({ s }: { s: Record<string, unknown> }) {
   const known = new Set(["prioritised_experiments", "conclusions", "hypotheses_to_test", "open_challenges", "mean_grounding"]);
   const rest = Object.fromEntries(Object.entries(s).filter(([k]) => !known.has(k)));
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
       <section className="rounded-md border border-line bg-panel2 p-3">
         <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider text-ink2">Prioritised experiments</h4>
         {pe.length ? (
@@ -139,7 +139,7 @@ function ReportView({ r }: { r: CouncilReport }) {
       </div>
       {x.orchestration && <p className="text-[11px] text-muted">{x.orchestration}</p>}
       {r.synthesis && <Synthesis s={r.synthesis} />}
-      <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 2xl:grid-cols-3">
         {(r.roles ?? []).map((role) => <RoleCard key={role.role} role={role} />)}
       </div>
     </div>
@@ -174,7 +174,7 @@ export default function CouncilPage() {
   return (
     <div className="space-y-4">
       <PageTitle title="Research council" />
-      <div className="grid gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
         <Panel title="Convene the council" subtitle="Eight role agents analyse read-only context; every claim is labelled as observation, hypothesis, assumption or conclusion.">
           <form onSubmit={run} className="space-y-3" aria-label="Run research council">
             <label className="field">
@@ -212,7 +212,7 @@ export default function CouncilPage() {
         </Panel>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <Panel title="Latest evaluation" subtitle="Realism / baseline / ablation report produced by `make eval`.">
           {evalMissing ? (
             <EmptyState title="No evaluation yet">Run <code>make eval</code> on the backend to produce realism, baseline and ablation tables.</EmptyState>
