@@ -1,0 +1,44 @@
+{
+  "name": "research-protocol-v1",
+  "frozen_utc": "2026-11-03T14:40:00Z",
+  "note": "Pre-registered before any backtest result was computed. Protected path: candidates and the generator cannot modify it.",
+  "instruments": [
+    {"symbol": "BTCUSDT", "market": "binance-usdm-perpetual", "resolution": "1h", "lot_step": 0.001, "spread_bps": 1.0},
+    {"symbol": "ETHUSDT", "market": "binance-usdm-perpetual", "resolution": "1h", "lot_step": 0.01, "spread_bps": 1.5}
+  ],
+  "coverage": {"start": "2020-01-01", "end_exclusive": "2026-11-01"},
+  "splits": {
+    "development": {"start": "2020-01-01", "end_exclusive": "2024-01-01", "use": "free exploration, diagnostics, walk-forward screening"},
+    "validation": {"start": "2024-01-01", "end_exclusive": "2025-07-01", "use": "champion/challenger selection; every access is counted as a trial"},
+    "final": {"start": "2025-07-01", "end_exclusive": "2026-11-01", "use": "vault: revealed once per campaign by the trusted supervisor; never mounted in candidate sandboxes"}
+  },
+  "execution": {
+    "decision_time": "bar close (available_at = close_time + 1ms)",
+    "fill_price": "next bar open +/- (half spread + impact)",
+    "taker_fee_bps": 5.0,
+    "impact_coef_bps": 10.0,
+    "participation_limit": 0.02,
+    "max_leverage": 2.0,
+    "maintenance_margin": 0.005,
+    "liquidation_fee_bps": 50.0,
+    "initial_equity_usd": 1000000.0,
+    "funding": "historical funding rate charged on position held at calc_time"
+  },
+  "walk_forward": {"train_months": 12, "test_months": 3, "step_months": 3, "embargo_bars": 168},
+  "promotion_rule": {
+    "primary_metric": "annualised net Sharpe of daily returns on the validation split (paired vs champion)",
+    "minimal_useful_effect_sharpe": 0.10,
+    "bootstrap": {"method": "stationary block bootstrap of paired daily returns", "mean_block_days": 10, "resamples": 2000, "seed": 7},
+    "required_prob_improvement": 0.95,
+    "secondary_constraints": {
+      "max_drawdown_increase_pct_points": 5.0,
+      "net_sharpe_at_2x_costs_min": 0.0,
+      "deflated_sharpe_min": 0.90,
+      "causality_spot_checks": 12
+    }
+  },
+  "statistics": {
+    "multiple_comparisons": "Holm-Bonferroni across hypotheses in a campaign report; Deflated Sharpe Ratio with N = number of validation trials",
+    "stopping": "fixed budget per campaign, defined before the campaign; no sequential peeking at validation to extend it"
+  }
+}

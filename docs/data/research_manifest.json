@@ -1,0 +1,114 @@
+{
+  "protocol": "research-protocol-v1",
+  "protocol_sha256": "0d8159f69feb3c97f7ba003b9c78c415798e2c905b3b6f4d619a2a0ee15a0008",
+  "built_utc": "2026-11-03T14:32:56+00:00",
+  "timezone": "UTC",
+  "units": {
+    "price": "USDT",
+    "volume": "base asset",
+    "funding": "rate per event",
+    "time": "ms since epoch"
+  },
+  "instruments": {
+    "BTCUSDT": {
+      "market": "binance-usdm-perpetual",
+      "resolution": "1h",
+      "qc": {
+        "rows_raw": 59880,
+        "duplicates_identical": 0,
+        "duplicates_conflicting": 0,
+        "misaligned": 0,
+        "invalid_ohlc": 0,
+        "partial_bars": 0,
+        "gaps": 1,
+        "missing_hours": 24,
+        "funding_events": 7488,
+        "funding_out_of_range": 0,
+        "timestamp_us_files": 0,
+        "header_files": 140
+      },
+      "gaps_sample": [
+        [
+          1793142000000,
+          1793232000000
+        ]
+      ],
+      "files": {
+        "development": {
+          "path": "data/research/BTCUSDT_1h_development.npz",
+          "sha256": "c5ac3bbe1d3c0583dc1776a8c6d8889ac70ccb7c44cbb0e1d7b8760a9457bffa",
+          "bars": 35064,
+          "first": "2020-01-01T00:00:00+00:00",
+          "last": "2023-12-31T23:00:00+00:00"
+        },
+        "validation": {
+          "path": "data/research/BTCUSDT_1h_validation.npz",
+          "sha256": "ea7febd67bfafd048cd78cb8bd316e341bd6f4e705c1e668c49abea577fb5463",
+          "bars": 13128,
+          "first": "2024-01-01T00:00:00+00:00",
+          "last": "2025-06-30T23:00:00+00:00"
+        },
+        "final": {
+          "path": "data/vault/BTCUSDT_1h_final.npz",
+          "sha256": "bac011ba57f8b267c8f0686c4c8979d4f711d7f2ec4b90cc610a5371bffb36c8",
+          "bars": 11688,
+          "first": "2025-07-01T00:00:00+00:00",
+          "last": "2026-10-31T23:00:00+00:00"
+        }
+      },
+      "n_sources": 164,
+      "all_checksums_verified": true,
+      "sources_sha256": "dc2470dba20a8d3e79152978443baf071df7829a05809ebde852289cf8e570e4"
+    },
+    "ETHUSDT": {
+      "market": "binance-usdm-perpetual",
+      "resolution": "1h",
+      "qc": {
+        "rows_raw": 59880,
+        "duplicates_identical": 0,
+        "duplicates_conflicting": 0,
+        "misaligned": 0,
+        "invalid_ohlc": 0,
+        "partial_bars": 0,
+        "gaps": 1,
+        "missing_hours": 24,
+        "funding_events": 7488,
+        "funding_out_of_range": 0,
+        "timestamp_us_files": 0,
+        "header_files": 140
+      },
+      "gaps_sample": [
+        [
+          1793142000000,
+          1793232000000
+        ]
+      ],
+      "files": {
+        "development": {
+          "path": "data/research/ETHUSDT_1h_development.npz",
+          "sha256": "5c734c45daf53db6abe0378bd716fb3a19d93804de66c71f1fdb90ce2a3941f9",
+          "bars": 35064,
+          "first": "2020-01-01T00:00:00+00:00",
+          "last": "2023-12-31T23:00:00+00:00"
+        },
+        "validation": {
+          "path": "data/research/ETHUSDT_1h_validation.npz",
+          "sha256": "e6af2822a814f52c845b210ae8b8a3c4336c19600e6816c042237a399b6503d8",
+          "bars": 13128,
+          "first": "2024-01-01T00:00:00+00:00",
+          "last": "2025-06-30T23:00:00+00:00"
+        },
+        "final": {
+          "path": "data/vault/ETHUSDT_1h_final.npz",
+          "sha256": "e1d7df155db1ff6a2fe464328ff9c1b49b97288e902c84d8faee6da37e254d31",
+          "bars": 11688,
+          "first": "2025-07-01T00:00:00+00:00",
+          "last": "2026-10-31T23:00:00+00:00"
+        }
+      },
+      "n_sources": 164,
+      "all_checksums_verified": true,
+      "sources_sha256": "1388995961a45e6dff1079581b551a8a158b6befc9878a87dc630f517a9bb63f"
+    }
+  }
+}

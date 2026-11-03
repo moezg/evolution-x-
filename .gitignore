@@ -11,3 +11,6 @@ web/.next/
 web/out/
 .env
 *.egg-info/
+data/raw/
+data/research/*.npz
+data/vault/

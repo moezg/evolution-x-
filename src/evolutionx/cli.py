@@ -126,6 +126,16 @@ def cmd_data(a: argparse.Namespace) -> None:
     from .data.historical import fetch_splits
 
     _print({k: [str(p) for p in v] for k, v in fetch_splits().items()})
+    if a.research:
+        from .data.datasets import build_all
+
+        m = build_all()
+        _print(
+            {
+                s: {"qc": v["qc"], "files": v["files"], "checksums": v["all_checksums_verified"]}
+                for s, v in m["instruments"].items()
+            }
+        )
 
 
 def cmd_bench(a: argparse.Namespace) -> None:
@@ -231,7 +241,8 @@ def main() -> None:
     sp = add("audit", cmd_audit)
     sp.add_argument("--no-tests", action="store_true")
     sp.add_argument("--verify", default=None, help="path to a baseline manifest to re-check")
-    add("data", cmd_data)
+    sp = add("data", cmd_data)
+    sp.add_argument("--research", action="store_true", help="also build 2020-2026 perp 1h datasets + vault")
     add("bench", cmd_bench)
     sp = add("serve", cmd_serve)
     sp.add_argument("--host", default="127.0.0.1")
