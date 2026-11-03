@@ -25,7 +25,8 @@ from .policy import policy, policy_sha
 from .store import Store
 
 TERMINAL = {"done", "failed", "skipped", "cancelled", "rejected"}
-SERIAL = {"evaluate"}  # the research lab is a single-writer store
+# the research lab is a single-writer store; novelty/formulate must see each other's hypotheses (no duplicate LLM work)
+SERIAL = {"evaluate", "novelty", "formulate"}
 
 
 class Ctx:

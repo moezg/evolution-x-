@@ -129,6 +129,13 @@ def test_mechanism_signatures_detect_same_mechanism_in_different_words():
     assert mechanisms.classify("Order book imbalance", "limit order book order flow")["family"] == "microstructure"
 
 
+def test_volatility_mean_reversion_is_not_price_reversal():
+    t = "The Limits of Conditional Volatility: Assessing Cryptocurrency VaR under EWMA and IGARCH Models"
+    a = "an IGARCH model augmented with explicit mean reversion; hypotheses of volatility mean reversion"
+    assert mechanisms.classify(t, a)["family"] == "vol_managed_long"
+    assert mechanisms.classify("Short-horizon mean reversion in crypto", "prices revert")["family"] == "reversal"
+
+
 def test_adversarial_battery_rejects_invalid_exposure():
     from evolutionx.army import adversarial
 

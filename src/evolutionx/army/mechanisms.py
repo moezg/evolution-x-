@@ -17,11 +17,21 @@ from typing import Any
 FAMILY_KEYWORDS: dict[str, list[str]] = {
     "tsmom": [r"time[- ]series momentum", r"trend[- ]following", r"\btrend", r"momentum", r"moving average"],
     "breakout": [r"breakout", r"donchian", r"channel"],
-    "reversal": [r"mean[- ]reversion", r"reversal", r"overreaction", r"revert"],
+    # price reversal only: "volatility mean reversion" describes volatility dynamics, not prices (classifier fix
+    # after arxiv:2601.13757 was misread as a price-reversal paper in cycle 2)
+    "reversal": [
+        r"(?<!volatility )mean[- ]reversion",
+        r"(?<!volatility )reversal",
+        r"overreaction",
+        r"(?<!volatility )revert",
+    ],
     "vol_managed_long": [
         r"volatility[- ]managed",
         r"volatility target",
         r"realized volatility",
+        r"conditional volatility",
+        r"garch",
+        r"volatility mean[- ]reversion",
         r"volatility forecast",
     ],
     "funding_carry": [r"funding rate", r"perpetual", r"\bbasis\b", r"\bcarry\b"],

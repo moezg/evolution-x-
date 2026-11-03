@@ -53,6 +53,26 @@ def record_failure(ctx: Ctx, hid: str | None, cid: str, stage: str, why: Any) ->
     ctx.store.edge(f"candidate:{cid}", "rejected_at", f"stage:{stage}", {"why": why, "cycle": ctx.cycle})
 
 
+def reclassify_sources(store: Any, reason: str) -> list[dict[str, Any]]:
+    """Maintenance (A4): re-run the classifier on stored sources; a changed family re-opens the source.
+
+    Earlier conclusions are not dogma: a decision that rested on a defective classification is re-examined, and
+    the change is journaled with its reason.
+    """
+    changed = []
+    for r in store.q("SELECT id, title, abstract, mechanism, status FROM army_sources"):
+        new = M.classify(r["title"], r["abstract"])
+        old = (r["mechanism"] or {}).get("family")
+        if new["family"] != old:
+            reopen = r["status"] in ("duplicate_mechanism", "infeasible_with_current_data")
+            status = "discovered" if reopen else r["status"]
+            store.x("UPDATE army_sources SET mechanism=?, status=? WHERE id=?", (json.dumps(new), status, r["id"]))
+            store.edge(f"source:{r['id']}", "reclassified", f"family:{new['family']}", {"from": old, "reason": reason})
+            changed.append({"source": r["id"], "from": old, "to": new["family"], "status": status})
+    store.log("A4", "sources_reclassified", {"reason": reason, "changed": changed})
+    return changed
+
+
 # ============================================================================ DISCOVER (A1, A2)
 def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     role = t["role"]
@@ -259,6 +279,19 @@ def formulate(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     src = ctx.store.q("SELECT * FROM army_sources WHERE id=?", (p["source_id"],))[0]
     fam = p["family"]
     tpl = M.TEMPLATES[fam]
+    # re-check family-level duplicates BEFORE spending an LLM call (another source may have been formulated since)
+    same = ctx.store.q("SELECT id FROM hypotheses WHERE signature LIKE ?", (fam + "|%",))
+    if same and not p.get("reexamine"):
+        ctx.store.edge(
+            f"source:{p['source_id']}", "duplicate_mechanism_of", same[0]["id"], {"family": fam, "at": "formulate"}
+        )
+        return {
+            "decision": "duplicate_mechanism",
+            "family": fam,
+            "duplicate_of": same[0]["id"],
+            "llm_used": False,
+            "_status": "rejected",
+        }
     mkt = {
         r["role"]: r
         for r in [
