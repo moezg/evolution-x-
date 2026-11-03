@@ -11,7 +11,7 @@ propose, test and archive improvements to strategies and source code, with human
 ```bash
 make dev        # install deps, build dashboard, serve UI + API on http://localhost:8000
 make demo       # seeded 256-agent run (baseline + 5% shock), persisted to artifacts/runs/
-make test       # 47 tests incl. property tests and the full sandboxed code-evolution pipeline
+make test       # 48 tests incl. property tests and the full sandboxed code-evolution pipeline
 make eval       # realism vs historical BTCUSDT data, baselines, ablations -> artifacts/eval/report.md
 ```
 

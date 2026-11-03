@@ -14,7 +14,7 @@ Every result is from **synthetic** simulation unless labelled historical.
 | Interactive dashboard connected to the simulation | Done | `web/` (Next.js static export) served by FastAPI; see `web/README.md` |
 | Working population evolutionary experiment | Done | `make evolve`, result below |
 | Auditable champion/challenger result | Done | `challenges` + `audit` tables in `artifacts/evolution.db`, `artifacts/evolution/<run>/report.md` |
-| Tests covering accounting and matching invariants | Done | 47 tests, all passing (`make test`) |
+| Tests covering accounting and matching invariants | Done | 48 tests, all passing (`make test`) |
 | Complete sandboxed code-change proposal + evaluation | Done | `make propose KEY=momentum-vol-scaling` passed all 9 gates and reached `awaiting_approval`; red-team probes rejected |
 | Offline execution with synthetic data + mock LLM | Done | Default `EVOX_LLM=mock`; historical data is optional (falls back to literature bands) |
 | Documented performance and limitations | Done | This file |
