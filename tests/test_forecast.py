@@ -215,3 +215,40 @@ def test_acceptance_threshold_tightens_with_trials_and_never_replaces_champion(t
     assert all(not o["replaces_champion"] for o in out)
     with pytest.raises(E.CandidateRejected):
         E.evaluate(t, specs[0], {"sim": None}, 24 * HOUR, mem)
+
+
+# --------------------------------------------------------------------------- stabilization regressions (v0.6 stage A)
+def test_rule4_uses_only_resolved_ledger_forecasts(tmp_path):
+    led = ForecastLedger(tmp_path / "l.jsonl")
+    base = T0 + 10 * DAY
+    for i in range(70):
+        o = base + i * DAY
+        rec = {**_rec(o, f"f{i}"), "target": "move3_24", "model": "M1_logistic", "value": 0.9, "fallback_B0": 0.2}
+        led.issue(rec, now_ms=o - HOUR)
+        if i < 65:  # 5 forecasts stay unresolved and must not count
+            led.resolve(f"f{i}", 0.0, {}, now_ms=o + 25 * HOUR)
+    ts = P._trailing_skill_from_ledger(led, "move3_24", "M1_logistic")
+    assert ts is not None and ts < 0  # always-wrong 0.9 vs B0 0.2 on outcome 0
+    assert P._trailing_skill_from_ledger(led, "move3_24", "M2_gbm") is None  # no resolved forecasts -> proxy path
+
+
+def test_api_anchors_to_repo_root_from_any_cwd(tmp_path, monkeypatch):
+    from evolutionx.api import paths
+
+    monkeypatch.chdir(tmp_path)
+    info = paths.ensure_repo_cwd()
+    assert info["changed"] and (paths.Path.cwd() / "evals" / "frozen").is_dir()
+
+
+def test_evolution_endpoint_serves_the_artifact_or_reports_404(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from evolutionx.api import forecast_routes
+    from evolutionx.api.app import app
+
+    c = TestClient(app)
+    monkeypatch.setattr(forecast_routes, "OUT", tmp_path)
+    r = c.get("/api/forecast/evolution")
+    assert r.status_code == 404 and "not produced yet" in r.json()["detail"]
+    (tmp_path / "evolution_v1.json").write_text('{"results": []}')
+    assert c.get("/api/forecast/evolution").json() == {"results": []}

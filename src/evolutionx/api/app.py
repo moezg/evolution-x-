@@ -26,6 +26,10 @@ from ..sim.scenarios import SCENARIOS
 from . import views
 from .jobs import JobManager
 from .live import LiveSession
+from .paths import ensure_repo_cwd
+from .paths import health as paths_health
+
+ANCHOR = ensure_repo_cwd()  # artifacts/ and evals/ are repo-relative; see api/paths.py
 
 app = FastAPI(
     title="EVOLUTION X",
@@ -57,7 +61,14 @@ def _require_sim() -> None:
 # ------------------------------------------------------------------ meta
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {"ok": True, "engine_version": ENGINE_VERSION, "mode": "research-only", "real_trading": False}
+    return {
+        "ok": True,
+        "engine_version": ENGINE_VERSION,
+        "mode": "research-only",
+        "real_trading": False,
+        "paths": paths_health(),
+        "anchor": ANCHOR,
+    }
 
 
 @app.get("/api/scenarios")
