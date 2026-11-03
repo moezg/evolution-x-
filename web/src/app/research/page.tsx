@@ -80,7 +80,7 @@ function QuestionsProtocol({ ov }: { ov: Overview }) {
           <p>
             protocol sha256 <Hash v={pr.sha256} n={64} />
           </p>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="data">
               <thead>
                 <tr>

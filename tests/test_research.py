@@ -333,8 +333,10 @@ def test_exhausted_search_space_stops_instead_of_proposing_duplicates(tmp_path):
     lab.registry.bootstrap(ANTI, "anti")
     sha = lab.registry.active()["sha256"]
     for op in ALL_OPS:  # every operator already tested on the only available parent
-        lab.memory.x("INSERT INTO hypotheses VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                     (f"h-{op}", signature(sha, op), op, op, "v0", None, "refuted", "{}", "", "x", "x"))
+        lab.memory.x(
+            "INSERT INTO hypotheses VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+            (f"h-{op}", signature(sha, op), op, op, "v0", None, "refuted", "{}", "", "x", "x"),
+        )
     sup = Supervisor(lab, DATA, PROTO, policy(), FixedGenerator([GOOD]))
     sup.create_campaign("c", "research", "guided", 5, 600)
     st = sup.run("c")

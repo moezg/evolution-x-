@@ -344,7 +344,8 @@ export interface FinalStrategy {
   return?: number;
   max_drawdown?: number;
   per_symbol?: Dict;
-  dsr_vs_all_trials?: number;
+  /** API returns {dsr, sr0, z} or null (spec said number) */
+  dsr_vs_all_trials?: number | { dsr?: number; sr0?: number; z?: number } | null;
 }
 
 export interface FinalReport {
@@ -352,7 +353,11 @@ export interface FinalReport {
   final_split?: Dict;
   label?: string;
   blind?: boolean;
-  previous_reveals?: number;
+  /** API returns a list of previous reveals (spec said number) */
+  previous_reveals?: number | unknown[];
+  primary_comparisons?: string[];
+  exploratory_comparisons?: string[];
+  preregistration?: Record<string, unknown>;
   validation_trials_across_arms?: number;
   strategies?: Record<string, FinalStrategy>;
   paired_vs_frozen_v0?: Record<string, { delta_sharpe?: number; prob_positive?: number; ci95_lo?: number; ci95_hi?: number }>;

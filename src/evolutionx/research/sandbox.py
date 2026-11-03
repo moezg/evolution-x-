@@ -127,7 +127,7 @@ def run(module: str, args: list[str], in_dir: Path, out_dir: Path, limits: Limit
 
     env = {
         "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-        "HOME": "/tmp",  # noqa: S108 - chroot-private tmpfs
+        "HOME": "/tmp",  # noqa: S108  # nosec B108 - private tmpfs inside the chroot
         "PYTHONHASHSEED": "0",
         "LANG": "C.UTF-8",
         "PYTHONDONTWRITEBYTECODE": "1",

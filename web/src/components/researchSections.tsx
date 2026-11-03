@@ -119,7 +119,7 @@ export function DataCoverage({ rev }: { rev: number }) {
                     </span>
                   ))}
                 </div>
-                <div className="overflow-x-auto">
+                <div className="relative overflow-x-auto">
                   <table className="data">
                     <thead>
                       <tr>
@@ -213,7 +213,7 @@ export function TasksTable({ lab, rev, onOpen, selected }: { lab: string; rev: n
               <H3>
                 {g.label} · {items.length}
               </H3>
-              <div className="max-h-[520px] overflow-auto">
+              <div className="relative max-h-[520px] overflow-auto">
                 <table className="data">
                   <thead>
                     <tr>
@@ -314,7 +314,7 @@ const DIAG_COLS: (keyof SymbolDiag)[] = [
 function DiagTable({ diag, caption }: { diag: Record<string, SymbolDiag>; caption: string }) {
   const syms = Object.keys(diag);
   return (
-    <div className="overflow-x-auto">
+    <div className="relative overflow-x-auto">
       <table className="data">
         <caption className="sr-only">{caption}</caption>
         <thead>
@@ -377,7 +377,7 @@ export function TaskDrawer({ lab, id, onClose }: { lab: string; id: string; onCl
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-drawer-title"
-        className="h-full w-full max-w-[920px] overflow-y-auto border-l border-line2 bg-page p-3 shadow-2xl sm:p-5"
+        className="relative h-full w-full max-w-[920px] overflow-y-auto border-l border-line2 bg-page p-3 shadow-2xl sm:p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="sticky -top-3 z-10 -mx-3 mb-3 flex flex-wrap items-center gap-2 border-b border-line bg-page/95 px-3 py-2 backdrop-blur sm:-top-5 sm:-mx-5 sm:px-5">
@@ -479,7 +479,7 @@ export function TaskDrawer({ lab, id, onClose }: { lab: string; id: string; onCl
                         Selection reason: <span className="text-ink">{pre.initial_observation.selection_reason ?? "—"}</span>
                       </p>
                       {!!pre.initial_observation.operator_ranking?.length && (
-                        <div className="overflow-x-auto">
+                        <div className="relative overflow-x-auto">
                           <table className="data">
                             <thead>
                               <tr>
@@ -779,7 +779,7 @@ export function LineagePanel({ lab, rev }: { lab: string; rev: number }) {
           </ol>
           <div>
             <H3>Activation / rollback history</H3>
-            <div className="max-h-64 overflow-auto">
+            <div className="relative max-h-64 overflow-auto">
               <table className="data">
                 <thead>
                   <tr>
@@ -844,7 +844,7 @@ export function HypothesesPanel({ lab, rev }: { lab: string; rev: number }) {
           );
         })}
       </div>
-      <div role="tabpanel" className="max-h-[560px] space-y-2 overflow-y-auto pr-1">
+      <div role="tabpanel" className="relative max-h-[560px] space-y-2 overflow-y-auto pr-1">
         {!shown.length && <EmptyState title={`No ${tab === "all" ? "" : tab + " "}hypotheses`} />}
         {shown.map((h) => {
           const ev = (h.evidence ?? {}) as {
@@ -934,7 +934,7 @@ export function JournalPanel({ lab, rev }: { lab: string; rev: number }) {
         </p>
       )}
       {j && (
-        <div className="max-h-[420px] overflow-auto">
+        <div className="relative max-h-[420px] overflow-auto">
           <table className="data">
             <thead>
               <tr>
@@ -974,7 +974,14 @@ export function JournalPanel({ lab, rev }: { lab: string; rev: number }) {
 export function FinalPanel({ rev }: { rev: number }) {
   const p = usePoll<FinalReport[]>("/api/research/final", 30000);
   useRefreshOn(rev, p.refresh);
-  const reports = p.data ?? [];
+  const all = p.data ?? [];
+  // /api/research/final returns every *.json in the final dir: comparison reports (with `strategies`) and
+  // pre-registration documents (no `strategies`). Render them separately.
+  const reports = all.filter((r) => r && typeof r === "object" && "strategies" in r);
+  const plans = all.filter((r) => !(r && typeof r === "object" && "strategies" in r)) as unknown as Record<string, unknown>[];
+  const prevN = (v: unknown) => (Array.isArray(v) ? v.length : isNum(v) ? v : 0);
+  const dsrOf = (v: unknown): { dsr?: number; sr0?: number } | undefined =>
+    isNum(v) ? { dsr: v } : v && typeof v === "object" ? (v as { dsr?: number; sr0?: number }) : undefined;
   return (
     <Panel
       id="final"
@@ -990,10 +997,14 @@ export function FinalPanel({ rev }: { rev: number }) {
       )}
       <div className="space-y-5">
         {reports.map((r, i) => {
-          const notBlind = r.blind === false || (r.previous_reveals ?? 0) > 0;
+          const notBlind = r.blind === false || prevN(r.previous_reveals) > 0;
           const strat = r.strategies ?? {};
           const paired = r.paired_vs_frozen_v0 ?? {};
           const holm = r["holm_one_sided_alpha_0.05"] ?? {};
+          const primary = new Set(r.primary_comparisons ?? []);
+          const explor = new Set(r.exploratory_comparisons ?? []);
+          const role = (k: string) => (primary.has(k) ? "primary" : explor.has(k) ? "exploratory" : k === "frozen_v0" ? "baseline" : k.startsWith("benchmark") ? "benchmark" : "—");
+          const syms = Array.from(new Set(Object.values(strat).flatMap((s) => Object.keys(s.per_symbol ?? {}))));
           return (
             <article key={i} className="space-y-3 rounded-md border border-line bg-panel2 p-3">
               <header className="flex flex-wrap items-center gap-2 text-xs">
@@ -1001,36 +1012,57 @@ export function FinalPanel({ rev }: { rev: number }) {
                 <span className="text-muted">{fmtTime(r.created_utc)}</span>
                 {notBlind ? <Prov kind="NOT BLIND ANYMORE" /> : <span className="rounded border border-up/60 px-1.5 py-0.5 text-[10px] font-bold text-up">BLIND (first reveal)</span>}
                 <span className="text-muted">
-                  previous reveals {fmtAny(r.previous_reveals)} · validation trials across arms {fmtAny(r.validation_trials_across_arms)}
+                  previous reveals {prevN(r.previous_reveals)} · validation trials across arms {fmtAny(r.validation_trials_across_arms)}
                 </span>
               </header>
-              {r.final_split && <p className="text-[11px] text-muted">final split: {JSON.stringify(r.final_split)}</p>}
-              <div className="overflow-x-auto">
+              {r.final_split && (
+                <p className="text-[11px] text-muted">
+                  final split {String((r.final_split as { start?: string }).start ?? "?")} → {String((r.final_split as { end_exclusive?: string }).end_exclusive ?? "?")} (exclusive)
+                </p>
+              )}
+              <div className="relative overflow-x-auto">
                 <table className="data">
                   <thead>
                     <tr>
                       <th scope="col">Strategy</th>
+                      <th scope="col">Role</th>
                       <th scope="col" className="num">Sharpe</th>
                       <th scope="col" className="num">Sharpe @2× costs</th>
                       <th scope="col" className="num">Return</th>
                       <th scope="col" className="num">Max DD</th>
-                      <th scope="col" className="num">DSR vs all trials</th>
+                      <th scope="col" className="num" title="Deflated Sharpe ratio vs all validation trials (SR₀ in brackets)">DSR [SR₀]</th>
+                      {syms.map((s) => (
+                        <th key={s} scope="col" className="num">
+                          {s} Sharpe
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.entries(strat).map(([k, s]) => (
-                      <tr key={k}>
-                        <td>{k}</td>
-                        <td className="num">{num(s.sharpe, 3)}</td>
-                        <td className="num">{num(s.sharpe_2x_costs, 3)}</td>
-                        <td className="num">{isNum(s.return) ? `${(s.return * 100).toFixed(2)}%` : "—"}</td>
-                        <td className="num">{num(s.max_drawdown, 3)}</td>
-                        <td className="num">{num(s.dsr_vs_all_trials, 3)}</td>
-                      </tr>
-                    ))}
+                    {Object.entries(strat).map(([k, s]) => {
+                      const d = dsrOf(s.dsr_vs_all_trials);
+                      const ps = (s.per_symbol ?? {}) as Record<string, { sharpe?: number }>;
+                      return (
+                        <tr key={k} className={role(k) === "exploratory" ? "text-ink2" : ""}>
+                          <td>{k}</td>
+                          <td className={role(k) === "primary" ? "font-semibold" : "text-muted"}>{role(k)}</td>
+                          <td className="num">{num(s.sharpe, 3)}</td>
+                          <td className="num">{num(s.sharpe_2x_costs, 3)}</td>
+                          <td className="num">{isNum(s.return) ? `${(s.return * 100).toFixed(2)}%` : "—"}</td>
+                          <td className="num">{num(s.max_drawdown, 3)}</td>
+                          <td className="num">{d ? `${num(d.dsr, 3)} [${num(d.sr0, 3)}]` : "—"}</td>
+                          {syms.map((sy) => (
+                            <td key={sy} className="num">
+                              {num(ps[sy]?.sharpe, 3)}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
+              <p className="text-[11px] text-muted">Exploratory rows are reported but, per the pre-registration, not used for any claim of progress.</p>
               {Object.keys(paired).length > 0 && (
                 <div>
                   <H3>Paired Δ Sharpe vs frozen v0 (95% CI)</H3>
@@ -1041,23 +1073,23 @@ export function FinalPanel({ rev }: { rev: number }) {
                       point: v.delta_sharpe,
                       lo: v.ci95_lo,
                       hi: v.ci95_hi,
-                      color: isNum(v.delta_sharpe) && v.delta_sharpe > 0 ? "#1baf7a" : "#e66767",
+                      color: isNum(v.delta_sharpe) && v.delta_sharpe > 0 ? "#1baf7a" : isNum(v.delta_sharpe) && v.delta_sharpe < 0 ? "#e66767" : "#898781",
                       title: `${k}: Δ ${signed(v.delta_sharpe, 3)} [${num(v.ci95_lo, 3)}, ${num(v.ci95_hi, 3)}] · P(Δ>0) ${num(v.prob_positive, 3)}`,
                     }))}
                     refs={[{ at: 0, label: "0" }]}
-                    labelWidth={150}
+                    labelWidth={200}
                   />
-                  <ul className="mt-1 text-xs text-ink2">
+                  <ul className="mt-1 space-y-0.5 break-words text-xs text-ink2 [overflow-wrap:anywhere]">
                     {Object.entries(paired).map(([k, v]) => (
                       <li key={k}>
-                        {k}: Δ {signed(v.delta_sharpe, 3)} · 95% CI [{num(v.ci95_lo, 3)}, {num(v.ci95_hi, 3)}] · P(Δ&gt;0) {num(v.prob_positive, 3)}
+                        {k} ({role(k)}): Δ {signed(v.delta_sharpe, 3)} · 95% CI [{num(v.ci95_lo, 3)}, {num(v.ci95_hi, 3)}] · P(Δ&gt;0) {num(v.prob_positive, 3)}
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
               {Object.keys(holm).length > 0 && (
-                <div className="overflow-x-auto">
+                <div className="relative overflow-x-auto">
                   <H3>Holm one-sided tests (α = 0.05)</H3>
                   <table className="data">
                     <thead>
@@ -1085,6 +1117,31 @@ export function FinalPanel({ rev }: { rev: number }) {
             </article>
           );
         })}
+        {plans.map((pl, i) => (
+          <article key={`plan-${i}`} className="space-y-2 rounded-md border border-[#9085e9]/40 bg-panel2 p-3 text-xs">
+            <header className="flex flex-wrap items-center gap-2">
+              <b>Pre-registered comparison plan</b>
+              <Prov kind="HYPOTHESIS" />
+              <span className="text-muted">
+                {String(pl.campaign ?? "")} · written {fmtTime(pl.written_utc)}
+              </span>
+              {typeof pl.sha256 === "string" && (
+                <span className="text-muted">
+                  sha256 <Hash v={pl.sha256} />
+                </span>
+              )}
+            </header>
+            <dl className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {Object.entries(pl)
+                .filter(([k]) => !["campaign", "written_utc", "sha256"].includes(k))
+                .map(([k, v]) => (
+                  <Field key={k} k={humanize(k)}>
+                    {Array.isArray(v) ? v.map((x) => fmtAny(x)).join(", ") : typeof v === "object" && v !== null ? JSON.stringify(v) : fmtAny(v)}
+                  </Field>
+                ))}
+            </dl>
+          </article>
+        ))}
       </div>
     </Panel>
   );
@@ -1152,7 +1209,7 @@ export function CalibrationPanel({ rev }: { rev: number }) {
                 })}
                 labelWidth={140}
               />
-              <div className="overflow-x-auto">
+              <div className="relative overflow-x-auto">
                 <table className="data">
                   <thead>
                     <tr>
@@ -1181,8 +1238,16 @@ export function CalibrationPanel({ rev }: { rev: number }) {
                 </table>
               </div>
               <p className="text-[11px] text-muted">
-                Intervals overlap substantially wherever whiskers overlap; with n = {ev.default?.train_distance?.n ?? "?"} seeds, this report does not by itself establish
-                a significant improvement.
+                n = {ev.default?.train_distance?.n ?? "?"} seeds per arm. Bootstrap CIs of default and calibrated{" "}
+                {splits
+                  .map(([k, lbl]) => {
+                    const dd = ev.default?.[`${k}_distance` as const];
+                    const cc = ev.calibrated?.[`${k}_distance` as const];
+                    if (!isNum(dd?.lo) || !isNum(dd?.hi) || !isNum(cc?.lo) || !isNum(cc?.hi)) return `${lbl}: n/a`;
+                    return `${lbl}: ${dd.lo <= cc.hi && cc.lo <= dd.hi ? "overlap" : "do not overlap"}`;
+                  })
+                  .join(" · ")}
+                .
               </p>
             </section>
           )}
@@ -1198,7 +1263,7 @@ export function CalibrationPanel({ rev }: { rev: number }) {
                 <Prov kind="SYNTHETIC" />
                 <span className="text-[11px] text-muted">mean [95% boot CI]</span>
               </div>
-              <div className="overflow-x-auto">
+              <div className="relative overflow-x-auto">
                 <table className="data">
                   <thead>
                     <tr>
@@ -1299,7 +1364,7 @@ export function CalibrationPanel({ rev }: { rev: number }) {
                 <Prov kind="MECHANISM TEST" />
               </div>
               <p className="text-[11px] text-muted">Share of resting depth within 20 bps of mid by owner kind, sampled inside the shock window (_total_btc = total depth in BTC); mean [min, max] across seeds.</p>
-              <div className="overflow-x-auto">
+              <div className="relative overflow-x-auto">
                 <table className="data">
                   <thead>
                     <tr>

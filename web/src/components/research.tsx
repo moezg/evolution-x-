@@ -222,7 +222,7 @@ export function IntervalPlot({
             <g key={r.label + i}>
               <title>{r.title ?? `${r.label}: ${ok(r.point) ? fmt(r.point) : "—"} [${ok(r.lo) ? fmt(r.lo) : "—"}, ${ok(r.hi) ? fmt(r.hi) : "—"}]`}</title>
               <text x={m.l - 8} y={cy} dy="0.32em" textAnchor="end" fontSize={11} fill="#c3c2b7">
-                {r.label}
+                {fit(r.label, m.l - 12)}
               </text>
               {ok(r.lo) && ok(r.hi) && (
                 <g stroke={c}>
@@ -239,6 +239,12 @@ export function IntervalPlot({
       </svg>
     </div>
   );
+}
+
+/** Truncate a label to roughly fit `px` at 11px font (≈6.2px per char); full text stays in <title>. */
+function fit(label: string, px: number): string {
+  const n = Math.max(4, Math.floor(px / 6.2));
+  return label.length > n ? label.slice(0, n - 1) + "…" : label;
 }
 
 /* ---------------------------------------------------------------- walk-forward per-window bars */
