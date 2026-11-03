@@ -13,7 +13,21 @@ requirement-by-requirement audit is in [AUDIT.md](AUDIT.md).
 
 ## Research chain (persistent state machine)
 
-`OBSERVE → HYPOTHESIZE → PROTOCOL → DESIGN → ADMISSIBILITY → EXPERIMENT → EVALUATE → CRITIQUE → DECIDE → ARCHIVE`
+`OBSERVE → HYPOTHESIZE → PROTOCOL → PREMISES → DESIGN → ADMISSIBILITY → EXPERIMENT → EVALUATE → CRITIQUE → DECIDE → ARCHIVE`
+
+v0.3 additions:
+
+- **Technical dossier (`research/context.py`).** Built from the real repo before each LLM generation: commit, file
+  hashes, introspected API, engine features proven by probes with file:line, engine excerpt, parent behaviour
+  (yearly segments, `research/behaviour.py`).
+- **Premise verification (`research/premises.py`).** Structured, executable checks run before any backtest.
+- **Mechanism test.** Every candidate declares a metric and a direction; the trusted evaluator measures it on
+  development against the parent.
+- **Outcome classes and lessons (`research/lessons.py`, `research/reclassify.py`).** Stored in the existing
+  research DB (schema v2 migration), never in a parallel store. Memory-mode LLM proposals must cite
+  `motivated_by` tasks and state `new_information`.
+- **Exposure registry.** `evals/frozen/exposure_registry.json` records what each actor has seen. vault v2 (SOL/BNB)
+  is reserved for confirmation.
 
 The supervisor executes each stage and persists a checkpoint after it. The stages are resumable and
 idempotent, and identical experiments are cached by `(code sha, protocol sha, data sha)`.

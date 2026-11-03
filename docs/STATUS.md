@@ -1,3 +1,80 @@
+# Status: v0.3 research-quality slice (2026-11-03)
+
+v0.3 does not claim a better strategy. It makes the laboratory's hypotheses technically correct and measures
+how the research process behaves. The negative result of v0.2 stands: **no champion has been validated**
+(0 promotions in 51 tasks across all labs).
+
+Evidence is kept in four separate categories; there is no global score.
+
+### 1. Software quality (did the understanding defects get fixed?)
+| Item | Result |
+|---|---|
+| False premise of the earlier `claude -p` candidate (cli-2) | **Reproduced and rejected before any backtest.** It claimed the executor rebalances on every small change. The engine probe shows a 0.02 target wiggle produces 0 fills (`engine.py:122`). Measured: only 48.8% (BTC) of small decision changes lead to a fill. Partly true in spirit (about half do), false as stated. Artifact: `artifacts/research/premise_audit/cli2_premises.json`; test `test_rebalance_misconception_is_rejected_before_backtest` |
+| Generator context | Technical dossier built from the repo at generation time: commit, file hashes, introspected `BarView` API, 7 engine features each proven by a micro-probe with file:line, numbered engine excerpt, the parent's measured development behaviour, existing building blocks, constraints, premise language. Stored per task under `dossiers/` |
+| Premise verification stage | New `PREMISES` stage before `DESIGN`. Checks are executable (engine probes, API introspection, measured parent metrics); a falsified, malformed or entirely unverifiable premise set rejects the task. Applied to all generators (offline operators carry fixed premises) |
+| Defect found in the diagnostics given to generators | ETHUSDT v0 is liquidated on **2020-03-13** at 2× leverage, so every full-period ETH diagnostic given to the guided selector and the LLM described a ruined account. Diagnostics are now computed on calendar-year segments with fresh equity and flag ruined years. Walk-forward decisions were not affected |
+| Defect in my v0.2 statement | "The multi-horizon ensemble reduced BTC turnover (1111 vs 1439)" **was wrong**: it compared v0 at lookback 72 with the candidate at 336. At default parameters turnover went **up** 6% (894 vs 843). The declared mechanism did not occur |
+| Measurement defects found by the pilot and fixed | Code-hash duplicate detection missed a semantic duplicate (B t001 ≈ t002), so a behavioural-duplicate measure was added. "Unstable across periods" was assigned to negligible development gains, so it now requires a gain ≥ 0.10 Sharpe |
+| Tests | see the final run in the delivery message |
+
+### 2. Simulator realism (separate track)
+| Hypothesis | Result |
+|---|---|
+| H-cal-1: the 1-minute volatility floor comes from market-maker quote placement (pre-registered in `evaluation/calibration.py`) | **Refuted**: elasticity of volatility to half-spread −0.12, not monotonic. Volatility stayed at 14–18 bps vs 4.0 bps target (3 seeds per point). `artifacts/calibration/mm_sensitivity.json` |
+| Volatility gap | Still about 3.5–4.4× historical. Not solved |
+
+### 3. Strategy robustness [HISTORICAL BACKTEST]
+- **Promotions:** 0. No candidate in any arm passed the frozen promotion rule.
+- **Simple reference beats every candidate.** On validation, every candidate evaluated in v0.3 had a negative Sharpe (−0.01 to −0.52), while a constant 50% long exposure had **+0.66**. Beating the weak v0 would not have justified the added complexity.
+- **Validation is compromised for confirmation** (reused by 50+ trials, and seen by this session). The final BTC/ETH split is consumed. A new reserved set, **vault v2 (SOL/BNB 2024–2026)**, was built and checksummed; only QC counts were computed. It is not independent of the regime knowledge of 2024–2026 (see `evals/frozen/exposure_registry.json`).
+
+### 4. Research-process efficiency (pilot, pre-registered: `evals/frozen/generator_comparison_v1.json`)
+PILOT with n = 3 tasks per arm: a mechanism and cost check only, no inferential claim (all Wilson intervals overlap).
+
+| Metric | A: offline grammar | B: LLM + verified dossier | C: B + memory of failures |
+|---|---|---|---|
+| Premises correct | 3/3 | 3/3 | 3/3 |
+| Executable candidates | 3/3 | 3/3 | 3/3 |
+| Code duplicates of earlier experiments | 2/3 | 0/3 | 0/3 |
+| Behavioural duplicates (identical results) | **3/3** | 1/3 | **0/3** |
+| Declared mechanism observed | 1/3 | 3/3 | 2/3 |
+| Promotions | 0 | 0 | 0 |
+| Wall-clock per informative task | 16 s | 180 s | 105 s |
+| LLM API-equivalent USD per informative task (CLI estimate, not observed billing) | 0 | 0.147 | 0.259 |
+
+**Decisions that changed because of context and memory:**
+1. All 6 LLM proposals in B and C state the rebalance band correctly ("the engine skips trades whose target–position
+   gap is below the band"), each verified by the probe. The v0.2 LLM candidate had stated the opposite.
+2. A (no memory) proposed a deadzone again and its mechanism failed again (deadzones moved turnover in 1 of 11
+   archived tries). C cited 11 archived tries and explained why: deadzones and rounding act on the decision,
+   which the band already filters, while fills come from the drifting target–position gap. C then tested
+   position size and a regime gate instead.
+3. **Next experiment influenced by the pilot** (`cycle_next/next-1`, motivated by p1-B-t001, p1-C-t001, p1-C-t003,
+   cli-2, p1-A-t001): a diagnostic sample-and-hold change separating decision-driven fills from drift-driven band
+   crossings, with refutation criteria written before evaluation.
+   - **Learned (development, measured):** fills/day fell 87% (BTC) and 83% (ETH), so decision re-evaluation, not
+     band drift, drives most fills.
+   - **Still negative:** validation ΔSharpe −0.17 (P = 0.39), below the constant-long reference.
+
+**Plateau diagnosis and checkpoint (no unbounded loop was run):**
+- Every candidate so far is a variant of one 2×-leveraged time-series-momentum family. Cost reductions move the
+  intended mechanism (turnover −60 to −87%), but net benefit does not survive validation.
+- A constant long exposure beats the whole family on validation. The binding problem is the strategy family and
+  its risk level, not execution noise.
+- Suggested next questions, none executed:
+  - (a) compare against risk-matched simple references on development, before any validation access;
+  - (b) allow exposure-level and long-bias hypotheses with the reference as the bar to beat;
+  - (c) run the pre-registered full study only with explicit quota approval.
+- Checkpoint: all labs are persisted under `artifacts/research/` and can be resumed with `evox research status|run`.
+
+**Full study (planned, NOT run):**
+- Size: 10 campaigns × 3 tasks per LLM arm, so the per-campaign cap of 3 calls is unchanged. 30 tasks per arm.
+- Estimated cost from the pilot: about 60 LLM calls ≈ USD 9–16 API-equivalent (an estimate; the effect on the
+  subscription quota is not observable from here) and about 2–3 h of wall-clock.
+- It needs your approval before it can run.
+
+---
+
 # Status: v0.2 research laboratory (2026-11-03)
 
 - **Initial commit:** `b89ad87`, with its reproducible baseline in `artifacts/baseline/b89ad877b237/manifest.json`.

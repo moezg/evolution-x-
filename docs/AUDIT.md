@@ -62,3 +62,16 @@ Status vocabulary:
 | Kernel accounting changes reviewed separately | KC-1 | — | `docs/KERNEL_CHANGES.md`, reference tests | verified |
 | Dashboard research page | `web/src/app/research` | `make dev` | — | see `STATUS.md` |
 | Docker / CI | `Dockerfile`, `.github/workflows/ci.yml` | — | — | **unavailable / unverified** |
+
+## v0.3 additions
+
+| Requirement | Implementation | Command | Artifact | Status |
+|---|---|---|---|---|
+| Understand the system before proposing | `research/context.py` dossier | automatic before LLM generation | `artifacts/research/*/dossiers/*.json` | executed |
+| Verify premises before backtests | `research/premises.py`, PREMISES stage | automatic | `premise_check` in tasks; `premise_audit/cli2_premises.json` | verified (tests) |
+| Detect the rebalance misconception | probe + measured ratio | `pytest tests/test_premises.py` | — | verified |
+| Exploit existing memory | reclassification + lessons + per-change-type summary | `evox reclassify --roots …` | `analysis/reclassification_summary.json` | executed |
+| Compare research methods A/B/C | `research/compare.py`, frozen protocol | `evox compare --tag p1 --arms A,B,C --tasks 3` | `artifacts/research/comparisons/p1.json` | pilot executed; full study not run (quota approval needed) |
+| Reserved evaluation data | `data/vault_v2.py` | `python -c "from evolutionx.data.vault_v2 import build; build()"` | `data/vault_v2/manifest.json` | built, unrevealed |
+| Simple references with comparable risk | constant-long reference in validation critique | automatic | `validation_summary.reference_buy_and_hold` | executed |
+| Separate simulator calibration | H-cal-1 sensitivity | `run_mm_sensitivity()` | `artifacts/calibration/mm_sensitivity.json` | executed, hypothesis refuted |
