@@ -199,7 +199,14 @@ function CampaignBudget({ c }: { c: Campaign }) {
         </span>
         <span className="ml-auto text-muted">updated {fmtTime(c.updated)}</span>
       </header>
-      {c.stop_reason && <p className="text-warn">stop reason: {c.stop_reason}</p>}
+      {c.stop_reason && (
+        <p className="break-words text-warn">
+          stop reason:{" "}
+          {typeof c.stop_reason === "string"
+            ? c.stop_reason
+            : `${c.stop_reason.reason ?? "—"} (by ${c.stop_reason.actor ?? "?"}, ${fmtTime(c.stop_reason.ts)})`}
+        </p>
+      )}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Meter label="Tasks" used={u.tasks ?? 0} max={b.max_tasks} />
         <Meter label="Wall clock" used={u.wall_s ?? 0} max={b.max_wall_s} unit=" s" note="accumulated when a run segment ends" />
@@ -217,7 +224,12 @@ function CampaignBudget({ c }: { c: Campaign }) {
             <p className="mt-0.5 text-[11px] text-muted">LLM: none configured (0 tokens){c.config?.llm_status ? ` — ${c.config.llm_status}` : ""}</p>
           </div>
         ) : (
-          <Meter label="LLM tokens" used={u.llm_tokens ?? 0} max={b.max_llm_tokens} />
+          <Meter
+            label="LLM tokens"
+            used={u.llm_tokens ?? 0}
+            max={b.max_llm_tokens}
+            note={c.config?.llm_available === false ? `LLM not available: ${c.config.llm_status ?? "no provider configured"}` : c.config?.llm_status}
+          />
         )}
       </div>
       {c.config?.generator && <p className="text-muted">generator {c.config.generator}</p>}
@@ -229,7 +241,21 @@ function CampaignBudget({ c }: { c: Campaign }) {
 
 type Msg = { ok: boolean; text: string } | undefined;
 
-function Controls({ lab, ov, superseded, onChanged }: { lab: string; ov: Overview; superseded: boolean; onChanged: (newLab?: string) => void }) {
+function Controls({
+  lab,
+  ov,
+  superseded,
+  onChanged,
+  job,
+  onJob,
+}: {
+  lab: string;
+  ov: Overview;
+  superseded: boolean;
+  onChanged: (newLab?: string) => void;
+  job: Job | undefined;
+  onJob: (id: string, lab: string) => void;
+}) {
   const [stopReason, setStopReason] = useState("stopped from dashboard");
   const [confirmResume, setConfirmResume] = useState(false);
   const [reviewer, setReviewer] = useState("");
@@ -238,13 +264,11 @@ function Controls({ lab, ov, superseded, onChanged }: { lab: string; ov: Overvie
   const [msg, setMsg] = useState<Record<string, Msg>>({});
   const lastCamp = ov.campaigns[ov.campaigns.length - 1];
   const [run, setRun] = useState({ lab, campaign: "", mode: "smoke", selector: "guided", tasks: 1, wall_s: 600 });
-  const [jobId, setJobId] = useState<string | null>(null);
   useEffect(() => {
     setRun((r) => ({ ...r, lab, campaign: r.campaign || "" }));
     setMsg({});
     setConfirmResume(false);
   }, [lab]);
-  const job = useJob(jobId, () => onChanged(run.lab !== lab ? run.lab : undefined));
   const jobActive = job?.status === "queued" || job?.status === "running";
 
   const activeMeta = ov.versions.find((v) => v.version === ov.active?.version);
@@ -292,7 +316,7 @@ function Controls({ lab, ov, superseded, onChanged }: { lab: string; ov: Overvie
         tasks: run.tasks,
         wall_s: run.wall_s,
       });
-      setJobId(j.id);
+      onJob(j.id, run.lab);
       setMsg((m) => ({ ...m, run: { ok: true, text: `Job ${j.id} submitted.` } }));
     } catch (err) {
       setMsg((m) => ({ ...m, run: { ok: false, text: errorMessage(err) } }));
@@ -513,6 +537,10 @@ export default function ResearchPage() {
     [labs, selectLab],
   );
   const closeTask = useCallback(() => setOpenTask(null), []);
+  // job tracking lives at page level so it survives switching to a newly created lab
+  const [jobRef, setJobRef] = useState<{ id: string; lab: string } | null>(null);
+  const job = useJob(jobRef?.id ?? null, () => onChanged(jobRef && jobRef.lab !== lab ? jobRef.lab : undefined));
+  const onJob = useCallback((id: string, l: string) => setJobRef({ id, lab: l }), []);
 
   const cur = labs.data?.find((l) => l.name === lab);
   const superseded = !!cur?.superseded;
@@ -629,7 +657,7 @@ export default function ResearchPage() {
             ) : (
               <EmptyState title="No campaigns in this lab" />
             )}
-            <Controls lab={lab} ov={o} superseded={superseded} onChanged={onChanged} />
+            <Controls lab={lab} ov={o} superseded={superseded} onChanged={onChanged} job={job && job.id === jobRef?.id ? job : undefined} onJob={onJob} />
           </div>
         </Panel>
       )}

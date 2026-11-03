@@ -30,7 +30,7 @@ def sharpe(r: np.ndarray, periods: float = 365.0) -> float:
 
 def max_drawdown(equity: np.ndarray) -> float:
     peak = np.maximum.accumulate(equity)
-    return float(np.max(1 - equity / peak)) if len(equity) else 0.0
+    return float(min(1.0, max(0.0, np.max(1 - equity / peak)))) if len(equity) else 0.0
 
 
 def summarize(res: BacktestResult, start: int = 0) -> dict[str, Any]:

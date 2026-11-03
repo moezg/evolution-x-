@@ -203,6 +203,9 @@ def register_run(app_jobs: Any) -> None:
 
             lab = Lab(ROOT / name, repo=Path.cwd())
             sup = Supervisor(lab)
+            existing = lab.memory.q("SELECT mode, selector FROM campaigns WHERE id=?", (p["campaign"],))
+            if existing and (existing[0]["mode"], existing[0]["selector"]) != (p["mode"], p["selector"]):
+                raise ValueError("campaign id exists with a different mode/selector; use a new campaign id")
             sup.create_campaign(p["campaign"], p["mode"], p["selector"], p["tasks"], p["wall_s"])
             progress("running")
             return sup.run(p["campaign"])
@@ -233,7 +236,13 @@ def data_status() -> dict[str, Any]:
 
 @router.get("/final")
 def final_reports() -> list[dict[str, Any]]:
-    return [json.loads(p.read_text()) for p in sorted((ROOT / "final").glob("*.json"))]
+    reports = [json.loads(p.read_text()) for p in sorted((ROOT / "final").glob("*.json"))]
+    return [r for r in reports if "strategies" in r]  # pre-registrations are served by /final/preregistrations
+
+
+@router.get("/final/preregistrations")
+def final_preregistrations() -> list[dict[str, Any]]:
+    return [json.loads(p.read_text()) for p in sorted((ROOT / "final").glob("preregistration-*.json"))]
 
 
 @router.get("/calibration")

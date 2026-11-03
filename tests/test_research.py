@@ -459,3 +459,14 @@ def test_invalid_llm_output_still_accounts_quota(tmp_path):
     assert c["llm_calls"] == 2 and c["llm_tokens"] == 1000 and abs(c["llm_cost_usd_equiv"] - 0.4) < 1e-9
     assert len(list((lab.root / "llm_raw").glob("*.json"))) == 2
     assert lab.memory.q("SELECT status FROM tasks")[0]["status"] == "failed"  # bounded retries, no infinite loop
+
+
+def test_inherited_trials_are_not_double_counted(tmp_path):
+    a, b, c = (Lab(tmp_path / n) for n in ("a", "b", "c"))
+    a.memory.add_trial("x", "validation", {}, "portfolio_sharpe", 0.1)
+    Supervisor(b, DATA, PROTO, policy()).inherit_validation_trials([tmp_path / "a"])
+    b.memory.add_trial("y", "validation", {}, "portfolio_sharpe", 0.2)
+    sc = Supervisor(c, DATA, PROTO, policy())
+    sc.inherit_validation_trials([tmp_path / "a", tmp_path / "b"])
+    sc.inherit_validation_trials([tmp_path / "a", tmp_path / "b"])  # idempotent
+    assert c.memory.n_trials("validation") == 2

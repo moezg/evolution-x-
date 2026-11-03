@@ -198,8 +198,13 @@ class Supervisor:
                     )
                     break
                 self._check_budget(camp, t_start)
+                t0 = time.time()
                 self._step(camp, task, data)
                 steps += 1
+                c = self._campaign(cid)["consumed"]  # wall-clock spend is visible while running
+                c["wall_s"] = round(c["wall_s"] + (time.time() - t0), 2)
+                self.lab.memory.x("UPDATE campaigns SET consumed=? WHERE id=?", (json.dumps(c), cid))
+                t_start += time.time() - t0  # avoid double counting in the final accumulation
         except Stopped as e:
             self.lab.memory.x(
                 "UPDATE campaigns SET status='stopped_by_user', stop_reason=?, updated=? WHERE id=?",
@@ -223,7 +228,12 @@ class Supervisor:
 
     def _check_stop(self) -> None:
         if self.lab.stop_file.exists():
-            raise Stopped(self.lab.stop_file.read_text())
+            try:
+                info = json.loads(self.lab.stop_file.read_text())
+                msg = f"user stop by {info.get('actor')}: {info.get('reason')} ({info.get('ts')})"
+            except (ValueError, OSError):
+                msg = "user stop"
+            raise Stopped(msg)
 
     def _check_budget(self, camp: dict[str, Any], t_start: float) -> None:
         b, c = camp["budget"], camp["consumed"]
@@ -852,6 +862,8 @@ class Supervisor:
         for r in other_roots:
             other = Memory(r / "research.db")
             for t in other.q("SELECT candidate_id, params, metric, value FROM trials WHERE split='validation'"):
+                if str(t["candidate_id"]).startswith("inherited:"):
+                    continue  # count each original trial once (no transitive re-inheritance)
                 cid = f"inherited:{r.name}:{t['candidate_id']}"
                 if not self.lab.memory.q("SELECT id FROM trials WHERE candidate_id=?", (cid,)):
                     self.lab.memory.add_trial(

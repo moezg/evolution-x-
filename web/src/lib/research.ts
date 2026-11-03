@@ -26,7 +26,8 @@ export interface Campaign {
   config?: { generator?: string; llm_available?: boolean; llm_status?: string; seed?: number; sandbox?: Dict } & Dict;
   created: string;
   updated: string;
-  stop_reason?: string | null;
+  /** string for budget/finish reasons; for user stops the API returns the decoded stop file {actor, reason, ts} */
+  stop_reason?: string | { actor?: string; reason?: string; ts?: string } | null;
 }
 
 export interface ActiveVersion {
