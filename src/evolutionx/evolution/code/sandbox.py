@@ -17,6 +17,7 @@ import sysconfig
 import tempfile
 import time
 from dataclasses import dataclass
+from typing import Any
 from pathlib import Path
 
 
@@ -52,7 +53,7 @@ def isolation_report(limits: Limits) -> dict[str, object]:
     }
 
 
-def run(cmd: list[str], cwd: Path, pythonpath: Path | None = None, limits: Limits = Limits()) -> dict[str, object]:
+def run(cmd: list[str], cwd: Path, pythonpath: Path | None = None, limits: Limits = Limits()) -> dict[str, Any]:
     def preexec() -> None:
         resource.setrlimit(resource.RLIMIT_CPU, (limits.cpu_s, limits.cpu_s))
         resource.setrlimit(resource.RLIMIT_AS, (limits.mem_bytes, limits.mem_bytes))

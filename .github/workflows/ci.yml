@@ -1,0 +1,24 @@
+name: ci
+on: [push, pull_request]
+permissions: {contents: read}
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - run: uv run ruff check src tests
+      - run: uv run ruff format --check src tests
+      - run: uv run pyright
+      - run: uv run bandit -q -r src -ll
+      - run: git config --global user.email ci@example.com && git config --global user.name ci
+      - run: uv run pytest
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: cd web && npm ci && npm run build

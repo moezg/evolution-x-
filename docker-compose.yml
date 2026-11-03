@@ -1,0 +1,14 @@
+services:
+  evolutionx:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      EVOX_LLM: ${EVOX_LLM:-mock}          # mock | anthropic | openai
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    volumes:
+      - ./artifacts:/app/artifacts         # runs, experiments, lineage DB, proposals
+      - ./data:/app/data                   # historical market data cache (read-only source data)
+    deploy:
+      resources:
+        limits: {cpus: "4", memory: 8g}

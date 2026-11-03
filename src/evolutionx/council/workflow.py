@@ -46,7 +46,7 @@ def build_context(question: str, experiment_id: str | None, live_sim: Any, archi
     from ..sim.simulation import Simulation
 
     sim = live_sim.sim if live_sim is not None and live_sim.sim is not None and len(live_sim.sim.series) > 600 else None
-    if sim is not None:
+    if sim is not None and live_sim is not None:
         with live_sim.lock:
             m, col, st = run_metrics(sim), views.collective(sim), views.state(sim, live_sim.status, live_sim.speed)
         source = "live simulation"
@@ -136,7 +136,7 @@ def _role_node(role: str, client: LLMClient, progress: Callable[[str], None]) ->
 def build_graph(client: LLMClient, progress: Callable[[str], None]):  # noqa: ANN201
     g = StateGraph(CouncilState)
     for role in RULES:
-        g.add_node(role, _role_node(role, client, progress))
+        g.add_node(role, _role_node(role, client, progress))  # pyright: ignore[reportArgumentType]
     parallel = ["microstructure_analyst", "behavioral_scientist", "macro_scenario_designer", "risk_researcher"]
     g.add_edge(START, "research_scientist")
     for r in parallel:
