@@ -1,6 +1,6 @@
 {
   "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
-  "updated_utc": "2026-11-04T04:15:36+00:00",
+  "updated_utc": "2026-11-04T05:02:31+00:00",
   "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
   "items": [
     {
@@ -17,14 +17,15 @@
     },
     {
       "id": "A2",
-      "status": "running",
+      "status": "done",
       "roles": [
         "E2",
         "H1"
       ],
       "task": "quant_calibration_v2: confirm or lift the mean_absret quarantine for F-DOM/F-MOY/F-TOM under the current rule",
       "why": "v1 excess was partly caused by the defective F-DOW null; decides whether calendar |return| findings can ever be promoted",
-      "cost": "~30 CPU-min"
+      "cost": "~30 CPU-min",
+      "result": "v2: false supported/run 2.0%, 3.7%, 3.3% (<5%); no metric quarantined -> mean_absret quarantine lifted (D-99c58ca842); F-DOM and F-MOY per-family upper bounds 3.8% > 3% -> A8"
     },
     {
       "id": "A3",
@@ -39,15 +40,27 @@
       "result": "share of rotation-null variance explained by shift phase (median/max): DOW 0.48/0.79, DOM 0.22/0.33, MOY 0.45/0.66, TOM 0.53/0.63. Phase structure exists in all families; the F-DOW defect comes from only 7 DISCRETE phases, which this statistic does not isolate. Pre-stated before v2 results: any family with a v2 per-family false-supported Wilson upper bound > 3% gets an amendment-4-style within-block permutation null."
     },
     {
-      "id": "A4",
+      "id": "A8",
       "status": "queued",
+      "roles": [
+        "E2",
+        "H1"
+      ],
+      "task": "Amendment 6: within-month (F-DOM) and within-year (F-MOY) block-permutation nulls; synthetic acceptance (per-family upper bound <= 3%) before a registered real-data re-run",
+      "why": "v2 per-family false-supported upper bounds 3.4-3.8% exceed the pre-stated 3% bound; method validity of the discovery pipeline",
+      "cost": "~1 CPU-hour"
+    },
+    {
+      "id": "A4",
+      "status": "done",
       "roles": [
         "I2",
         "E3"
       ],
       "task": "FOMC sensitivity: exclude FOMC-minutes Wednesdays (14:00 ET, 3 weeks after meetings) from the placebo pool (E3 critique, spec-20261104T031310)",
       "why": "interpretation of the only supported event effect; expected to strengthen it (minutes days inflate the placebo)",
-      "cost": "minutes; needs minutes dates (federalreserve.gov pages already registered)"
+      "cost": "minutes; needs minutes dates (federalreserve.gov pages already registered)",
+      "result": "robust: excluding FOMC-minutes Wednesdays changes the |4h| effect 0.66->0.63 pp (discovery, p 0.004) and 0.73->0.76 pp (confirmation, p 0.0005). My prediction ('strengthens') was half wrong: minutes days were calmer than the pool in 2017-22 (0.98% vs 1.09%) and busier in 2023-26 (0.78% vs 0.66%). artifacts/quant/fomc_minutes_sensitivity.json"
     },
     {
       "id": "A5",

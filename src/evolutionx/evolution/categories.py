@@ -155,17 +155,26 @@ def _specialists() -> list[dict[str, Any]]:
 
 
 def _calibration() -> list[dict[str, Any]]:
-    p = Path("artifacts/quant/calibration_v1.json")
-    if not p.exists():
+    p = next(
+        (
+            x
+            for x in (Path("artifacts/quant/calibration_v2.json"), Path("artifacts/quant/calibration_v1.json"))
+            if x.exists()
+        ),
+        None,
+    )
+    if p is None:
         return []
     q = json.loads(p.read_text()).get("quarantine", {})
     return [
         {
             "id": f"quarantine:{m}",
-            "source": "P5 synthetic-null calibration (quant_calibration_v1)",
+            "source": f"P5 synthetic-null calibration ({p.stem})",
             "category": "scientific_validity",
             "title": f"quarantine metric {m} from automatic promotion",
-            "status": "applied" if v["quarantined"] else "not_needed",
+            "status": "applied"
+            if v["quarantined"]
+            else ("lifted (v2)" if p.stem == "calibration_v2" and m == "mean_absret" else "not_needed"),
             "independent_evidence": "; ".join(v["reasons"]) or "false-positive rate within the frozen bounds",
             "promotable": None,
         }

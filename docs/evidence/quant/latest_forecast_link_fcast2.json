@@ -1,0 +1,150 @@
+{
+ "run_id": "c20261104T041303-fcast2",
+ "results": {
+  "F-FCAST-2:sunday_target_day:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.006409370338094924,
+    "lo": -0.011029676746777085,
+    "hi": -0.002251360649002468,
+    "p_better": 0.0005,
+    "p_floor": 0.0005
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.005129363724168151,
+    "lo": -0.007544912343170167,
+    "hi": -0.002685093324007094,
+    "p_better": 0.0
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.0005,
+    "p_adj": 0.0029985007496251873,
+    "reject": true
+   },
+   "status": "candidate_feature (prospective challenger only)"
+  },
+  "F-FCAST-2:sunday_target_day:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0006074204260728745,
+    "lo": -0.002242393648194338,
+    "hi": 0.0011596914898881587,
+    "p_better": 0.2325,
+    "p_floor": 0.2325
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.00036731749061440574,
+    "lo": -0.001985324710437306,
+    "hi": 0.0014092968019914632,
+    "p_better": 0.341
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.2325,
+    "p_adj": 0.465,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-2:sunday_target_day:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.0003220758667511059,
+    "lo": -0.0007354682966547884,
+    "hi": 0.0015264372963757745,
+    "p_better": 0.698,
+    "p_floor": 0.698
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.0001625481025760779,
+    "lo": -0.0007264290786883797,
+    "hi": 0.0004567203440743002,
+    "p_better": 0.3015
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.698,
+    "p_adj": 0.698,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-2:monday_target_day:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.012258484066594983,
+    "lo": -0.017244053050622602,
+    "hi": -0.006682233449108296,
+    "p_better": 0.0,
+    "p_floor": 0.0004997501249375312
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.006057165805186593,
+    "lo": -0.009460044734998042,
+    "hi": -0.0029052074469026047,
+    "p_better": 0.0
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.0004997501249375312,
+    "p_adj": 0.0029985007496251873,
+    "reject": true
+   },
+   "status": "candidate_feature (prospective challenger only)"
+  },
+  "F-FCAST-2:monday_target_day:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0032109815270809066,
+    "lo": -0.005350035733434845,
+    "hi": -0.00035504903400719926,
+    "p_better": 0.01,
+    "p_floor": 0.01
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.001347503855110998,
+    "lo": -0.003293741027495077,
+    "hi": 0.0005308386480518565,
+    "p_better": 0.0775
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.01,
+    "p_adj": 0.04,
+    "reject": true
+   },
+   "status": "candidate_feature (prospective challenger only)"
+  },
+  "F-FCAST-2:monday_target_day:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0008515089571250402,
+    "lo": -0.0017667976522857075,
+    "hi": 7.48525986929566e-06,
+    "p_better": 0.026,
+    "p_floor": 0.026
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.0006042892318494047,
+    "lo": -0.0014497259569339644,
+    "hi": 0.0002145356636480358,
+    "p_better": 0.0795
+   },
+   "feature_rate": 0.1429731925264013,
+   "holm": {
+    "p": 0.026,
+    "p_adj": 0.078,
+    "reject": false
+   },
+   "status": "not_promoted"
+  }
+ },
+ "note": "loss differences are H1 - M1 (negative = the feature helps); Brier for binary targets, MSE of log RV for rv_24"
+}

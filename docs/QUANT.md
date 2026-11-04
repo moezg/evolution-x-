@@ -59,7 +59,7 @@ The validation also exposed a defect in the first version: empirical rotation p-
 
 None of the 124 day-of-month tests survives BH. There is no yearly regularity either (`by_year`).
 
-**Strongest currently supported calendar anomaly:** Saturdays (UTC) have smaller BTC moves.
+**Strongest currently supported calendar anomaly:** Saturdays (UTC) have smaller BTC moves. *(v0.7: the table below used the invalid weekday null; see the correction section. Saturday |return| stays supported under the valid method; the left-tail result does not.)*
 
 | Metric | Discovery (n = 281 days) | Confirmation |
 |---|---|---|
@@ -104,6 +104,51 @@ None of the 124 day-of-month tests survives BH. There is no yearly regularity ei
 **Which patterns disappeared?** Within this run, effects that appeared in discovery and failed confirmation:
 - the Saturday up-rate;
 - the FOMC first-hour return.
+
+## v0.7 correction: the day-of-week test was invalid, and has been replaced (amendments 4 and 5)
+
+**Defect.** The calibration study (`quant_calibration_v1`) showed the weekday family producing about 8× its share of false "supported" results (13 of 300 null runs vs about 1.5 expected).
+- Cause: rotating a daily series by k days reassigns weekdays identically for every k with the same remainder mod 7. The rotation null is therefore 6 tight clusters, roughly "the other weekdays".
+- Effect: the amendment-2 normal approximation turned Saturday's exact rank p of about 1/7 into z = −2.7.
+- Consequence: all weekday p-values from the registered runs (discovery and confirmation) were invalid.
+
+**Fix (amendment 4, written before any real-data re-run).**
+- Method: a within-week permutation null. Weekday labels are shuffled inside each complete Monday–Sunday week, 4999 times; p is empirical.
+- Synthetic acceptance (same generators and seeds): false "supported" in the weekday family dropped to **0/300, 2/300, 1/300** (before: 13, 12, 6).
+- Power: a Saturday volatility of ×0.8 is detected 78% of the time, ×0.7 100%.
+
+**Registered re-run** (`c20261104T041145-dow4`, 279 discovery weeks / 199 confirmation weeks):
+
+| Weekday \|return\| vs the other six days | Discovery | Confirmation | Status |
+|---|---|---|---|
+| Saturday lower | −0.96 pp, p ≤ 0.0002 | −1.13 pp, p ≤ 0.0002 | **supported** |
+| Sunday lower | −0.63 pp, p 0.0014 | −0.36 pp, p 0.0012 | **supported** (new) |
+| Monday higher | +0.64 pp, p 0.0018 | +0.44 pp, p 0.0006 | **supported** (new) |
+| Wednesday higher | +0.61 pp, p 0.0028 | +0.21 pp, p 0.053 | inconclusive |
+| Saturday left-tail days fewer | −2.9 pp, BH 0.19 | — | **rejected** (was "supported" under the invalid method) |
+
+**Answer.** BTC has a weekend volatility profile: calm Saturdays and Sundays, while traditional markets are closed, then a more volatile Monday. It is a volatility pattern only; no direction effect survives.
+
+**Quarantine status.** The `mean_absret` quarantine from calibration v1 was measured for the rotation method. Under amendment 4, the weekday family's own calibration gives `mean_absret` 0, 1 and 1 false results per 300, within the frozen bounds. `quant_calibration_v2` (corrected rule, fresh seeds, frozen before its run) then gave per-run false-supported rates of **2.0%, 3.7% and 3.3%**, all below 5%, and **no metric met the quarantine criteria**. The `mean_absret` quarantine is therefore lifted (journal `D-99c58ca842`). Day-of-month and month each exceed the pre-stated 3% per-family bound (upper 3.8%), so both get within-block permutation nulls next (agenda A8). No current conclusion depends on this, because every day-of-month and month test was rejected.
+
+**Forecast features (amendment 5).** The Sunday and Monday features got the same pipeline test as Saturday (`c20261104T041303-fcast2`; Holm over 6). These pass and are now prospective challengers next to the unchanged champion:
+
+| Feature | Target | Screening period | Development period |
+|---|---|---|---|
+| Sunday | 24 h realized vol | −0.0064 [−0.011, −0.002] | −0.0051 |
+| Monday | 24 h realized vol | −0.012 [−0.017, −0.007] | −0.0061 |
+| Monday | 3% move | −0.0032 (Holm 0.04) | −0.0014 |
+
+Three other tests did not pass. The Saturday features (24 h realized vol −0.049, 3% move −0.0068) remain the strongest.
+
+**Saturday challenger decision** (journal `D-f1e7aa80e9`): **continue**, on its forecasting evidence. That evidence uses a block bootstrap of loss differences, which the rotation defect does not affect. A frozen futility rule (`challenger_policy_v1`) retires any challenger target whose loss-difference CI vs the champion lies entirely above 0 after 60 resolved pairs.
+
+**FOMC sensitivity** (critique from the adversarial specialist): excluding FOMC-minutes Wednesdays from the placebo pool leaves the |4 h| effect essentially unchanged.
+
+| Period | Registered pool | Minutes days excluded | p |
+|---|---|---|---|
+| Discovery | +0.66 pp | +0.63 pp | 0.004 |
+| Confirmation | +0.73 pp | +0.76 pp | 0.0005 |
 
 ## v0.7: CPI, payroll and GDP releases (amendment 3)
 

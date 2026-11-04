@@ -14,7 +14,13 @@
 | P7 agent value | Per-role cost vs recorded outcomes. A4 with/without replay: 7 duplicates stopped saved ≈241 s, 7 counted trials and ≤14 LLM calls (estimate). E3: 0 hard failures in 3 challenges, flagged for re-measurement. | `artifacts/army/agent_value.json` |
 | P8 dashboard | `/control`: Live Forecasts, Reliability, Research Army, Quant, Evolution, Operations. Real data only, with explicit insufficient-evidence states. | `web/src/app/control/` |
 
-**Consequence of the quarantine:** "Saturday |return| lower" (`F-DOW:5:mean_absret`) stays *supported (exploratory)* but can no longer be promoted automatically. The `CH:saturday_target_day` challenger keeps issuing, because its registered justification also rests on `F-DOW:5:left_tail_rate`, which is not quarantined. This mixed provenance is journaled and **awaits a human decision**.
+**Director decisions after v0.7** (journal `data/decisions/journal.jsonl`, agenda `data/decisions/agenda.json`):
+- **Weekday test defect.** The rotation null was degenerate (only ~6 clusters) and was diagnosed from the calibration excess. Amendment 4 replaces it with a within-week permutation, which passed synthetic acceptance (0, 2, 1 false per 300).
+- **Re-run:** Saturday and Sunday \|return\| lower and Monday higher are **supported**; Saturday left-tail is **rejected**.
+- **Saturday challenger: CONTINUE** (`D-f1e7aa80e9`), on its forecasting evidence (block bootstrap, unaffected by the defect). A frozen futility rule is checked daily by the scheduler.
+- **New challengers** (amendment 5): Sunday (24 h realized vol) and Monday (24 h realized vol, 3% move).
+- **Calibration v2** (corrected rule, fresh seeds): 2.0%, 3.7%, 3.3% false per run. The `mean_absret` quarantine is **lifted**. Day-of-month and month nulls are queued for a block-permutation fix.
+- **FOMC effect** is robust to excluding FOMC-minutes days from the placebo pool.
 
 ---
 

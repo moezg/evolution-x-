@@ -100,7 +100,7 @@ def reliability() -> dict[str, Any]:
     from ..army import drift
 
     status = _read("artifacts/forecast/prospective_status.json")
-    cal = _read("artifacts/quant/calibration_v1.json")
+    cal = _read("artifacts/quant/calibration_v2.json") or _read("artifacts/quant/calibration_v1.json")
     return {
         "prospective_scores": status,
         "drift": drift.check(),
@@ -180,7 +180,7 @@ def quant() -> dict[str, Any]:
     last_run: dict[str, str] = {}
     for r in rows:
         last_run[r["hypothesis"]] = max(last_run.get(r["hypothesis"], ""), r["run_id"] or "")
-    cal = _read("artifacts/quant/calibration_v1.json") or {}
+    cal = _read("artifacts/quant/calibration_v2.json") or _read("artifacts/quant/calibration_v1.json") or {}
     quarantined = [m for m, v in (cal.get("quarantine") or {}).items() if isinstance(v, dict) and v.get("quarantined")]
     calendar_fams = ("F-DOM", "F-DOW", "F-MOY", "F-TOM")  # the only families the calibration study assessed
     by_h: dict[str, dict[str, Any]] = {}

@@ -1,0 +1,306 @@
+{
+ "run_id": "c20261104T041145-dow4",
+ "data_sha": "96981208eb5db754",
+ "weeks": {
+  "DISCOVERY": 279,
+  "CONFIRMATION": 199
+ },
+ "results": [
+  {
+   "hypothesis": "F-DOW:0:mean_ret",
+   "status": "rejected",
+   "disc_effect": 0.0027019599205238124,
+   "disc_p": 0.2902,
+   "p_bh": 0.6696,
+   "conf_effect": 0.00302434850419462,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:1:mean_ret",
+   "status": "rejected",
+   "disc_effect": -0.0019203203483424127,
+   "disc_p": 0.495,
+   "p_bh": 0.794162962962963,
+   "conf_effect": -0.0015053525223734615,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:2:mean_ret",
+   "status": "rejected",
+   "disc_effect": 0.00291711619629715,
+   "disc_p": 0.2754,
+   "p_bh": 0.6696,
+   "conf_effect": 0.002876096616913407,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:3:mean_ret",
+   "status": "rejected",
+   "disc_effect": -0.004804329469159705,
+   "disc_p": 0.07,
+   "p_bh": 0.2457,
+   "conf_effect": -0.005040392235582232,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:4:mean_ret",
+   "status": "rejected",
+   "disc_effect": 0.0017198067152813514,
+   "disc_p": 0.5248,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.0007247707982599117,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:5:mean_ret",
+   "status": "rejected",
+   "disc_effect": 0.0012204381090851577,
+   "disc_p": 0.6582,
+   "p_bh": 0.794162962962963,
+   "conf_effect": -0.001007028161881037,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:6:mean_ret",
+   "status": "rejected",
+   "disc_effect": -0.001834671123685353,
+   "disc_p": 0.483,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.0009275570004687924,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:0:mean_absret",
+   "status": "supported",
+   "disc_effect": 0.006403031603344881,
+   "disc_p": 0.0018,
+   "p_bh": 0.0168,
+   "conf_effect": 0.0044405337851308735,
+   "conf_p_one_sided": 0.0006,
+   "conf_holm": {
+    "p": 0.0006,
+    "p_adj": 0.0018,
+    "reject": true
+   }
+  },
+  {
+   "hypothesis": "F-DOW:1:mean_absret",
+   "status": "rejected",
+   "disc_effect": 0.0006716187585578369,
+   "disc_p": 0.6882,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.0019266717811169017,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:2:mean_absret",
+   "status": "rejected",
+   "disc_effect": 0.0018302344921661863,
+   "disc_p": 0.3348,
+   "p_bh": 0.6696,
+   "conf_effect": 0.0038109327501128568,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:3:mean_absret",
+   "status": "inconclusive",
+   "disc_effect": 0.006147232663594519,
+   "disc_p": 0.0028,
+   "p_bh": 0.0196,
+   "conf_effect": 0.002100262863382569,
+   "conf_p_one_sided": 0.0526,
+   "conf_holm": {
+    "p": 0.0526,
+    "p_adj": 0.0526,
+    "reject": false
+   }
+  },
+  {
+   "hypothesis": "F-DOW:4:mean_absret",
+   "status": "rejected",
+   "disc_effect": 0.0009263374781008499,
+   "disc_p": 0.607,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.0025665307188458865,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:5:mean_absret",
+   "status": "supported",
+   "disc_effect": -0.009634121210625249,
+   "disc_p": 0.0002,
+   "p_bh": 0.0056,
+   "conf_effect": -0.011254285395519937,
+   "conf_p_one_sided": 0.0002,
+   "conf_holm": {
+    "p": 0.0002,
+    "p_adj": 0.0008,
+    "reject": true
+   }
+  },
+  {
+   "hypothesis": "F-DOW:6:mean_absret",
+   "status": "supported",
+   "disc_effect": -0.006344333785139062,
+   "disc_p": 0.0014,
+   "p_bh": 0.0168,
+   "conf_effect": -0.0035906465030691465,
+   "conf_p_one_sided": 0.0012,
+   "conf_holm": {
+    "p": 0.0012,
+    "p_adj": 0.0024,
+    "reject": true
+   }
+  },
+  {
+   "hypothesis": "F-DOW:0:up_rate",
+   "status": "rejected",
+   "disc_effect": -0.037634408602150504,
+   "disc_p": 0.274,
+   "p_bh": 0.6696,
+   "conf_effect": 0.03852596314907869,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:1:up_rate",
+   "status": "rejected",
+   "disc_effect": -0.012544802867383464,
+   "disc_p": 0.7416,
+   "p_bh": 0.794162962962963,
+   "conf_effect": -0.03768844221105522,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:2:up_rate",
+   "status": "rejected",
+   "disc_effect": 0.033452807646356164,
+   "disc_p": 0.3284,
+   "p_bh": 0.6696,
+   "conf_effect": -0.00837520938023445,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:3:up_rate",
+   "status": "rejected",
+   "disc_effect": -0.05436081242532853,
+   "disc_p": 0.1054,
+   "p_bh": 0.3279111111111111,
+   "conf_effect": -0.06700167504187599,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:4:up_rate",
+   "status": "rejected",
+   "disc_effect": 0.012544802867383464,
+   "disc_p": 0.7658,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.015075376884422176,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:5:up_rate",
+   "status": "rejected",
+   "disc_effect": 0.07108721624850667,
+   "disc_p": 0.0332,
+   "p_bh": 0.18592,
+   "conf_effect": 0.02680067001675035,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:6:up_rate",
+   "status": "rejected",
+   "disc_effect": -0.012544802867383464,
+   "disc_p": 0.7044,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.03266331658291455,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:0:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": 0.008363201911589,
+   "disc_p": 0.648,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.02345058626465662,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:1:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": 0.0041816009557945,
+   "disc_p": 0.76,
+   "p_bh": 0.794162962962963,
+   "conf_effect": 0.017587939698492462,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:2:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": 0.0041816009557945,
+   "disc_p": 0.7602,
+   "p_bh": 0.794162962962963,
+   "conf_effect": -0.011725293132328313,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:3:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": 0.02508960573476702,
+   "disc_p": 0.0702,
+   "p_bh": 0.2457,
+   "conf_effect": 0.02345058626465662,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:4:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": -0.004181600955794507,
+   "disc_p": 0.8782,
+   "p_bh": 0.8782,
+   "conf_effect": 0.017587939698492462,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:5:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": -0.029271206690561533,
+   "disc_p": 0.0404,
+   "p_bh": 0.18853333333333333,
+   "conf_effect": -0.04103852596314908,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  },
+  {
+   "hypothesis": "F-DOW:6:left_tail_rate",
+   "status": "rejected",
+   "disc_effect": -0.008363201911589006,
+   "disc_p": 0.5436,
+   "p_bh": 0.794162962962963,
+   "conf_effect": -0.02931323283082077,
+   "conf_p_one_sided": null,
+   "conf_holm": null
+  }
+ ]
+}

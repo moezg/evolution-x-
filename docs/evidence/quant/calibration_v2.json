@@ -1,0 +1,418 @@
+{
+ "protocol": "quant_calibration_v2",
+ "protocol_sha256": "05be3da179bfdec00be82d46a5b22109f5ac9ddc87a3410a039dbfc9854241a4",
+ "n_rotations": 999,
+ "smoke_test_not_registered": false,
+ "started_utc": "2026-11-04T04:14:20+00:00",
+ "label": "SYNTHETIC data only (method calibration); no market data",
+ "null": {
+  "iid_t4": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 6,
+    "n": 300,
+    "rate": 0.02,
+    "wilson95": [
+     0.009197631503835551,
+     0.04293962106078204
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "mean_absret": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    },
+    "up_rate": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "left_tail_rate": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "F-DOW": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "F-MOY": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "F-TOM": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    }
+   },
+   "false_supported_total": 7,
+   "mean_bh_survivors_per_run": 0.5766666666666667,
+   "examples": [
+    "F-DOM:8:mean_absret",
+    "F-DOM:8:left_tail_rate",
+    "F-DOW:4:mean_absret",
+    "F-MOY:8:up_rate",
+    "F-TOM:1:mean_ret_wd_adj",
+    "F-TOM:1:mean_ret_wd_adj",
+    "F-DOM:3:mean_absret"
+   ]
+  },
+  "garch_t5": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 11,
+    "n": 300,
+    "rate": 0.03666666666666667,
+    "wilson95": [
+     0.02059530507112222,
+     0.06445384844611282
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "mean_absret": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "up_rate": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "left_tail_rate": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "F-DOW": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "F-MOY": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    },
+    "F-TOM": {
+     "k": 0,
+     "n": 300,
+     "rate": 0.0,
+     "wilson95": [
+      0.0,
+      0.012642971421476655
+     ]
+    }
+   },
+   "false_supported_total": 11,
+   "mean_bh_survivors_per_run": 0.6166666666666667,
+   "examples": [
+    "F-DOM:30:mean_ret_wd_adj",
+    "F-MOY:10:mean_ret_wd_adj",
+    "F-MOY:1:left_tail_rate",
+    "F-DOM:9:left_tail_rate",
+    "F-MOY:5:mean_ret_wd_adj",
+    "F-DOM:2:mean_absret",
+    "F-MOY:3:mean_absret",
+    "F-DOW:4:left_tail_rate",
+    "F-DOW:4:mean_ret",
+    "F-DOM:27:left_tail_rate",
+    "F-MOY:3:up_rate"
+   ]
+  },
+  "garch_t3_persistent": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 10,
+    "n": 300,
+    "rate": 0.03333333333333333,
+    "wilson95": [
+     0.018204947254090647,
+     0.060261826072620886
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    },
+    "mean_absret": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "up_rate": {
+     "k": 0,
+     "n": 300,
+     "rate": 0.0,
+     "wilson95": [
+      0.0,
+      0.012642971421476655
+     ]
+    },
+    "left_tail_rate": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    },
+    "F-DOW": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "F-MOY": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "F-TOM": {
+     "k": 0,
+     "n": 300,
+     "rate": 0.0,
+     "wilson95": [
+      0.0,
+      0.012642971421476655
+     ]
+    }
+   },
+   "false_supported_total": 10,
+   "mean_bh_survivors_per_run": 0.7233333333333334,
+   "examples": [
+    "F-DOM:27:left_tail_rate",
+    "F-DOM:24:mean_absret",
+    "F-MOY:9:left_tail_rate",
+    "F-DOM:24:mean_absret",
+    "F-DOW:4:mean_ret",
+    "F-DOM:18:mean_ret_wd_adj",
+    "F-DOM:12:mean_ret_wd_adj",
+    "F-MOY:12:mean_absret",
+    "F-MOY:12:mean_absret",
+    "F-MOY:8:left_tail_rate"
+   ]
+  }
+ },
+ "power": {
+  "mean:0.25": {
+   "k": 2,
+   "n": 40,
+   "rate": 0.05,
+   "wilson95": [
+    0.01382066726155863,
+    0.16503877495105868
+   ],
+   "runs_with_other_false_supported": 2
+  },
+  "mean:0.33": {
+   "k": 5,
+   "n": 40,
+   "rate": 0.125,
+   "wilson95": [
+    0.05459500216399486,
+    0.26112119967985287
+   ],
+   "runs_with_other_false_supported": 1
+  },
+  "mean:0.5": {
+   "k": 30,
+   "n": 40,
+   "rate": 0.75,
+   "wilson95": [
+    0.5980603845146479,
+    0.8581288142561201
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "mean:0.67": {
+   "k": 39,
+   "n": 40,
+   "rate": 0.975,
+   "wilson95": [
+    0.8711863091181636,
+    0.9955731685462955
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "mean:1.0": {
+   "k": 40,
+   "n": 40,
+   "rate": 1.0,
+   "wilson95": [
+    0.9123783975415363,
+    1.0
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "vol:1.25": {
+   "k": 3,
+   "n": 40,
+   "rate": 0.075,
+   "wilson95": [
+    0.025836025573262464,
+    0.19864233651643165
+   ],
+   "runs_with_other_false_supported": 1
+  },
+  "vol:1.5": {
+   "k": 24,
+   "n": 40,
+   "rate": 0.6,
+   "wilson95": [
+    0.44595893542800863,
+    0.7365167440802984
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "vol:2.0": {
+   "k": 40,
+   "n": 40,
+   "rate": 1.0,
+   "wilson95": [
+    0.9123783975415363,
+    1.0
+   ],
+   "runs_with_other_false_supported": 0
+  }
+ },
+ "quarantine": {
+  "mean_ret": {
+   "quarantined": false,
+   "reasons": []
+  },
+  "mean_absret": {
+   "quarantined": false,
+   "reasons": []
+  },
+  "up_rate": {
+   "quarantined": false,
+   "reasons": []
+  },
+  "left_tail_rate": {
+   "quarantined": false,
+   "reasons": []
+  }
+ },
+ "finished_utc": "2026-11-04T05:01:57+00:00"
+}

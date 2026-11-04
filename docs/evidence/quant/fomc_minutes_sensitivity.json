@@ -1,0 +1,45 @@
+{
+ "label": "SENSITIVITY analysis of the registered F-FOMC:absret_0_4h (not a new test); minutes dates by the 21-day convention (minutes are released 3 weeks after each meeting at 14:00 ET)",
+ "results": {
+  "DISCOVERY:registered_pool": {
+   "n_events": 39,
+   "n_placebo": 201,
+   "placebo_mean": 0.010874349458264099,
+   "effect": 0.006583440899901349,
+   "p_two": 0.00399800099950025,
+   "p_greater": 0.00399800099950025
+  },
+  "DISCOVERY:excluding_minutes_days": {
+   "n_events": 39,
+   "n_placebo": 167,
+   "placebo_mean": 0.011091724148290986,
+   "effect": 0.0062491671838524904,
+   "p_two": 0.00399800099950025,
+   "p_greater": 0.00399800099950025
+  },
+  "DISCOVERY:minutes_days_only": {
+   "n": 34,
+   "mean": 0.009806656127837932
+  },
+  "CONFIRMATION:registered_pool": {
+   "n_events": 29,
+   "n_placebo": 168,
+   "placebo_mean": 0.006581982300479791,
+   "effect": 0.007328877700588619,
+   "p_two": 0.0004997501249375312,
+   "p_greater": 0.0004997501249375312
+  },
+  "CONFIRMATION:excluding_minutes_days": {
+   "n_events": 29,
+   "n_placebo": 139,
+   "placebo_mean": 0.0063372320984577376,
+   "effect": 0.00758354332785129,
+   "p_two": 0.0004997501249375312,
+   "p_greater": 0.0004997501249375312
+  },
+  "CONFIRMATION:minutes_days_only": {
+   "n": 29,
+   "mean": 0.007755095337757911
+  }
+ }
+}
