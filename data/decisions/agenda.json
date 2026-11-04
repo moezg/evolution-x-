@@ -1,6 +1,6 @@
 {
   "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
-  "updated_utc": "2026-11-04T06:21:19+00:00",
+  "updated_utc": "2026-11-04T06:39:15+00:00",
   "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
   "items": [
     {
@@ -125,6 +125,10 @@
     {
       "task": "lagged cross-asset features (VIX level, S&P 500 |return|) for BTC volatility/move forecasts",
       "why": "F-FCAST-3 (amendment 7, c20261104T060625-fcast3): 0/6 pass Holm; DEV sign reverses in 6/6 (features slightly hurt). A fresher lag would violate the information cutoff."
+    },
+    {
+      "task": "derivatives positioning features at the registered 24 h lag (7-day open-interest change, taker long/short flow, premium)",
+      "why": "F-FCAST-4 (amendment 8, c20261104T063844-fcast4): 0/9 pass Holm; OI change and taker flow make rv_24 forecasts significantly WORSE on DEV (CI above 0). Structural limit: positioning signals are 24-48 h stale under the registered publication lag; intraday derivatives data needs the futures API, which is restricted for this location (not circumvented)."
     }
   ]
 }

@@ -1,0 +1,222 @@
+{
+ "run_id": "c20261104T063844-fcast4",
+ "results": {
+  "F-FCAST-4:oi_logchg_7d:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0027682589319930223,
+    "lo": -0.005629455337419259,
+    "hi": -5.180987374457233e-05,
+    "p_better": 0.025,
+    "p_floor": 0.025
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.015058341117548172,
+    "lo": 0.002620855330204559,
+    "hi": 0.03183879438153014,
+    "p_better": 0.9945
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.025,
+    "p_adj": 0.225,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:oi_logchg_7d:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.0003056669732672866,
+    "lo": -0.0008129586096102647,
+    "hi": 0.0014040248767457145,
+    "p_better": 0.7045,
+    "p_floor": 0.7045
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -1.878503340094057e-05,
+    "lo": -0.002104289446248801,
+    "hi": 0.0020345898437859307,
+    "p_better": 0.4995
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.7045,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:oi_logchg_7d:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.000417665814651376,
+    "lo": -0.0012075831684097889,
+    "hi": 0.00042255961838101065,
+    "p_better": 0.1655,
+    "p_floor": 0.1655
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0006919828292570569,
+    "lo": -0.0010439215515062536,
+    "hi": 0.002727301653294628,
+    "p_better": 0.763
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.1655,
+    "p_adj": 0.867,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:taker_logratio_24h:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0012358630194740353,
+    "lo": -0.004162460192676351,
+    "hi": 0.002045983976415107,
+    "p_better": 0.249,
+    "p_floor": 0.249
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.01835328064524285,
+    "lo": 0.005460769071514268,
+    "hi": 0.035564520484503044,
+    "p_better": 0.9995
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.249,
+    "p_adj": 0.867,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:taker_logratio_24h:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0006067728212620978,
+    "lo": -0.0016797644467680562,
+    "hi": 0.0005035478356773045,
+    "p_better": 0.1615,
+    "p_floor": 0.1615
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0001177293470084994,
+    "lo": -0.0020472214103046827,
+    "hi": 0.0022126671164195517,
+    "p_better": 0.5515
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.1615,
+    "p_adj": 0.867,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:taker_logratio_24h:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.00018195060295649705,
+    "lo": -0.0005390920477653647,
+    "hi": 0.000177422134138333,
+    "p_better": 0.1445,
+    "p_floor": 0.1445
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0003773319713523428,
+    "lo": -0.0013590014667764325,
+    "hi": 0.00241218124920811,
+    "p_better": 0.641
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.1445,
+    "p_adj": 0.867,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:premium_abs_24h:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.00036446979825296196,
+    "lo": -0.0011258967293331108,
+    "hi": 0.002115163609294031,
+    "p_better": 0.7495,
+    "p_floor": 0.7495
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0007024138322219443,
+    "lo": -0.0017112955089038956,
+    "hi": 0.003013258013189133,
+    "p_better": 0.6885
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.7495,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:premium_abs_24h:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.00043882843561184645,
+    "lo": -0.0010222453284061655,
+    "hi": 0.0002591593695591702,
+    "p_better": 0.119,
+    "p_floor": 0.119
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.00011609359682523694,
+    "lo": -0.0010503473505683186,
+    "hi": 0.000636728934792144,
+    "p_better": 0.381
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.119,
+    "p_adj": 0.833,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-4:premium_abs_24h:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.00022577912819505373,
+    "lo": -0.0006203816557192645,
+    "hi": 7.316460690839563e-05,
+    "p_better": 0.075,
+    "p_floor": 0.075
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": -0.0003420336907114285,
+    "lo": -0.0008385247937581554,
+    "hi": 6.764959890912283e-05,
+    "p_better": 0.056
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.075,
+    "p_adj": 0.6,
+    "reject": false
+   },
+   "status": "not_promoted"
+  }
+ },
+ "note": "loss differences are H1 - M1 (negative = the feature helps); Brier for binary targets, MSE of log RV for rv_24"
+}

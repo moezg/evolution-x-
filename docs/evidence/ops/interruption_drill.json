@@ -1,0 +1,12 @@
+{
+ "origin": "2026-11-05",
+ "expected_new_forecasts": 37,
+ "log": [
+  {
+   "utc": "2026-11-04T06:22:05+00:00",
+   "event": "drill_start",
+   "ledger_lines": 34,
+   "container": "evox-scheduler"
+  }
+ ]
+}
