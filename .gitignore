@@ -20,3 +20,5 @@ data/fresh/*.zip
 data/fresh/*.CHECKSUM
 data/quant/binance/
 !data/quant/binance/manifest_*.json
+data/quant/binance_futures/metrics/
+data/quant/binance_futures/premium/
