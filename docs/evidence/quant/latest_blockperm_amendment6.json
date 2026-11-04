@@ -1,0 +1,1651 @@
+{
+ "run_id": "c20261104T062102-blk6",
+ "data_sha": "96981208eb5db754",
+ "families": {
+  "F-DOM": {
+   "tests": 124,
+   "survivors_bh": [],
+   "supported": [],
+   "day14": [
+    {
+     "hypothesis": "F-DOM:14:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0011154046998150895,
+     "p": 0.8322,
+     "p_bh": 1.0,
+     "conf_effect": 3.288685286560051e-05,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:mean_absret",
+     "status": "rejected",
+     "effect": 0.0023631090163278336,
+     "p": 0.5368,
+     "p_bh": 1.0,
+     "conf_effect": 0.0030208241123113634,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:up_rate",
+     "status": "rejected",
+     "effect": 0.037918203371970494,
+     "p": 0.6166,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.04475105374077977,
+     "p": 0.1332,
+     "p_bh": 1.0,
+     "conf_effect": 0.015734378010403956,
+     "conf_p_one_sided": null
+    }
+   ],
+   "results": [
+    {
+     "hypothesis": "F-DOM:1:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.006616507327324036,
+     "p": 0.2042,
+     "p_bh": 1.0,
+     "conf_effect": 0.0006611228318605775,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:1:mean_absret",
+     "status": "rejected",
+     "effect": -0.004683894700969814,
+     "p": 0.1884,
+     "p_bh": 1.0,
+     "conf_effect": 0.0024443150946487947,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:1:up_rate",
+     "status": "rejected",
+     "effect": 0.13482942571127499,
+     "p": 0.0442,
+     "p_bh": 0.7829714285714287,
+     "conf_effect": 0.09254383148160039,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:1:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.019856427818756586,
+     "p": 0.5828,
+     "p_bh": 1.0,
+     "conf_effect": 0.0382120608824096,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:2:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.004933283689342926,
+     "p": 0.336,
+     "p_bh": 1.0,
+     "conf_effect": 0.0013636912581489761,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:2:mean_absret",
+     "status": "rejected",
+     "effect": -0.002568271213226468,
+     "p": 0.4584,
+     "p_bh": 1.0,
+     "conf_effect": 0.002745678480147777,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:2:up_rate",
+     "status": "rejected",
+     "effect": 0.0056144625922023295,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:2:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.019856427818756586,
+     "p": 0.5776,
+     "p_bh": 1.0,
+     "conf_effect": 0.015734378010403956,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:3:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0027976076396084857,
+     "p": 0.567,
+     "p_bh": 1.0,
+     "conf_effect": -0.0034408675326539607,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:3:mean_absret",
+     "status": "rejected",
+     "effect": -0.003404115098726724,
+     "p": 0.3212,
+     "p_bh": 1.0,
+     "conf_effect": 0.000746150580676546,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:3:up_rate",
+     "status": "rejected",
+     "effect": 0.0056144625922023295,
+     "p": 0.8958,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:3:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.0831674266264209,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:4:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.007026481042411783,
+     "p": 0.1652,
+     "p_bh": 1.0,
+     "conf_effect": 0.002254017919296478,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:4:mean_absret",
+     "status": "rejected",
+     "effect": 0.0005099650808057972,
+     "p": 0.8944,
+     "p_bh": 1.0,
+     "conf_effect": 0.0014168755527989504,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:4:up_rate",
+     "status": "rejected",
+     "effect": -0.010537407797681753,
+     "p": 0.9008,
+     "p_bh": 1.0,
+     "conf_effect": 0.0700661486095947,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:4:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.07705479452054795,
+     "p": 0.0124,
+     "p_bh": 0.38439999999999996,
+     "conf_effect": 0.0382120608824096,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:5:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.005027479393538855,
+     "p": 0.3198,
+     "p_bh": 1.0,
+     "conf_effect": -0.009047702789425271,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:5:mean_absret",
+     "status": "rejected",
+     "effect": 0.0006562603234059744,
+     "p": 0.8906,
+     "p_bh": 1.0,
+     "conf_effect": 0.0022950082242754848,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:5:up_rate",
+     "status": "rejected",
+     "effect": 0.054070073761854576,
+     "p": 0.4524,
+     "p_bh": 1.0,
+     "conf_effect": -0.10975531436645047,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:5:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.06068974375441526,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:6:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.006081218203671445,
+     "p": 0.2286,
+     "p_bh": 1.0,
+     "conf_effect": 0.0056527095610558395,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:6:mean_absret",
+     "status": "rejected",
+     "effect": -0.0012088667282415498,
+     "p": 0.7438,
+     "p_bh": 1.0,
+     "conf_effect": 0.0015444469436020486,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:6:up_rate",
+     "status": "rejected",
+     "effect": 0.08637381454162274,
+     "p": 0.2048,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:6:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.019856427818756586,
+     "p": 0.5722,
+     "p_bh": 1.0,
+     "conf_effect": 0.015734378010403956,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:7:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0028265185501358844,
+     "p": 0.5806,
+     "p_bh": 1.0,
+     "conf_effect": -0.0038453707101562423,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:7:mean_absret",
+     "status": "rejected",
+     "effect": 0.001105698818957876,
+     "p": 0.7896,
+     "p_bh": 1.0,
+     "conf_effect": -0.00043694356507972473,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:7:up_rate",
+     "status": "rejected",
+     "effect": 0.037918203371970494,
+     "p": 0.6138,
+     "p_bh": 1.0,
+     "conf_effect": -0.019844582878427885,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:7:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:8:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0022924562431606626,
+     "p": 0.6298,
+     "p_bh": 1.0,
+     "conf_effect": 0.003571841657097231,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:8:mean_absret",
+     "status": "rejected",
+     "effect": 0.0019877120502589107,
+     "p": 0.5892,
+     "p_bh": 1.0,
+     "conf_effect": -0.0005477331592307483,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:8:up_rate",
+     "status": "rejected",
+     "effect": -0.010537407797681753,
+     "p": 0.9038,
+     "p_bh": 1.0,
+     "conf_effect": 0.025110782865583436,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:8:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.02859918335089568,
+     "p": 0.3758,
+     "p_bh": 1.0,
+     "conf_effect": -0.051698670605613,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:9:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0003859778486665911,
+     "p": 0.9382,
+     "p_bh": 1.0,
+     "conf_effect": -0.0003601537351033138,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:9:mean_absret",
+     "status": "rejected",
+     "effect": -0.000459013170806738,
+     "p": 0.8784,
+     "p_bh": 1.0,
+     "conf_effect": 0.002706477912967284,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:9:up_rate",
+     "status": "rejected",
+     "effect": -0.058993018967334,
+     "p": 0.3772,
+     "p_bh": 1.0,
+     "conf_effect": -0.06479994862243915,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:9:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.0382120608824096,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:10:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.013399852725795077,
+     "p": 0.011,
+     "p_bh": 0.38439999999999996,
+     "conf_effect": 0.0010307358901215267,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:10:mean_absret",
+     "status": "rejected",
+     "effect": 0.0016819873206831912,
+     "p": 0.6668,
+     "p_bh": 1.0,
+     "conf_effect": -0.0008816256829181808,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:10:up_rate",
+     "status": "rejected",
+     "effect": -0.13975237091675452,
+     "p": 0.033,
+     "p_bh": 0.7233333333333335,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:10:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.012447312961011592,
+     "p": 0.772,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:11:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.006017095156823846,
+     "p": 0.2582,
+     "p_bh": 1.0,
+     "conf_effect": 0.0022956738818883985,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:11:mean_absret",
+     "status": "rejected",
+     "effect": 0.002221123557565239,
+     "p": 0.5794,
+     "p_bh": 1.0,
+     "conf_effect": 0.002440106305697076,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:11:up_rate",
+     "status": "rejected",
+     "effect": -0.010537407797681753,
+     "p": 0.8932,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:11:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.02859918335089568,
+     "p": 0.3724,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:12:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.005829676201924163,
+     "p": 0.2782,
+     "p_bh": 1.0,
+     "conf_effect": -0.0006794475681668157,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:12:mean_absret",
+     "status": "rejected",
+     "effect": 0.005142586272858709,
+     "p": 0.1708,
+     "p_bh": 1.0,
+     "conf_effect": -0.0008023878708260553,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:12:up_rate",
+     "status": "rejected",
+     "effect": 0.10252568493150682,
+     "p": 0.1262,
+     "p_bh": 1.0,
+     "conf_effect": -0.06479994862243915,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:12:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.012447312961011592,
+     "p": 0.775,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:13:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.00366964781366161,
+     "p": 0.4726,
+     "p_bh": 1.0,
+     "conf_effect": 0.008319354219746822,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:13:mean_absret",
+     "status": "rejected",
+     "effect": 0.004534028219132496,
+     "p": 0.2262,
+     "p_bh": 1.0,
+     "conf_effect": 0.001996171290055155,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:13:up_rate",
+     "status": "rejected",
+     "effect": -0.07514488935721808,
+     "p": 0.2572,
+     "p_bh": 1.0,
+     "conf_effect": 0.11502151435360614,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:13:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0011154046998150895,
+     "p": 0.8322,
+     "p_bh": 1.0,
+     "conf_effect": 3.288685286560051e-05,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:mean_absret",
+     "status": "rejected",
+     "effect": 0.0023631090163278336,
+     "p": 0.5368,
+     "p_bh": 1.0,
+     "conf_effect": 0.0030208241123113634,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:up_rate",
+     "status": "rejected",
+     "effect": 0.037918203371970494,
+     "p": 0.6166,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:14:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.04475105374077977,
+     "p": 0.1332,
+     "p_bh": 1.0,
+     "conf_effect": 0.015734378010403956,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:15:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.004489478883554464,
+     "p": 0.3904,
+     "p_bh": 1.0,
+     "conf_effect": 0.003723988654523061,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:15:mean_absret",
+     "status": "rejected",
+     "effect": -0.0008575325162315378,
+     "p": 0.7794,
+     "p_bh": 1.0,
+     "conf_effect": 0.0021566210051453087,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:15:up_rate",
+     "status": "rejected",
+     "effect": 0.02176633298208641,
+     "p": 0.8044,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:15:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.036008298208640675,
+     "p": 0.245,
+     "p_bh": 1.0,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:16:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.006483871683916063,
+     "p": 0.2146,
+     "p_bh": 1.0,
+     "conf_effect": -0.0014998086871780062,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:16:mean_absret",
+     "status": "rejected",
+     "effect": 0.0013370081285919988,
+     "p": 0.735,
+     "p_bh": 1.0,
+     "conf_effect": -0.0036059820141454008,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:16:up_rate",
+     "status": "rejected",
+     "effect": 0.0056144625922023295,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:16:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.012447312961011592,
+     "p": 0.7782,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:17:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0012107159434332976,
+     "p": 0.7992,
+     "p_bh": 1.0,
+     "conf_effect": -0.0004991646739018995,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:17:mean_absret",
+     "status": "rejected",
+     "effect": -0.003251501365441053,
+     "p": 0.3568,
+     "p_bh": 1.0,
+     "conf_effect": 0.0012320967211917506,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:17:up_rate",
+     "status": "rejected",
+     "effect": -0.010537407797681753,
+     "p": 0.8992,
+     "p_bh": 1.0,
+     "conf_effect": -0.08727763149444479,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:17:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0037045574288724972,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:18:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0018554448898653142,
+     "p": 0.7312,
+     "p_bh": 1.0,
+     "conf_effect": -0.003498479895319399,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:18:mean_absret",
+     "status": "rejected",
+     "effect": -0.002581730265767669,
+     "p": 0.4756,
+     "p_bh": 1.0,
+     "conf_effect": -0.0009603819666144306,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:18:up_rate",
+     "status": "rejected",
+     "effect": -0.01849884432910265,
+     "p": 0.8,
+     "p_bh": 1.0,
+     "conf_effect": -0.06479994862243915,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:18:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.020364137707311138,
+     "p": 0.574,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:19:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.004088817322975924,
+     "p": 0.4484,
+     "p_bh": 1.0,
+     "conf_effect": 0.00044328837386748955,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:19:mean_absret",
+     "status": "rejected",
+     "effect": 0.0033178252455743316,
+     "p": 0.3344,
+     "p_bh": 1.0,
+     "conf_effect": 0.0012901447884962232,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:19:up_rate",
+     "status": "rejected",
+     "effect": 0.061059973237095,
+     "p": 0.3716,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:19:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.011459389319167922,
+     "p": 0.7642,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:20:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0023115497242876238,
+     "p": 0.64,
+     "p_bh": 1.0,
+     "conf_effect": 0.009863955487046416,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:20:mean_absret",
+     "status": "rejected",
+     "effect": -0.0017729212522610699,
+     "p": 0.6116,
+     "p_bh": 1.0,
+     "conf_effect": 0.0013216055755230736,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:20:up_rate",
+     "status": "rejected",
+     "effect": -0.01849884432910265,
+     "p": 0.7884,
+     "p_bh": 1.0,
+     "conf_effect": 0.24988761158563993,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:20:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.020364137707311138,
+     "p": 0.5748,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:21:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.01785321358301172,
+     "p": 0.001,
+     "p_bh": 0.124,
+     "conf_effect": 0.0011697068815272195,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:21:mean_absret",
+     "status": "rejected",
+     "effect": 0.004197295347710652,
+     "p": 0.2244,
+     "p_bh": 1.0,
+     "conf_effect": 0.0015240385998545256,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:21:up_rate",
+     "status": "rejected",
+     "effect": -0.17761647946149794,
+     "p": 0.0064,
+     "p_bh": 0.38439999999999996,
+     "conf_effect": -0.019844582878427885,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:21:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.059194679858886504,
+     "p": 0.035,
+     "p_bh": 0.7233333333333335,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:22:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.007247428571954635,
+     "p": 0.1622,
+     "p_bh": 1.0,
+     "conf_effect": -0.003132207739284955,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:22:mean_absret",
+     "status": "rejected",
+     "effect": 0.0018051259548676687,
+     "p": 0.6022,
+     "p_bh": 1.0,
+     "conf_effect": -0.0016486016164297453,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:22:up_rate",
+     "status": "rejected",
+     "effect": -0.03441060784234212,
+     "p": 0.6176,
+     "p_bh": 1.0,
+     "conf_effect": -0.08727763149444479,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:22:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.004452374194071608,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:23:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.002845233519262196,
+     "p": 0.5852,
+     "p_bh": 1.0,
+     "conf_effect": 0.002373603241793268,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:23:mean_absret",
+     "status": "rejected",
+     "effect": -0.0025228668042094997,
+     "p": 0.4924,
+     "p_bh": 1.0,
+     "conf_effect": 0.0005699574910921143,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:23:up_rate",
+     "status": "rejected",
+     "effect": 0.02923644621061594,
+     "p": 0.7094,
+     "p_bh": 1.0,
+     "conf_effect": -0.04232226575043352,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:23:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.004452374194071608,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:24:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.003246838115781515,
+     "p": 0.5254,
+     "p_bh": 1.0,
+     "conf_effect": -0.004140325651008731,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:24:mean_absret",
+     "status": "rejected",
+     "effect": 0.0012810275357396095,
+     "p": 0.7292,
+     "p_bh": 1.0,
+     "conf_effect": -0.0009742905815223711,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:24:up_rate",
+     "status": "rejected",
+     "effect": 0.013324682697376411,
+     "p": 0.8966,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:24:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.011459389319167922,
+     "p": 0.7676,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:25:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0012796585707209988,
+     "p": 0.8184,
+     "p_bh": 1.0,
+     "conf_effect": -0.0009103766766476843,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:25:mean_absret",
+     "status": "rejected",
+     "effect": -0.0029260236999512183,
+     "p": 0.416,
+     "p_bh": 1.0,
+     "conf_effect": -0.004309836498459008,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:25:up_rate",
+     "status": "rejected",
+     "effect": -0.05032237135558171,
+     "p": 0.447,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:25:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.004452374194071608,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:26:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.00555253117317444,
+     "p": 0.2886,
+     "p_bh": 1.0,
+     "conf_effect": 0.0002932372279169472,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:26:mean_absret",
+     "status": "rejected",
+     "effect": 0.0021881322122124444,
+     "p": 0.5334,
+     "p_bh": 1.0,
+     "conf_effect": -0.002686054395133695,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:26:up_rate",
+     "status": "rejected",
+     "effect": 0.013324682697376411,
+     "p": 0.8974,
+     "p_bh": 1.0,
+     "conf_effect": 0.04758846573758907,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:26:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.020364137707311138,
+     "p": 0.5646,
+     "p_bh": 1.0,
+     "conf_effect": -0.029220987733607345,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:27:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.004386015847222467,
+     "p": 0.3996,
+     "p_bh": 1.0,
+     "conf_effect": -0.0006423185645458471,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:27:mean_absret",
+     "status": "rejected",
+     "effect": 0.00035333022577960574,
+     "p": 0.894,
+     "p_bh": 1.0,
+     "conf_effect": -0.0030928894647420206,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:27:up_rate",
+     "status": "rejected",
+     "effect": -0.0025870808158631187,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.0026330999935778032,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:27:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.020364137707311138,
+     "p": 0.573,
+     "p_bh": 1.0,
+     "conf_effect": -0.006743304861601698,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:28:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.00530879160495264,
+     "p": 0.3072,
+     "p_bh": 1.0,
+     "conf_effect": 0.00022843051229217613,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:28:mean_absret",
+     "status": "rejected",
+     "effect": -0.000131962689649677,
+     "p": 0.9604,
+     "p_bh": 1.0,
+     "conf_effect": -0.0034017286482929347,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:28:up_rate",
+     "status": "rejected",
+     "effect": 0.02923644621061594,
+     "p": 0.7188,
+     "p_bh": 1.0,
+     "conf_effect": -0.04232226575043352,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:28:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.020364137707311138,
+     "p": 0.574,
+     "p_bh": 1.0,
+     "conf_effect": -0.051698670605613,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:29:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.002900549216938682,
+     "p": 0.564,
+     "p_bh": 1.0,
+     "conf_effect": -0.0015289325121264055,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:29:mean_absret",
+     "status": "rejected",
+     "effect": -0.0038425501673565905,
+     "p": 0.3774,
+     "p_bh": 1.0,
+     "conf_effect": -0.0005312373306569154,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:29:up_rate",
+     "status": "rejected",
+     "effect": 0.03177792533696677,
+     "p": 0.6956,
+     "p_bh": 1.0,
+     "conf_effect": -0.05891929872667134,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:29:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.03515837221134692,
+     "p": 0.3556,
+     "p_bh": 1.0,
+     "conf_effect": 0.020393823584857154,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:30:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 1.0824089990731865e-05,
+     "p": 0.9744,
+     "p_bh": 1.0,
+     "conf_effect": -0.005974171297383267,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:30:mean_absret",
+     "status": "rejected",
+     "effect": 0.0006966776053152143,
+     "p": 0.7796,
+     "p_bh": 1.0,
+     "conf_effect": -0.00563442981225154,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:30:up_rate",
+     "status": "rejected",
+     "effect": -0.07928496319663514,
+     "p": 0.237,
+     "p_bh": 1.0,
+     "conf_effect": -0.22042218949435444,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:30:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0004731861198738127,
+     "p": 1.0,
+     "p_bh": 1.0,
+     "conf_effect": 0.022091310751104563,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:31:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.003451783323656485,
+     "p": 0.6372,
+     "p_bh": 1.0,
+     "conf_effect": -0.00786104968106281,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:31:mean_absret",
+     "status": "rejected",
+     "effect": -0.008885779846444064,
+     "p": 0.0768,
+     "p_bh": 1.0,
+     "conf_effect": -0.0007471429698651423,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:31:up_rate",
+     "status": "rejected",
+     "effect": 0.043276069591859145,
+     "p": 0.6184,
+     "p_bh": 1.0,
+     "conf_effect": -0.06965013083002891,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-DOM:31:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.05145530145530146,
+     "p": 0.2362,
+     "p_bh": 1.0,
+     "conf_effect": 0.024547489951714276,
+     "conf_p_one_sided": null
+    }
+   ]
+  },
+  "F-MOY": {
+   "tests": 48,
+   "survivors_bh": [],
+   "supported": [],
+   "day14": [],
+   "results": [
+    {
+     "hypothesis": "F-MOY:1:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0018135110715573534,
+     "p": 0.6986,
+     "p_bh": 0.906291891891892,
+     "conf_effect": 0.001666505567232832,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:1:mean_absret",
+     "status": "rejected",
+     "effect": 0.0030758578567675852,
+     "p": 0.3634,
+     "p_bh": 0.7905391304347826,
+     "conf_effect": 0.00010690679756134025,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:1:up_rate",
+     "status": "rejected",
+     "effect": -0.03558562579217028,
+     "p": 0.3648,
+     "p_bh": 0.7905391304347826,
+     "conf_effect": 0.062038628779451876,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:1:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.022268239998571866,
+     "p": 0.2998,
+     "p_bh": 0.7573894736842105,
+     "conf_effect": 0.015926787339468097,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:2:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0026249681245514153,
+     "p": 0.3164,
+     "p_bh": 0.75936,
+     "conf_effect": -0.0010971938702999371,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:2:mean_absret",
+     "status": "rejected",
+     "effect": 0.005059094759843473,
+     "p": 0.1734,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": 0.003391214361807598,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:2:up_rate",
+     "status": "rejected",
+     "effect": 0.015761739516515383,
+     "p": 0.5332,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": -0.06503427742365797,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:2:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0008763013074415474,
+     "p": 0.8846,
+     "p_bh": 0.9708,
+     "conf_effect": 0.012995853703818304,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:3:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0027999463176387645,
+     "p": 0.483,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": 0.0019249750169434746,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:3:mean_absret",
+     "status": "rejected",
+     "effect": 0.003913213409013461,
+     "p": 0.2824,
+     "p_bh": 0.7573894736842105,
+     "conf_effect": 0.00908927348299108,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:3:up_rate",
+     "status": "rejected",
+     "effect": 0.020454504882446378,
+     "p": 0.499,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": 0.017797552836484987,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:3:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.008258207329917708,
+     "p": 0.6674,
+     "p_bh": 0.906291891891892,
+     "conf_effect": 0.033623217716654864,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:4:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0038562697511607498,
+     "p": 0.1532,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -0.00022189951540809108,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:4:mean_absret",
+     "status": "rejected",
+     "effect": -0.001967699049380805,
+     "p": 0.8652,
+     "p_bh": 0.9708,
+     "conf_effect": 0.0013967626786629793,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:4:up_rate",
+     "status": "rejected",
+     "effect": 0.03949227373068431,
+     "p": 0.1794,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": 0.01744791666666662,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:4:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.025761589403973505,
+     "p": 0.4136,
+     "p_bh": 0.8272,
+     "conf_effect": 0.018229166666666664,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:5:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0024890490074760767,
+     "p": 0.5646,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": -0.00026912696284028256,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:5:mean_absret",
+     "status": "rejected",
+     "effect": 0.005212402343431923,
+     "p": 0.1952,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -0.001894311170887144,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:5:up_rate",
+     "status": "rejected",
+     "effect": -0.007565560454862008,
+     "p": 0.9262,
+     "p_bh": 0.9708,
+     "conf_effect": -0.008747092729295192,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:5:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.043283289001553094,
+     "p": 0.0586,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -0.01946607341490545,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:6:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.004231899512719634,
+     "p": 0.2544,
+     "p_bh": 0.7573894736842105,
+     "conf_effect": -0.0027140002972086416,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:6:mean_absret",
+     "status": "rejected",
+     "effect": 0.003903569545841,
+     "p": 0.2844,
+     "p_bh": 0.7573894736842105,
+     "conf_effect": -0.0015891909434772086,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:6:up_rate",
+     "status": "rejected",
+     "effect": -0.0038189845474613238,
+     "p": 0.9708,
+     "p_bh": 0.9708,
+     "conf_effect": -0.05546875000000001,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:6:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.05364238410596027,
+     "p": 0.0238,
+     "p_bh": 0.5664,
+     "conf_effect": -0.009114583333333336,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:7:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.003835853710136144,
+     "p": 0.1536,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -3.198491842568988e-05,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:7:mean_absret",
+     "status": "rejected",
+     "effect": -0.002886932068530891,
+     "p": 0.6874,
+     "p_bh": 0.906291891891892,
+     "conf_effect": -0.004269651473716109,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:7:up_rate",
+     "status": "rejected",
+     "effect": 0.020454504882446378,
+     "p": 0.4526,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": -0.008747092729295192,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:7:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.033771890676044775,
+     "p": 0.1858,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -0.02831428860349884,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:8:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0010603058913428432,
+     "p": 0.5482,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": -0.0016594281555949737,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:8:mean_absret",
+     "status": "rejected",
+     "effect": -0.005935361660636591,
+     "p": 0.1218,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": -8.806595094763142e-05,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:8:up_rate",
+     "status": "rejected",
+     "effect": -0.03381658454806169,
+     "p": 0.2134,
+     "p_bh": 0.68288,
+     "conf_effect": -0.044139953483668726,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:8:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.035790071184124986,
+     "p": 0.097,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": 0.024775002528061488,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:9:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.0035649838552311666,
+     "p": 0.1458,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": 0.0007832381632068695,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:9:mean_absret",
+     "status": "rejected",
+     "effect": -0.00185275409537803,
+     "p": 0.5158,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": -0.004751626009592464,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:9:up_rate",
+     "status": "rejected",
+     "effect": -0.02345679012345686,
+     "p": 0.3788,
+     "p_bh": 0.7905391304347826,
+     "conf_effect": 0.01744791666666662,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:9:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.011728395061728396,
+     "p": 0.7214,
+     "p_bh": 0.911242105263158,
+     "conf_effect": -0.03645833333333333,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:10:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.005676339021410351,
+     "p": 0.0948,
+     "p_bh": 0.6692571428571429,
+     "conf_effect": 0.0009768501240403882,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:10:mean_absret",
+     "status": "rejected",
+     "effect": -0.008836890326998397,
+     "p": 0.0292,
+     "p_bh": 0.5664,
+     "conf_effect": -0.0022348962060219635,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:10:up_rate",
+     "status": "rejected",
+     "effect": 0.01843577448416156,
+     "p": 0.675,
+     "p_bh": 0.906291891891892,
+     "conf_effect": 0.04434219840226511,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:10:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.0438644289450741,
+     "p": 0.0354,
+     "p_bh": 0.5664,
+     "conf_effect": -0.02831428860349884,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:11:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": -0.001504300853674452,
+     "p": 0.47,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": 0.0013177698252676228,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:11:mean_absret",
+     "status": "rejected",
+     "effect": 0.0005920990672349177,
+     "p": 0.8826,
+     "p_bh": 0.9708,
+     "conf_effect": 0.0018997359689976422,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:11:up_rate",
+     "status": "rejected",
+     "effect": 0.0071268237934905,
+     "p": 0.9396,
+     "p_bh": 0.9708,
+     "conf_effect": 0.014079728583545337,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:11:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.00561167227833894,
+     "p": 0.9216,
+     "p_bh": 0.9708,
+     "conf_effect": 0.029686174724342665,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:12:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.0012570912428593979,
+     "p": 0.8768,
+     "p_bh": 0.9708,
+     "conf_effect": -0.0006397750942624972,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:12:mean_absret",
+     "status": "rejected",
+     "effect": 0.0020827732860349626,
+     "p": 0.8618,
+     "p_bh": 0.9708,
+     "conf_effect": -0.0005757342099534518,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:12:up_rate",
+     "status": "rejected",
+     "effect": -0.011261261261261257,
+     "p": 0.5816,
+     "p_bh": 0.8459636363636365,
+     "conf_effect": 0.008737073327245382,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-MOY:12:left_tail_rate",
+     "status": "rejected",
+     "effect": 0.0036508282476024403,
+     "p": 0.9622,
+     "p_bh": 0.9708,
+     "conf_effect": -0.007486569423534151,
+     "conf_p_one_sided": null
+    }
+   ]
+  },
+  "F-TOM": {
+   "tests": 4,
+   "survivors_bh": [],
+   "supported": [],
+   "day14": [],
+   "results": [
+    {
+     "hypothesis": "F-TOM:1:mean_ret_wd_adj",
+     "status": "rejected",
+     "effect": 0.005170905461828831,
+     "p": 0.0588,
+     "p_bh": 0.1176,
+     "conf_effect": -0.002614972036130637,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-TOM:1:mean_absret",
+     "status": "rejected",
+     "effect": -0.003701314583733663,
+     "p": 0.0464,
+     "p_bh": 0.1176,
+     "conf_effect": 0.0011560196629827081,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-TOM:1:up_rate",
+     "status": "rejected",
+     "effect": 0.03976174446866043,
+     "p": 0.2352,
+     "p_bh": 0.2352,
+     "conf_effect": -0.003325228832951943,
+     "conf_p_one_sided": null
+    },
+    {
+     "hypothesis": "F-TOM:1:left_tail_rate",
+     "status": "rejected",
+     "effect": -0.02224402934833461,
+     "p": 0.1298,
+     "p_bh": 0.17306666666666667,
+     "conf_effect": 0.04880577803203661,
+     "conf_p_one_sided": null
+    }
+   ]
+  }
+ }
+}

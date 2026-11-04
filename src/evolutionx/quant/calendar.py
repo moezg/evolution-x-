@@ -439,3 +439,41 @@ def scan_blockperm(
         "q05": q05,
         "method": "within-block permutation (amendment 6)",
     }
+
+
+def run_blockperm_amendment6(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
+    """Registered F-DOM/F-MOY/F-TOM re-run under amendment 6 (only for families that passed acceptance)."""
+    acc = Path("artifacts/quant/calibration_blockperm.json")
+    ok = json.loads(acc.read_text()).get("accepted_by_family", {}) if acc.exists() else {}
+    reg = reg or TestRegistry()
+    f = daily_frame()
+    sha = hashlib.sha256(f["ret"][np.isfinite(f["ret"])].tobytes()).hexdigest()[:16]
+    out: dict[str, Any] = {"run_id": run_id, "data_sha": sha, "families": {}}
+    for fam in ("F-DOM", "F-MOY", "F-TOM"):
+        if not ok.get(fam):
+            out["families"][fam] = "no valid method (acceptance failed)"
+            continue
+        disc, conf = scan_blockperm(f, fam, "DISCOVERY"), scan_blockperm(f, fam, "CONFIRMATION")
+        name = lambda r, fam=fam: f"{fam}:{r['label']}:{r['metric']}"  # noqa: E731
+        b = bh({name(r): r["p"] for r in disc["rows"]}, 0.10)
+        cmap = {name(r): r for r in conf["rows"]}
+        surv = [r for r in disc["rows"] if b[name(r)]["reject"]]
+        one = {name(r): (cmap[name(r)]["p_up"] if r["effect"] > 0 else cmap[name(r)]["p_down"]) for r in surv}
+        h = holm(one, 0.05)
+        res = []
+        for r in disc["rows"]:
+            k, c = name(r), cmap[name(r)]
+            st = "rejected"
+            if b[k]["reject"]:
+                st = (
+                    "supported"
+                    if h[k]["reject"] and np.sign(c["effect"]) == np.sign(r["effect"]) and c["n"] >= 20
+                    else "inconclusive"
+                )
+            common = {"family": fam, "hypothesis": k, "status": st, "direction": int(np.sign(r["effect"])), "data_sha": sha, "protocol_sha": protocol_sha(), "run_id": run_id}  # fmt: skip
+            reg.record({**common, "role": "H1", "method": "within-block permutation (4999) + BH(0.10) [amendment 6]", "period": "DISCOVERY", "n": r["n"], "n_ref": r["n_ref"], "effect": r["effect"], "ci_lo": r["ci_lo"], "ci_hi": r["ci_hi"], "p": r["p"], "p_adj": b[k]["p_adj"], "adj_method": f"BH within {fam} ({len(disc['rows'])})", "details": {"supersedes": "rotation-method rows (amendment 6)"}})  # fmt: skip
+            if k in one:
+                reg.record({**common, "role": "E2", "method": "within-block permutation one-sided + Holm(0.05) [amendment 6]", "period": "CONFIRMATION", "n": c["n"], "n_ref": c["n_ref"], "effect": c["effect"], "ci_lo": c["ci_lo"], "ci_hi": c["ci_hi"], "p": one[k], "p_adj": h[k]["p_adj"], "adj_method": f"Holm over {len(one)} survivors"})  # fmt: skip
+            res.append({"hypothesis": k, "status": st, "effect": r["effect"], "p": r["p"], "p_bh": b[k]["p_adj"], "conf_effect": c["effect"], "conf_p_one_sided": one.get(k)})  # fmt: skip
+        out["families"][fam] = {"tests": len(res), "survivors_bh": [x["hypothesis"] for x in res if x["status"] != "rejected"], "supported": [x["hypothesis"] for x in res if x["status"] == "supported"], "day14": [x for x in res if x["hypothesis"].startswith("F-DOM:14:")], "results": res}  # fmt: skip
+    return out

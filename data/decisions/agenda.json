@@ -1,6 +1,6 @@
 {
   "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
-  "updated_utc": "2026-11-04T06:06:45+00:00",
+  "updated_utc": "2026-11-04T06:21:19+00:00",
   "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
   "items": [
     {
@@ -41,14 +41,15 @@
     },
     {
       "id": "A8",
-      "status": "queued",
+      "status": "done",
       "roles": [
         "E2",
         "H1"
       ],
       "task": "Amendment 6: within-month (F-DOM) and within-year (F-MOY) block-permutation nulls; synthetic acceptance (per-family upper bound <= 3%) before a registered real-data re-run",
       "why": "v2 per-family false-supported upper bounds 3.4-3.8% exceed the pre-stated 3% bound; method validity of the discovery pipeline",
-      "cost": "~1 CPU-hour"
+      "cost": "~1 CPU-hour",
+      "result": "amendment 6 accepted (F-DOM/F-MOY/F-TOM upper bounds <= 2.4%); registered re-run c20261104T062102-blk6: 0/176 survive; all calendar families now use calibrated nulls (F-DOW amendment 4, others amendment 6)"
     },
     {
       "id": "A9",
