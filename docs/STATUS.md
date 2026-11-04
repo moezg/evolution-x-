@@ -1,3 +1,16 @@
+# Research cycle report (2026-11-04, 06:00–06:40 UTC)
+
+| Question | Answer |
+|---|---|
+| Discovered | Binance archives arrive 08:30–13:30 UTC on D+1, and missing days happen (10-28). The monthly archive is row-identical to the daily files. Spot is near-equivalent to the perpetual (daily log-RV correlation 0.99982). |
+| Disproven | Lagged cross-asset features (VIX, S&P 500 \|return\|): 0/6, and worse on the development period. Derivatives positioning (open-interest change, taker flow, premium): 0/9; two make forecasts significantly worse. All day-of-month, month and turn-of-month effects under calibrated nulls: 0/176. |
+| Learned | 180 resolved forecasts is underpowered for most challengers (half-effect power 0.05–0.55). Under the registered 24 h lag, fast microstructure signals are stale. Every calendar family now uses a calibrated null (amendments 4 and 6). |
+| Decided | Keep the registered data source (no restricted-endpoint workaround; spot as shadow). `challenger_policy_v2`: same-cutoff pairing, power-based efficacy family, planned looks with α-spending. Challengers need a journaled activation. A pre-registered LLM-value A/B. `unresolvable` handling for source gaps. |
+| Started next | Real interruption drill on the 2026-11-05 issuance (waiting for the archive). A9 LLM A/B data from the next army cycle (~23:37 UTC). The first resolutions possible on 2026-11-05. |
+| Prospective skill improved? | **Unknown: 0 forecasts resolved.** No retrospective result in this cycle changes that. |
+
+---
+
 # Status: v0.7 continuous predictive intelligence (2026-11-04)
 
 **Headline:** forecasting now runs unattended and cannot backfill. A durable scheduler issues champion and challenger forecasts before each 00:00 UTC origin, records missed windows, resolves and scores, and checks drift. Optional research runs separately and can never block it. Prospective evidence so far: **0 resolved forecasts**, so no skill claim of any kind.
