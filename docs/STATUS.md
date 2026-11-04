@@ -1,3 +1,16 @@
+# Research cycle report (2026-11-04, 08:55–09:20 UTC)
+
+| Question | Answer |
+|---|---|
+| Discovered | **Information freshness is the binding constraint on forecast skill.** Same champion, cutoff 24 h → 1–2 h: rv_24 skill vs climatology on the screening period 0.14 → 0.24. Official spot data at a 2 h cutoff reproduces it: rv_24 loss −0.025 [−0.035, −0.014] vs the v1 champion (screening), −0.023 (development). Exploratory, on exposed data. |
+| Disproven | Implied volatility (Deribit DVOL) at the 24 h cutoff adds nothing (0/6). A volume-surge feature was dropped before testing: the champion already has it (`lvol_ratio`). |
+| Learned | 33 feature candidates over 5 families: only advance-known calendar dummies passed. Two pre-registered DVOL features were linearly equivalent given the champion's inputs (a design error; rule adopted). Partial-coverage features need a coverage-matched diagnostic. The sandbox is not an always-on host. |
+| Decided | Operational milestone recorded **as operational only**. Resolution audit (snapshot re-hash, training-history digest, outcome reproducibility) runs after every resolution. Crash recovery reclaims at once only within the same lock domain. **Protocol v2 near-real-time challenger** `CH:nrt_spot_M1` registered and activated as a separate track; v1 is unchanged. Missed windows are now recorded per challenger. A singular-matrix crash in the champion's logistic fit is fixed (identical results otherwise). |
+| Started next | First NRT issuance tonight (22:05–23:59 UTC). First v1 resolutions when the 11-04 archive is published (~11-05 08:00–13:30). The 2026 midterm follow-up begins 11-05. Scheduled self check-ins at 21:50, 09:15 and 18:00 UTC. |
+| Prospective skill improved? | **Unknown: 0 forecasts resolved.** The NRT gain is retrospective; only its prospective record can show improvement. |
+
+---
+
 # Research cycle report (2026-11-04, 06:00–06:40 UTC)
 
 | Question | Answer |
