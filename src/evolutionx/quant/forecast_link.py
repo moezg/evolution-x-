@@ -31,11 +31,22 @@ def features(origins: np.ndarray, horizon_h: int) -> dict[str, np.ndarray]:
         )
     )
     fomc = np.array([float(np.any((stmts > o) & (stmts <= o + horizon_h * HOUR))) for o in origins])
-    sat = np.array([float(dt.datetime.fromtimestamp(o / 1000, dt.UTC).weekday() == 5) for o in origins])
-    return {"fomc_in_window": fomc, "saturday_target_day": sat}
+    wd = np.array([dt.datetime.fromtimestamp(o / 1000, dt.UTC).weekday() for o in origins])
+    return {
+        "fomc_in_window": fomc,
+        "saturday_target_day": (wd == 5).astype(float),
+        "sunday_target_day": (wd == 6).astype(float),  # amendment 5
+        "monday_target_day": (wd == 0).astype(float),  # amendment 5
+    }
 
 
-def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
+FAMILY_FEATURES = {
+    "F-FCAST": ("fomc_in_window", "saturday_target_day"),
+    "F-FCAST-2": ("sunday_target_day", "monday_target_day"),
+}
+
+
+def run(run_id: str, reg: TestRegistry | None = None, family: str = "F-FCAST") -> dict[str, Any]:
     reg = reg or TestRegistry()
     dom = BTCDomain(lag_ms=24 * HOUR)
     tab = build_table(dom, "2020-02-01", "2026-10-28", with_sim=False)
@@ -43,13 +54,13 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
     feats = features(tab["origins"], 24)
     res: dict[str, Any] = {}
     p_screen = {}
-    for fname, col in feats.items():
+    for fname, col in ((k, v) for k, v in feats.items() if k in FAMILY_FEATURES[family]):
         for tn in TARGETS:
             r = run_target(
                 (tmap[tn], {**tab, "sim": col[:, None]}, dom.lag_ms, ("B0_climatology", "M1_logistic", "H1_hybrid"))
             )
             sc, dv = compare(r, "H1_hybrid", "M1_logistic", "SCREEN"), compare(r, "H1_hybrid", "M1_logistic", "DEV")
-            k = f"F-FCAST:{fname}:{tn}"
+            k = f"{family}:{fname}:{tn}"
             res[k] = {"SCREEN": sc, "DEV": dv, "feature_rate": float(col.mean())}
             # the frozen forecast scoring reports the share of bootstrap means >= 0, which can be 0; the registry
             # floors it at 1/(2000+1) so no test claims p = 0
@@ -62,10 +73,10 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
         v["status"] = "candidate_feature (prospective challenger only)" if better else "not_promoted"
         reg.record(
             {
-                "family": "F-FCAST",
+                "family": family,
                 "hypothesis": k,
                 "role": "G1",
-                "method": "forecast protocol v1 rolling origin; H1(M1+feature) - M1 loss, block bootstrap; Holm over 6",
+                "method": f"forecast protocol v1 rolling origin; H1(M1+feature) - M1 loss, block bootstrap; Holm over {len(p_screen)}",
                 "period": "SCREEN",
                 "n": v["SCREEN"]["n"],
                 "effect": v["SCREEN"]["mean"],
@@ -74,7 +85,7 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
                 "p": v["SCREEN"]["p_floor"],
                 "data_sha": dom.bars.digest(0, len(dom.bars)),
                 "p_adj": h[k]["p_adj"],
-                "adj_method": "Holm over 6",
+                "adj_method": f"Holm over {len(p_screen)} ({family})",
                 "status": v["status"],
                 "protocol_sha": protocol_sha(),
                 "run_id": run_id,

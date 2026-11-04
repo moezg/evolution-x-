@@ -1,0 +1,99 @@
+{
+  "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
+  "updated_utc": "2026-11-04T04:25:00+00:00",
+  "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
+  "items": [
+    {
+      "id": "A1",
+      "status": "running",
+      "roles": [
+        "F1",
+        "B1",
+        "F3"
+      ],
+      "task": "Keep the scheduler issuing champion + 4 challenger series daily; resolve and score from 2026-11-05",
+      "why": "the only independent evidence the lab can produce; every missed day is lost forever",
+      "cost": "~0 (deterministic)"
+    },
+    {
+      "id": "A2",
+      "status": "running",
+      "roles": [
+        "E2",
+        "H1"
+      ],
+      "task": "quant_calibration_v2: confirm or lift the mean_absret quarantine for F-DOM/F-MOY/F-TOM under the current rule",
+      "why": "v1 excess was partly caused by the defective F-DOW null; decides whether calendar |return| findings can ever be promoted",
+      "cost": "~30 CPU-min"
+    },
+    {
+      "id": "A3",
+      "status": "done (inconclusive) -> decided by A2",
+      "roles": [
+        "E2",
+        "G3"
+      ],
+      "task": "Audit every remaining rotation/periodic null for clustering degeneracy (F-MOY with period ~365 d, F-CYCLE band ranks) with the same diagnostic that found the F-DOW defect",
+      "why": "one degenerate null was found only by calibration; the same class of defect may exist elsewhere",
+      "cost": "minutes",
+      "result": "share of rotation-null variance explained by shift phase (median/max): DOW 0.48/0.79, DOM 0.22/0.33, MOY 0.45/0.66, TOM 0.53/0.63. Phase structure exists in all families; the F-DOW defect comes from only 7 DISCRETE phases, which this statistic does not isolate. Pre-stated before v2 results: any family with a v2 per-family false-supported Wilson upper bound > 3% gets an amendment-4-style within-block permutation null."
+    },
+    {
+      "id": "A4",
+      "status": "queued",
+      "roles": [
+        "I2",
+        "E3"
+      ],
+      "task": "FOMC sensitivity: exclude FOMC-minutes Wednesdays (14:00 ET, 3 weeks after meetings) from the placebo pool (E3 critique, spec-20261104T031310)",
+      "why": "interpretation of the only supported event effect; expected to strengthen it (minutes days inflate the placebo)",
+      "cost": "minutes; needs minutes dates (federalreserve.gov pages already registered)"
+    },
+    {
+      "id": "A5",
+      "status": "queued",
+      "roles": [
+        "G1",
+        "E2"
+      ],
+      "task": "Combined weekday-volatility profile (Sat/Sun/Mon dummies in one model) vs the separate challengers - pre-register before testing",
+      "why": "one model may capture the weekend effect more efficiently; must not be selected on exposed data alone -> prospective only",
+      "cost": "minutes + prospective time"
+    },
+    {
+      "id": "A6",
+      "status": "blocked",
+      "roles": [
+        "E3",
+        "F3"
+      ],
+      "task": "Re-measure the adversarial battery's value once a strategy candidate survives E1",
+      "why": "E3 has 0 hard failures in 3 challenges because E1 refuted everything first",
+      "cost": "needs a surviving candidate"
+    },
+    {
+      "id": "A7",
+      "status": "blocked",
+      "roles": [
+        "I3"
+      ],
+      "task": "Surprise-conditional macro effects (CPI/NFP vs consensus)",
+      "why": "release-day effects are null; surprise effects may not be",
+      "cost": "needs licensed consensus data -> requires authorization (not requested: low expected value vs cost)"
+    }
+  ],
+  "abandoned": [
+    {
+      "task": "unconditional CPI/NFP release-day BTC effects",
+      "why": "F-MACRO 8/8 rejected (macro20261104T032607)"
+    },
+    {
+      "task": "day-of-month effects incl. the 14th",
+      "why": "124/124 rejected; calibrated method has 73% power at 0.5 sigma"
+    },
+    {
+      "task": "Saturday left-tail rate as an independent finding",
+      "why": "rejected under the valid F-DOW method (amendment 4)"
+    }
+  ]
+}

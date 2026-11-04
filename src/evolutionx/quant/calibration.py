@@ -27,12 +27,19 @@ N_DAYS = 3363
 START = dt.date(2017, 8, 17)
 
 
+VERSION = {
+    "v1": (PROTOCOL, OUT, False),
+    "v2": (Path("evals/frozen/quant_calibration_v2.json"), Path("artifacts/quant/calibration_v2.json"), True),
+}
+_ACTIVE = {"v": "v1"}
+
+
 def protocol() -> dict[str, Any]:
-    return json.loads(PROTOCOL.read_text())
+    return json.loads(VERSION[_ACTIVE["v"]][0].read_text())
 
 
 def protocol_sha() -> str:
-    return hashlib.sha256(PROTOCOL.read_bytes()).hexdigest()
+    return hashlib.sha256(VERSION[_ACTIVE["v"]][0].read_bytes()).hexdigest()
 
 
 def frame(ret: np.ndarray) -> dict[str, np.ndarray]:
@@ -73,11 +80,17 @@ def generate(kind: str, seed: int, n: int = N_DAYS) -> tuple[np.ndarray, np.ndar
 
 
 def decide(
-    f: dict[str, np.ndarray], families: tuple[str, ...] = ("F-DOM", "F-DOW", "F-MOY", "F-TOM")
+    f: dict[str, np.ndarray],
+    families: tuple[str, ...] = ("F-DOM", "F-DOW", "F-MOY", "F-TOM"),
+    dow_weekperm: bool = False,
 ) -> dict[str, Any]:
     """The registered rule, identical to calendar.run() (verified by tests), without writing to any registry."""
     out: dict[str, Any] = {"supported": [], "bh_survivors": [], "tests": 0}
     for fam in families:
+        if fam == "F-DOW" and dow_weekperm:  # amendment 4
+            out["supported"] += decide_dow_weekperm(f)
+            out["tests"] += 28
+            continue
         adj = fam != "F-DOW"
         disc = CAL.scan(f, fam, "DISCOVERY", adj)
         name = lambda r, fam=fam: f"{fam}:{r['label']}:{r['metric']}"  # noqa: E731
@@ -102,10 +115,10 @@ def _metric(h: str) -> str:
     return h.split(":")[-1].replace("_wd_adj", "")
 
 
-def _null_job(args: tuple[str, int]) -> dict[str, Any]:
-    kind, seed = args
+def _null_job(args: tuple[str, int, bool]) -> dict[str, Any]:
+    kind, seed, wp = args
     r, _ = generate(kind, seed)
-    d = decide(frame(r))
+    d = decide(frame(r), dow_weekperm=wp)
     return {"seed": seed, "supported": d["supported"], "bh_survivors": len(d["bh_survivors"]), "tests": d["tests"]}
 
 
@@ -175,9 +188,13 @@ def quarantine(null: dict[str, dict[str, Any]]) -> dict[str, Any]:
     return out
 
 
-def run(workers: int = 4, null_seeds: int | None = None, power_seeds: int | None = None) -> dict[str, Any]:
+def run(
+    workers: int = 4, null_seeds: int | None = None, power_seeds: int | None = None, version: str = "v1"
+) -> dict[str, Any]:
     """Full registered study. `null_seeds`/`power_seeds` below the protocol values are for smoke tests only and are
     labelled as such in the output (never used for the quarantine decision)."""
+    _ACTIVE["v"] = version
+    _, out_path, wp = VERSION[version]
     p = protocol()
     ns = null_seeds or p["null_seeds_per_generator"]
     ps = power_seeds or p["power_design"]["seeds_per_cell"]
@@ -194,7 +211,7 @@ def run(workers: int = 4, null_seeds: int | None = None, power_seeds: int | None
         null = {}
         for g in p["null_generators"]:
             base = p["seed_base"][g]
-            runs = list(ex.map(_null_job, [(g, base + i) for i in range(ns)]))
+            runs = list(ex.map(_null_job, [(g, base + i, wp) for i in range(ns)]))
             null[g] = summarize_null(runs)
         out["null"] = null
         power: dict[str, Any] = {}
@@ -212,8 +229,8 @@ def run(workers: int = 4, null_seeds: int | None = None, power_seeds: int | None
     out["quarantine"] = quarantine(null) if not smoke else "not decided (smoke test)"
     out["finished_utc"] = dt.datetime.now(dt.UTC).isoformat(timespec="seconds")
     if not smoke:
-        OUT.parent.mkdir(parents=True, exist_ok=True)
-        OUT.write_text(json.dumps(out, indent=1))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out, indent=1))
     return out
 
 

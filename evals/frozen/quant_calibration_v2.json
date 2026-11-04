@@ -1,0 +1,51 @@
+{
+  "name": "quant_calibration_v2",
+  "frozen_utc": "2026-11-04T04:13:53+00:00",
+  "purpose": "Re-calibrate the CURRENT calendar decision rule (quant_protocol_v1 + amendments 2 and 4: F-DOW uses the within-week permutation null) after v1 revealed the degenerate F-DOW rotation null. Fresh seeds; written before any v2 run.",
+  "decision_rule_under_test": "per family: rotation null (999 circular shifts) normal-approx two-sided p on DISCOVERY (2017-08-17..2022-12-31); BH q=0.10; survivors -> one-sided rotation p on CONFIRMATION (2023-01-01..2026-10-31), Holm alpha=0.05, same sign, n_confirmation >= 20 -> 'supported'; F-DOW: within-week permutation (4999), empirical p (amendment 4)",
+  "families": [
+    "F-DOM",
+    "F-DOW",
+    "F-MOY",
+    "F-TOM"
+  ],
+  "calendar": "real dates 2017-08-17 + 3363 days (same labels and period split as production)",
+  "null_generators": {
+    "iid_t4": "i.i.d. Student-t(4), daily sd 3%",
+    "garch_t5": "GARCH(1,1) alpha=0.10 beta=0.85, standardized t(5) innovations, unconditional daily sd 3.5%",
+    "garch_t3_persistent": "GARCH(1,1) alpha=0.06 beta=0.93, standardized t(3) innovations, unconditional daily sd 3.5% (long volatility memory, very heavy tails)"
+  },
+  "null_seeds_per_generator": 300,
+  "seed_base": {
+    "iid_t4": 1100000,
+    "garch_t5": 1200000,
+    "garch_t3_persistent": 1300000,
+    "power": 1400000
+  },
+  "power_design": {
+    "generator": "garch_t5",
+    "seeds_per_cell": 40,
+    "mean_shift_on_day14_in_unconditional_sd": [
+      0.25,
+      0.33,
+      0.5,
+      0.67,
+      1.0
+    ],
+    "vol_scale_on_day14": [
+      1.25,
+      1.5,
+      2.0
+    ],
+    "hit_definitions": {
+      "mean": "F-DOM:14:mean_ret_wd_adj supported",
+      "vol": "F-DOM:14:mean_absret supported"
+    }
+  },
+  "reported": "per generator: runs with >= 1 false 'supported' (all families), per metric and per family, with Wilson 95% CIs; discovery-stage BH survivors per run; power per cell with Wilson CIs",
+  "nominal_reference": "A run is one full scan of the four families (204 tests: F-DOM 124, F-DOW 28, F-MOY 48, F-TOM 4). The two-stage rule targets a per-run family-wise false 'supported' rate of at most 5%; each of the 4 metrics' equal share is 1.25%.",
+  "quarantine_rule": "A metric is QUARANTINED from automatic promotion (its 'supported' results stay labelled exploratory and can never feed a forecast challenger or strategy without a new registered protocol) if under ANY null generator either (a) its per-run false-supported rate has a Wilson 95% lower bound above 1.25%, or (b) its Wilson 95% upper bound exceeds 5%. Quarantine is never lifted by a re-run of this protocol with other seeds; only a new registered protocol version can lift it.",
+  "not_changed": "BH q, Holm alpha, rotation count, periods, minimum n. Thresholds are not weakened to increase discoveries.",
+  "errata": [],
+  "relation_to_v1": "v1 results stay recorded. v2 is the registered protocol version that can confirm or lift the v1 mean_absret quarantine for the current rule (v1: 'only a new registered protocol version can lift it')."
+}

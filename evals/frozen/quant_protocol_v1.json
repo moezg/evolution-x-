@@ -195,5 +195,26 @@
     "supersedes": "all F-DOW statuses from the rotation method (registered runs c20261103T2323577382, c20261103T233607736b) once the corrected run is registered; those rows stay in the registry, marked superseded",
     "disclosure": "written after the rotation-based F-DOW results had been seen (Saturday |return| and left-tail: supported). The change is forced by the synthetic calibration, not chosen for a real-data outcome; whatever the corrected run shows supersedes, including a loss of support.",
     "unchanged": "F-DOM, F-MOY, F-TOM (their per-family calibration rates were within expectation), periods, thresholds"
+  },
+  "amendment_5": {
+    "written_utc": "2026-11-04T04:12:52+00:00",
+    "trigger": "amendment 4 re-run made F-DOW:6:mean_absret (Sunday lower) and F-DOW:0:mean_absret (Monday higher) 'supported'; by the existing F-FCAST pipeline rule (as for Saturday) each supported weekday becomes a candidate forecast feature",
+    "new_family": {
+      "F-FCAST-2": {
+        "features": [
+          "sunday_target_day",
+          "monday_target_day"
+        ],
+        "targets": [
+          "rv_24",
+          "move3_24",
+          "move5_24"
+        ],
+        "tests": 6,
+        "method": "identical to F-FCAST (M1 + feature vs M1, forecast protocol v1 rolling origin, block bootstrap on SCREEN; DEV mean must not be worse); Holm 0.05 over these 6 only",
+        "outcome": "passing features become prospective challengers CH:<feature> (never replacing the champion), governed by challenger_policy_v1; Saturday tests are not re-run"
+      }
+    },
+    "disclosure": "the forecast SCREEN and DEV periods are previously exposed; this is selection evidence only. The weekday effects themselves were found on the same daily data; the feature test is a pipeline step, not independent confirmation."
   }
 }

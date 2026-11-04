@@ -231,3 +231,16 @@ def ops() -> dict[str, Any]:
         "scheduler_alive": age is not None and age < 900,
         "army_state": Store().control("state", "running"),
     }
+
+
+@router.get("/decisions")
+def decisions() -> dict[str, Any]:
+    from ..ops.decisions import Decisions
+
+    D = Decisions()
+    return {
+        "decisions": D.view(),
+        "verify": D.j.verify(),
+        "agenda": _read("data/decisions/agenda.json"),
+        "challengers": _read("data/decisions/challengers.json") or {},
+    }
