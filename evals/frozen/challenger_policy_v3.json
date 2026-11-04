@@ -1,0 +1,21 @@
+{
+  "name": "challenger_policy_v3",
+  "frozen_utc": "2026-11-04T09:11:38+00:00",
+  "extends": "challenger_policy_v2 (unchanged for all existing challengers)",
+  "adds": {
+    "CH:nrt_spot_M1:rv_24": {
+      "efficacy_family": true,
+      "power_at_180_full_half": [
+        0.66,
+        0.17
+      ],
+      "power_at_730_half": 0.67
+    },
+    "CH:nrt_spot_M1:move3_24": {
+      "efficacy_family": false,
+      "why": "retrospective effect -0.003 with CI touching 0: exploratory only"
+    }
+  },
+  "pairing_exception": "CH:nrt_spot_M1 is paired with the v1 champion on (origin, target) only: its information cutoff differs BY DESIGN (that difference is the treatment). All other challengers keep the same-cutoff rule.",
+  "looks_and_alpha": "same planned looks (180/365/730 pairs) and alpha spending as v2; the efficacy family is now {Sat rv_24, Sat move3_24, Mon rv_24, NRT rv_24} with Holm within each look"
+}

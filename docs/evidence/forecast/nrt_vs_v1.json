@@ -1,0 +1,41 @@
+{
+ "label": "EXPLORATORY: NRT (spot features, 2 h cutoff) minus v1 champion (perp, 24 h cutoff), same perp targets, block bootstrap",
+ "results": {
+  "rv_24:DEV": {
+   "mean": -0.02304,
+   "lo": -0.03364,
+   "hi": -0.01384,
+   "p_better": 0.0
+  },
+  "rv_24:SCREEN": {
+   "mean": -0.02465,
+   "lo": -0.03468,
+   "hi": -0.01446,
+   "p_better": 0.0
+  },
+  "move3_24:DEV": {
+   "mean": -0.00213,
+   "lo": -0.00464,
+   "hi": 6e-05,
+   "p_better": 0.0305
+  },
+  "move3_24:SCREEN": {
+   "mean": -0.00307,
+   "lo": -0.00672,
+   "hi": 0.00018,
+   "p_better": 0.036
+  },
+  "move5_24:DEV": {
+   "mean": -0.00082,
+   "lo": -0.00238,
+   "hi": 0.00069,
+   "p_better": 0.144
+  },
+  "move5_24:SCREEN": {
+   "mean": -0.00091,
+   "lo": -0.00257,
+   "hi": 0.0006,
+   "p_better": 0.12
+  }
+ }
+}

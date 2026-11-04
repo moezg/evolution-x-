@@ -179,6 +179,38 @@ def forecast_issue(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
     }
 
 
+def nrt_slot(now: dt.datetime) -> str | None:
+    """Protocol v2 NRT challenger: due from origin - 2 h + 5 min until the origin."""
+    o = next_origin(now)
+    return o.date().isoformat() if now >= o - dt.timedelta(hours=2) + dt.timedelta(minutes=5) else None
+
+
+def forecast_issue_nrt(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
+    from ..forecast import nrt
+
+    origin = dt.datetime.fromisoformat(slot).replace(tzinfo=dt.UTC)
+    wall = _wall_now()
+    if wall >= origin:
+        return {"_status": "failed", "error": "NRT issuance deadline passed (no backfill)"}
+    try:
+        r = nrt.issue_nrt(wall, _ms(origin))
+    except httpx_errors() as e:
+        db.source_fail("binance_spot_api", f"{type(e).__name__}: {e}")
+        raise
+    db.source_ok("binance_spot_api")
+    if not r["fresh"] and origin - wall > dt.timedelta(minutes=30):
+        db.notify(
+            "warning", "forecast_issue_nrt", f"spot bars not fresh at the cutoff for {slot}; issued with abstention"
+        )
+    return r
+
+
+def httpx_errors() -> tuple[type[BaseException], ...]:
+    import httpx
+
+    return (httpx.HTTPError,)
+
+
 def forecast_missed_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
     from ..forecast.ledger import ForecastLedger
 
@@ -456,6 +488,7 @@ def build_jobs(
         Job("fetch_data", True, hourly, fetch_data, max_attempts=4),
         Job("forecast_issue", True, issue_slot, forecast_issue, max_attempts=8),
         Job("forecast_missed_check", True, hourly, forecast_missed_check),
+        Job("forecast_issue_nrt", True, nrt_slot, forecast_issue_nrt, max_attempts=6),
         Job("forecast_resolve", True, hourly, forecast_resolve),
         Job("ledger_verify", True, daily, ledger_verify),
         Job("drift_check", True, daily, drift_check),

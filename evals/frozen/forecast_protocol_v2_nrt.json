@@ -1,0 +1,12 @@
+{
+  "name": "forecast_protocol_v2_nrt",
+  "frozen_utc": "2026-11-04T09:11:38+00:00",
+  "relation_to_v1": "a separate prospective CHALLENGER track; forecast_protocol_v1 (champion, data, cutoff, scoring) is unchanged",
+  "motivation": "exploratory lag study on exposed data (docs/evidence/forecast/lag_study.json, nrt_vs_v1.json): spot features at a 2 h cutoff reduce rv_24 loss vs the v1 champion by -0.025 [-0.035,-0.014] (SCREEN) and -0.023 (DEV)",
+  "targets": "identical to v1 (rv_24, move3_24) computed from the registered perpetual archive, so v2 and v1 forecasts are compared on the same outcomes",
+  "inputs": "Binance SPOT BTCUSDT 1h klines (official public market-data endpoint data-api.binance.vision for the latest hours; official spot archives for history); only bars that closed by the cutoff",
+  "cutoff": "as_of = origin - 2 h; issuance window [origin - 2 h + 5 min, origin); no issuance after the origin (missed windows recorded, never backfilled)",
+  "model": "M1_logistic (v1 champion model class, same features and abstention rules) trained on spot features at the 2 h cutoff with perpetual labels that were observable at issuance",
+  "label": "PROSPECTIVE challenger CH:nrt_spot_M1 (experimental); never replaces the champion automatically",
+  "input_integrity": "every issuance stores the exact spot bar window (npz + sha256) and the raw API response sha256; spot bars are later re-checked against the official daily spot archive (mismatch -> alert, stored inputs kept)"
+}

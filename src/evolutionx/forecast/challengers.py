@@ -15,6 +15,7 @@ from .ledger import ForecastLedger
 POLICY = Path("evals/frozen/challenger_policy_v1.json")
 STATE = Path("data/decisions/challengers.json")
 CHAMPION = "M1_logistic"
+DIFFERENT_CUTOFF_BY_DESIGN = {"CH:nrt_spot_M1"}  # challenger_policy_v3: the cutoff difference is the treatment
 EXCLUDED: list[dict[str, Any]] = []  # pairs excluded by the information-cutoff rule (filled by paired())
 
 
@@ -58,7 +59,7 @@ def paired(led: ForecastLedger | None = None) -> dict[tuple[str, str], np.ndarra
         c = champ.get((d["origin_ms"], d["target"]))
         if not d["model"].startswith("CH:") or c is None or fid not in rs or c["data"]["id"] not in rs:
             continue
-        if c["data"]["as_of_ms"] != d["as_of_ms"]:  # challenger_policy_v2: same information cutoff required
+        if c["data"]["as_of_ms"] != d["as_of_ms"] and d["model"] not in DIFFERENT_CUTOFF_BY_DESIGN:  # policy v2 / v3
             EXCLUDED.append({"challenger": fid, "champion": c["data"]["id"], "reason": "as_of_ms differs"})
             continue
         y = rs[fid]["data"]["outcome"]

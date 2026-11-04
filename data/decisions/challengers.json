@@ -1,10 +1,12 @@
 {
  "_active": [
-  "CH:saturday_target_day:rv_24",
-  "CH:saturday_target_day:move3_24",
-  "CH:sunday_target_day:rv_24",
+  "CH:monday_target_day:move3_24",
   "CH:monday_target_day:rv_24",
-  "CH:monday_target_day:move3_24"
+  "CH:nrt_spot_M1:move3_24",
+  "CH:nrt_spot_M1:rv_24",
+  "CH:saturday_target_day:move3_24",
+  "CH:saturday_target_day:rv_24",
+  "CH:sunday_target_day:rv_24"
  ],
- "_note": "activated by decisions D-f1e7aa80e9 (Saturday) and D-ac37fbd8dc (Sunday/Monday)"
+ "_note": "activated by decisions D-f1e7aa80e9 (Saturday) and D-ac37fbd8dc (Sunday/Monday); NRT activated by the decision below (forecast_protocol_v2_nrt, challenger_policy_v3)"
 }
