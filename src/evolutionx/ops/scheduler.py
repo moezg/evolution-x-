@@ -67,6 +67,8 @@ class OpsDB:
         self.path = root / "ops.db"
         with self.c() as c:
             c.executescript(SCHEMA)
+            if "owner" not in {r[1] for r in c.execute("PRAGMA table_info(runs)")}:
+                c.execute("ALTER TABLE runs ADD COLUMN owner TEXT")  # lock domain of the process that ran it
 
     def c(self) -> sqlite3.Connection:
         con = sqlite3.connect(self.path, timeout=30)
@@ -156,6 +158,17 @@ def tick_lock(root: Path = ROOT):  # noqa: ANN201
         f.close()
 
 
+def lock_domain(root: Path = ROOT) -> str:
+    """Identity of the exclusive scheduler lock: kernel boot + lock-file device/inode. Two processes with the same
+    domain contend for the same flock, so the holder of the lock knows any other run in its domain is dead."""
+    try:
+        boot = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
+    except OSError:
+        boot = "unknown-boot"
+    st = (root / "scheduler.lock").stat()
+    return f"{boot}:{st.st_dev}:{st.st_ino}"
+
+
 def _run_job(db: OpsDB, job: Job, slot: str, now: dt.datetime, cfg: dict[str, Any]) -> dict[str, Any] | None:
     row = db.q("SELECT * FROM runs WHERE job=? AND slot=?", (job.name, slot))
     if not row:
@@ -167,14 +180,24 @@ def _run_job(db: OpsDB, job: Job, slot: str, now: dt.datetime, cfg: dict[str, An
     r = row[0]
     if r["status"] in ("succeeded", "skipped", "failed"):
         return None
+    domain = cfg.get("_lock_domain")
     if r["status"] == "running" and (r["lease_until"] or 0) > time.time():
-        return None  # another live process owns it
+        # A 'running' row is written only by a process holding the exclusive scheduler flock for the whole run. We
+        # hold that flock now; if the row's owner is in the same lock domain it cannot be alive -> reclaim at once.
+        # Other domains (another host, unknown) keep the lease: exactly-once issuance also rests on the ledger key.
+        if not (domain and r.get("owner") == domain):
+            return None  # another live process may own it
+        db.notify(
+            "warning",
+            job.name,
+            f"slot {slot}: previous owner (same lock domain, pid {r.get('pid')}) is dead; reclaimed without waiting for the lease",
+        )
     if r["next_attempt_utc"] and r["next_attempt_utc"] > iso(utc()):  # retry times are wall-clock
         return None
     attempts = r["attempts"] + 1
     db.x(
-        "UPDATE runs SET status='running', attempts=?, lease_until=?, started_utc=?, host=?, pid=? WHERE job=? AND slot=?",
-        (attempts, time.time() + cfg["lease_s"], iso(utc()), socket.gethostname(), os.getpid(), job.name, slot),
+        "UPDATE runs SET status='running', attempts=?, lease_until=?, started_utc=?, host=?, pid=?, owner=? WHERE job=? AND slot=?",
+        (attempts, time.time() + cfg["lease_s"], iso(utc()), socket.gethostname(), os.getpid(), domain, job.name, slot),
     )
     try:
         res = job.run(slot, now, db)
@@ -227,6 +250,7 @@ def tick(
         if not ok:
             return {"tick": iso(now), "status": "locked", "note": "another tick is running on this host"}
         out: list[dict[str, Any]] = []
+        cfg = {**cfg, "_lock_domain": lock_domain(db.root)}  # valid only while we hold the flock
         for job in [j for j in jobs if j.critical] + [j for j in jobs if not j.critical]:
             try:
                 slot = job.slot(now)

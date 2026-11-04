@@ -80,6 +80,21 @@ def test_run_left_running_by_a_killed_process_is_recovered_after_its_lease(ops):
     assert ops.q("SELECT status, attempts FROM runs")[0] == {"status": "succeeded", "attempts": 2}
 
 
+def test_dead_owner_in_same_lock_domain_is_reclaimed_immediately(ops):
+    job, calls = _counter_job("a")
+    with S.tick_lock(ops.root):
+        pass  # creates the lock file
+    dom = S.lock_domain(ops.root)
+    ops.x("INSERT INTO runs (job, slot, critical, status, attempts, lease_until, pid, owner) VALUES ('a','s1',1,'running',1,?,999999,?)", (time.time() + 1800, dom))  # fmt: skip
+    S.tick([job], NOW, ops)
+    assert calls == [("a", "s1")]  # no 30-min wait: the owner held the same flock we now hold, so it is dead
+    assert any("reclaimed" in n["message"] for n in ops.q("SELECT message FROM notifications"))
+    ops.x("INSERT INTO runs (job, slot, critical, status, attempts, lease_until, owner) VALUES ('b','s1',1,'running',1,?,'other-host:1:2')", (time.time() + 1800,))  # fmt: skip
+    jb, cb = _counter_job("b")
+    S.tick([jb], NOW, ops)
+    assert cb == []  # a foreign lock domain keeps its lease
+
+
 def test_exponential_backoff_then_failure_notification(ops):
     job, calls = _counter_job("a", fail_times=10)
     cfg = {"backoff_s": 100.0}
