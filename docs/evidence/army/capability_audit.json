@@ -1,0 +1,241 @@
+{
+ "roles": {
+  "A1": {
+   "title": "Academic Research Scout",
+   "class": "tool_worker",
+   "llm": "on demand: specialist session (1 call; quote verified verbatim)",
+   "runs": "arXiv API queries; in a specialist session an LLM selects one record and extracts a claim"
+  },
+  "A2": {
+   "title": "Strategy Discovery Scout",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "arXiv API queries with strategy-oriented terms"
+  },
+  "A3": {
+   "title": "Evidence Verification Agent",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "re-fetch + Crossref match + rule-based evidence grade"
+  },
+  "A4": {
+   "title": "Novelty and Deduplication Agent",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "mechanism signatures compared with all earlier hypotheses"
+  },
+  "B1": {
+   "title": "Market Data Analyst",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "price/volume/volatility diagnostics"
+  },
+  "B2": {
+   "title": "Derivatives Analyst",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "funding statistics"
+  },
+  "B3": {
+   "title": "Regime Detection Agent",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "regime labels"
+  },
+  "B4": {
+   "title": "Feature Researcher",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "feature catalogue with availability rules"
+  },
+  "C1": {
+   "title": "Trend and Momentum Researcher",
+   "class": "llm_agent",
+   "llm": "optional: 1 budgeted call per cycle, deterministic template fallback",
+   "runs": "hypothesis extraction from one source within a fixed template"
+  },
+  "C2": {
+   "title": "Mean-Reversion Researcher",
+   "class": "llm_agent",
+   "llm": "optional: 1 budgeted call per cycle, deterministic template fallback (never activated so far)",
+   "runs": "as C1"
+  },
+  "C3": {
+   "title": "Microstructure Researcher",
+   "class": "llm_agent",
+   "llm": "optional: 1 budgeted call per cycle, deterministic template fallback",
+   "runs": "as C1"
+  },
+  "C4": {
+   "title": "Strategy Synthesis Agent",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "policy rule: combine only validated mechanisms"
+  },
+  "D1": {
+   "title": "Research Software Architect",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "typed contract checks; gap proposals"
+  },
+  "D2": {
+   "title": "Strategy Implementation Agent",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "renders reviewed templates (no generated code)"
+  },
+  "D3": {
+   "title": "Test Engineering Agent",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "static check, causality probe, determinism replay"
+  },
+  "D4": {
+   "title": "Security and Performance Agent",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "sandbox and forbidden-capability checks"
+  },
+  "E1": {
+   "title": "Backtesting Scientist",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "delegates to the research lab (premises, screen, walk-forward)"
+  },
+  "E2": {
+   "title": "Statistical Validation Scientist",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "baselines, DSR, trial counts, bootstrap"
+  },
+  "E3": {
+   "title": "Adversarial Researcher",
+   "class": "evaluation_engine",
+   "llm": "optional critique (1 call per cycle / per specialist session)",
+   "runs": "falsification battery; the LLM critique is advisory and never changes a status"
+  },
+  "E4": {
+   "title": "Causal Simulation Researcher",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "256-agent market simulator for interaction mechanisms"
+  },
+  "F1": {
+   "title": "Chief Research Orchestrator",
+   "class": "orchestrator",
+   "llm": "never",
+   "runs": "durable task DAG, budgets, retries, pause/stop (army orchestrator + ops scheduler)"
+  },
+  "F2": {
+   "title": "Scientific Memory Curator",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "memory / knowledge graph store"
+  },
+  "F3": {
+   "title": "Risk and Reliability Researcher",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "tail risk; drift of resolved prospective forecasts"
+  },
+  "F4": {
+   "title": "Evolution Coordinator",
+   "class": "deterministic_worker",
+   "llm": "never (role registry previously said llm_optional; corrected)",
+   "runs": "ranks next experiments by a fixed prior/cost rule"
+  },
+  "G1": {
+   "title": "Quantitative Research Scientist",
+   "class": "deterministic_worker",
+   "llm": "on demand: specialist session (1 call; citations and duplicates checked)",
+   "runs": "forecast-link feature tests; in a specialist session an LLM proposes one hypothesis"
+  },
+  "G2": {
+   "title": "Time-Series Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "ACF / volatility clustering diagnostics"
+  },
+  "G3": {
+   "title": "Cycle Discovery Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "periodogram band-rank tests"
+  },
+  "G4": {
+   "title": "Statistical Arbitrage Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "NOT implemented: records the data gap"
+  },
+  "H1": {
+   "title": "Calendar Anomaly Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "calendar rotation scans"
+  },
+  "H2": {
+   "title": "Recurring Event Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "event catalogue / coverage gaps"
+  },
+  "H3": {
+   "title": "Multi-Scale Cycle Scientist",
+   "class": "evaluation_engine",
+   "llm": "never",
+   "runs": "stability checks across years and halves"
+  },
+  "H4": {
+   "title": "Cycle Interaction Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "event x regime interaction tests"
+  },
+  "I1": {
+   "title": "Political Cycle Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "statutory election dates + event studies"
+  },
+  "I2": {
+   "title": "Monetary Policy Scientist",
+   "class": "tool_worker",
+   "llm": "never",
+   "runs": "federalreserve.gov + FRED ingestion, FOMC event study"
+  },
+  "I3": {
+   "title": "Economic Calendar Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "BLOCKED: records the CPI/NFP/GDP data gap"
+  },
+  "I4": {
+   "title": "Geopolitical and Cross-Asset Scientist",
+   "class": "deterministic_worker",
+   "llm": "never",
+   "runs": "cross-asset election responses; geopolitics not ingested"
+  }
+ },
+ "by_class": {
+  "tool_worker": 7,
+  "deterministic_worker": 17,
+  "llm_agent": 3,
+  "evaluation_engine": 8,
+  "orchestrator": 1
+ },
+ "llm_capable_roles": [
+  "A1",
+  "C1",
+  "C2",
+  "C3",
+  "E3",
+  "G1"
+ ],
+ "not_operational_as_llm_agents": {
+  "Strategy Designer": "C1-C3 formulate within reviewed templates; no free-form strategy design by an LLM (bounded budget, overfitting risk)",
+  "Engineering Agent": "D2 renders templates; LLM-written code would need an isolated worktree + human review per change (codeprop exists for proposals) - not enabled in this slice",
+  "Evolution Coordinator": "F4 is a deterministic ranking rule; no LLM involved"
+ },
+ "note": "the 256 simulated agents are market participants inside the simulator, not researchers"
+}

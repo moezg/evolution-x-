@@ -204,3 +204,25 @@ The reuse audit is in `docs/FORECASTING.md`. Requirements of the mission:
 | False anomalies not promoted; planted signals recovered | `tests/test_quant.py` | `pytest tests/test_quant.py` | verified (see QUANT.md) |
 | Dashboard backed by results | `api/quant_routes.py`, `web/src/app/quant` | `make dev` | see delivery message |
 | No holdout / no LLM campaign | no vault access; 0 LLM calls | `grep -rn vault_v2 src/evolutionx/quant` | verified |
+
+## v0.7 continuous predictive intelligence (2026-11-04)
+
+| Capability | Executed | Working (tested) | Not verified |
+|---|---|---|---|
+| Scheduler tick, lock, slots, leases, backoff, waits, outage detection, notifications | real ticks from `/tmp`; in a container against real state | `tests/test_ops.py` | webhook delivery to a real endpoint |
+| No backfill / missed windows | ledger guards + hourly missed check (0 missed so far) | unit tests: late issue, post-miss issue, pre-declared miss, duplicate under a new version | a real missed origin (none has occurred) |
+| Restart recovery | `kill -9` and SIGTERM of the containerised daemon | lease recovery and interrupted-issuance tests | — |
+| Docker | runtime (official python image + mounted venv) | crash restart, graceful stop, persistence, health-check expression | **image build** (no DNS for build containers here) |
+| Specialist LLM agents | 1 real session (3 calls, $0.28) | validators, budgets, offline session with a fake LLM | value beyond one session |
+| Event registry: CPI, NFP, GDP | ALFRED vintages + BEA schedule ingested (registry verify ok) | parser test on the saved BEA page | the 08:30 ET time of day for historical releases (date only; convention) |
+| F-MACRO study | registered run `macro20261104T032607` | same engine as F-FOMC | — |
+| Calibration study | registered run, 900 nulls + 320 power datasets | equivalence with `calendar.run()` tested | dependence beyond GARCH (e.g. regime switches) |
+| Control center | `/control` built and rendered in Chromium (desktop and mobile) | API endpoints exercised; GET only | — |
+
+**Corrections made during this mission:**
+1. The F4 role label is now `deterministic`.
+2. The specialist validator accepted a disguised duplicate; it was fixed and the proposal re-validated.
+3. The FOMC follow-up mislabelled a pre-registration event as "prospective"; a correction line was appended.
+4. The calibration protocol's per-run test count was mis-stated (258 → 204) before the registered run; an erratum was recorded.
+5. Existing tests wrote proposals and snapshots into `artifacts/`; they now use `tmp_path`.
+6. The scheduler compared wall-clock retry times with the logical tick time; fixed.

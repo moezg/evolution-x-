@@ -1,0 +1,447 @@
+{
+ "protocol": "quant_calibration_v1",
+ "protocol_sha256": "eb5df7b14c1222d3b8555ebc0c51b4d091746f11aeb9fc5127b014998ff81ac5",
+ "n_rotations": 999,
+ "smoke_test_not_registered": false,
+ "started_utc": "2026-11-04T03:10:25+00:00",
+ "label": "SYNTHETIC data only (method calibration); no market data",
+ "null": {
+  "iid_t4": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 18,
+    "n": 300,
+    "rate": 0.06,
+    "wilson95": [
+     0.03828636939007202,
+     0.09283944546082745
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    },
+    "mean_absret": {
+     "k": 8,
+     "n": 300,
+     "rate": 0.02666666666666667,
+     "wilson95": [
+      0.013573069738659564,
+      0.051728943207005
+     ]
+    },
+    "up_rate": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "left_tail_rate": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    },
+    "F-DOW": {
+     "k": 13,
+     "n": 300,
+     "rate": 0.043333333333333335,
+     "wilson95": [
+      0.025496447979461018,
+      0.07271746591882099
+     ]
+    },
+    "F-MOY": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "F-TOM": {
+     "k": 0,
+     "n": 300,
+     "rate": 0.0,
+     "wilson95": [
+      0.0,
+      0.012642971421476655
+     ]
+    }
+   },
+   "false_supported_total": 18,
+   "mean_bh_survivors_per_run": 0.9566666666666667,
+   "examples": [
+    "F-DOW:0:left_tail_rate",
+    "F-DOM:3:mean_absret",
+    "F-DOW:6:left_tail_rate",
+    "F-DOM:20:mean_absret",
+    "F-DOW:3:mean_absret",
+    "F-DOW:3:left_tail_rate",
+    "F-DOW:3:mean_absret",
+    "F-DOW:0:mean_ret",
+    "F-MOY:8:up_rate",
+    "F-DOM:24:mean_ret_wd_adj",
+    "F-DOW:5:up_rate",
+    "F-DOW:6:up_rate",
+    "F-DOW:2:mean_absret",
+    "F-DOW:5:mean_absret",
+    "F-DOW:1:up_rate",
+    "F-MOY:2:mean_absret",
+    "F-DOW:2:mean_absret",
+    "F-DOW:6:mean_ret"
+   ]
+  },
+  "garch_t5": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 18,
+    "n": 300,
+    "rate": 0.06,
+    "wilson95": [
+     0.03828636939007202,
+     0.09283944546082745
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    },
+    "mean_absret": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "up_rate": {
+     "k": 4,
+     "n": 300,
+     "rate": 0.013333333333333334,
+     "wilson95": [
+      0.005196961703277308,
+      0.0337755304802933
+     ]
+    },
+    "left_tail_rate": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "F-DOW": {
+     "k": 12,
+     "n": 300,
+     "rate": 0.04,
+     "wilson95": [
+      0.0230273213894913,
+      0.06860421231826722
+     ]
+    },
+    "F-MOY": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    },
+    "F-TOM": {
+     "k": 0,
+     "n": 300,
+     "rate": 0.0,
+     "wilson95": [
+      0.0,
+      0.012642971421476655
+     ]
+    }
+   },
+   "false_supported_total": 18,
+   "mean_bh_survivors_per_run": 0.96,
+   "examples": [
+    "F-DOW:6:mean_ret",
+    "F-DOW:2:up_rate",
+    "F-DOW:3:mean_absret",
+    "F-DOW:6:left_tail_rate",
+    "F-DOW:2:mean_absret",
+    "F-DOW:2:mean_ret",
+    "F-DOW:3:up_rate",
+    "F-DOW:3:left_tail_rate",
+    "F-MOY:10:mean_absret",
+    "F-MOY:1:left_tail_rate",
+    "F-MOY:10:mean_ret_wd_adj",
+    "F-DOM:26:left_tail_rate",
+    "F-MOY:2:left_tail_rate",
+    "F-MOY:8:mean_ret_wd_adj",
+    "F-DOW:0:mean_ret",
+    "F-DOW:2:up_rate",
+    "F-DOW:3:up_rate",
+    "F-DOW:1:mean_absret"
+   ]
+  },
+  "garch_t3_persistent": {
+   "runs": 300,
+   "tests_per_run": 204,
+   "any_false_supported": {
+    "k": 15,
+    "n": 300,
+    "rate": 0.05,
+    "wilson95": [
+     0.030531640512013805,
+     0.08084703376731518
+    ]
+   },
+   "per_metric": {
+    "mean_ret": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    },
+    "mean_absret": {
+     "k": 8,
+     "n": 300,
+     "rate": 0.02666666666666667,
+     "wilson95": [
+      0.013573069738659564,
+      0.051728943207005
+     ]
+    },
+    "up_rate": {
+     "k": 1,
+     "n": 300,
+     "rate": 0.0033333333333333335,
+     "wilson95": [
+      0.0005886577153496192,
+      0.018636693896650527
+     ]
+    },
+    "left_tail_rate": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    }
+   },
+   "per_family": {
+    "F-DOM": {
+     "k": 5,
+     "n": 300,
+     "rate": 0.016666666666666666,
+     "wilson95": [
+      0.007139477305428632,
+      0.038415395068665474
+     ]
+    },
+    "F-DOW": {
+     "k": 6,
+     "n": 300,
+     "rate": 0.02,
+     "wilson95": [
+      0.009197631503835551,
+      0.04293962106078204
+     ]
+    },
+    "F-MOY": {
+     "k": 3,
+     "n": 300,
+     "rate": 0.01,
+     "wilson95": [
+      0.003406618411240462,
+      0.02898349358180666
+     ]
+    },
+    "F-TOM": {
+     "k": 2,
+     "n": 300,
+     "rate": 0.006666666666666667,
+     "wilson95": [
+      0.0018301483414602509,
+      0.02397758346106338
+     ]
+    }
+   },
+   "false_supported_total": 16,
+   "mean_bh_survivors_per_run": 0.9333333333333333,
+   "examples": [
+    "F-DOM:23:mean_absret",
+    "F-DOM:9:mean_absret",
+    "F-DOW:5:up_rate",
+    "F-TOM:1:left_tail_rate",
+    "F-DOW:3:mean_ret",
+    "F-DOM:8:mean_absret",
+    "F-DOW:5:left_tail_rate",
+    "F-MOY:9:mean_absret",
+    "F-DOM:7:mean_absret",
+    "F-DOW:5:left_tail_rate",
+    "F-TOM:1:mean_absret",
+    "F-DOW:0:left_tail_rate",
+    "F-MOY:10:mean_absret",
+    "F-DOW:3:left_tail_rate",
+    "F-DOM:10:mean_absret",
+    "F-MOY:9:mean_ret_wd_adj"
+   ]
+  }
+ },
+ "power": {
+  "mean:0.25": {
+   "k": 5,
+   "n": 40,
+   "rate": 0.125,
+   "wilson95": [
+    0.05459500216399486,
+    0.26112119967985287
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "mean:0.33": {
+   "k": 7,
+   "n": 40,
+   "rate": 0.175,
+   "wilson95": [
+    0.08745413698495559,
+    0.3194999046130458
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "mean:0.5": {
+   "k": 29,
+   "n": 40,
+   "rate": 0.725,
+   "wilson95": [
+    0.5716504406714658,
+    0.8389198382222256
+   ],
+   "runs_with_other_false_supported": 1
+  },
+  "mean:0.67": {
+   "k": 38,
+   "n": 40,
+   "rate": 0.95,
+   "wilson95": [
+    0.8349612250489412,
+    0.9861793327384413
+   ],
+   "runs_with_other_false_supported": 2
+  },
+  "mean:1.0": {
+   "k": 40,
+   "n": 40,
+   "rate": 1.0,
+   "wilson95": [
+    0.9123783975415363,
+    1.0
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "vol:1.25": {
+   "k": 5,
+   "n": 40,
+   "rate": 0.125,
+   "wilson95": [
+    0.05459500216399486,
+    0.26112119967985287
+   ],
+   "runs_with_other_false_supported": 0
+  },
+  "vol:1.5": {
+   "k": 21,
+   "n": 40,
+   "rate": 0.525,
+   "wilson95": [
+    0.3749736199712279,
+    0.670645299905849
+   ],
+   "runs_with_other_false_supported": 1
+  },
+  "vol:2.0": {
+   "k": 40,
+   "n": 40,
+   "rate": 1.0,
+   "wilson95": [
+    0.9123783975415363,
+    1.0
+   ],
+   "runs_with_other_false_supported": 0
+  }
+ },
+ "quarantine": {
+  "mean_ret": {
+   "quarantined": false,
+   "reasons": []
+  },
+  "mean_absret": {
+   "quarantined": true,
+   "reasons": [
+    "iid_t4: Wilson lower bound 1.357% > 1.25%",
+    "iid_t4: Wilson upper bound 5.173% > 5%",
+    "garch_t3_persistent: Wilson lower bound 1.357% > 1.25%",
+    "garch_t3_persistent: Wilson upper bound 5.173% > 5%"
+   ]
+  },
+  "up_rate": {
+   "quarantined": false,
+   "reasons": []
+  },
+  "left_tail_rate": {
+   "quarantined": false,
+   "reasons": []
+  }
+ },
+ "finished_utc": "2026-11-04T03:40:08+00:00"
+}

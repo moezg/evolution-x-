@@ -1,0 +1,298 @@
+{
+ "session": "spec-20261104T031310",
+ "policy_sha256": "eddda5d889cebac03dcb6085e90e67da9c808e10e4ca19af59ca7f3a3b5cba41",
+ "steps": [
+  {
+   "role": "A1",
+   "llm": {
+    "used_llm": true,
+    "rc": 0,
+    "wall_s": 14.48,
+    "cost_usd_api_equivalent": 0.082216,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+    "dropped_keys": [],
+    "truncated_fields": [
+     "relevance"
+    ]
+   },
+   "fetched": [
+    {
+     "id": "arxiv:1702.01024v2",
+     "title": "An analysis of Bitcoin OP_RETURN metadata",
+     "published": "2017-02-03T14:30:27Z"
+    },
+    {
+     "id": "arxiv:1810.10194v1",
+     "title": "Niji: Bitcoin Bridge Utilizing Payment Channels",
+     "published": "2018-10-24T05:43:16Z"
+    },
+    {
+     "id": "arxiv:1405.4498v1",
+     "title": "The Economics of BitCoin Price Formation",
+     "published": "2014-05-18T12:59:05Z"
+    },
+    {
+     "id": "arxiv:1906.03430v1",
+     "title": "The Effects of the Introduction of Bitcoin Futures on the Volatility of Bitcoin Returns",
+     "published": "2019-06-08T09:38:28Z"
+    }
+   ],
+   "output": {
+    "arxiv_id": "arxiv:1405.4498v1",
+    "claim": "The paper uses daily data from 2009 to 2014 and time-series methods. It finds that Bitcoin's price is mainly driven by its own supply and demand and by how attractive it is to investors. It does not find that global macro-financial indicators drive the price, which contradicts earlier work.",
+    "verbatim_quote": "Our estimates do not support previous findings that the macro-financial developments are driving BitCoin price.",
+    "relevance": "Low but the best available. None of the four records studies how crypto prices react to scheduled macro announcements such as FOMC, CPI or jobs releases. This is the only one that tests macro-financial variables against Bitcoin price at all. It uses daily aggregate macro indicators, not event windows around announcements, so it can only serve as a weak prior that macro links were insignificant ea\u2026"
+   },
+   "validation": {
+    "valid": true,
+    "source": {
+     "id": "arxiv:1405.4498v1",
+     "url": "http://arxiv.org/abs/1405.4498v1",
+     "title": "The Economics of BitCoin Price Formation",
+     "published": "2014-05-18T12:59:05Z",
+     "retrieved": "2026-11-04T03:13:11+00:00"
+    }
+   }
+  },
+  {
+   "role": "G1",
+   "llm": {
+    "used_llm": true,
+    "rc": 0,
+    "wall_s": 21.85,
+    "cost_usd_api_equivalent": 0.1127722,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+    "dropped_keys": [],
+    "truncated_fields": [
+     "label",
+     "statement",
+     "prospective_evaluation"
+    ]
+   }
+  },
+  {
+   "role": "E3",
+   "llm": {
+    "used_llm": true,
+    "rc": 0,
+    "wall_s": 35.2,
+    "cost_usd_api_equivalent": 0.08627220000000001,
+    "models": [
+     "claude-opus-5-5"
+    ],
+    "billing_note": "USD is the CLI's API-equivalent estimate, not observed subscription billing",
+    "dropped_keys": [],
+    "truncated_fields": [
+     "concerns",
+     "additional_test"
+    ]
+   },
+   "critique": {
+    "concerns": [
+     "Control window misalignment: the statement is at 18:00 UTC under US daylight time and 19:00 UTC under standard time. The control is defined as 'the same UTC 4-hour window', which is ambiguous. If controls use one fixed UTC window, roughly half the events are compared against windows shifted by 1 hour, so time-of-day volatility effects (US equity close at 20:00/21:00 UTC, the Asia open) contaminate the difference. Each control Wednesday needs a DST-matched window.",
+     "Contaminated control set: FOMC minutes are released at 14:00 ET on Wednesdays, three weeks after each meeting. Those days are not within \u00b11 day of an FOMC date, so they enter the control set as event days. Other Wednesday catalysts, such as Treasury refunding weeks, Fed speeches and Beige Book releases (also 14:00 ET on Wednesdays), do the same. This biases the comparison toward zero and makes any null hard to interpret.",
+     "Confounding by volatility regime: FOMC dates cluster in macro-stress periods and absolute returns are strongly autocorrelated (GARCH). A raw mean difference partly measures which regime the event happens to fall in, not the event itself. Absolute returns should be scaled by trailing realized volatility, for example the prior 7-day hourly RV, or the test should use a log ratio.",
+     "Heavy tails and low power: with about 16 events, the Welch t-test on heavy-tailed absolute returns is driven by one or two observations, such as a surprise-hawkish meeting or a crypto-specific crash in the window. Power to detect a realistic effect of about 1.2 to 1.5 times baseline is probably under 50%, so 'not significant' is weak evidence that there is no effect. A pre-registered power analysis and minimum detectable effect are missing.",
+     "Bundled event: since 2019 every statement has been followed at 14:30 ET by a press conference, and the 4-hour window contains both plus the US equity close. The test cannot attribute the effect to the statement itself. That matters for the 'policy-path' rationale, though not for the falsifiable claim.",
+     "Data snooping and multiple testing: the family, the 4-hour horizon, the absolute-return metric and the Wednesday-only control look chosen after the registry's earlier DOW tests (T-02b30f3abeec and others). Sibling variants (1h, 2h, 24h, signed returns, CPI or NFP events) count toward the family, but the alpha and the multiplicity correction are cut off in the item, so the threshold cannot be audited.",
+     "Weak prior: arxiv:1405.4498 used daily 2009\u20132014 data before institutional participation, so it says almost nothing about intraday 2026+ BTC. Later work and the post-2020 equity\u2013BTC correlation suggest FOMC volatility responses are well established. That makes the test less of a real attempt to refute something than the rationale claims.",
+     "Regime dependence: the ETF era, the leadership change at the Fed in 2026, and the phase of the policy cycle (hiking, cutting or on hold) change how much a statement surprises markets. Equal-weighting events across regimes hides this. Statements with no surprise should show no effect, so the results should be conditioned on a surprise measure such as the fed funds futures move."
+    ],
+    "most_likely_failure": "Most likely the test comes back not significant because it is underpowered and noisy, not because the effect is absent. With about 16 heavy-tailed observations, a control set diluted by FOMC-minutes and Beige Book Wednesdays, possible DST misalignment and no volatility normalization, the null gets 'accepted' even if a real 1.2 to 1.5 times volatility response exists. The second most likely outcome is a significant result produced by one or two outlier events that happened to fall in high-volatility regimes.",
+    "additional_test": "Run a within-day placebo difference-in-differences on volatility-normalized returns. For each FOMC day and each clean control Wednesday, define z = absret_0_4h / sigma_pre, where sigma_pre is realized hourly volatility over the prior 7 days scaled to 4 hours. Compute z for the event window (14:00\u201318:00 ET) and for a pre-event placebo window on the same day (10:00\u201314:00 ET), both DST-matched in UTC. Exclude FOMC-minutes Wednesdays, Beige Book Wednesdays and days within \u00b11 day of CPI from the controls. The hypothesis is refuted if the DiD (FOMC event minus FOMC placebo) minus (control event min\u2026"
+   },
+   "target": "G1 proposal"
+  }
+ ],
+ "proposals": [
+  {
+   "by": "G1 (LLM)",
+   "proposal": {
+    "family": "F-FOMC",
+    "label": "FOMC statement 4h abs-return spike vs m\u2026",
+    "metric": "absret_0_4h",
+    "direction": 1,
+    "statement": "On scheduled FOMC statement days, BTC's absolute log return over the 4 hours after the official statement time (14:00 US/Eastern, converted to UTC with daylight saving applied) is larger than on non-FOMC Wednesdays measured over the same UTC 4-hour window. The test statistic is the mean difference (FOMC minus control). The hypothesis is falsified if the prospective one-sided test of mean(absret_0_4h | FOMC) > mean(absret_0_4h | matched non-FOMC Wednesdays) is not significant at the pre-register\u2026",
+    "rationale": "Scheduled FOMC statements change the expected path of policy rates and the dollar discount rate. Any link between BTC and macro factors should therefore appear first as a short-horizon volatility response in the hours right after the release, not as a directional drift. Using non-FOMC Wednesdays as the control matches day of week. That removes the Wednesday effect that the registry already tested and rejected (F-DOW:3:mean_absret, p_adj about 0.34), so any excess can be attributed to the event itself. The verified source found no macro-financial drivers of BTC in 2009\u20132014 daily data. That is a contrary prior, which is why the hypothesis is falsifiable in a meaningful way. If the source's view still holds, the effect should be indistinguishable from zero.",
+    "cites_tests": [
+     "T-02b30f3abeec",
+     "T-abaad32a12e5",
+     "T-d99b1127291e"
+    ],
+    "cites_sources": [
+     "arxiv:1405.4498v1"
+    ],
+    "data_needed": [
+     "btc_spot_1h",
+     "fomc_calendar"
+    ],
+    "prospective_evaluation": "Freeze the specification now. For each future scheduled FOMC statement date in fomc_calendar, excluding unscheduled or emergency meetings, compute |log(P_t+4h / P_t)| from btc_spot_1h. t is the first full hourly bar starting at or after the statement time in UTC. For the control, compute the same window on every non-FOMC Wednesday that is not within \u00b11 day of an FOMC date. Accumulate observations until at least 16 FOMC events (about 2 years). Then run a one-sided Welch t-test and a 10,000-draw \u2026"
+   },
+   "validation": {
+    "status": "rejected_invalid",
+    "key": "F-FOMC:FOMC statement 4h abs-return spike vs m\u2026:absret_0_4h",
+    "reasons": [
+     "label 'FOMC statement 4h abs-return spike vs m\u2026' is not an identifier (^[A-Za-z0-9_]{1,24}$); free text cannot define a new hypothesis"
+    ],
+    "superseded": {
+     "status": "queued_prospective",
+     "key": "F-FOMC:FOMC statement 4h abs-return spike vs m\u2026:absret_0_4h",
+     "reasons": []
+    }
+   }
+  },
+  {
+   "by": "planted control",
+   "proposal": {
+    "family": "F-FOMC",
+    "label": "",
+    "metric": "absret_0_4h",
+    "direction": 1,
+    "statement": "BTC moves more in the 4 h after FOMC statements",
+    "rationale": "planted duplicate control (re-proposes a registered hypothesis)",
+    "cites_tests": [
+     "T-58a4e11aa081"
+    ],
+    "cites_sources": [],
+    "data_needed": [
+     "btc_spot_1h",
+     "fomc_calendar"
+    ],
+    "prospective_evaluation": "n/a"
+   },
+   "validation": {
+    "status": "rejected_duplicate",
+    "key": "F-FOMC:absret_0_4h",
+    "reasons": [
+     "F-FOMC:absret_0_4h is already registered or proposed"
+    ],
+    "superseded": {
+     "status": "rejected_duplicate",
+     "key": "F-FOMC:absret_0_4h",
+     "reasons": [
+      "F-FOMC:absret_0_4h is already registered or proposed"
+     ]
+    }
+   }
+  },
+  {
+   "by": "planted control",
+   "proposal": {
+    "family": "F-FOMC",
+    "label": "hot_cpi",
+    "metric": "absret_0_4h",
+    "direction": 1,
+    "statement": "FOMC moves are larger when CPI beat consensus",
+    "rationale": "planted invalid control",
+    "cites_tests": [
+     "T-58a4e11aa081"
+    ],
+    "cites_sources": [],
+    "data_needed": [
+     "consensus_expectations",
+     "cpi_release_times"
+    ],
+    "prospective_evaluation": "n/a"
+   },
+   "validation": {
+    "status": "rejected_invalid",
+    "key": "F-FOMC:hot_cpi:absret_0_4h",
+    "reasons": [
+     "needs unavailable data: ['consensus_expectations', 'cpi_release_times'] (available: ['btc_spot_1d', 'btc_spot_1h', 'dgs10', 'fed_target', 'fomc_calendar', 'sp500', 'us_elections'])"
+    ],
+    "superseded": {
+     "status": "rejected_invalid",
+     "key": "F-FOMC:hot_cpi:absret_0_4h",
+     "reasons": [
+      "needs unavailable data: ['consensus_expectations', 'cpi_release_times'] (available: ['btc_spot_1d', 'btc_spot_1h', 'dgs10', 'fed_target', 'fomc_calendar', 'sp500', 'us_elections'])"
+     ]
+    }
+   }
+  }
+ ],
+ "usage": [
+  {
+   "cycle_id": "spec-20261104T031310",
+   "role": "A1",
+   "llm_calls": 1,
+   "llm_cost_usd": 0.082216,
+   "wall_s": 14.483049447999974,
+   "ext_requests": 1
+  },
+  {
+   "cycle_id": "spec-20261104T031310",
+   "role": "E3",
+   "llm_calls": 1,
+   "llm_cost_usd": 0.08627220000000001,
+   "wall_s": 35.20137891099989,
+   "ext_requests": 0
+  },
+  {
+   "cycle_id": "spec-20261104T031310",
+   "role": "G1",
+   "llm_calls": 1,
+   "llm_cost_usd": 0.1127722,
+   "wall_s": 21.85173698199992,
+   "ext_requests": 0
+  }
+ ],
+ "lineage": {
+  "sources": [
+   "arxiv:1405.4498v1"
+  ],
+  "tests_cited": [
+   "T-02b30f3abeec",
+   "T-58a4e11aa081",
+   "T-abaad32a12e5",
+   "T-d99b1127291e"
+  ],
+  "journal": "artifacts/army/journal.jsonl (specialist_session_start / specialist_session_end)"
+ },
+ "revalidations": [
+  {
+   "utc": "2026-11-04T03:15:18+00:00",
+   "reason": "validator fix: free-text label disguised the registered F-FOMC:absret_0_4h hypothesis (found in this session)",
+   "results": [
+    {
+     "by": "G1 (LLM)",
+     "original": "queued_prospective",
+     "now": {
+      "status": "rejected_invalid",
+      "key": "F-FOMC:FOMC statement 4h abs-return spike vs m\u2026:absret_0_4h",
+      "reasons": [
+       "label 'FOMC statement 4h abs-return spike vs m\u2026' is not an identifier (^[A-Za-z0-9_]{1,24}$); free text cannot define a new hypothesis"
+      ]
+     }
+    },
+    {
+     "by": "planted control",
+     "original": "rejected_duplicate",
+     "now": {
+      "status": "rejected_duplicate",
+      "key": "F-FOMC:absret_0_4h",
+      "reasons": [
+       "F-FOMC:absret_0_4h is already registered or proposed"
+      ]
+     }
+    },
+    {
+     "by": "planted control",
+     "original": "rejected_invalid",
+     "now": {
+      "status": "rejected_invalid",
+      "key": "F-FOMC:hot_cpi:absret_0_4h",
+      "reasons": [
+       "needs unavailable data: ['consensus_expectations', 'cpi_release_times'] (available: ['btc_spot_1d', 'btc_spot_1h', 'dgs10', 'fed_target', 'fomc_calendar', 'sp500', 'us_elections'])"
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

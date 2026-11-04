@@ -1,3 +1,23 @@
+# Status: v0.7 continuous predictive intelligence (2026-11-04)
+
+**Headline:** forecasting now runs unattended and cannot backfill. A durable scheduler issues champion and challenger forecasts before each 00:00 UTC origin, records missed windows, resolves and scores, and checks drift. Optional research runs separately and can never block it. Prospective evidence so far: **0 resolved forecasts**, so no skill claim of any kind.
+
+| Area | Result | Evidence |
+|---|---|---|
+| P1 lifecycle | Frozen input snapshot (sha256) + model and feature version on every forecast. Issuance is idempotent and resumable, keyed on (origin, target, model) **whatever the version**: a commit between an interruption and its resumption cannot create a second set. Missed windows are recorded and never backfilled. The ledger refuses late, duplicate or post-miss forecasts, and `verify()` checks all of it. | `tests/test_ops.py`, `docs/OPERATIONS.md` |
+| P2 operations | `evox ops tick\|daemon\|status`. Slots, flock, leases, exponential backoff, waits for data, source-outage detection, notifications (+ webhook), daily research budget. Critical jobs always run first. cron, systemd and compose configs. | 15 scheduler tests; real ticks from `/tmp`; container runtime test (crash + graceful restart) in `docs/evidence/ops/` |
+| P2 not tested | `docker compose build`: build containers here cannot resolve Debian mirrors. The image build is **untested**. | `docs/evidence/ops/container_test.md` |
+| P3 capability audit | 36 roles: 3 LLM agents, 17 deterministic workers, 7 tool workers, 8 evaluation engines, 1 orchestrator. F4 was mislabelled `llm_optional` and is corrected. On-demand specialists (A1 scout, G1 quant scientist, E3 adversarial): first real session, 3 calls, $0.28. Its G1 proposal was a disguised duplicate that **the first validator let through**; validator fixed, re-validated, regression-tested. | `docs/CAPABILITY_AUDIT.md` |
+| P4 events | CPI / payrolls / GDP release dates from **ALFRED vintages** (bls.gov is 403): 117 + 117 + 40 first releases, kept separate from revisions. Upcoming GDP from the BEA schedule. **F-MACRO** (pre-registered): BTC moves on CPI and NFP release mornings are **not** different from matched mornings (8/8 rejected). | `docs/QUANT.md` |
+| P5 calibration | 900 synthetic-null datasets (i.i.d. t4, GARCH t5, persistent GARCH t3) and 999 rotations. Per-run false "supported": **6.0% [3.8, 9.3], 6.0%, 5.0%**, close to the 5% design. Most of it comes from the day-of-week family. **`mean_absret` quarantined** by the frozen rule. `left_tail_rate` is **not** quarantined (the earlier 2/20 was noise). Power: 0.5σ 73%, 0.67σ 95%, vol ×2 100%. | `artifacts/quant/calibration_v1.json`, `evals/frozen/quant_calibration_v1.json` |
+| P6 evolution | One proposal index in 5 categories. Evidence counts only in its own category; code needs human review. 0 promoted; 62 test fixtures excluded. | `/api/control/evolution` |
+| P7 agent value | Per-role cost vs recorded outcomes. A4 with/without replay: 7 duplicates stopped saved ≈241 s, 7 counted trials and ≤14 LLM calls (estimate). E3: 0 hard failures in 3 challenges, flagged for re-measurement. | `artifacts/army/agent_value.json` |
+| P8 dashboard | `/control`: Live Forecasts, Reliability, Research Army, Quant, Evolution, Operations. Real data only, with explicit insufficient-evidence states. | `web/src/app/control/` |
+
+**Consequence of the quarantine:** "Saturday |return| lower" (`F-DOW:5:mean_absret`) stays *supported (exploratory)* but can no longer be promoted automatically. The `CH:saturday_target_day` challenger keeps issuing, because its registered justification also rests on `F-DOW:5:left_tail_rate`, which is not quarantined. This mixed provenance is journaled and **awaits a human decision**.
+
+---
+
 # Status: quantitative intelligence and cycle discovery (2026-11-03)
 
 The research army now has **36 roles** (new divisions G, H, I) and a pre-registered quant workflow. Details, answers and limitations are in `docs/QUANT.md`.

@@ -1,0 +1,8 @@
+[evox-ops] ERROR demo_research_crash: slot 2026-11-04-demo FAILED after 1 attempts: RuntimeError: DEMO: simulated research-agent crash
+[evox-ops] WARNING research_army: daily research budget exhausted for 2026-11-04-demo; optional research paused
+ledger before: {'ok': True, 'entries': 34, 'head': 'e22ce1194e81ecb46307d0169ca3e9f2448b26d5dc3e41506c9b6cf3c9c942bf', 'forecasts': 34, 'resolved': 0, 'missed': 0}
+tick: {"tick": "2026-11-04T03:43:21+00:00", "status": "ran", "runs": [{"job": "demo_research_crash", "slot": "2026-11-04-demo", "status": "failed", "error": "RuntimeError: DEMO: simulated research-agent crash"}, {"job": "demo_research_budget", "slot": "2026-11-04-demo", "status": "skipped"}]}
+demo rows: [{'job': 'demo_research_crash', 'status': 'failed', 'error': 'RuntimeError: DEMO: simulated research-agent crash', 'result': None}, {'job': 'demo_research_budget', 'status': 'skipped', 'error': None, 'result': '{"reason": "daily research budget exhausted", "budget": {"day": "2026-11-04-demo", "research_wall_s": 0.0009961128234863281, "research_llm_calls": 0}}'}]
+critical forecast_issue: [{'job': 'forecast_issue', 'slot': '2026-11-05', 'status': 'pending', 'next_attempt_utc': '2026-11-04T03:51:36+00:00'}]
+research runner called with exhausted budget: False
+ledger after: {'ok': True, 'entries': 34, 'head': 'e22ce1194e81ecb46307d0169ca3e9f2448b26d5dc3e41506c9b6cf3c9c942bf', 'forecasts': 34, 'resolved': 0, 'missed': 0}

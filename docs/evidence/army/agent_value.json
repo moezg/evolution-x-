@@ -1,0 +1,539 @@
+{
+ "roles": [
+  {
+   "role": "A1",
+   "title": "Academic Research Scout",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 1,
+   "llm_usd_api_equiv": 0.0822,
+   "wall_s": 96.6,
+   "external_requests": 7,
+   "contributions": {
+    "new_sources_found": 9,
+    "sources_sent_to_verification": 6,
+    "specialist_claims_verified": 1
+   },
+   "flag": null
+  },
+  {
+   "role": "A2",
+   "title": "Strategy Discovery Scout",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 46.3,
+   "external_requests": 6,
+   "contributions": {
+    "new_sources_found": 12,
+    "sources_sent_to_verification": 6
+   },
+   "flag": null
+  },
+  {
+   "role": "A3",
+   "title": "Evidence Verification Agent",
+   "impl": "deterministic",
+   "tasks": 12,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 146.3,
+   "external_requests": 24,
+   "contributions": {
+    "sources_verified": 12,
+    "crossref_matched": 6
+   },
+   "flag": null
+  },
+  {
+   "role": "A4",
+   "title": "Novelty and Deduplication Agent",
+   "impl": "deterministic",
+   "tasks": 12,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 1.1,
+   "external_requests": 0,
+   "contributions": {
+    "novel_ideas_passed": 3,
+    "duplicates_stopped": 7
+   },
+   "flag": null
+  },
+  {
+   "role": "B1",
+   "title": "Market Data Analyst",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 1,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "B2",
+   "title": "Derivatives Analyst",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.1,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "B3",
+   "title": "Regime Detection Agent",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.3,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "B4",
+   "title": "Feature Researcher",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "C1",
+   "title": "Trend and Momentum Researcher",
+   "impl": "llm_optional",
+   "tasks": 1,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.1,
+   "external_requests": 0,
+   "contributions": {
+    "hypotheses_formulated": 1
+   },
+   "flag": null
+  },
+  {
+   "role": "C2",
+   "title": "Mean-Reversion Researcher",
+   "impl": "llm_optional",
+   "tasks": 0,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": "no activity"
+  },
+  {
+   "role": "C3",
+   "title": "Microstructure Researcher",
+   "impl": "llm_optional",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 1,
+   "llm_usd_api_equiv": 0.1078,
+   "wall_s": 53.0,
+   "external_requests": 0,
+   "contributions": {
+    "hypotheses_formulated": 2
+   },
+   "flag": null
+  },
+  {
+   "role": "C4",
+   "title": "Strategy Synthesis Agent",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "D1",
+   "title": "Research Software Architect",
+   "impl": "deterministic",
+   "tasks": 5,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "D2",
+   "title": "Strategy Implementation Agent",
+   "impl": "deterministic",
+   "tasks": 9,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.2,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "D3",
+   "title": "Test Engineering Agent",
+   "impl": "deterministic",
+   "tasks": 12,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 6.0,
+   "external_requests": 0,
+   "contributions": {
+    "invalid_candidates_rejected": 6
+   },
+   "flag": null
+  },
+  {
+   "role": "D4",
+   "title": "Security and Performance Agent",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.2,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "E1",
+   "title": "Backtesting Scientist",
+   "impl": "delegates",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 40.5,
+   "external_requests": 0,
+   "contributions": {
+    "candidates_refuted": 2,
+    "candidates_inconclusive": 1
+   },
+   "flag": null
+  },
+  {
+   "role": "E2",
+   "title": "Statistical Validation Scientist",
+   "impl": "deterministic",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 10,
+    "supported_test_rows": 6
+   },
+   "flag": null
+  },
+  {
+   "role": "E3",
+   "title": "Adversarial Researcher",
+   "impl": "llm_optional",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 2,
+   "llm_usd_api_equiv": 0.1424,
+   "wall_s": 90.7,
+   "external_requests": 0,
+   "contributions": {
+    "hard_failures_found": 0,
+    "candidates_challenged": 3,
+    "specialist_critiques": 1
+   },
+   "flag": null
+  },
+  {
+   "role": "E4",
+   "title": "Causal Simulation Researcher",
+   "impl": "delegates",
+   "tasks": 3,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.2,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "F1",
+   "title": "Chief Research Orchestrator",
+   "impl": "deterministic",
+   "tasks": 0,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": "no activity"
+  },
+  {
+   "role": "F2",
+   "title": "Scientific Memory Curator",
+   "impl": "deterministic",
+   "tasks": 5,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 1.5,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "F3",
+   "title": "Risk and Reliability Researcher",
+   "impl": "deterministic",
+   "tasks": 6,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 2.9,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "F4",
+   "title": "Evolution Coordinator",
+   "impl": "deterministic",
+   "tasks": 5,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.2,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "G1",
+   "title": "Quantitative Research Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 1,
+   "llm_usd_api_equiv": 0.1128,
+   "wall_s": 32.5,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 12,
+    "specialist_proposals_rejected_invalid": 1
+   },
+   "flag": null
+  },
+  {
+   "role": "G2",
+   "title": "Time-Series Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.7,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "G3",
+   "title": "Cycle Discovery Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 1.1,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 16
+   },
+   "flag": null
+  },
+  {
+   "role": "G4",
+   "title": "Statistical Arbitrage Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "H1",
+   "title": "Calendar Anomaly Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 22.4,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 408,
+    "supported_test_rows": 4
+   },
+   "flag": null
+  },
+  {
+   "role": "H2",
+   "title": "Recurring Event Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  },
+  {
+   "role": "H3",
+   "title": "Multi-Scale Cycle Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.6,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 8
+   },
+   "flag": null
+  },
+  {
+   "role": "H4",
+   "title": "Cycle Interaction Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 4
+   },
+   "flag": null
+  },
+  {
+   "role": "I1",
+   "title": "Political Cycle Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 1.0,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 60
+   },
+   "flag": null
+  },
+  {
+   "role": "I2",
+   "title": "Monetary Policy Scientist",
+   "impl": "deterministic",
+   "tasks": 4,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 8.9,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 16,
+    "supported_test_rows": 2
+   },
+   "flag": null
+  },
+  {
+   "role": "I3",
+   "title": "Economic Calendar Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {
+    "registered_tests": 8
+   },
+   "flag": null
+  },
+  {
+   "role": "I4",
+   "title": "Geopolitical and Cross-Asset Scientist",
+   "impl": "deterministic",
+   "tasks": 2,
+   "failed": 0,
+   "llm_calls": 0,
+   "llm_usd_api_equiv": 0.0,
+   "wall_s": 0.0,
+   "external_requests": 0,
+   "contributions": {},
+   "flag": null
+  }
+ ],
+ "flagged": [],
+ "dedup_with_without": {
+  "duplicates_stopped_with_A4": 7,
+  "with_A4": {
+   "downstream_wall_s": 0.0,
+   "extra_validation_trials": 0,
+   "extra_llm_calls": 0
+  },
+  "without_A4_estimate": {
+   "downstream_wall_s": 241.1,
+   "extra_validation_trials": 7,
+   "extra_llm_calls_upper_bound": 14,
+   "extra_llm_usd_at_measured_mean": 0.584
+  },
+  "A4_cost_measured_wall_s": 1.0966699123382568,
+  "measured_chain_wall_s_per_candidate": 34.45,
+  "label": "replay estimate from measured per-stage costs on the recorded cycles (the pipeline was not re-run without A4)"
+ },
+ "policy": "flags are recommendations; disabling a role is a human control (army set). Agent count is not a goal."
+}
