@@ -244,3 +244,10 @@ def decisions() -> dict[str, Any]:
         "agenda": _read("data/decisions/agenda.json"),
         "challengers": _read("data/decisions/challengers.json") or {},
     }
+
+
+@router.get("/candidates")
+def candidates() -> dict[str, Any]:
+    from ..forecast.candidates import build
+
+    return build()
