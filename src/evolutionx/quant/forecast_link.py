@@ -37,12 +37,30 @@ def features(origins: np.ndarray, horizon_h: int) -> dict[str, np.ndarray]:
         "saturday_target_day": (wd == 5).astype(float),
         "sunday_target_day": (wd == 6).astype(float),  # amendment 5
         "monday_target_day": (wd == 0).astype(float),  # amendment 5
+        **_cross_asset(origins),  # amendment 7
     }
 
 
+def _cross_asset(origins: np.ndarray) -> dict[str, np.ndarray]:
+    """VIX level and S&P 500 |return| from FRED, using observations dated <= origin_date - 3 days only."""
+    from .data import load_fred
+
+    vix, spx = load_fred("VIXCLS"), load_fred("SP500")
+    out_v, out_s = [], []
+    for o in origins:
+        cut = (o // DAY_MS - 3) * DAY_MS  # FRED observation timestamps are 00:00 UTC of the observation date
+        iv = int(np.searchsorted(vix.t, cut, side="right")) - 1
+        is_ = int(np.searchsorted(spx.t, cut, side="right")) - 1
+        out_v.append(float(np.log(vix.close[iv])) if iv >= 0 else np.nan)
+        out_s.append(float(abs(np.log(spx.close[is_] / spx.close[is_ - 1]))) if is_ >= 1 else np.nan)
+    return {"vix_log_lag": np.array(out_v), "spx_absret_lag": np.array(out_s)}
+
+
+DAY_MS = 86_400_000
 FAMILY_FEATURES = {
     "F-FCAST": ("fomc_in_window", "saturday_target_day"),
     "F-FCAST-2": ("sunday_target_day", "monday_target_day"),
+    "F-FCAST-3": ("vix_log_lag", "spx_absret_lag"),
 }
 
 
@@ -158,8 +176,11 @@ def issue_challengers(now: dt.datetime | None = None, origin_ms: int | None = No
         b0.fit(Xa[lab], y[lab], t)
         val = mod.predict(np.r_[x_now, f_now], t, dom.sigma_h(feats_now, t.horizon_h))
         model = f"CH:{fname}"
-        from ..forecast.challengers import retired
+        from ..forecast.challengers import active, retired
 
+        if not active(model, t.name):  # not activated by a journaled decision
+            out.append({"target": t.name, "model": model, "skipped": "not activated (data/decisions/challengers.json)"})
+            continue
         if retired(model, t.name):  # frozen futility rule retired this challenger on this target
             out.append({"target": t.name, "model": model, "skipped": "retired (challenger_policy_v1)"})
             continue

@@ -16,5 +16,11 @@
   "sha256": "0b5d303cf57849965cbbcbd908cc8302ce6164163d81334bc1be68d648e7df15",
   "bytes": 104538,
   "retrieved_utc": "2026-11-03T23:09:56+00:00"
+ },
+ "VIXCLS": {
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+  "sha256": "94dd44a77d3969d0f24a0bea3619aa589f7f1d7787c53403b444b4e4ebf53d17",
+  "bytes": 161816,
+  "retrieved_utc": "2026-11-04T06:05:01+00:00"
  }
 }

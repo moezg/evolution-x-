@@ -364,3 +364,78 @@ def run_dow_amendment4(run_id: str, reg: TestRegistry | None = None) -> dict[str
         "weeks": {"DISCOVERY": disc["n_weeks"], "CONFIRMATION": conf["n_weeks"]},
         "results": results,
     }
+
+
+# ----------------------------------------------------------------------------- amendment 6: within-block permutation
+N_BLOCKPERM = 4999
+
+
+def scan_blockperm(
+    f: dict[str, np.ndarray], family: str, period: str, adjust_weekday: bool = True, seed: int = 0
+) -> dict[str, Any]:
+    """F-DOM / F-TOM: day labels permuted within calendar months; F-MOY: month labels permuted within years."""
+    key = {"F-DOM": "dom", "F-MOY": "moy", "F-TOM": "tom"}[family]
+    m = _period(f, period)
+    x, lab, dates = f["ret"][m].copy(), f[key][m], f["date"][m]
+    if adjust_weekday:
+        wd = f["dow"][m]
+        for d in range(7):
+            x[wd == d] -= x[wd == d].mean()
+    values = np.unique(lab) if key != "tom" else np.array([1])
+    q05 = float(np.quantile(x, 0.05))
+    cols = np.stack([x, np.abs(x), (x > 0).astype(float), (x < q05).astype(float)])  # noqa: SIM300
+    n = len(x)
+    tot = cols.sum(axis=1)
+    vmax = int(values.max()) + 1
+
+    def stats(lb: np.ndarray) -> np.ndarray:  # [label, metric]
+        cnt = np.bincount(lb, minlength=vmax)[values]
+        s = np.stack([np.bincount(lb, weights=c, minlength=vmax)[values] for c in cols], axis=1)
+        with np.errstate(invalid="ignore", divide="ignore"):
+            return s / cnt[:, None] - (tot[None] - s) / (n - cnt)[:, None]
+
+    lab_i = lab.astype(int)
+    obs = stats(lab_i)
+    rng = np.random.default_rng(seed)
+    month_id = np.unique(np.array([d[:7] for d in dates]), return_inverse=True)[1]
+    year = np.array([int(d[:4]) for d in dates])
+    null = np.empty((N_BLOCKPERM, *obs.shape))
+    if key in ("dom", "tom"):  # dates are sorted, so months are contiguous blocks
+        for i in range(N_BLOCKPERM):
+            order = np.lexsort((rng.random(n), month_id))
+            null[i] = stats(lab_i[order])
+    else:
+        units = np.unique(month_id)
+        unit_year = np.array([year[month_id == u][0] for u in units])
+        unit_lab = np.array([lab_i[month_id == u][0] for u in units])
+        for i in range(N_BLOCKPERM):
+            new = unit_lab.copy()
+            for y in np.unique(unit_year):
+                idx = np.where(unit_year == y)[0]
+                new[idx] = unit_lab[rng.permutation(idx)]
+            null[i] = stats(new[month_id])
+    mu = np.nanmean(null, axis=0)
+    p_two = (1 + np.sum(np.abs(null - mu) >= np.abs(obs - mu)[None] - 1e-15, axis=0)) / (N_BLOCKPERM + 1)
+    p_up = (1 + np.sum(null >= obs[None] - 1e-15, axis=0)) / (N_BLOCKPERM + 1)
+    p_dn = (1 + np.sum(null <= obs[None] + 1e-15, axis=0)) / (N_BLOCKPERM + 1)
+    sd = np.nanstd(null, axis=0)
+    counts = {int(v): int((lab_i == v).sum()) for v in values}
+    rows = []
+    for i, v in enumerate(values):
+        for j, met in enumerate(METRICS):
+            rows.append(
+                {
+                    "label": int(v), "metric": met + ("_wd_adj" if adjust_weekday and met == "mean_ret" else ""),
+                    "n": counts[int(v)], "n_ref": n - counts[int(v)], "effect": float(obs[i, j]), "null_sd": float(sd[i, j]),
+                    "ci_lo": float(obs[i, j] - 1.96 * sd[i, j]), "ci_hi": float(obs[i, j] + 1.96 * sd[i, j]),
+                    "p": float(p_two[i, j]), "p_up": float(p_up[i, j]), "p_down": float(p_dn[i, j]),
+                }
+            )  # fmt: skip
+    return {
+        "family": family,
+        "period": period,
+        "n_days": n,
+        "rows": rows,
+        "q05": q05,
+        "method": "within-block permutation (amendment 6)",
+    }

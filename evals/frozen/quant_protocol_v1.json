@@ -216,5 +216,36 @@
       }
     },
     "disclosure": "the forecast SCREEN and DEV periods are previously exposed; this is selection evidence only. The weekday effects themselves were found on the same daily data; the feature test is a pipeline step, not independent confirmation."
+  },
+  "amendment_6": {
+    "written_utc": "2026-11-04T06:03:54+00:00",
+    "trigger": "quant_calibration_v2: per-family false-supported Wilson upper bounds 3.4-3.8% for F-DOM and F-MOY exceed the 3% bound pre-stated in agenda A3 (decision D-99c58ca842)",
+    "change": "Replace the rotation null by within-block label permutation: F-DOM and F-TOM permute day labels within each calendar month (preserves month-level volatility); F-MOY permutes month labels among the calendar months of each year (preserves year-level volatility). Weekday adjustment, metrics, effects (in-label minus out-of-label mean), periods and the decision rule (BH 0.10 discovery, one-sided Holm 0.05 confirmation, same sign, n >= 20) are unchanged. 4999 permutations, empirical p as amendment 4.",
+    "acceptance_before_real_data": "with the quant_calibration_v2 generators and seeds (300 per generator), each of F-DOM, F-MOY, F-TOM must have a per-family false-supported Wilson 95% upper bound <= 3% under every generator; planted day-14 mean-shift power is reported (no threshold). If a family fails, it is reported as 'no valid method' and no status of that family is used.",
+    "supersedes": "F-DOM, F-MOY and F-TOM statuses of the rotation-method runs once the corrected run is registered (rows kept)",
+    "disclosure": "written after all rotation-method F-DOM/F-MOY/F-TOM results were seen (all rejected, including the 14th). The change is forced by calibration; the corrected run supersedes whatever it shows, including new discoveries, which would then need confirmation like any other.",
+    "unchanged": "F-DOW (amendment 4), thresholds, periods"
+  },
+  "amendment_7": {
+    "written_utc": "2026-11-04T06:05:34+00:00",
+    "trigger": "director agenda: cross-asset information (priority 3); equity-market volatility and moves are a plausible driver of BTC volatility (risk appetite, shared investors)",
+    "new_family": {
+      "F-FCAST-3": {
+        "features": {
+          "vix_log_lag": "log(VIXCLS) of the latest FRED observation dated <= origin_date - 3 days",
+          "spx_absret_lag": "|log change| of FRED SP500 between its two latest observations dated <= origin_date - 3 days"
+        },
+        "point_in_time": "origin O is 00:00 UTC, information cutoff as_of = O - 24 h; observations dated <= O - 3 days closed >= 27 h before as_of and are on FRED before issuance (which happens after the BTC archive of O-1... i.e. on day O-1); no observation after the cutoff can enter",
+        "targets": [
+          "rv_24",
+          "move3_24",
+          "move5_24"
+        ],
+        "tests": 6,
+        "method": "identical to F-FCAST (M1 + feature vs M1, forecast protocol v1 rolling origin, block bootstrap on SCREEN; DEV mean not worse); Holm 0.05 over these 6",
+        "outcome": "passing features become prospective challengers only after (a) the scheduler fetches FRED daily and (b) their own power analysis is computed before outcomes (challenger_policy_v2: they do NOT join the efficacy family without a new policy version)"
+      }
+    },
+    "disclosure": "BTC SCREEN/DEV periods are previously exposed; VIX/SP500 have not been used as BTC forecast features in this project before. General market knowledge that VIX and crypto volatility co-move is a prior, not a result from this project."
   }
 }

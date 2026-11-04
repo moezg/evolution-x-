@@ -286,3 +286,66 @@ def run_dow_acceptance(workers: int = 4) -> dict[str, Any]:
     out["accepted"] = all(v["wilson95"][1] <= 0.03 for v in out["null"].values())
     OUT_DOW.write_text(json.dumps(out, indent=1))
     return out
+
+
+# ----------------------------------------------------------------------------- amendment 6 acceptance (F-DOM/MOY/TOM)
+OUT_BLOCK = Path("artifacts/quant/calibration_blockperm.json")
+BLOCK_FAMS = ("F-DOM", "F-MOY", "F-TOM")
+
+
+def decide_blockperm(f: dict[str, np.ndarray], fam: str) -> list[str]:
+    disc = CAL.scan_blockperm(f, fam, "DISCOVERY")
+    name = lambda r: f"{fam}:{r['label']}:{r['metric']}"  # noqa: E731
+    b = bh({name(r): r["p"] for r in disc["rows"]}, 0.10)
+    surv = [r for r in disc["rows"] if b[name(r)]["reject"]]
+    if not surv:
+        return []
+    cmap = {name(r): r for r in CAL.scan_blockperm(f, fam, "CONFIRMATION")["rows"]}
+    one = {name(r): (cmap[name(r)]["p_up"] if r["effect"] > 0 else cmap[name(r)]["p_down"]) for r in surv}
+    h = holm(one, 0.05)
+    return [
+        name(r)
+        for r in surv
+        if h[name(r)]["reject"]
+        and np.sign(cmap[name(r)]["effect"]) == np.sign(r["effect"])
+        and cmap[name(r)]["n"] >= 20
+    ]
+
+
+def _block_null(args: tuple[str, int]) -> list[str]:
+    g, seed = args
+    f = frame(generate(g, seed)[0])
+    return [h for fam in BLOCK_FAMS for h in decide_blockperm(f, fam)]
+
+
+def _block_power(args: tuple[float, int]) -> bool:
+    size, seed = args
+    r, _ = generate("garch_t5", seed)
+    f = frame(r)
+    f["ret"] = r + size * 0.035 * (f["dom"] == 14)
+    return "F-DOM:14:mean_ret_wd_adj" in decide_blockperm(f, "F-DOM")
+
+
+def run_blockperm_acceptance(workers: int = 4) -> dict[str, Any]:
+    _ACTIVE["v"] = "v2"  # amendment 6: quant_calibration_v2 generators and seeds
+    p = protocol()
+    out: dict[str, Any] = {"amendment": 6, "label": "SYNTHETIC data only (acceptance of the F-DOM/F-MOY/F-TOM block-permutation nulls)", "n_perm": CAL.N_BLOCKPERM, "seeds": "quant_calibration_v2"}  # fmt: skip
+    with ProcessPoolExecutor(workers) as ex:
+        null = {}
+        for g in p["null_generators"]:
+            runs = list(ex.map(_block_null, [(g, p["seed_base"][g] + i) for i in range(p["null_seeds_per_generator"])]))
+            null[g] = {
+                "any": _rate(sum(bool(x) for x in runs), len(runs)),
+                "per_family": {fam: _rate(sum(any(h.startswith(fam + ":") for h in x) for x in runs), len(runs)) for fam in BLOCK_FAMS},
+                "examples": [h for x in runs for h in x][:10],
+            }  # fmt: skip
+        out["null"] = null
+        out["power_day14_mean_shift"] = {
+            str(sz): _rate(sum(ex.map(_block_power, [(sz, p["seed_base"]["power"] + 70_000 + 1000 * i + s) for s in range(40)])), 40)
+            for i, sz in enumerate((0.33, 0.5, 0.67, 1.0))
+        }  # fmt: skip
+    out["accepted_by_family"] = {
+        fam: all(v["per_family"][fam]["wilson95"][1] <= 0.03 for v in null.values()) for fam in BLOCK_FAMS
+    }
+    OUT_BLOCK.write_text(json.dumps(out, indent=1))
+    return out

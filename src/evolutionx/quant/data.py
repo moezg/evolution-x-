@@ -57,6 +57,8 @@ def fetch_btc(interval: str = "1d") -> dict[str, Any]:
 def fetch_fred(series: tuple[str, ...] = ("DGS10", "SP500", "DFEDTARU")) -> dict[str, Any]:
     out = {}
     (ROOT / "fred").mkdir(parents=True, exist_ok=True)
+    man = ROOT / "fred" / "manifest.json"
+    prev = json.loads(man.read_text()) if man.exists() else {}  # keep provenance of series not re-fetched
     with httpx.Client(timeout=60) as c:  # FRED drops connections for some custom User-Agents; default works
         for sid in series:
             r = _get_retry(c, FRED.format(sid=sid))
@@ -67,7 +69,7 @@ def fetch_fred(series: tuple[str, ...] = ("DGS10", "SP500", "DFEDTARU")) -> dict
                 "bytes": len(r.content),
                 "retrieved_utc": dt.datetime.now(dt.UTC).isoformat(timespec="seconds"),
             }
-    (ROOT / "fred" / "manifest.json").write_text(json.dumps(out, indent=1))
+    man.write_text(json.dumps({**prev, **out}, indent=1))
     return out
 
 

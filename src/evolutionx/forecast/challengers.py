@@ -22,6 +22,11 @@ def state() -> dict[str, Any]:
     return json.loads(STATE.read_text()) if STATE.exists() else {}
 
 
+def active(model: str, target: str) -> bool:
+    """Only challengers activated by a journaled decision are issued (a passing feature test is not enough)."""
+    return f"{model}:{target}" in state().get("_active", [])
+
+
 def retired(model: str, target: str) -> bool:
     return target in state().get(model, {}).get("retired_targets", [])
 
@@ -67,6 +72,8 @@ def review(led: ForecastLedger | None = None) -> dict[str, Any]:
     st = state()
     res = {}
     for (model, target), d in paired(led).items():
+        if model.startswith("_"):
+            continue
         r: dict[str, Any] = {"n_pairs": len(d), "mean_diff": float(d.mean()) if len(d) else None}
         if len(d) >= pol["min_resolved_pairs"]:
             lo, hi = block_ci(d)

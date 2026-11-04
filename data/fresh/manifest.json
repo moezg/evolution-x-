@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-04T03:05:47+00:00",
+ "fetched_utc": "2026-11-04T06:03:17+00:00",
  "files": [
   {
    "day": "2026-11-01",
@@ -16,5 +16,7 @@
  ],
  "not_published": [
   "2026-11-03"
- ]
+ ],
+ "filled_from_monthly": [],
+ "publication_last_modified": {}
 }

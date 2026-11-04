@@ -1,6 +1,6 @@
 {
   "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
-  "updated_utc": "2026-11-04T05:02:31+00:00",
+  "updated_utc": "2026-11-04T06:06:45+00:00",
   "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
   "items": [
     {
@@ -49,6 +49,19 @@
       "task": "Amendment 6: within-month (F-DOM) and within-year (F-MOY) block-permutation nulls; synthetic acceptance (per-family upper bound <= 3%) before a registered real-data re-run",
       "why": "v2 per-family false-supported upper bounds 3.4-3.8% exceed the pre-stated 3% bound; method validity of the discovery pipeline",
       "cost": "~1 CPU-hour"
+    },
+    {
+      "id": "A9",
+      "status": "queued",
+      "roles": [
+        "C1",
+        "C3",
+        "E3",
+        "F4"
+      ],
+      "task": "Controlled LLM-vs-deterministic formulation experiment: same sources formulated by the LLM path and by the template path, both pushed through identical validation/novelty/evaluation; pre-register endpoints (valid-hypothesis rate, duplicate rate, evaluation verdicts, cost) before running",
+      "why": "so far no LLM output has changed a research outcome (specialist G1 proposal = disguised duplicate; E3 critique raised a valid concern that did not change the result); the value of LLM agents must be measured, not assumed",
+      "cost": "<= 3 LLM calls/day within the frozen budget; ~2 weeks of daily cycles"
     },
     {
       "id": "A4",
@@ -107,6 +120,10 @@
     {
       "task": "Saturday left-tail rate as an independent finding",
       "why": "rejected under the valid F-DOW method (amendment 4)"
+    },
+    {
+      "task": "lagged cross-asset features (VIX level, S&P 500 |return|) for BTC volatility/move forecasts",
+      "why": "F-FCAST-3 (amendment 7, c20261104T060625-fcast3): 0/6 pass Holm; DEV sign reverses in 6/6 (features slightly hurt). A fresher lag would violate the information cutoff."
     }
   ]
 }
