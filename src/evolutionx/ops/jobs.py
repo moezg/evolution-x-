@@ -374,6 +374,77 @@ def fomc_followup(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
     return rec
 
 
+ELECTION_WINDOWS = (1, 7, 30, 90)
+SPOT_DAILY_1D = "https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1d/BTCUSDT-1d-{d}.zip"
+
+
+def _recorded_followups() -> set[str]:
+    if not FOLLOWUPS.exists():
+        return set()
+    return {json.loads(x).get("key", "") for x in FOLLOWUPS.read_text().splitlines() if x.strip()}
+
+
+def election_slot(now: dt.datetime) -> str | None:
+    """Next due post-election window of the latest U.S. election (descriptive prospective record)."""
+    from ..quant.events import Registry
+
+    ev = [
+        e
+        for e in Registry().current("us_election")
+        if e["attributes"].get("year") == now.year or e["attributes"].get("year") == now.year - 1
+    ]
+    done = _recorded_followups()
+    for e in sorted(ev, key=lambda x: x["event_time_utc"]):
+        day = dt.date.fromisoformat(e["event_time_utc"][:10])
+        for w in ELECTION_WINDOWS:
+            key = f"{e['event_id']}:post_{w}"
+            due = dt.datetime.combine(
+                day + dt.timedelta(days=w + 1), dt.time(6), tzinfo=dt.UTC
+            )  # candle closed + archive
+            if key not in done and due <= now <= due + dt.timedelta(days=30):
+                return key
+    return None
+
+
+def election_followup(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
+    """BTC spot daily close-to-close log return from election day (registered reference) to day +w."""
+    import math
+
+    import httpx
+
+    from ..quant import data as QD
+
+    eid, wk = slot.rsplit(":", 1)
+    w = int(wk.replace("post_", ""))
+    from ..quant.events import Registry
+
+    ev = next(e for e in Registry().current("us_election") if e["event_id"] == eid)
+    day = dt.date.fromisoformat(ev["event_time_utc"][:10])
+    closes = {}
+    archives = []
+    with httpx.Client(timeout=60) as c:
+        for d in (day, day + dt.timedelta(days=w)):
+            dest = QD.ROOT / "binance" / "1d_daily" / f"BTCUSDT-1d-{d.isoformat()}.zip"
+            try:
+                archives.append({"day": d.isoformat(), **QD._fetch(c, SPOT_DAILY_1D.format(d=d.isoformat()), dest)})
+            except httpx.HTTPStatusError:
+                return {"_status": "pending", "_retry_after_s": 3600, "waiting_for": d.isoformat()}
+            rows = QD._rows(dest)
+            closes[d] = float(rows[0][4])
+    ret = math.log(closes[day + dt.timedelta(days=w)] / closes[day])
+    hist = {"2018": {"post_30": -0.62}, "2022": {"post_30": -0.07}}
+    rec = {
+        "key": slot, "event_id": eid, "window_days": w, "btc_log_return": ret, "archives": archives,
+        "historical_midterms_btc": hist if w == 30 else "see docs/QUANT.md (n=2 completed midterms)",
+        "label": "descriptive PROSPECTIVE observation (window entirely after the registered election study); n is far too small for inference",
+        "recorded_utc": iso(now),
+    }  # fmt: skip
+    FOLLOWUPS.parent.mkdir(parents=True, exist_ok=True)
+    with FOLLOWUPS.open("a") as f:
+        f.write(json.dumps(rec) + "\n")
+    return rec
+
+
 # --------------------------------------------------------------------------- registry
 def build_jobs(
     research_runner: Callable[[dict[str, Any]], dict[str, Any]] | None = None, cfg: dict[str, Any] | None = None
@@ -392,4 +463,5 @@ def build_jobs(
         Job("archive_revision_check", True, daily, archive_revision_check, max_attempts=3),
         Job("research_army", False, research_slot, make_research(research_runner or default_research_runner, limits), max_attempts=2),
         Job("fomc_followup", False, fomc_slot, fomc_followup, max_attempts=3),
+        Job("election_followup", False, election_slot, election_followup, max_attempts=3),
     ]  # fmt: skip
