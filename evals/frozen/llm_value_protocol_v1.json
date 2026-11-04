@@ -1,0 +1,21 @@
+{
+  "name": "llm_value_protocol_v1",
+  "frozen_utc": "2026-11-04T06:07:37+00:00",
+  "question": "Do LLM-formulated hypotheses (roles C1-C3) add value over the deterministic template path?",
+  "design": "paired, within-source: whenever a formulation call returns a usable LLM hypothesis, the same template family is also rendered with the template's DEFAULT parameters; both variants are scored identically",
+  "primary_endpoint": "difference in Sharpe (cost model 1x) on ETHUSDT DEVELOPMENT data (last 4 years of the split) between LLM parameters and template defaults. ETH is used because the LLM's context contains BTC development diagnostics only, so BTC development scores would favour the LLM in-sample",
+  "secondary": [
+    "BTC development Sharpe difference (reported, in-context, not decisive)",
+    "LLM failure rate (no usable output per call)",
+    "share of LLM hypotheses rejected as duplicates or invalid",
+    "API-equivalent cost per usable hypothesis"
+  ],
+  "analysis": "after >= 15 pairs: mean paired difference with a 95% bootstrap CI (2000 draws, seed 0) and a sign test",
+  "decision_rule": {
+    "keep_llm_formulation": "CI of the primary endpoint lies above 0",
+    "disable_llm_formulation": "CI includes 0 or lies below 0 AND no secondary endpoint favours the LLM: set army control llm_enabled=false for formulation and reallocate the 3 daily calls to the specialist adversarial/critique roles",
+    "inconclusive": "otherwise continue to 30 pairs, then apply the same rule without further extension"
+  },
+  "budget": "no additional LLM calls: the experiment piggybacks on the frozen <= 3 calls per cycle",
+  "never": "the scoring never feeds promotion; validation data and holdouts are not touched"
+}

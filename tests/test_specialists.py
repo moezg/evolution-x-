@@ -124,3 +124,14 @@ def test_specialist_budgets(ws, monkeypatch):
     s.add_usage("spec-x", "G1", llm_calls=1, cost=2.0)
     assert "USD budget" in llm.allowed("E3")[1]
     assert isinstance(llm, LLM)
+
+
+def test_llm_ab_pair_is_recorded_and_analysed(tmp_path):
+    """A9 measurement on real development data (no LLM call): LLM params vs template defaults."""
+    from evolutionx.army import llm_value
+
+    s = Store(tmp_path / "army")
+    row = llm_value.record(s, "cyc", "C3", "H-test", "vol_managed_long", {"lookback_h": 168, "target_vol": 0.3})
+    assert set(row) == {"eth_l", "eth_d", "btc_l", "btc_d"} and all(isinstance(v, float) for v in row.values())
+    a = llm_value.analyse(s)
+    assert a["pairs"] == 1 and a["decision_ready"] is False

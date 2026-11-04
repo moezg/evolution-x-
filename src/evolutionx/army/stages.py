@@ -422,6 +422,13 @@ def formulate(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
             "duplicate_of": [x["id"] for x in dup] + near,
             "_status": "rejected",
         }
+    if generator == "claude-cli":  # A9: paired LLM-vs-template measurement (never blocks the pipeline)
+        try:
+            from . import llm_value
+
+            llm_value.record(ctx.store, ctx.cycle, t["role"], hid, fam, h.get("params") or {})
+        except Exception as e:  # noqa: BLE001
+            ctx.store.log("F1", "llm_ab_record_failed", {"hypothesis": hid, "error": str(e)[:300]})
     hyp = {
         **h,
         "params": params,
