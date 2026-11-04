@@ -270,5 +270,28 @@
       }
     },
     "disclosure": "written before these derivatives files were downloaded or examined in this project; BTC SCREEN/DEV periods are previously exposed; the simulator's cascade research (v0.5) motivates the open-interest hypothesis (prior, not a result on these data)"
+  },
+  "amendment_9": {
+    "written_utc": "2026-11-04T09:05:51+00:00",
+    "trigger": "director: options-implied volatility is the best-documented forward-looking predictor of realized volatility missing from the champion's inputs (champion features are all backward-looking BTC price/volume statistics; volume surge is already in as lvol_ratio, so a volume feature would be a duplicate)",
+    "source": "Deribit public market-data API get_volatility_index_data (DVOL, BTC 30-day implied volatility index, hourly OHLC, from 2021-03); public, no account, not geo-restricted from this location (HTTP 200)",
+    "new_family": {
+      "F-FCAST-5": {
+        "features": {
+          "dvol_log": "log(DVOL close of the last hourly bar that closed at or before as_of)",
+          "dvol_rv_spread": "dvol_log - log(annualised 30-day realised vol of BTC hourly returns before as_of, in %)  [implied minus realised: variance risk premium / expected change]"
+        },
+        "point_in_time": "only DVOL bars closed at or before the information cutoff as_of (= origin - 24 h) are used, the same cutoff as all other inputs",
+        "targets": [
+          "rv_24",
+          "move3_24",
+          "move5_24"
+        ],
+        "tests": 6,
+        "method": "identical to F-FCAST (M1 + feature vs M1, forecast protocol v1 rolling origin, block bootstrap on SCREEN; DEV mean not worse); Holm 0.05 over these 6; origins before DVOL coverage are excluded by the existing non-finite-feature rule",
+        "outcome": "a passing feature becomes a candidate only; activation needs a journaled decision, daily DVOL ingestion by the scheduler and a power analysis before outcomes (challenger_policy_v2)"
+      }
+    },
+    "disclosure": "written before any DVOL data was downloaded or examined in this project; the implied-vs-realised volatility relationship is well documented for equities (prior, not a result here); BTC SCREEN/DEV periods are previously exposed"
   }
 }

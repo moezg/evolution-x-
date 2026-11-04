@@ -1,0 +1,150 @@
+{
+ "run_id": "c20261104T090654-fcast5",
+ "results": {
+  "F-FCAST-5:dvol_log:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.005344935669569039,
+    "lo": -0.015133265914338834,
+    "hi": 0.0069832506178288825,
+    "p_better": 0.229,
+    "p_floor": 0.229
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.01041505988106041,
+    "lo": -0.004317923994953829,
+    "hi": 0.02995145602913371,
+    "p_better": 0.888
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.229,
+    "p_adj": 0.9,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-5:dvol_log:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.0002661510387358962,
+    "lo": -0.0022157580655962268,
+    "hi": 0.0033154886427502204,
+    "p_better": 0.594,
+    "p_floor": 0.594
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0013282062934292958,
+    "lo": -0.001842397012298402,
+    "hi": 0.004652121216734188,
+    "p_better": 0.7965
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.594,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-5:dvol_log:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0007921053420460605,
+    "lo": -0.0021209905423953197,
+    "hi": 0.0007525054341794005,
+    "p_better": 0.142,
+    "p_floor": 0.142
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0011380383841651947,
+    "lo": -0.0007531793503079618,
+    "hi": 0.0033463342848271374,
+    "p_better": 0.868
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.142,
+    "p_adj": 0.771,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-5:dvol_rv_spread:rv_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.005453883111924536,
+    "lo": -0.015218870309315647,
+    "hi": 0.006907170587917457,
+    "p_better": 0.225,
+    "p_floor": 0.225
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.010419876647078797,
+    "lo": -0.004343430259094499,
+    "hi": 0.029940502870911635,
+    "p_better": 0.8885
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.225,
+    "p_adj": 0.9,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-5:dvol_rv_spread:move3_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": 0.00023139836710043486,
+    "lo": -0.0022167676584824215,
+    "hi": 0.003238730179918778,
+    "p_better": 0.588,
+    "p_floor": 0.588
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0012975491697329456,
+    "lo": -0.0018455293951904082,
+    "hi": 0.00461401522580912,
+    "p_better": 0.7925
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.588,
+    "p_adj": 1.0,
+    "reject": false
+   },
+   "status": "not_promoted"
+  },
+  "F-FCAST-5:dvol_rv_spread:move5_24": {
+   "SCREEN": {
+    "n": 545,
+    "mean": -0.0008473518846756496,
+    "lo": -0.002168190959645548,
+    "hi": 0.0007011584524704734,
+    "p_better": 0.1285,
+    "p_floor": 0.1285
+   },
+   "DEV": {
+    "n": 1095,
+    "mean": 0.0011009967028402883,
+    "lo": -0.0007810732806330499,
+    "hi": 0.003333780725290097,
+    "p_better": 0.8615
+   },
+   "feature_rate": NaN,
+   "holm": {
+    "p": 0.1285,
+    "p_adj": 0.771,
+    "reject": false
+   },
+   "status": "not_promoted"
+  }
+ },
+ "note": "loss differences are H1 - M1 (negative = the feature helps); Brier for binary targets, MSE of log RV for rv_24"
+}

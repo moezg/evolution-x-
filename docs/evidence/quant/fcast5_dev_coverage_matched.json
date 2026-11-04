@@ -1,0 +1,29 @@
+{
+ "label": "DIAGNOSTIC (not a decision input): DEV restricted to origins where DVOL exists",
+ "results": {
+  "dvol_log:rv_24": {
+   "n": 1011,
+   "mean": 0.00622,
+   "lo": -0.0097,
+   "hi": 0.02627
+  },
+  "dvol_log:move3_24": {
+   "n": 1011,
+   "mean": 0.00132,
+   "lo": -0.00214,
+   "hi": 0.00494
+  },
+  "dvol_rv_spread:rv_24": {
+   "n": 1011,
+   "mean": 0.00623,
+   "lo": -0.00971,
+   "hi": 0.02629
+  },
+  "dvol_rv_spread:move3_24": {
+   "n": 1011,
+   "mean": 0.00129,
+   "lo": -0.00212,
+   "hi": 0.00488
+  }
+ }
+}

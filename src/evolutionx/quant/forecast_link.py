@@ -47,7 +47,37 @@ def features(origins: np.ndarray, horizon_h: int, only: tuple[str, ...] | None =
         out |= _cross_asset(origins)  # amendment 7
     if want is None or want & {"oi_logchg_7d", "taker_logratio_24h", "premium_abs_24h"}:
         out |= _derivatives(origins)  # amendment 8
+    if want is None or want & {"dvol_log", "dvol_rv_spread"}:
+        out |= _implied(origins)  # amendment 9
     return out if want is None else {k: v for k, v in out.items() if k in want}
+
+
+def _implied(origins: np.ndarray) -> dict[str, np.ndarray]:
+    """DVOL bars that CLOSED by as_of (bar start <= as_of - 1 h) and 30-day realised vol before as_of (amendment 9)."""
+    from ..forecast.data import load_bars
+    from .implied_vol import ROOT as DROOT
+    from .implied_vol import load_dvol
+
+    n = len(origins)
+    out = {"dvol_log": np.full(n, np.nan), "dvol_rv_spread": np.full(n, np.nan)}
+    if not any(DROOT.glob("dvol_*.json")):
+        return out
+    dv, bars = load_dvol(), load_bars()
+    lc = np.log(bars.close)
+    for i, o in enumerate(origins):
+        a = int(o) - DAY_MS
+        j = int(np.searchsorted(dv["t"], a - 3_600_000, side="right")) - 1
+        if j < 0 or dv["t"][j] < a - 3 * 3_600_000:
+            continue  # no fresh DVOL bar
+        out["dvol_log"][i] = float(np.log(dv["close"][j]))
+        k = int(np.searchsorted(bars.open_time, a, side="left"))  # bars strictly before the cutoff
+        seg = lc[max(0, k - 721) : k]
+        tt = bars.open_time[max(0, k - 721) : k]
+        r = np.diff(seg)[np.diff(tt) == 3_600_000]
+        if len(r) >= 600:
+            rv = float(np.std(r)) * np.sqrt(8760) * 100
+            out["dvol_rv_spread"][i] = out["dvol_log"][i] - float(np.log(rv))
+    return out
 
 
 def _derivatives(origins: np.ndarray) -> dict[str, np.ndarray]:
@@ -99,7 +129,19 @@ FAMILY_FEATURES = {
     "F-FCAST-2": ("sunday_target_day", "monday_target_day"),
     "F-FCAST-3": ("vix_log_lag", "spx_absret_lag"),
     "F-FCAST-4": ("oi_logchg_7d", "taker_logratio_24h", "premium_abs_24h"),
+    "F-FCAST-5": ("dvol_log", "dvol_rv_spread"),
 }
+
+
+def _compare_masked(res: dict[str, Any], period: str, mask: np.ndarray) -> dict[str, float]:
+    from ..forecast import scoring as S
+    from ..forecast.backtest import _period_mask
+
+    y, o, t = res["y"], res["origins"], res["target"]
+    a, b = res["scored"]["H1_hybrid"], res["scored"]["M1_logistic"]
+    m = _period_mask(o, period) & np.isfinite(y) & np.isfinite(a) & np.isfinite(b) & mask
+    loss = S.brier if t.kind == "binary" else S.sq_err
+    return {**S.block_bootstrap_mean(loss(a[m], y[m]) - loss(b[m], y[m])), "n": int(m.sum())}
 
 
 def run(run_id: str, reg: TestRegistry | None = None, family: str = "F-FCAST") -> dict[str, Any]:
@@ -117,7 +159,14 @@ def run(run_id: str, reg: TestRegistry | None = None, family: str = "F-FCAST") -
             )
             sc, dv = compare(r, "H1_hybrid", "M1_logistic", "SCREEN"), compare(r, "H1_hybrid", "M1_logistic", "DEV")
             k = f"{family}:{fname}:{tn}"
-            res[k] = {"SCREEN": sc, "DEV": dv, "feature_rate": float(col.mean())}
+            res[k] = {
+                "SCREEN": sc,
+                "DEV": dv,
+                "feature_rate": float(np.nanmean(col)),
+                "coverage": float(np.mean(np.isfinite(col))),
+            }
+            if not np.all(np.isfinite(col)):  # diagnostic only (not a decision input): DEV on origins with the feature
+                res[k]["DEV_coverage_matched"] = _compare_masked(r, "DEV", np.isfinite(col))
             # the frozen forecast scoring reports the share of bootstrap means >= 0, which can be 0; the registry
             # floors it at 1/(2000+1) so no test claims p = 0
             sc["p_floor"] = max(sc["p_better"], 1 / 2001)
