@@ -380,3 +380,27 @@ def test_resolution_audit_detects_tampering_and_resolve_is_idempotent(ops, monke
     np.savez_compressed(snap, **z)
     bad = A.audit(led, bars=b_all)
     assert not bad["ok"] and {p["check"] for p in bad["problems"]} == {"input_snapshot"}
+
+
+def test_missed_challenger_is_recorded_for_that_model_only(ops, monkeypatch):
+    import json as _json
+
+    start = dt.datetime(2026, 11, 4, tzinfo=dt.UTC)
+    monkeypatch.setattr(J, "SCHEDULE_START", start)
+    (ops.root.parent / "data" / "decisions").mkdir(parents=True)
+    (ops.root.parent / "data" / "decisions" / "challengers.json").write_text(
+        _json.dumps({"_active": ["CH:x:rv_24"], "_activated_from": {"CH:x:rv_24": "2026-11-04"}})
+    )
+    led = ForecastLedger()
+    o = int(start.timestamp() * 1000)
+    rec = {"id": "c", "domain": "btc_perp", "target": "rv_24", "model": "M1_logistic", "model_version": "v",
+           "origin_ms": o, "window_end_ms": o + 24 * HOUR, "as_of_ms": o - 24 * HOUR, "inputs": {}}  # fmt: skip
+    led.issue(rec, now_ms=o - HOUR)  # champion issued, challenger not
+    r = J.forecast_missed_check("x", start + dt.timedelta(hours=1), ops)
+    assert r["recorded_missed"] == [f"{S.iso(start)} CH:x"]
+    m = led.missed()
+    assert len(m) == 1 and m[0]["data"]["model"] == "CH:x"
+    with pytest.raises(LedgerError):  # the missed challenger can never be backfilled ...
+        led.issue({**rec, "id": "x", "model": "CH:x"}, now_ms=o - HOUR)
+    led.issue({**rec, "id": "b", "model": "B0_climatology"}, now_ms=o - HOUR)  # ... other models are not blocked
+    assert led.verify()["ok"]

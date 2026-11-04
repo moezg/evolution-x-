@@ -216,7 +216,7 @@ def forecast_missed_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, A
 
     led = ForecastLedger()
     issued = {e["data"]["origin_ms"] for e in led.forecasts().values() if not e["data"]["model"].startswith("CH:")}
-    missed = {m["data"]["origin_ms"] for m in led.missed()}
+    missed = {m["data"]["origin_ms"] for m in led.missed() if not m["data"].get("model")}  # champion-level misses
     recorded = []
     o = SCHEDULE_START
     while o <= now:  # every origin whose deadline has passed
@@ -226,6 +226,26 @@ def forecast_missed_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, A
             db.notify("error", "forecast_missed_check", f"origin {iso(o)} MISSED (recorded; never backfilled)")
             recorded.append(iso(o))
         o += DAY
+    # activated challengers: a missed challenger origin is recorded for that model only (blocks only that model)
+    from ..forecast.challengers import state
+
+    st = state()
+    ch_issued = {(e["data"]["origin_ms"], e["data"]["model"], e["data"]["target"]) for e in led.forecasts().values()}
+    ch_missed = {(m["data"]["origin_ms"], m["data"].get("model")) for m in led.missed()}
+    for key, start in st.get("_activated_from", {}).items():
+        model, tgt = key.rsplit(":", 1)
+        if key not in st.get("_active", []) or tgt in st.get(model, {}).get("retired_targets", []):
+            continue
+        o = dt.datetime.fromisoformat(start).replace(tzinfo=dt.UTC)
+        while o <= now:
+            oms = _ms(o)
+            if (oms, model, tgt) not in ch_issued and (oms, model) not in ch_missed and oms not in missed:
+                led.record_missed(
+                    "btc_perp", oms, f"challenger {key} not issued before the origin", _ms(now), model=model
+                )
+                ch_missed.add((oms, model))
+                recorded.append(f"{iso(o)} {model}")
+            o += DAY
     return {"recorded_missed": recorded, "missed_total": len(missed) + len(recorded)}
 
 
