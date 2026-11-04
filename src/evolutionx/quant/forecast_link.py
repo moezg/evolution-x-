@@ -22,23 +22,60 @@ from .stats import TestRegistry, holm
 TARGETS = ("rv_24", "move3_24", "move5_24")
 
 
-def features(origins: np.ndarray, horizon_h: int) -> dict[str, np.ndarray]:
-    stmts = np.array(
-        sorted(
-            int(dt.datetime.fromisoformat(e["event_time_utc"]).timestamp() * 1000)
-            for e in Registry().current("fomc")
-            if e["subcategory"] == "scheduled"
+def features(origins: np.ndarray, horizon_h: int, only: tuple[str, ...] | None = None) -> dict[str, np.ndarray]:
+    """Candidate forecast features; `only` restricts computation (the live issuer needs one cheap feature)."""
+    want = set(only) if only else None
+    out: dict[str, np.ndarray] = {}
+    if want is None or "fomc_in_window" in want:
+        stmts = np.array(
+            sorted(
+                int(dt.datetime.fromisoformat(e["event_time_utc"]).timestamp() * 1000)
+                for e in Registry().current("fomc")
+                if e["subcategory"] == "scheduled"
+            )
         )
-    )
-    fomc = np.array([float(np.any((stmts > o) & (stmts <= o + horizon_h * HOUR))) for o in origins])
+        out["fomc_in_window"] = np.array(
+            [float(np.any((stmts > o) & (stmts <= o + horizon_h * HOUR))) for o in origins]
+        )
     wd = np.array([dt.datetime.fromtimestamp(o / 1000, dt.UTC).weekday() for o in origins])
-    return {
-        "fomc_in_window": fomc,
+    out |= {
         "saturday_target_day": (wd == 5).astype(float),
         "sunday_target_day": (wd == 6).astype(float),  # amendment 5
         "monday_target_day": (wd == 0).astype(float),  # amendment 5
-        **_cross_asset(origins),  # amendment 7
     }
+    if want is None or want & {"vix_log_lag", "spx_absret_lag"}:
+        out |= _cross_asset(origins)  # amendment 7
+    if want is None or want & {"oi_logchg_7d", "taker_logratio_24h", "premium_abs_24h"}:
+        out |= _derivatives(origins)  # amendment 8
+    return out if want is None else {k: v for k, v in out.items() if k in want}
+
+
+def _derivatives(origins: np.ndarray) -> dict[str, np.ndarray]:
+    """Open interest, taker flow and premium from rows strictly before as_of = origin - 24 h (amendment 8)."""
+    from .derivatives import ROOT, load_metrics, load_premium
+
+    n = len(origins)
+    nan = {k: np.full(n, np.nan) for k in ("oi_logchg_7d", "taker_logratio_24h", "premium_abs_24h")}
+    if not (ROOT / "metrics").exists() or not (ROOT / "premium").exists():
+        return nan
+    mt, pr = load_metrics(), load_premium()
+    for i, o in enumerate(origins):
+        a = int(o) - DAY_MS  # information cutoff
+        j = int(np.searchsorted(mt["t"], a, side="left")) - 1
+        j7 = int(np.searchsorted(mt["t"], a - 7 * DAY_MS, side="left")) - 1
+        if j >= 0 and j7 >= 0 and mt["t"][j] >= a - 2 * 3_600_000 and mt["oi"][j] > 0 and mt["oi"][j7] > 0:
+            nan["oi_logchg_7d"][i] = np.log(mt["oi"][j] / mt["oi"][j7])
+        lo = int(np.searchsorted(mt["t"], a - DAY_MS, side="left"))
+        tr = mt["taker_ratio"][lo : j + 1]
+        tr = tr[np.isfinite(tr) & (tr > 0)]
+        if len(tr) >= 200:
+            nan["taker_logratio_24h"][i] = float(np.mean(np.log(tr)))
+        pl = int(np.searchsorted(pr["t"], a - DAY_MS, side="left"))
+        ph = int(np.searchsorted(pr["t"], a - 3_600_000, side="right"))  # bars whose close (open + 1 h) <= as_of
+        pv = pr["premium"][pl:ph]
+        if len(pv) >= 20:
+            nan["premium_abs_24h"][i] = float(np.mean(np.abs(pv)))
+    return nan
 
 
 def _cross_asset(origins: np.ndarray) -> dict[str, np.ndarray]:
@@ -61,6 +98,7 @@ FAMILY_FEATURES = {
     "F-FCAST": ("fomc_in_window", "saturday_target_day"),
     "F-FCAST-2": ("sunday_target_day", "monday_target_day"),
     "F-FCAST-3": ("vix_log_lag", "spx_absret_lag"),
+    "F-FCAST-4": ("oi_logchg_7d", "taker_logratio_24h", "premium_abs_24h"),
 }
 
 
@@ -69,7 +107,7 @@ def run(run_id: str, reg: TestRegistry | None = None, family: str = "F-FCAST") -
     dom = BTCDomain(lag_ms=24 * HOUR)
     tab = build_table(dom, "2020-02-01", "2026-10-28", with_sim=False)
     tmap = {t.name: t for t in dom.targets()}
-    feats = features(tab["origins"], 24)
+    feats = features(tab["origins"], 24, only=FAMILY_FEATURES[family])
     res: dict[str, Any] = {}
     p_screen = {}
     for fname, col in ((k, v) for k, v in feats.items() if k in FAMILY_FEATURES[family]):
@@ -165,8 +203,8 @@ def issue_challengers(now: dt.datetime | None = None, origin_ms: int | None = No
     for key in cand:
         _, fname, tname = key.split(":")
         t = tmap[tname]
-        col = features(origins, t.horizon_h)[fname]
-        f_now = features(np.array([origin]), t.horizon_h)[fname][0]
+        col = features(origins, t.horizon_h, only=(fname,))[fname]
+        f_now = features(np.array([origin]), t.horizon_h, only=(fname,))[fname][0]
         y = np.array([np.nan if (v := dom.outcome(t, o)) is None else v for o in origins])
         lab = (origins + t.horizon_h * HOUR <= as_of) & np.isfinite(y) & np.all(np.isfinite(X), axis=1)
         Xa = np.c_[X, col]

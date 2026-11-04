@@ -247,5 +247,28 @@
       }
     },
     "disclosure": "BTC SCREEN/DEV periods are previously exposed; VIX/SP500 have not been used as BTC forecast features in this project before. General market knowledge that VIX and crypto volatility co-move is a prior, not a result from this project."
+  },
+  "amendment_8": {
+    "written_utc": "2026-11-04T06:11:17+00:00",
+    "trigger": "director agenda (priority 3: microstructure and derivatives): Binance's official archive publishes BTCUSDT futures metrics (5-min open interest, taker long/short volume ratio) and 1h premium-index klines on the same daily cadence as the price archive",
+    "new_family": {
+      "F-FCAST-4": {
+        "features": {
+          "oi_logchg_7d": "log(open interest at the last 5-min row before as_of) - log(open interest at the last row before as_of - 7 days)  [leverage build-up -> liquidation-driven volatility]",
+          "taker_logratio_24h": "mean of log(taker long/short volume ratio) over the 5-min rows in [as_of - 24 h, as_of)  [one-sided aggressive flow]",
+          "premium_abs_24h": "mean |premium index close| over the 1h premium-index bars that closed by as_of in the last 24 h  [perp crowding vs index]"
+        },
+        "point_in_time": "only rows timestamped strictly before the forecast information cutoff as_of (= origin - 24 h) are used; these files are published on the same D+1 cadence as the price archive used for as_of",
+        "targets": [
+          "rv_24",
+          "move3_24",
+          "move5_24"
+        ],
+        "tests": 9,
+        "method": "identical to F-FCAST (M1 + feature vs M1, forecast protocol v1 rolling origin, block bootstrap on SCREEN; DEV mean not worse); Holm 0.05 over these 9",
+        "outcome": "passing features are candidates only; activation as prospective challengers requires a journaled decision, daily ingestion of these files by the scheduler, and a power analysis before outcomes (challenger_policy_v2)"
+      }
+    },
+    "disclosure": "written before these derivatives files were downloaded or examined in this project; BTC SCREEN/DEV periods are previously exposed; the simulator's cascade research (v0.5) motivates the open-interest hypothesis (prior, not a result on these data)"
   }
 }
