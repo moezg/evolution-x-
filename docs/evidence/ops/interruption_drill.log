@@ -1,0 +1,4 @@
+{"utc": "2026-11-04T06:22:05+00:00", "event": "drill_start", "ledger_lines": 34, "container": "evox-scheduler"}
+{"utc": "2026-11-04T07:55:00+00:00", "event": "tick_killed_sigkill_mid_issuance", "ledger_lines": 35, "new_lines_before_kill": 1, "partial_sha256": "fe2e00a6ab4373e4d09b2db401b765742516397cc0187d8aff8c52edf8317646"}
+{"utc": "2026-11-04T07:55:00+00:00", "event": "daemon_restarted", "container": "evox-scheduler"}
+{"utc": "2026-11-04T08:25:40+00:00", "event": "resume_result", "seconds_to_complete_after_restart": 1840, "ledger_lines": 71, "new_forecasts": 37, "duplicates_by_id": 0, "duplicates_by_key": 0, "prefix_unchanged": true, "verify": "{\"ok\": true, \"entries\": 71, \"head\": \"578849501e35ab0baa69cb760b353209c09f6112e704f0476c49a98835d9d9e7\", \"forecasts\": 71, \"resolved\": 0, \"missed\": 0, \"unresolvable\": 0}", "completed_before_deadline": true}

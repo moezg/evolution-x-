@@ -96,6 +96,38 @@ def fetch_data(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
     }
 
 
+def archive_revision_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
+    """Detect post-use revisions of the last 7 stored daily archives (remote CHECKSUM vs stored file). A revision is
+    alerted and recorded; stored files are never overwritten (forecasts keep the inputs they were built on)."""
+    import hashlib
+
+    import httpx
+
+    from ..forecast.data import DAILY, FRESH
+
+    out: dict[str, Any] = {"checked": [], "revised": []}
+    days = sorted(p.stem.replace("BTCUSDT-1h-", "") for p in FRESH.glob("BTCUSDT-1h-*.zip"))[-7:]
+    with httpx.Client(timeout=30) as c:
+        for d in days:
+            r = c.get(DAILY.format(d=d) + ".CHECKSUM")
+            if r.status_code != 200:
+                continue
+            remote = r.text.split()[0]
+            local = hashlib.sha256((FRESH / f"BTCUSDT-1h-{d}.zip").read_bytes()).hexdigest()
+            out["checked"].append(d)
+            if remote != local:
+                out["revised"].append({"day": d, "stored_sha256": local, "remote_sha256": remote})
+                key = f"revision_notified:{d}:{remote[:12]}"
+                if not db.q("SELECT 1 FROM heartbeat WHERE key=?", (key,)):
+                    db.notify(
+                        "error",
+                        "archive_revision_check",
+                        f"official archive {d} was REVISED after use (stored {local[:12]}, now {remote[:12]}); stored file kept",
+                    )
+                    db.x("INSERT OR REPLACE INTO heartbeat VALUES (?, ?)", (key, iso(now)))
+    return out
+
+
 def _data_as_of() -> dt.datetime | None:
     """End of the latest published day (cheap; from the fetch manifest)."""
     p = Path("data/fresh/manifest.json")
@@ -342,6 +374,7 @@ def build_jobs(
         Job("ledger_verify", True, daily, ledger_verify),
         Job("drift_check", True, daily, drift_check),
         Job("challenger_review", True, daily, challenger_review),
+        Job("archive_revision_check", True, daily, archive_revision_check, max_attempts=3),
         Job("research_army", False, research_slot, make_research(research_runner or default_research_runner, limits), max_attempts=2),
         Job("fomc_followup", False, fomc_slot, fomc_followup, max_attempts=3),
     ]  # fmt: skip
