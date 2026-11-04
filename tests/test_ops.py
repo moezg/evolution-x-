@@ -338,3 +338,30 @@ def test_source_gap_makes_forecasts_unresolvable_for_all_models(ops, monkeypatch
         by.setdefault(d["target"], set()).add(d["model"])
     assert all(len(models) == 4 for models in by.values())  # every model of an affected target, symmetrically
     assert led.verify()["ok"]
+
+
+def test_resolution_audit_detects_tampering_and_resolve_is_idempotent(ops, monkeypatch):
+    """SYNTHETIC bars/outcomes: issue, resolve twice (idempotent), audit ok; then a rewritten snapshot is caught."""
+    from evolutionx.forecast import audit as A
+
+    b_all = synth_bars(460, seed=5)
+    cut = 450 * 24
+    first = Bars(*(getattr(b_all, f)[:cut] for f in ("open_time", "close", "high", "low", "volume", "source")))
+    _patch_prospective(monkeypatch, ops.root.parent, first)
+    led = ForecastLedger()
+    now = dt.datetime.fromtimestamp((int(first.open_time[-1]) + 3 * HOUR) / 1000, dt.UTC)
+    P.issue(now=now, fetch=False, ledger=led)
+    monkeypatch.setattr(P, "load_bars", lambda: b_all)
+    later = dt.datetime.fromtimestamp((int(b_all.open_time[-1]) + 2 * HOUR) / 1000, dt.UTC)
+    assert P.resolve(now=later, fetch=False, ledger=led)["resolved"] == 32
+    assert P.resolve(now=later, fetch=False, ledger=led)["resolved"] == 0  # idempotent
+    a = A.audit(led, bars=b_all)
+    assert a["ok"] and a["resolutions_checked"] == 32 and a["snapshots_checked"] == 1
+    rep = A.report(led)
+    assert rep["resolved_cells"] == 8 and all(v["n"] == 1 for v in rep["summary"].values())
+    snap = next(iter(led.forecasts().values()))["data"]["input_snapshot"]["path"]
+    z = dict(np.load(snap))
+    z["close"] = z["close"] * 1.001  # someone rewrites the stored input
+    np.savez_compressed(snap, **z)
+    bad = A.audit(led, bars=b_all)
+    assert not bad["ok"] and {p["check"] for p in bad["problems"]} == {"input_snapshot"}

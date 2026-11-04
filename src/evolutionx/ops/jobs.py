@@ -198,12 +198,27 @@ def forecast_missed_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, A
 
 
 def forecast_resolve(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
+    from ..forecast import audit as A
     from ..forecast import prospective as P
 
     r = P.resolve(fetch=False)
     s = P.score()
     P.status_path().write_text(json.dumps(s, indent=1, default=str))
-    return {**r, "scored_pairs": len(s["scores"])}
+    out = {**r, "scored_pairs": len(s["scores"])}
+    if r["resolved"] or now.hour == 12:  # after every new resolution, and once a day regardless
+        a = A.audit()
+        rep = A.report()
+        Path("artifacts/forecast/prospective_report.json").write_text(
+            json.dumps({"audit": a, "report": rep}, indent=1, default=str)
+        )
+        if not a["ok"]:
+            db.notify(
+                "error",
+                "forecast_resolve",
+                f"resolution/input audit FAILED: {a['problems'][:3]} verify={a['ledger_verify'].get('ok')}",
+            )
+        out |= {"audit_ok": a["ok"], "audit_problems": len(a["problems"]), "resolved_cells": rep["resolved_cells"]}
+    return out
 
 
 def ledger_verify(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:

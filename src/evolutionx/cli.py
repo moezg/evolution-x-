@@ -385,6 +385,11 @@ def cmd_observatory(a: argparse.Namespace) -> None:
 
 def cmd_forecast(a: argparse.Namespace) -> None:
     """Predictive intelligence laboratory (paper forecasts only; no orders are ever sent)."""
+    if a.action == "audit":
+        from .forecast import audit as A
+
+        _print({"audit": A.audit(), "report": A.report()})
+        return
     if a.action == "fetch":
         from .forecast.data import fetch_fresh
 
@@ -554,7 +559,7 @@ def main() -> None:
     sp.add_argument("--key", default=None, help="set: control key (llm_enabled, source_arxiv_enabled, ...)")
     sp.add_argument("--value", default=None, help="set: JSON value")
     sp = add("forecast", cmd_forecast)
-    sp.add_argument("action", choices=["fetch", "backtest", "issue", "resolve", "score", "evolve"])
+    sp.add_argument("action", choices=["fetch", "backtest", "issue", "resolve", "score", "evolve", "audit"])
     sp.add_argument("--no-sim", action="store_true", help="backtest without simulator features")
     sp = add("backtest", cmd_backtest)
     sp.add_argument("--strategy", default="v0", help="v0 | champion | path/to/strategy.py")
