@@ -42,8 +42,8 @@ class ForecastLedger:
         return {e["data"]["forecast_id"]: e for e in self.entries() if e["event"] == "resolution"}
 
     def open_forecasts(self) -> list[dict[str, Any]]:
-        res = self.resolutions()
-        return [e for fid, e in self.forecasts().items() if fid not in res]
+        res, unr = self.resolutions(), self.unresolvable()
+        return [e for fid, e in self.forecasts().items() if fid not in res and fid not in unr]
 
     def issue(self, rec: dict[str, Any], now_ms: int | None = None) -> dict[str, Any]:
         now_ms = now_ms if now_ms is not None else int(dt.datetime.now(dt.UTC).timestamp() * 1000)
@@ -89,6 +89,25 @@ class ForecastLedger:
             "forecast-engine",
             "resolution",
             {"forecast_id": fid, "outcome": outcome, "evidence": evidence, "resolved_ms": now_ms},
+        )
+
+    def unresolvable(self) -> dict[str, dict[str, Any]]:
+        return {e["data"]["forecast_id"]: e for e in self.entries() if e["event"] == "unresolvable"}
+
+    def record_unresolvable(self, fid: str, reason: str, now_ms: int) -> dict[str, Any]:
+        """Outcome data never published by the registered source (checked after the monthly archive). Applied to
+        every model of the same origin/target together, so paired comparisons stay unbiased; never a resolution."""
+        f = self.forecasts().get(fid)
+        if f is None:
+            raise LedgerError("unknown forecast")
+        if fid in self.resolutions() or fid in self.unresolvable():
+            raise LedgerError("forecast already closed")
+        if now_ms < f["data"]["window_end_ms"] + 35 * 86_400_000:
+            raise LedgerError(
+                "unresolvable only after the monthly archive could have been published (window end + 35 days)"
+            )
+        return self.j.append(
+            "forecast-engine", "unresolvable", {"forecast_id": fid, "reason": reason, "recorded_ms": now_ms}
         )
 
     def missed(self) -> list[dict[str, Any]]:
@@ -141,4 +160,13 @@ class ForecastLedger:
             ]
             if late:
                 return {"ok": False, "reason": "forecast issued after its origin was recorded as missed"}
-        return {**v, "forecasts": len(issued), "resolved": len(self.resolutions()), "missed": len(self.missed())}
+        for fid in self.unresolvable():
+            if fid in self.resolutions():
+                return {"ok": False, "reason": f"forecast {fid} both resolved and unresolvable"}
+        return {
+            **v,
+            "forecasts": len(issued),
+            "resolved": len(self.resolutions()),
+            "missed": len(self.missed()),
+            "unresolvable": len(self.unresolvable()),
+        }

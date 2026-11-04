@@ -13,6 +13,7 @@ import json
 import time
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from evolutionx.forecast import prospective as P
@@ -309,3 +310,31 @@ def test_research_not_due_waits_instead_of_using_the_slot(ops):
     S.tick([research], dt.datetime(2026, 11, 4, 6, 0, tzinfo=dt.UTC), ops)
     r = ops.q("SELECT status, attempts, next_attempt_utc FROM runs")[0]
     assert r["status"] == "pending" and r["attempts"] == 0 and r["next_attempt_utc"]
+
+
+def test_source_gap_makes_forecasts_unresolvable_for_all_models(ops, monkeypatch):
+    """SYNTHETIC bars with a missing day inside the forecast windows."""
+    b = synth_bars(460, seed=5)
+    _patch_prospective(monkeypatch, ops.root.parent, b)
+    led = ForecastLedger()
+    now = dt.datetime.fromtimestamp((int(b.open_time[-1]) + 3 * HOUR) / 1000, dt.UTC)
+    P.issue(now=now, fetch=False, ledger=led)
+    more = synth_bars(470, seed=5)
+    keep = np.ones(len(more), bool)
+    end = int(b.open_time[-1]) + HOUR
+    keep[(more.open_time >= end + 2 * HOUR) & (more.open_time < end + 26 * HOUR)] = False  # a day never published
+    gapped = Bars(*(getattr(more, f)[keep] for f in ("open_time", "close", "high", "low", "volume", "source")))
+    monkeypatch.setattr(P, "load_bars", lambda: gapped)
+    soon = now + dt.timedelta(days=5)
+    r = P.resolve(now=soon, fetch=False, ledger=led)
+    assert r["unresolvable"] == 0  # too early: the monthly archive could still fill the gap
+    late = now + dt.timedelta(days=40)
+    r = P.resolve(now=late, fetch=False, ledger=led)
+    unr = led.unresolvable()
+    assert r["unresolvable"] == len(unr) > 0
+    by = {}
+    for fid in unr:
+        d = led.forecasts()[fid]["data"]
+        by.setdefault(d["target"], set()).add(d["model"])
+    assert all(len(models) == 4 for models in by.values())  # every model of an affected target, symmetrically
+    assert led.verify()["ok"]

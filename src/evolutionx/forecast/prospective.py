@@ -226,7 +226,8 @@ def resolve(now: dt.datetime | None = None, fetch: bool = True, ledger: Forecast
     dom = BTCDomain(load_bars())
     led = ledger or ForecastLedger()
     targets = {t.name: t for t in dom.targets()}
-    done, pending = [], []
+    done, pending, unresolvable = [], [], []
+    now_ms = int(now.timestamp() * 1000)
     manifest = json.loads((FRESH / "manifest.json").read_text()) if (FRESH / "manifest.json").exists() else {}
     for e in led.open_forecasts():
         d = e["data"]
@@ -234,14 +235,22 @@ def resolve(now: dt.datetime | None = None, fetch: bool = True, ledger: Forecast
             pending.append(d["id"])
             continue
         v = dom.outcome(targets[d["target"]], d["origin_ms"])
-        if v is None:
-            pending.append(d["id"])
+        if v is None:  # bars missing inside the window
+            if now_ms >= d["window_end_ms"] + 35 * 86_400_000:  # monthly archive also lacks them: source gap
+                led.record_unresolvable(
+                    d["id"],
+                    "registered source never published bars inside the window (daily and monthly archives)",
+                    now_ms,
+                )
+                unresolvable.append(d["id"])
+            else:
+                pending.append(d["id"])
             continue
         led.resolve(
             d["id"], v, {"archives": manifest.get("files", []), "bars_end_ms": dom.end_ms}, int(now.timestamp() * 1000)
         )
         done.append(d["id"])
-    return {"resolved": len(done), "pending": len(pending)}
+    return {"resolved": len(done), "pending": len(pending), "unresolvable": len(unresolvable)}
 
 
 def score(ledger: ForecastLedger | None = None) -> dict[str, Any]:
