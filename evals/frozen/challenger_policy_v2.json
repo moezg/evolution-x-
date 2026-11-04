@@ -1,0 +1,74 @@
+{
+  "name": "challenger_policy_v2",
+  "frozen_utc": "2026-11-04T06:03:02+00:00",
+  "written_before": "any challenger forecast resolved (first possible resolution: 2026-11-05)",
+  "extends": "challenger_policy_v1 (loss definitions and the interim futility rule are unchanged)",
+  "pairing": {
+    "rule": "challenger and champion (M1_logistic) forecasts are paired only if origin_ms, target AND as_of_ms (information cutoff) are identical; pairs violating this are excluded and counted in every report"
+  },
+  "inference": {
+    "statistic": "mean(loss_challenger - loss_champion) over resolved pairs",
+    "ci": "moving-block bootstrap, block 7 origins, 2000 draws, seed 0 (24 h targets: windows do not overlap; block covers weekly seasonality and serial dependence)",
+    "one_sided": "improvement = mean < 0"
+  },
+  "multiplicity": {
+    "search": "the challengers come from 12 searched feature-target tests (F-FCAST 6 + F-FCAST-2 6) on exposed data; selection does not bias the prospective test, which uses new data only; it is disclosed, not corrected",
+    "prospective": "Holm across the efficacy family at each look"
+  },
+  "efficacy_family": {
+    "members": [
+      "CH:saturday_target_day:rv_24",
+      "CH:saturday_target_day:move3_24",
+      "CH:monday_target_day:rv_24"
+    ],
+    "rule": "members are the challenger-targets with >= 50% power at look 3 (730 pairs) for HALF their screening effect (winner's-curse shrinkage), alpha 0.01; computed from screening-period block-bootstrap CIs before any outcome",
+    "power_at_180_full/half": {
+      "CH:saturday_target_day:rv_24": [
+        1.0,
+        0.55
+      ],
+      "CH:saturday_target_day:move3_24": [
+        0.8,
+        0.23
+      ],
+      "CH:monday_target_day:rv_24": [
+        0.61,
+        0.15
+      ],
+      "CH:sunday_target_day:rv_24": [
+        0.25,
+        0.07
+      ],
+      "CH:monday_target_day:move3_24": [
+        0.19,
+        0.05
+      ]
+    },
+    "exploratory_only": [
+      "CH:sunday_target_day:rv_24",
+      "CH:monday_target_day:move3_24"
+    ],
+    "exploratory_rule": "keep issuing (cost ~0, informs the combined weekday model), report descriptively, never eligible for promotion under this plan"
+  },
+  "sequential": {
+    "efficacy_looks_pairs": [
+      180,
+      365,
+      730
+    ],
+    "alpha_spent_one_sided": [
+      0.005,
+      0.015,
+      0.03
+    ],
+    "control": "Bonferroni over looks (total one-sided 0.05 per family); Holm within each look over the family",
+    "futility": "challenger_policy_v1 rule, may only stop a challenger (cannot inflate type I error)",
+    "no_unplanned_looks": "efficacy is only evaluated at planned looks; dashboards show descriptive running means labelled 'not a test'"
+  },
+  "promotion_requires": [
+    "reject at a planned look after Holm",
+    "same sign at the previous planned look if any",
+    "human approval (unchanged)",
+    "180 resolved pairs alone is NOT sufficient evidence"
+  ]
+}

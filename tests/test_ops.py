@@ -259,10 +259,15 @@ def test_interrupted_issuance_resumes_without_duplicates_or_changes(ops, monkeyp
 def test_issue_job_waits_for_fresh_data_then_never_issues_late(ops, monkeypatch):
     origin = dt.datetime(2026, 11, 5, tzinfo=dt.UTC)
     monkeypatch.setattr(J, "_data_as_of", lambda: origin - dt.timedelta(hours=48))  # yesterday not yet published
+    import evolutionx.forecast.data as FD
+
+    calls = []
+    monkeypatch.setattr(FD, "fetch_fresh", lambda: calls.append(1) or {})  # no network in tests
     monkeypatch.setattr(J, "_wall_now", lambda: origin - dt.timedelta(hours=5))
     assert J.forecast_issue("2026-11-05", NOW, ops)["_status"] == "pending"
     monkeypatch.setattr(J, "_wall_now", lambda: origin + dt.timedelta(minutes=1))
     assert J.forecast_issue("2026-11-05", NOW, ops)["_status"] == "failed"
+    assert calls  # while waiting, the job looked for the archive itself
 
 
 def test_issue_slot_window(monkeypatch):
@@ -272,3 +277,35 @@ def test_issue_slot_window(monkeypatch):
     monkeypatch.setattr(J, "ISSUE_LEAD_H", 24.0)  # default: the window opens at 00:00 and waits for fresh data
     assert J.issue_slot(dt.datetime(2026, 11, 4, 0, 0, tzinfo=dt.UTC)) == "2026-11-05"
     assert J.issue_slot(dt.datetime(2026, 11, 4, 23, 59, tzinfo=dt.UTC)) == "2026-11-05"
+
+
+def _zip(path, rows):
+    import zipfile
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(path, "w") as z:
+        z.writestr(path.stem + ".csv", "open_time,open,high,low,close,volume\n" + "\n".join(rows))
+
+
+def test_monthly_fallback_rows_must_equal_daily_rows(tmp_path, monkeypatch):
+    import evolutionx.forecast.data as FD
+    from evolutionx.data.datasets import DataQualityError
+
+    monkeypatch.setattr(FD, "FRESH", tmp_path)
+    a = "1793750400000,1,2,0.5,1.5,10"
+    b = "1793754000000,1.5,2,1,1.8,12"
+    _zip(tmp_path / "BTCUSDT-1h-2026-11-01.zip", [a])
+    _zip(tmp_path / "monthly" / "BTCUSDT-1h-2026-11.zip", [a, b])  # SYNTHETIC rows
+    rows = FD._fresh_rows()
+    assert [r[0] for r in rows] == [1793750400000, 1793754000000]  # identical overlap kept once; gap day filled
+    _zip(tmp_path / "monthly" / "BTCUSDT-1h-2026-11.zip", ["1793750400000,1,2,0.5,1.6,10", b])
+    with pytest.raises(DataQualityError):
+        FD._fresh_rows()
+
+
+def test_research_not_due_waits_instead_of_using_the_slot(ops):
+    runner = lambda c: {"action": "none", "reason": "next cycle due in 2.0 h"}  # noqa: E731
+    research = S.Job("research_army", False, lambda now: "d", J.make_research(runner, S.DEFAULTS))
+    S.tick([research], dt.datetime(2026, 11, 4, 6, 0, tzinfo=dt.UTC), ops)
+    r = ops.q("SELECT status, attempts, next_attempt_utc FROM runs")[0]
+    assert r["status"] == "pending" and r["attempts"] == 0 and r["next_attempt_utc"]

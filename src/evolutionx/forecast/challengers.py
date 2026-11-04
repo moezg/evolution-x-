@@ -15,6 +15,7 @@ from .ledger import ForecastLedger
 POLICY = Path("evals/frozen/challenger_policy_v1.json")
 STATE = Path("data/decisions/challengers.json")
 CHAMPION = "M1_logistic"
+EXCLUDED: list[dict[str, Any]] = []  # pairs excluded by the information-cutoff rule (filled by paired())
 
 
 def state() -> dict[str, Any]:
@@ -43,6 +44,7 @@ def block_ci(d: np.ndarray, block: int = 7, n: int = 2000, seed: int = 0) -> tup
 
 def paired(led: ForecastLedger | None = None) -> dict[tuple[str, str], np.ndarray]:
     led = led or ForecastLedger()
+    EXCLUDED.clear()
     fc, rs = led.forecasts(), led.resolutions()
     champ = {(e["data"]["origin_ms"], e["data"]["target"]): e for e in fc.values() if e["data"]["model"] == CHAMPION}
     out: dict[tuple[str, str], list[tuple[int, float]]] = {}
@@ -50,6 +52,9 @@ def paired(led: ForecastLedger | None = None) -> dict[tuple[str, str], np.ndarra
         d = e["data"]
         c = champ.get((d["origin_ms"], d["target"]))
         if not d["model"].startswith("CH:") or c is None or fid not in rs or c["data"]["id"] not in rs:
+            continue
+        if c["data"]["as_of_ms"] != d["as_of_ms"]:  # challenger_policy_v2: same information cutoff required
+            EXCLUDED.append({"challenger": fid, "champion": c["data"]["id"], "reason": "as_of_ms differs"})
             continue
         y = rs[fid]["data"]["outcome"]
         diff = _loss(d["target"], d["scored_value"], y) - _loss(d["target"], c["data"]["scored_value"], y)
@@ -75,4 +80,9 @@ def review(led: ForecastLedger | None = None) -> dict[str, Any]:
     if st != state():
         STATE.parent.mkdir(parents=True, exist_ok=True)
         STATE.write_text(json.dumps(st, indent=1))
-    return {"reviews": res, "state": st}
+    return {
+        "reviews": res,
+        "state": st,
+        "excluded_pairs": list(EXCLUDED),
+        "note": "running means are descriptive, not tests (challenger_policy_v2: efficacy only at planned looks)",
+    }

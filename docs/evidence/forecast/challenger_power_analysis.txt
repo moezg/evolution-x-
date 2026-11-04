@@ -1,0 +1,6 @@
+one-sided alpha per test (Bonferroni bound over 5 challenger targets) = 0.01
+F-FCAST-2:monday_target_day:move3_24   screen mean -0.00321 sd_eff 0.0297 | power@180: full 0.19 half 0.05 | n for 80% power: full 862 half 3446
+F-FCAST-2:monday_target_day:rv_24      screen mean -0.01226 sd_eff 0.0629 | power@180: full 0.61 half 0.15 | n for 80% power: full 265 half 1057
+F-FCAST-2:sunday_target_day:rv_24      screen mean -0.00641 sd_eff 0.0523 | power@180: full 0.25 half 0.07 | n for 80% power: full 668 half 2671
+F-FCAST:saturday_target_day:move3_24   screen mean -0.00681 sd_eff 0.0289 | power@180: full 0.80 half 0.23 | n for 80% power: full 182 half 726
+F-FCAST:saturday_target_day:rv_24      screen mean -0.04946 sd_eff 0.1350 | power@180: full 1.00 half 0.55 | n for 80% power: full 75 half 299

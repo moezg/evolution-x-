@@ -21,6 +21,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import os
+import re
 import time
 from collections.abc import Callable
 from pathlib import Path
@@ -65,7 +66,34 @@ def fetch_data(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
         raise
     db.source_ok("binance_archives")
     days = [f["day"] for f in m["files"]]
-    return {"latest_day": max(days) if days else None, "not_published": m["not_published"]}
+    gaps = []
+    for d in m["not_published"]:  # a day still unpublished 48 h after it ended is a source gap (alert once)
+        end = dt.datetime.fromisoformat(d).replace(tzinfo=dt.UTC) + DAY
+        filled = any(d in f["fills_days"] for f in m.get("filled_from_monthly", []))
+        if now - end > dt.timedelta(hours=48) and not filled:
+            key = f"gap_notified:{d}"
+            if not db.q("SELECT 1 FROM heartbeat WHERE key=?", (key,)):
+                db.notify(
+                    "warning",
+                    "fetch_data",
+                    f"official archive for {d} still unpublished 48 h after the day ended (source gap)",
+                )
+                db.x("INSERT OR REPLACE INTO heartbeat VALUES (?, ?)", (key, iso(now)))
+            gaps.append(d)
+    lat = {}
+    for d, lm in m.get("publication_last_modified", {}).items():
+        if lm:
+            pub = dt.datetime.strptime(lm, "%a, %d %b %Y %H:%M:%S GMT").replace(tzinfo=dt.UTC)
+            lat[d] = round(
+                (pub - (dt.datetime.fromisoformat(d).replace(tzinfo=dt.UTC) + DAY)).total_seconds() / 3600, 2
+            )
+    return {
+        "latest_day": max(days) if days else None,
+        "not_published": m["not_published"],
+        "source_gaps": gaps,
+        "publication_latency_h_after_day_end": lat,
+        "filled_from_monthly": m.get("filled_from_monthly", []),
+    }
 
 
 def _data_as_of() -> dt.datetime | None:
@@ -93,6 +121,16 @@ def forecast_issue(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
         return {"_status": "failed", "error": "issuance deadline passed before the run started (recorded as missed)"}
     as_of = _data_as_of()
     lag_h = (origin - as_of).total_seconds() / 3600 if as_of else float("inf")
+    if lag_h > FRESH_WAIT_LAG_H:  # waiting: look for the archive now instead of at the next hourly fetch
+        from ..forecast.data import fetch_fresh
+
+        try:
+            fetch_fresh()
+            db.source_ok("binance_archives")
+        except Exception as e:  # the outage is recorded; issuance logic below still applies
+            db.source_fail("binance_archives", f"{type(e).__name__}: {e}")
+        as_of = _data_as_of()
+        lag_h = (origin - as_of).total_seconds() / 3600 if as_of else float("inf")
     if lag_h > FRESH_WAIT_LAG_H and origin - wall_now > dt.timedelta(hours=1):
         return {"_status": "pending", "waiting_for_data": True, "lag_h": lag_h}  # re-checked next tick
     champ = P.issue(now=wall_now, fetch=False, origin_ms=_ms(origin))
@@ -212,6 +250,13 @@ def make_research(runner: Callable[[dict[str, Any]], dict[str, Any]], limits: di
             r = runner(cfg)
         finally:
             db.spend(slot, time.time() - t0, max(0, _army_llm_calls() - c0))
+        m = re.search(r"next cycle due in ([0-9.]+) h", str(r.get("reason", ""))) if r.get("action") == "none" else None
+        if m:  # the army's own cadence says "not yet": wait for it instead of using up today's slot
+            wait_s = float(m.group(1)) * 3600 + 60
+            end_of_day = (_day0(now) + DAY - now).total_seconds()
+            if wait_s < end_of_day:
+                return {"_status": "pending", "_retry_after_s": wait_s, "army": r}
+            return {"_status": "skipped", "reason": "army cycle not due before the end of this UTC day", "army": r}
         return {"army": r, "budget_after": db.budget(slot)}
 
     return research_army

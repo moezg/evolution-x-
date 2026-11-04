@@ -1,0 +1,4 @@
+hours perp 7248 spot 7272 common 7248
+hourly return corr 0.99974 mean |diff| bp 0.8 basis mean bp -4.68 basis sd bp 1.01
+days 300 log RV corr 0.99982 mean log(RVperp/RVspot) -0.0012 sd 0.0098 max abs 0.0567
+3% move label agreement 1.0 disagreements 0
