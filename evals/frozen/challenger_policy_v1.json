@@ -1,0 +1,14 @@
+{
+  "name": "challenger_policy_v1",
+  "frozen_utc": "2026-11-04T03:55:00+00:00",
+  "written_before": "any challenger forecast resolved (0 resolved at freezing time)",
+  "loss": {"binary": "Brier score of scored_value", "rv": "squared error of log(scored_value) vs log(outcome)"},
+  "paired_with": "champion M1_logistic, same origin and target",
+  "interim_futility": {
+    "min_resolved_pairs": 60,
+    "rule": "RETIRE the challenger on a target if the 95% moving-block bootstrap CI (block 7 origins, 2000 draws, seed 0) of mean(loss_challenger - loss_champion) lies entirely above 0",
+    "checked": "daily by the scheduler (job challenger_review); a retirement stops issuance for that target and is journaled as a decision outcome"
+  },
+  "promotion": "unchanged (forecast protocol v1): >= 180 resolved per target, CI entirely below 0, human approval",
+  "no_other_stopping": "no early stopping for success; no re-tuning after outcomes"
+}

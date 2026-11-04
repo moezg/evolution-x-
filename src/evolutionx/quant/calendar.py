@@ -271,3 +271,96 @@ def day14_report(f: dict[str, np.ndarray], dom_rows: list[dict[str, Any]]) -> di
         "by_year": years,
         "multiple_testing": "the 14th is one of 31 days x 4 metrics = 124 tests in F-DOM",
     }
+
+
+# ----------------------------------------------------------------------------- amendment 4: F-DOW within-week permutation
+N_WEEKPERM = 4999
+
+
+def scan_dow_weekperm(f: dict[str, np.ndarray], period: str, seed: int = 0) -> dict[str, Any]:
+    """F-DOW with a within-week label permutation null (complete Monday-Sunday weeks only)."""
+    m = _period(f, period)
+    dates = f["date"][m]
+    x_all, dow = f["ret"][m], f["dow"][m]
+    ordn = np.array([dt.date.fromisoformat(d).toordinal() for d in dates])
+    wk = ordn - dow  # Monday ordinal of each day's week
+    keep = np.isin(wk, [w for w, c in zip(*np.unique(wk, return_counts=True), strict=True) if c == 7])
+    x, d, w = x_all[keep], dow[keep], wk[keep]
+    order = np.lexsort((d, w))
+    X = x[order].reshape(-1, 7)  # rows = weeks, columns = Mon..Sun
+    q05 = float(np.quantile(X, 0.05))
+    mats = np.stack([X, np.abs(X), (X > 0).astype(float), (X < q05).astype(float)])  # noqa: SIM300 - metric, week, weekday
+
+    def eff(M: np.ndarray) -> np.ndarray:  # [metric, weekday]: mean(d) - mean(other six)
+        col = M.mean(axis=1)
+        tot = col.sum(axis=1, keepdims=True)
+        return col - (tot - col) / 6
+
+    obs = eff(mats)
+    rng = np.random.default_rng(seed)
+    null = np.empty((N_WEEKPERM, *obs.shape))
+    rows_idx = np.arange(X.shape[0])[:, None]
+    for i in range(N_WEEKPERM):
+        p = np.argsort(rng.random(X.shape), axis=1)
+        null[i] = eff(mats[:, rows_idx, p])
+    mu = null.mean(0)
+    p_two = (1 + np.sum(np.abs(null - mu) >= np.abs(obs - mu)[None] - 1e-15, axis=0)) / (N_WEEKPERM + 1)
+    p_up = (1 + np.sum(null >= obs[None] - 1e-15, axis=0)) / (N_WEEKPERM + 1)
+    p_dn = (1 + np.sum(null <= obs[None] + 1e-15, axis=0)) / (N_WEEKPERM + 1)
+    sd = null.std(0)
+    rows = []
+    for j, met in enumerate(METRICS):
+        for lab in range(7):
+            rows.append(
+                {
+                    "label": lab, "metric": met, "n": int(X.shape[0]), "n_ref": int(6 * X.shape[0]),
+                    "effect": float(obs[j, lab]), "null_sd": float(sd[j, lab]),
+                    "ci_lo": float(obs[j, lab] - 1.96 * sd[j, lab]), "ci_hi": float(obs[j, lab] + 1.96 * sd[j, lab]),
+                    "p": float(p_two[j, lab]), "p_up": float(p_up[j, lab]), "p_down": float(p_dn[j, lab]),
+                    "z": float((obs[j, lab] - mu[j, lab]) / sd[j, lab]) if sd[j, lab] > 0 else float("nan"),
+                }
+            )  # fmt: skip
+    return {
+        "family": "F-DOW",
+        "period": period,
+        "n_weeks": int(X.shape[0]),
+        "rows": rows,
+        "q05": q05,
+        "method": "within-week permutation (amendment 4)",
+    }
+
+
+def run_dow_amendment4(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
+    """Registered F-DOW re-run under amendment 4 (only after its synthetic acceptance passed)."""
+    acc = Path("artifacts/quant/calibration_dow_weekperm.json")
+    if not acc.exists() or not json.loads(acc.read_text()).get("accepted"):
+        raise RuntimeError("amendment 4 method has not passed its synthetic acceptance; F-DOW has no valid method")
+    reg = reg or TestRegistry()
+    f = daily_frame()
+    sha = hashlib.sha256(f["ret"][np.isfinite(f["ret"])].tobytes()).hexdigest()[:16]
+    disc = scan_dow_weekperm(f, "DISCOVERY")
+    conf = scan_dow_weekperm(f, "CONFIRMATION")
+    name = lambda r: f"F-DOW:{r['label']}:{r['metric']}"  # noqa: E731
+    b = bh({name(r): r["p"] for r in disc["rows"]}, 0.10)
+    cmap = {name(r): r for r in conf["rows"]}
+    surv = [r for r in disc["rows"] if b[name(r)]["reject"]]
+    one = {name(r): (cmap[name(r)]["p_up"] if r["effect"] > 0 else cmap[name(r)]["p_down"]) for r in surv}
+    h = holm(one, 0.05)
+    results = []
+    for r in disc["rows"]:
+        k, c = name(r), cmap[name(r)]
+        st = "rejected"
+        if b[k]["reject"]:
+            ok = h[k]["reject"] and np.sign(c["effect"]) == np.sign(r["effect"]) and c["n"] >= 20
+            st = "supported" if ok else "inconclusive"
+        common = {"family": "F-DOW", "hypothesis": k, "status": st, "direction": int(np.sign(r["effect"])), "data_sha": sha, "protocol_sha": protocol_sha(), "run_id": run_id}  # fmt: skip
+        reg.record({**common, "role": "H1", "method": "within-week permutation (4999) + BH(0.10) [amendment 4]", "period": "DISCOVERY", "n": r["n"], "n_ref": r["n_ref"], "effect": r["effect"], "ci_lo": r["ci_lo"], "ci_hi": r["ci_hi"], "p": r["p"], "p_adj": b[k]["p_adj"], "adj_method": "BH within F-DOW (28)", "details": {"unit": "weeks", "supersedes": "rotation-method F-DOW rows (amendment 4)"}})  # fmt: skip
+        if k in one:
+            reg.record({**common, "role": "E2", "method": "within-week permutation one-sided + Holm(0.05) [amendment 4]", "period": "CONFIRMATION", "n": c["n"], "n_ref": c["n_ref"], "effect": c["effect"], "ci_lo": c["ci_lo"], "ci_hi": c["ci_hi"], "p": one[k], "p_adj": h[k]["p_adj"], "adj_method": f"Holm over {len(one)} survivors"})  # fmt: skip
+        results.append({"hypothesis": k, "status": st, "disc_effect": r["effect"], "disc_p": r["p"], "p_bh": b[k]["p_adj"], "conf_effect": c["effect"], "conf_p_one_sided": one.get(k), "conf_holm": h.get(k)})  # fmt: skip
+    return {
+        "run_id": run_id,
+        "data_sha": sha,
+        "weeks": {"DISCOVERY": disc["n_weeks"], "CONFIRMATION": conf["n_weeks"]},
+        "results": results,
+    }

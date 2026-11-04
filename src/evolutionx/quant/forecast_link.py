@@ -147,6 +147,11 @@ def issue_challengers(now: dt.datetime | None = None, origin_ms: int | None = No
         b0.fit(Xa[lab], y[lab], t)
         val = mod.predict(np.r_[x_now, f_now], t, dom.sigma_h(feats_now, t.horizon_h))
         model = f"CH:{fname}"
+        from ..forecast.challengers import retired
+
+        if retired(model, t.name):  # frozen futility rule retired this challenger on this target
+            out.append({"target": t.name, "model": model, "skipped": "retired (challenger_policy_v1)"})
+            continue
         fid = forecast_id(dom.name, t.name, model, origin, version)
         if any(  # same (origin, target, model) already issued, whatever its version
             (e["data"]["origin_ms"], e["data"]["target"], e["data"]["model"]) == (origin, t.name, model)

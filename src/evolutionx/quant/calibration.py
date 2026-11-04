@@ -215,3 +215,57 @@ def run(workers: int = 4, null_seeds: int | None = None, power_seeds: int | None
         OUT.parent.mkdir(parents=True, exist_ok=True)
         OUT.write_text(json.dumps(out, indent=1))
     return out
+
+
+# ----------------------------------------------------------------------------- amendment 4 acceptance (F-DOW)
+OUT_DOW = Path("artifacts/quant/calibration_dow_weekperm.json")
+
+
+def decide_dow_weekperm(f: dict[str, np.ndarray]) -> list[str]:
+    disc = CAL.scan_dow_weekperm(f, "DISCOVERY")
+    name = lambda r: f"F-DOW:{r['label']}:{r['metric']}"  # noqa: E731
+    b = bh({name(r): r["p"] for r in disc["rows"]}, 0.10)
+    surv = [r for r in disc["rows"] if b[name(r)]["reject"]]
+    if not surv:
+        return []
+    cmap = {name(r): r for r in CAL.scan_dow_weekperm(f, "CONFIRMATION")["rows"]}
+    one = {name(r): (cmap[name(r)]["p_up"] if r["effect"] > 0 else cmap[name(r)]["p_down"]) for r in surv}
+    h = holm(one, 0.05)
+    return [name(r) for r in surv if h[name(r)]["reject"] and np.sign(cmap[name(r)]["effect"]) == np.sign(r["effect"])]
+
+
+def _dow_null(args: tuple[str, int]) -> list[str]:
+    g, seed = args
+    return decide_dow_weekperm(frame(generate(g, seed)[0]))
+
+
+def _dow_power(args: tuple[float, int]) -> list[str]:
+    scale, seed = args
+    r, _ = generate("garch_t5", seed)
+    f = frame(r)
+    f["ret"] = np.where(f["dow"] == 5, r * scale, r)
+    return decide_dow_weekperm(f)
+
+
+def run_dow_acceptance(workers: int = 4) -> dict[str, Any]:
+    p = protocol()
+    out: dict[str, Any] = {
+        "amendment": 4,
+        "label": "SYNTHETIC data only (acceptance of the corrected F-DOW method)",
+        "n_perm": CAL.N_WEEKPERM,
+    }
+    with ProcessPoolExecutor(workers) as ex:
+        null = {}
+        for g in p["null_generators"]:
+            runs = list(ex.map(_dow_null, [(g, p["seed_base"][g] + i) for i in range(p["null_seeds_per_generator"])]))
+            k = sum(bool(x) for x in runs)
+            null[g] = {**_rate(k, len(runs)), "per_metric": {m: _rate(sum(any(_metric(h) == m for h in x) for x in runs), len(runs)) for m in CAL.METRICS}, "examples": [h for x in runs for h in x][:10]}  # fmt: skip
+        out["null"] = null
+        power = {}
+        for i, sc in enumerate((0.9, 0.85, 0.8, 0.7)):
+            runs = list(ex.map(_dow_power, [(sc, p["seed_base"]["power"] + 50_000 + 1000 * i + s) for s in range(40)]))
+            power[f"saturday_vol_x{sc}"] = {**_rate(sum("F-DOW:5:mean_absret" in x for x in runs), 40), "other_weekday_false": sum(any(not h.startswith("F-DOW:5:") for h in x) for x in runs)}  # fmt: skip
+        out["power"] = power
+    out["accepted"] = all(v["wilson95"][1] <= 0.03 for v in out["null"].values())
+    OUT_DOW.write_text(json.dumps(out, indent=1))
+    return out

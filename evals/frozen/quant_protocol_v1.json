@@ -186,5 +186,14 @@
     },
     "disclosure": "general market lore says CPI/NFP days are volatile for risk assets; this is a prior belief, not an observation from this project's data. Confirmation-period BTC prices were seen in other project contexts (see periods.exposure_note).",
     "unchanged": "all thresholds, periods and existing families"
+  },
+  "amendment_4": {
+    "written_utc": "2026-11-04T04:08:27+00:00",
+    "trigger": "quant_calibration_v1 showed F-DOW producing ~8x its expected share of false 'supported' results (13/300 under iid); diagnosis: circular rotations with the same shift mod 7 give near-identical weekday statistics, so the F-DOW rotation null has only ~6 clusters (essentially the other weekdays) and the amendment-2 normal approximation is invalid for this family (an exact rank p of ~1/7 became z = -2.7 for Saturday |return|)",
+    "change": "F-DOW only: within-week label permutation. Restrict the period to complete Monday-Sunday weeks; effect of weekday d = mean over d minus mean over the other six days of the same weeks; null = 4999 joint random permutations of the 7 values inside every week (preserves all between-week volatility dependence); two-sided empirical p = (1 + #{|null - mean_null| >= |obs - mean_null|}) / 5000; one-sided analogues for confirmation. Decision rule unchanged (BH 0.10 on DISCOVERY, one-sided Holm 0.05 on CONFIRMATION, same sign, n >= 20).",
+    "acceptance_before_real_data": "the corrected F-DOW rule must first pass synthetic calibration with the quant_calibration_v1 generators and seeds (300 per generator, F-DOW only): per-family false-supported Wilson 95% upper bound <= 3% under every generator. If it fails, F-DOW is reported as 'no valid method' and no F-DOW status is used anywhere.",
+    "supersedes": "all F-DOW statuses from the rotation method (registered runs c20261103T2323577382, c20261103T233607736b) once the corrected run is registered; those rows stay in the registry, marked superseded",
+    "disclosure": "written after the rotation-based F-DOW results had been seen (Saturday |return| and left-tail: supported). The change is forced by the synthetic calibration, not chosen for a real-data outcome; whatever the corrected run shows supersedes, including a loss of support.",
+    "unchanged": "F-DOM, F-MOY, F-TOM (their per-family calibration rates were within expectation), periods, thresholds"
   }
 }

@@ -156,6 +156,20 @@ def drift_check(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
     return {k: r[k] for k in ("resolved", "open", "alerts", "status")}
 
 
+def challenger_review(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
+    from ..forecast.challengers import review
+    from .decisions import Decisions
+
+    r = review()
+    for k, v in r["reviews"].items():
+        if str(v.get("action", "")).startswith("RETIRED"):
+            db.notify("warning", "challenger_review", f"{k} retired by the frozen futility rule: {v}")
+            dec = [d for d in Decisions().view() if d.get("subject") == k.split(":")[0] + ":" + k.split(":")[1]]
+            if dec:
+                Decisions().outcome(dec[-1]["id"], f"{k} retired by futility rule: {v}", None)
+    return r
+
+
 # --------------------------------------------------------------------------- optional
 def _army_llm_calls() -> int:
     from ..army.store import Store
@@ -282,6 +296,7 @@ def build_jobs(
         Job("forecast_resolve", True, hourly, forecast_resolve),
         Job("ledger_verify", True, daily, ledger_verify),
         Job("drift_check", True, daily, drift_check),
+        Job("challenger_review", True, daily, challenger_review),
         Job("research_army", False, research_slot, make_research(research_runner or default_research_runner, limits), max_attempts=2),
         Job("fomc_followup", False, fomc_slot, fomc_followup, max_attempts=3),
     ]  # fmt: skip
