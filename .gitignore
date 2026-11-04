@@ -23,3 +23,4 @@ data/quant/binance/
 data/quant/binance_futures/metrics/
 data/quant/binance_futures/premium/
 data/quant/deribit/dvol_*.json
+data/nrt/api/
