@@ -5,6 +5,7 @@ import { usePoll } from "@/lib/hooks";
 
 const NAV = [
   { href: "/", label: "Overview" },
+  { href: "/control", label: "Control Center" },
   { href: "/agents", label: "Agents" },
   { href: "/collective", label: "Collective" },
   { href: "/observatory", label: "Observatory" },

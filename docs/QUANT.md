@@ -17,7 +17,7 @@ All results are produced by `evox quant run` (protocol `evals/frozen/quant_proto
 | Fed funds target (policy actions) | FRED DFEDTARU | 2008-12 .. |
 | U.S. elections | computed from 2 U.S.C. §7 (Cornell LII source URL) | 1962 .. 2026 (33) |
 | FOMC meetings | federalreserve.gov calendars (page sha256 + retrieval time) | 2017 .. 2027: 87 scheduled, 3 unscheduled, 5 notation votes |
-| CPI, NFP, GDP releases | bls.gov returns **HTTP 403** | not available; no dates invented |
+| CPI, NFP, GDP releases | ALFRED vintage dates (v0.7; bls.gov still 403) + BEA schedule | 2017 .. 2026-10 (117 CPI, 117 NFP, 40 GDP advance) |
 | Consensus expectations / surprises | licensed data | not available, so "above expectations" cannot be tested |
 | Geopolitical events | no verified timestamped source | not ingested |
 
@@ -104,6 +104,42 @@ None of the 124 day-of-month tests survives BH. There is no yearly regularity ei
 **Which patterns disappeared?** Within this run, effects that appeared in discovery and failed confirmation:
 - the Saturday up-rate;
 - the FOMC first-hour return.
+
+## v0.7: CPI, payroll and GDP releases (amendment 3)
+
+**Data.** bls.gov returns HTTP 403 here, but the release history is public elsewhere. **ALFRED** (St. Louis Fed real-time archive) dates every vintage of a series by the day its values became public. Running `build_macro` in `quant/macro_releases.py` registers:
+
+| Series | Vintages since 2017 | First releases | Revisions |
+|---|---|---|---|
+| CPIAUCSL (CPI) | 124 | 117 | 7 (February seasonal-factor updates) |
+| PAYEMS (Employment Situation) | 118 | 117 | 1 |
+| GDPC1 (GDP) | 116 | 40 advance estimates | 76 later estimates |
+
+- A vintage counts as a first release when it adds a newer observation period than the previous vintage. Each vintage CSV is cached in `data/quant/alfred/`, with its sha256 recorded on the event.
+- The 2025 shutdown appears as it happened: the September payroll report was released on 2025-11-20, and October had no separate release.
+- **Availability vs schedule:** ALFRED gives the *actual* release **date**. The 08:30 ET time is the agencies' standard convention, so precision is recorded as "day (08:30 ET by convention)". BEA's official schedule page adds *announced* future GDP releases with their stated 8:30 AM time (2 registered: 2026-11-25 and 2026-12-23).
+- The BLS public API is reachable, but anonymous requests are refused (daily quota exhausted for this network), so it is not relied on.
+- **Consensus expectations are still unavailable,** so "above expectations" remains untestable.
+
+**F-MACRO study** (pre-registered as amendment 3 at 03:23 UTC, before any BTC data around these releases was examined; run `macro20261104T032607`):
+- Design: BTC spot, 4 metrics × {CPI, NFP} = 8 tests. The window starts with the 08:00 ET bar, which contains the release. Placebos are 08:00 ET bars on non-release days with the same weekday set.
+
+| Test | Discovery n | Effect vs placebo | p | BH p | Status |
+|---|---|---|---|---|---|
+| CPI \|4 h return\| | 55 | +0.13 pp | 0.53 | 0.80 | rejected |
+| CPI 4 h realized vol | 55 | +0.40 pp | 0.045 | 0.34 | rejected |
+| CPI 4 h return | 55 | +0.14 pp | 0.61 | 0.80 | rejected |
+| CPI 24 h return | 55 | −0.91 pp | 0.086 | 0.34 | rejected |
+| NFP \|4 h return\| | 57 | −0.19 pp | 0.35 | 0.80 | rejected |
+| NFP 4 h realized vol | 57 | −0.09 pp | 0.67 | 0.80 | rejected |
+| NFP 4 h return | 57 | +0.01 pp | 0.96 | 0.96 | rejected |
+| NFP 24 h return | 57 | −0.20 pp | 0.70 | 0.80 | rejected |
+
+**Answer:** BTC moves around CPI and payroll releases are **not** distinguishable from matched non-release mornings in 2017–2022. Nothing survives, so under the registered rule there is no confirmation test and no forecast-feature test.
+
+Contrast with FOMC (supported): the scheduled statement is a BTC volatility event, while CPI and NFP releases as a group are not. Surprise-conditional effects may still exist but cannot be tested without consensus data.
+
+**Prospective follow-up:** after each FOMC statement, the scheduler records the observed 4 h |return| (`artifacts/ops/event_followups.jsonl`). The first record (2026-10-28) is 0.63%. It is out-of-sample but **not prospective**: the event preceded the registered run. The first version of the job labelled it "prospective"; a correction line was appended.
 
 ## Limitations
 - Confirmation data (2023–2026-10) is chronologically held out from every scan, but those BTC prices were seen in other project contexts, so it is not independent. All "supported" results are exploratory.
