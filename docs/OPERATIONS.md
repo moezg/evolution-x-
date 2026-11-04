@@ -95,6 +95,19 @@ Defaults in `ops/scheduler.py: DEFAULTS`:
 | Ledger verification failed | Stop the scheduler and keep the file as evidence. `git diff` against the last commit shows edits; the hash chain names the first bad line. Never "repair" by rewriting history. Corrections are new events. |
 | A forecast is late | It cannot be added. The missed-window job records it. |
 
+## 5b. Data source behaviour and resilience (measured 2026-11-04)
+
+- **Publication latency.** The daily archive for day D is uploaded between **08:33 and 13:32 UTC on D+1** (Last-Modified headers, 9 days). The issuance deadline for data of day D is 00:00 UTC on D+2, so normal delays leave at least 10 h. 2026-10-28 was never published (daily or monthly).
+- **While issuance waits,** `forecast_issue` downloads archives itself, at most every 10 min, instead of waiting for the hourly `fetch_data`.
+- **Monthly fallback.** Official monthly archives of the same instrument are row-identical to the daily files (144/144 rows checked). Once a month is complete, they fill missing days; any disagreement on an overlapping row is a hard `DataQualityError`.
+- **Gap alert:** one warning per day still unpublished 48 h after it ended. The fetch result reports publication latency per day.
+- **Unresolvable forecasts.** If bars inside a window are still missing 35 days after the window (monthly archive also lacks them), every model's forecast for that origin and target is recorded as `unresolvable` together. It is never a resolution, and comparisons stay symmetric.
+- **Rejected alternatives.**
+  - `fapi.binance.com` answers HTTP 451 citing Binance's eligibility terms for this location. Reaching the same data through `www.binance.com/fapi` would circumvent that restriction and is **not used**.
+  - Spot data from `data-api.binance.vision` is near-equivalent (hourly return correlation 0.99974, daily log-RV correlation 0.99982, 3%-move labels 300/300) but is a different instrument. It is kept as a shadow source only (decision `D-24ff2f7dbe`, with pre-stated review triggers).
+
+**Interruption drill.** `scripts/interruption_drill.py` takes over ticking in cron mode. It `kill -9`s a real issuance after some but not all forecasts are written, restarts the daemon, and records whether the resume completes with no duplicates and an unchanged prefix. Evidence: `docs/evidence/ops/interruption_drill.json`. If the deadline passes first, that failure is recorded instead.
+
 ## 6. What was actually tested (2026-11-04)
 
 See `docs/evidence/ops/` for logs:
