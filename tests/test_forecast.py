@@ -253,3 +253,15 @@ def test_evolution_endpoint_serves_the_artifact_or_reports_404(tmp_path, monkeyp
     assert r.status_code == 404 and "not produced yet" in r.json()["detail"]
     (tmp_path / "evolution_v1.json").write_text('{"results": []}')
     assert c.get("/api/forecast/evolution").json() == {"results": []}
+
+
+def test_logistic_fit_survives_a_singular_hessian():
+    """Regression: saturated probabilities made the unregularised intercept singular (crashed a lag study)."""
+    from evolutionx.forecast.models import make
+
+    X = np.r_[np.zeros((50, 2)), np.ones((50, 2)) * 50]
+    y = np.r_[np.zeros(50), np.ones(50)]  # perfectly separable: Newton drives p to 0/1
+    t = Target("move5_24", "binary", 24)
+    m = make("M1_logistic")
+    m.fit(X, y, t)
+    assert np.all(np.isfinite(m.w))

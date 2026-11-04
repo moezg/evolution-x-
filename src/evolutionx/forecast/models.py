@@ -95,10 +95,14 @@ class Logistic(Model):
         w = np.zeros(Z.shape[1])
         w[0] = math.log((y.mean() + 1e-3) / (1 - y.mean() + 1e-3))
         for _ in range(30):
-            p = 1 / (1 + np.exp(-(Z @ w)))
+            with np.errstate(over="ignore"):
+                p = 1 / (1 + np.exp(-(Z @ w)))
             g = Z.T @ (p - y) + R @ w
             H = (Z * (p * (1 - p))[:, None]).T @ Z + R
-            step = np.linalg.solve(H, g)
+            try:
+                step = np.linalg.solve(H, g)
+            except np.linalg.LinAlgError:  # saturated probabilities make the unregularised intercept singular
+                step = np.linalg.lstsq(H, g, rcond=None)[0]  # only used when solve fails: results otherwise identical
             w -= step
             if np.max(np.abs(step)) < 1e-8:
                 break
