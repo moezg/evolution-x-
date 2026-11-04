@@ -1,0 +1,13 @@
+# Runtime state and data are mounted as volumes (docker-compose), never baked into the image.
+.git
+.venv
+artifacts
+data
+web/node_modules
+web/.next
+web/out
+**/__pycache__
+.pytest_cache
+.ruff_cache
+.hypothesis
+*.egg-info

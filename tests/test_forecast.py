@@ -171,6 +171,7 @@ def test_prospective_issue_resolve_score_cycle(tmp_path, monkeypatch):
     monkeypatch.setattr(P, "OUT", tmp_path)  # no backtest report -> no simulator, no trailing-skill rule
     monkeypatch.setattr(P, "load_bars", lambda: first)
     monkeypatch.setattr(P, "FRESH", tmp_path)
+    monkeypatch.setattr(P, "SNAPSHOTS", tmp_path / "snapshots")  # never write into artifacts/
     led = ForecastLedger(tmp_path / "ledger.jsonl")
     end = int(first.open_time[-1]) + HOUR
     now = dt.datetime.fromtimestamp((end + 2 * HOUR) / 1000, dt.UTC)

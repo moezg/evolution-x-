@@ -11,6 +11,13 @@ from evolutionx.evolution.code.pipeline import propose_and_evaluate, record_deci
 
 
 @pytest.fixture(autouse=True)
+def _proposals_in_tmp(tmp_path, monkeypatch):  # noqa: ANN001, ANN202
+    from evolutionx.evolution.code import pipeline
+
+    monkeypatch.setattr(pipeline, "PROP_DIR", tmp_path / "proposals")  # never write test proposals into artifacts/
+
+
+@pytest.fixture(autouse=True)
 def _cleanup_branches():
     before = set(subprocess.run(["git", "branch", "--list", "evo/*"], capture_output=True, text=True).stdout.split())
     yield

@@ -25,7 +25,11 @@ from .domain import DAY, FEATURES, BTCDomain
 from .ledger import ForecastLedger, forecast_id
 from .models import make
 
-MAX_LAG_H = 48  # older data at issue time -> abstain (stale)
+MAX_LAG_H = 48
+SNAPSHOTS = Path("artifacts/forecast/snapshots")
+FEATURE_VERSION = (
+    __import__("hashlib").sha256((Path(__file__).parent / "domain.py").read_bytes()).hexdigest()[:16]
+)  # changes whenever feature definitions change  # older data at issue time -> abstain (stale)
 PROMOTION_MIN_RESOLVED = 180
 
 
@@ -71,7 +75,29 @@ def _trailing_skill_from_backtest(target: str, model: str) -> float | None:
     return float(1 - loss(f[k], y[k]).mean() / lb) if lb > 0 else None
 
 
-def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLedger | None = None) -> dict[str, Any]:
+def freeze_inputs(bars: Any, as_of: int, origin: int) -> dict[str, Any]:
+    """Persist the exact bars window the features were computed from (last 31 days before as_of)."""
+    import hashlib
+
+    lo = int(np.searchsorted(bars.open_time, as_of - 31 * DAY))
+    hi = int(np.searchsorted(bars.open_time, as_of))
+    SNAPSHOTS.mkdir(parents=True, exist_ok=True)
+    path = SNAPSHOTS / f"btc_perp_{origin}.npz"
+    arrs = {k: getattr(bars, k)[lo:hi] for k in ("open_time", "close", "high", "low", "volume")}
+    if not path.exists():
+        np.savez_compressed(path, **arrs)
+    h = hashlib.sha256()
+    for k in ("open_time", "close", "high", "low", "volume"):
+        h.update(np.ascontiguousarray(arrs[k]).tobytes())
+    return {"path": str(path), "sha256": h.hexdigest(), "bars": hi - lo, "as_of_ms": as_of}
+
+
+def issue(
+    now: dt.datetime | None = None,
+    fetch: bool = True,
+    ledger: ForecastLedger | None = None,
+    origin_ms: int | None = None,
+) -> dict[str, Any]:
     now = now or dt.datetime.now(dt.UTC)
     now_ms = int(now.timestamp() * 1000)
     manifest: dict[str, Any] = (
@@ -84,8 +110,11 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
     bars = load_bars()
     dom = BTCDomain(bars)
     as_of = dom.end_ms
-    origin = (now_ms // DAY + 1) * DAY
+    origin = origin_ms if origin_ms is not None else (now_ms // DAY + 1) * DAY
+    if now_ms >= origin:
+        raise ValueError("issuance deadline passed for this origin; record it as missed instead (no backfill)")
     lag_h = (origin - as_of) / HOUR
+    snap = freeze_inputs(bars, as_of, origin)
     feats = dom.features(origin, as_of=as_of)
     x = np.array([feats[k] for k in FEATURES])
     use_sim = _sim_decision()
@@ -95,6 +124,9 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
         cache = SF.ensure({c}) if c else SF.load_cache()
         sim_x = np.array([SF.features_for(feats, cache)[k] for k in SF.SIM_FEATURES])
     led = ledger or ForecastLedger()
+    # idempotency key is (origin, target, model), NOT the id: the id contains the code/protocol version, which can
+    # change between an interrupted run and its resumption (a commit) - that must never create a second forecast
+    already = {(e["data"]["origin_ms"], e["data"]["target"], e["data"]["model"]) for e in led.forecasts().values()}
     version = f"{code_version()}+{protocol_sha()[:12]}"
     origins = np.array(dom.origins("2020-02-01", dt.datetime.fromtimestamp(as_of / 1000, dt.UTC).strftime("%Y-%m-%d")))
     tabX = np.array([[dom.features(o)[k] for k in FEATURES] for o in origins])
@@ -161,6 +193,8 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
                 "scored_value": fallback if reason else val,
                 "training_n": int(ok.sum()),
                 "trailing_skill_source": ts_source,
+                "feature_version": FEATURE_VERSION,
+                "input_snapshot": snap,
                 "inputs": {
                     "bars_digest": bars.digest(0, len(bars)),
                     "n_bars": len(bars),
@@ -171,6 +205,9 @@ def issue(now: dt.datetime | None = None, fetch: bool = True, ledger: ForecastLe
                 },
                 "label": "PROSPECTIVE paper forecast",
             }
+            if (origin, t.name, m) in already:  # idempotent: a re-run after an interruption only adds what is missing
+                out.append({"target": t.name, "model": m, "skipped": "already issued"})
+                continue
             led.issue(rec, now_ms)
             out.append({k: rec[k] for k in ("target", "model", "value", "abstained", "abstain_reason", "scored_value")})
     return {

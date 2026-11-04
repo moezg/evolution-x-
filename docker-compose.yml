@@ -12,3 +12,28 @@ services:
     deploy:
       resources:
         limits: {cpus: "4", memory: 8g}
+
+  # Always-on scheduler: critical forecasting jobs (fetch, issue, missed-window recording, resolve, verify, drift)
+  # plus optional bounded research. State lives in ./artifacts (ops.db, ledger) so restarts resume where they left.
+  # Run exactly ONE scheduler per artifacts volume (the flock in artifacts/ops/scheduler.lock enforces it on one host).
+  scheduler:
+    build: .
+    command: ["uv", "run", "--no-dev", "evox", "ops", "daemon", "--interval", "300"]
+    restart: unless-stopped
+    stop_grace_period: 90s                 # SIGTERM -> finish the current tick, then exit
+    environment:
+      EVOX_ROOT: /app
+      EVOX_LLM: ${EVOX_LLM:-mock}
+      EVOX_NOTIFY_WEBHOOK: ${EVOX_NOTIFY_WEBHOOK:-}   # optional: POST {level, job, message} on warnings/errors
+      EVOX_ISSUE_LEAD_H: ${EVOX_ISSUE_LEAD_H:-24}      # issuance window opens this many hours before the 00:00 UTC origin
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
+    healthcheck:                           # unhealthy when no tick completed in the last 15 minutes
+      test: ["CMD", "uv", "run", "--no-dev", "python", "-c", "import sqlite3,datetime as d;v=sqlite3.connect('artifacts/ops/ops.db').execute(\"select value from heartbeat where key='last_tick_utc'\").fetchone()[0];assert (d.datetime.now(d.UTC)-d.datetime.fromisoformat(v)).total_seconds()<900"]
+      interval: 5m
+      timeout: 30s
+      retries: 2
+    deploy:
+      resources:
+        limits: {cpus: "2", memory: 4g}

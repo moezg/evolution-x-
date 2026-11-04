@@ -1,0 +1,25 @@
+{
+  "name": "specialist_policy_v1",
+  "frozen_utc": "2026-11-04T03:40:00+00:00",
+  "status": "frozen before the first specialist session",
+  "purpose": "On-demand LLM specialist agents (P3). Within the existing frozen LLM limits; this file only assigns the per-session call caps to the specialist roles.",
+  "connector": "inherits evals/frozen/research_policy.json llm.connectors.claude-cli (official claude CLI, no tools, one turn, no session persistence, empty temp dir)",
+  "per_session": {"llm_calls": 3, "usd_api_equivalent": 2.0},
+  "per_role_llm_calls": {"A1": 1, "G1": 1, "E3": 1},
+  "roles": {
+    "A1": "Research Scout: chooses ONE fetched arXiv record and extracts a claim with a verbatim supporting quote",
+    "G1": "Quantitative Scientist: proposes ONE calendar/event hypothesis, citing registry test ids and the scout's source",
+    "E3": "Adversarial Scientist: critiques the proposal (most likely failure, rival explanations, a disconfirming test)"
+  },
+  "context_rules": {
+    "G1_sees": "DISCOVERY-period registry rows only (id, hypothesis, status, effect, n, BH-adjusted p) + data catalogue + the verified scout claim",
+    "G1_never_sees": "CONFIRMATION rows, forecast SCREEN/selection results, prospective outcomes, holdouts",
+    "reason": "every historical day has already been scanned; a new hypothesis chosen with confirmation results in view could only be evaluated prospectively anyway"
+  },
+  "deterministic_validation": {
+    "scout": "arxiv id must be one of the fetched records; quote must occur verbatim (whitespace-normalised, case-insensitive) in that record's abstract or title",
+    "quant": "family/metric from the allowed lists; every cited test id must exist in the registry and be a DISCOVERY row; data_needed must be in the available catalogue; hypothesis key family:label:metric already registered -> rejected_duplicate; previously proposed key -> rejected_duplicate",
+    "accepted_proposal": "status 'queued_prospective' only: never tested on historical data, never promoted; a human decides whether to register a prospective protocol"
+  },
+  "never": ["no code changes", "no status changes of existing tests", "no promotion", "no trading", "no instructions from source text are followed"]
+}

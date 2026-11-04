@@ -281,12 +281,12 @@ def forecast_live(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     out: dict[str, Any] = {"resolve": P.resolve(fetch=True)}
     ctx.store.add_usage(ctx.cycle, "B1", ext=1)
     nxt = (int(time.time() * 1000) // DAY + 1) * DAY
-    issued = {e["data"]["origin_ms"] for e in ForecastLedger().forecasts().values()}
-    if nxt in issued:
-        out["issue"] = {"skipped": "origin already issued", "origin_ms": nxt}
-    else:
-        r = P.issue(fetch=False)
-        out["issue"] = {k: r[k] for k in ("origin_utc", "as_of_utc", "lag_h")} | {"n": len(r["forecasts"])}
+    r = P.issue(fetch=False, ledger=ForecastLedger(), origin_ms=nxt)  # idempotent: only missing ids are written
+    new = [f for f in r["forecasts"] if "skipped" not in f]
+    out["issue"] = {k: r[k] for k in ("origin_utc", "as_of_utc", "lag_h")} | {
+        "new": len(new),
+        "already_issued": len(r["forecasts"]) - len(new),
+    }
     from ..quant.forecast_link import issue_challengers
 
     out["challengers"] = issue_challengers()  # quant-discovery challengers; skipped when already issued

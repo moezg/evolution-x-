@@ -64,8 +64,16 @@ class ForecastLedger:
             raise LedgerError("prospective forecasts must be issued before their target window starts")
         if rec["as_of_ms"] > now_ms:
             raise LedgerError("as_of cannot be in the future")
-        if rec["id"] in self.forecasts():
+        fc = self.forecasts()
+        if rec["id"] in fc:
             raise LedgerError(f"forecast {rec['id']} already issued")
+        key = (rec["domain"], rec["origin_ms"], rec["target"], rec["model"])
+        if any((d["domain"], d["origin_ms"], d["target"], d["model"]) == key for d in (e["data"] for e in fc.values())):
+            raise LedgerError(
+                f"a forecast for {key} already exists (one forecast per origin/target/model, any version)"
+            )
+        if any(m["data"]["origin_ms"] == rec["origin_ms"] for m in self.missed()):
+            raise LedgerError("this origin was recorded as MISSED; a late forecast can never be added (no backfill)")
         return self.j.append("forecast-engine", "forecast", {**rec, "issued_ms": now_ms})
 
     def resolve(self, fid: str, outcome: float, evidence: dict[str, Any], now_ms: int | None = None) -> dict[str, Any]:
@@ -83,6 +91,29 @@ class ForecastLedger:
             {"forecast_id": fid, "outcome": outcome, "evidence": evidence, "resolved_ms": now_ms},
         )
 
+    def missed(self) -> list[dict[str, Any]]:
+        return [e for e in self.entries() if e["event"] == "missed"]
+
+    def record_missed(self, domain: str, origin_ms: int, reason: str, now_ms: int | None = None) -> dict[str, Any]:
+        """A forecasting window that passed without an issued forecast is recorded as missed (never backfilled)."""
+        now_ms = now_ms if now_ms is not None else int(dt.datetime.now(dt.UTC).timestamp() * 1000)
+        if now_ms < origin_ms:
+            raise LedgerError("an origin can only be declared missed after its issuance deadline")
+        if any(m["data"]["origin_ms"] == origin_ms and m["data"]["domain"] == domain for m in self.missed()):
+            raise LedgerError("origin already recorded as missed")
+        issued = [f for f in self.forecasts().values() if f["data"]["origin_ms"] == origin_ms]
+        return self.j.append(
+            "forecast-engine",
+            "missed",
+            {
+                "domain": domain,
+                "origin_ms": origin_ms,
+                "reason": reason,
+                "recorded_ms": now_ms,
+                "partially_issued_models": sorted({f["data"]["model"] for f in issued}),
+            },
+        )
+
     def verify(self) -> dict[str, Any]:
         v = self.j.verify()
         if not v["ok"]:
@@ -93,7 +124,21 @@ class ForecastLedger:
                 return {"ok": False, "reason": f"resolution without forecast {fid}"}
             if r["seq"] < issued[fid]["seq"]:
                 return {"ok": False, "reason": f"resolution before forecast {fid}"}
+        keys = [
+            (e["data"]["domain"], e["data"]["origin_ms"], e["data"]["target"], e["data"]["model"])
+            for e in issued.values()
+        ]
+        if len(keys) != len(set(keys)):
+            return {"ok": False, "reason": "more than one forecast for the same origin/target/model"}
         for e in issued.values():
             if e["data"]["issued_ms"] >= e["data"]["origin_ms"]:
                 return {"ok": False, "reason": f"forecast {e['data']['id']} issued after its window started"}
-        return {**v, "forecasts": len(issued), "resolved": len(self.resolutions())}
+        for m in self.missed():
+            if m["data"]["recorded_ms"] < m["data"]["origin_ms"]:
+                return {"ok": False, "reason": "missed recorded before its deadline"}
+            late = [
+                f for f in issued.values() if f["data"]["origin_ms"] == m["data"]["origin_ms"] and f["seq"] > m["seq"]
+            ]
+            if late:
+                return {"ok": False, "reason": "forecast issued after its origin was recorded as missed"}
+        return {**v, "forecasts": len(issued), "resolved": len(self.resolutions()), "missed": len(self.missed())}

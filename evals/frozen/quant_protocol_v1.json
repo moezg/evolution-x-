@@ -159,5 +159,32 @@
     "diagnosis": "an empirical rotation p-value has resolution 1/(N+1) = 0.001 with 999 rotations; BH's first threshold in F-DOM is 0.10/124 = 0.0008, so a single day-of-month effect could never be detected (the method was powerless by construction for isolated effects)",
     "change": "calendar p-values use the rotation null's mean and standard deviation (dependence-preserving) with a two-sided normal approximation: p = erfc(|obs - mean_null| / (sd_null * sqrt 2)); one-sided analogues for confirmation. The empirical rotation p is still reported. All other rules unchanged.",
     "disclosure": "this amendment was written after development dry runs whose real-data results had been seen (14th: rejected; Saturday |return|: supported). The change was forced by the synthetic validation, not chosen to alter a real-data conclusion; the registered run below supersedes the dry runs, whatever it shows. The false-anomaly test is re-run under the new p-values."
+  },
+  "amendment_3": {
+    "written_utc": "2026-11-04T03:23:01+00:00",
+    "trigger": "P4: CPI and Employment Situation release dates became available from ALFRED vintages (bls.gov is blocked); written BEFORE any BTC data around these releases was examined in this project",
+    "new_family": {
+      "F-MACRO": {
+        "events": "category macro_release, kind first_release, subcategories cpi and nfp (ALFRED vintage dates 2017-08..2026-10; 08:30 ET by agency convention)",
+        "window_start": "the hourly bar containing the release (opens 08:00 ET, i.e. 30 min BEFORE the release; hourly bars cannot start at 08:30)",
+        "metrics_per_subcategory": [
+          "absret_0_4h",
+          "rv_0_4h",
+          "ret_0_4h",
+          "ret_0_24h"
+        ],
+        "tests": 8,
+        "primary": [
+          "cpi:absret_0_4h",
+          "nfp:absret_0_4h"
+        ],
+        "placebo": "08:00 ET bars on non-release days with the same weekday set as the subcategory's releases, excluding +-1 day around any macro release (cpi, nfp, gdp) and +-2 days around FOMC meetings; matched placebo resampling as F-FOMC (2000 draws, +1 correction)",
+        "decision": "BH q=0.10 over the 8 DISCOVERY tests; survivors get ONE one-sided matched-placebo test on CONFIRMATION, Holm alpha=0.05, same sign, n_confirmation >= 20 -> supported (exploratory)",
+        "forecast_integration": "only if a primary metric is supported: feature 'macro_release_in_window' tested as M1 + feature vs M1 on the forecast SCREEN period with the existing F-FCAST procedure; never promoted without prospective evidence",
+        "not_testable": "surprise / above-expectations effects (no consensus data); GDP (quarterly, n < 20 per period)"
+      }
+    },
+    "disclosure": "general market lore says CPI/NFP days are volatile for risk assets; this is a prior belief, not an observation from this project's data. Confirmation-period BTC prices were seen in other project contexts (see periods.exposure_note).",
+    "unchanged": "all thresholds, periods and existing families"
   }
 }

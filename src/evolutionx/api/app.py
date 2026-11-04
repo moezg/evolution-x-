@@ -43,6 +43,7 @@ jobs = JobManager()
 archive = Archive()
 
 from .army_routes import router as army_router  # noqa: E402
+from .control_routes import router as control_router  # noqa: E402
 from .forecast_routes import router as forecast_router  # noqa: E402
 from .observatory_routes import router as observatory_router  # noqa: E402
 from .quant_routes import router as quant_router  # noqa: E402
@@ -55,6 +56,7 @@ app.include_router(observatory_router)
 app.include_router(forecast_router)
 app.include_router(army_router)
 app.include_router(quant_router)
+app.include_router(control_router)
 
 
 def _require_sim() -> None:

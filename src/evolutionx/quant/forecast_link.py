@@ -90,7 +90,7 @@ def run(run_id: str, reg: TestRegistry | None = None) -> dict[str, Any]:
 __all__ = ["dt", "run"]
 
 
-def issue_challengers(now: dt.datetime | None = None) -> dict[str, Any]:
+def issue_challengers(now: dt.datetime | None = None, origin_ms: int | None = None) -> dict[str, Any]:
     """Prospective challengers for F-FCAST features with status 'candidate_feature' (never replaces the champion).
 
     Same domain, lag, training labels and abstention fallback as the champion; the challenger is M1 + feature,
@@ -119,7 +119,12 @@ def issue_challengers(now: dt.datetime | None = None) -> dict[str, Any]:
     bars = load_bars()
     dom = BTCDomain(bars)
     as_of = dom.end_ms
-    origin = (now_ms // DAY + 1) * DAY
+    origin = origin_ms if origin_ms is not None else (now_ms // DAY + 1) * DAY
+    if now_ms >= origin:
+        return {"issued": [], "why": "issuance deadline passed (no backfill)"}
+    from ..forecast.prospective import FEATURE_VERSION, freeze_inputs
+
+    snap = freeze_inputs(bars, as_of, origin)
     tmap = {t.name: t for t in dom.targets()}
     origins = np.array(dom.origins("2020-02-01", dt.datetime.fromtimestamp(as_of / 1000, dt.UTC).strftime("%Y-%m-%d")))
     X = np.array([[dom.features(o)[k] for k in FEATURES] for o in origins])
@@ -143,7 +148,10 @@ def issue_challengers(now: dt.datetime | None = None) -> dict[str, Any]:
         val = mod.predict(np.r_[x_now, f_now], t, dom.sigma_h(feats_now, t.horizon_h))
         model = f"CH:{fname}"
         fid = forecast_id(dom.name, t.name, model, origin, version)
-        if fid in led.forecasts():
+        if any(  # same (origin, target, model) already issued, whatever its version
+            (e["data"]["origin_ms"], e["data"]["target"], e["data"]["model"]) == (origin, t.name, model)
+            for e in led.forecasts().values()
+        ):
             out.append({"target": t.name, "model": model, "skipped": "already issued"})
             continue
         fallback = b0.predict(x_now, t, 0.0)
@@ -154,6 +162,7 @@ def issue_challengers(now: dt.datetime | None = None) -> dict[str, Any]:
             "as_of_ms": as_of, "lag_h": (origin - as_of) / HOUR, "value": val, "abstained": not ok,
             "abstain_reason": None if ok else "missing_data", "fallback_B0": fallback, "scored_value": val if ok else fallback,
             "training_n": int(lab.sum()), "trailing_skill_source": None,
+            "feature_version": FEATURE_VERSION, "input_snapshot": snap,
             "inputs": {"bars_digest": bars.digest(0, len(bars)), "features": {k: round(float(v), 6) for k, v in feats_now.items()}, "extra_feature": {fname: float(f_now)}, "source_test": key},
             "label": "PROSPECTIVE paper forecast - CHALLENGER from quant discovery (never replaces the champion automatically)",
         }  # fmt: skip

@@ -1,0 +1,6 @@
+# EVOLUTION X continuous operation via cron (alternative to `evox ops daemon` / the docker-compose scheduler).
+# Install: crontab deploy/evox-ops.cron   (edit EVOX_ROOT first). Times are UTC on the scheduler side regardless
+# of the host time zone: every job computes its slots from datetime.now(UTC).
+# A tick is idempotent and lock-protected: overlapping or repeated ticks never duplicate a slot.
+EVOX_ROOT=/opt/evolution-x
+*/5 * * * * cd "$EVOX_ROOT" && .venv/bin/evox ops tick >> artifacts/ops/tick.log 2>&1

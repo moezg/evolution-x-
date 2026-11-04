@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-03T23:00:59+00:00",
+ "fetched_utc": "2026-11-04T03:05:47+00:00",
  "files": [
   {
    "day": "2026-11-01",
@@ -14,5 +14,7 @@
    "checksum_verified": true
   }
  ],
- "not_published": []
+ "not_published": [
+  "2026-11-03"
+ ]
 }

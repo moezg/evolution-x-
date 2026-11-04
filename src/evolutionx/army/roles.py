@@ -212,7 +212,7 @@ ROLES: tuple[Role, ...] = (
         "Evolution Council",
         "Evolution Coordinator",
         "rank next experiments by expected information per cost; recommend only",
-        "llm_optional",
+        "deterministic",
         "REASSESS",
     ),
 )

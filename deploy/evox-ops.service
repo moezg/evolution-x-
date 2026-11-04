@@ -1,0 +1,19 @@
+# systemd unit for the always-on scheduler (alternative to cron / docker-compose).
+# Install: copy to /etc/systemd/system/, edit paths and User, then `systemctl enable --now evox-ops`.
+[Unit]
+Description=EVOLUTION X scheduler (prospective forecasting + bounded research)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=evox
+WorkingDirectory=/opt/evolution-x
+Environment=EVOX_ROOT=/opt/evolution-x
+ExecStart=/opt/evolution-x/.venv/bin/evox ops daemon --interval 300
+Restart=always
+RestartSec=30
+KillSignal=SIGTERM
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

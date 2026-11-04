@@ -407,7 +407,12 @@ def cmd_forecast(a: argparse.Namespace) -> None:
 
 
 def cmd_army(a: argparse.Namespace) -> None:
-    """24-role research army (research only; never trades)."""
+    """36-role research army (research only; never trades)."""
+    if a.action == "specialists":  # on-demand LLM specialists (<= 3 calls, <= $2 per session)
+        from .army.specialists import session
+
+        _print(session(**({"query": a.value} if a.value else {})))
+        return
     from .army.cli import run
 
     cfg = json.loads(a.config) if a.config else None
@@ -416,6 +421,15 @@ def cmd_army(a: argparse.Namespace) -> None:
 
 def cmd_quant(a: argparse.Namespace) -> None:
     """Quantitative / calendar / political-macro event discovery (research only)."""
+    if a.action == "calibrate":
+        from .quant import calibration as C
+
+        r = C.run()
+        _print(
+            {k: v for k, v in r.items() if k != "null"}
+            | {"null": {g: {k: v for k, v in s.items() if k != "examples"} for g, s in r["null"].items()}}
+        )
+        return
     if a.action == "fetch":
         from .quant import data as D
 
@@ -446,6 +460,19 @@ def cmd_quant(a: argparse.Namespace) -> None:
             },
         )
         _print({k: v for k, v in r["cycles"][0].items() if k != "usage"})
+
+
+def cmd_ops(a: argparse.Namespace) -> None:
+    """Continuous operation: one scheduler tick (cron), the always-on daemon, or the persisted status."""
+    from .ops import jobs as J
+    from .ops import scheduler as S
+
+    if a.action == "tick":
+        _print(S.tick(J.build_jobs()))
+    elif a.action == "daemon":
+        S.daemon(J.build_jobs, interval_s=a.interval, max_ticks=a.max_ticks)
+    else:
+        _print(S.status())
 
 
 def cmd_serve(a: argparse.Namespace) -> None:
@@ -513,9 +540,15 @@ def main() -> None:
     sp.add_argument("--tag", default="v1", choices=["v1", "v2"], help="volatility: v1 single-factor, v2 amplification")
     sp.add_argument("--only", default="A,B,C", help="experiments: subset of A,B,C")
     sp = add("quant", cmd_quant)
-    sp.add_argument("action", choices=["fetch", "events", "run"])
+    sp.add_argument("action", choices=["fetch", "events", "run", "calibrate"])
+    sp = add("ops", cmd_ops)
+    sp.add_argument("action", choices=["tick", "daemon", "status"])
+    sp.add_argument("--interval", type=float, default=300.0, help="daemon: seconds between ticks")
+    sp.add_argument("--max-ticks", type=int, default=None)
     sp = add("army", cmd_army)
-    sp.add_argument("action", choices=["status", "tick", "run", "resume", "pause", "stop", "start", "set"])
+    sp.add_argument(
+        "action", choices=["status", "tick", "run", "resume", "pause", "stop", "start", "set", "specialists"]
+    )
     sp.add_argument("--cycles", type=int, default=1)
     sp.add_argument("--config", default=None, help="JSON overrides of the cycle config")
     sp.add_argument("--key", default=None, help="set: control key (llm_enabled, source_arxiv_enabled, ...)")
@@ -576,6 +609,9 @@ def main() -> None:
     sp.add_argument("--port", type=int, default=8000)
     sp.add_argument("--reload", action="store_true")
     a = p.parse_args()
+    from .api.paths import ensure_repo_cwd
+
+    ensure_repo_cwd()  # artifacts/, data/ and evals/frozen/ resolve from any working directory
     a.fn(a)
 
 
