@@ -38,10 +38,9 @@ FAMILY_KEYWORDS: dict[str, list[str]] = {
     "microstructure": [r"order flow", r"order book", r"limit order", r"market mak", r"bid-ask"],
     "seasonality": [r"intraday", r"seasonal", r"time-of-day", r"day-of-the-week", r"weekend effect"],
 }
-IMPLEMENTABLE = ("tsmom", "breakout", "reversal", "vol_managed_long", "funding_carry")
+IMPLEMENTABLE = ("tsmom", "breakout", "reversal", "vol_managed_long", "funding_carry", "seasonality")
 INFEASIBLE = {
     "microstructure": "needs order-book / trade data; only 1 h bars are available",
-    "seasonality": "needs bar timestamps in the strategy view (BarView exposes none); trusted-interface change required",
 }
 RESEARCHER = {"tsmom": "C1", "breakout": "C1", "reversal": "C2", "vol_managed_long": "C3", "funding_carry": "C3"}
 
@@ -156,6 +155,22 @@ def signal(view, p):
     ann = float(np.std(np.diff(np.log(c)))) * math.sqrt(8760) + 1e-12
     # exposure 1.0 = engine max leverage (2x); 0.5 = 1x notional; capped at 1x notional
     return max(0.0, min(0.5, 0.5 * float(p["target_vol"]) / ann))
+""",
+    },
+    "seasonality": {  # calendar volatility profile (F-DOW amendment 4: weekends calmer); BarView.time_ms() gives bar time
+        "params": {"lookback_h": (72, 1440, 336), "target_vol": (0.1, 1.0, 0.4), "weekend_vol_factor": (0.4, 1.0, 0.7)},
+        "long_only": True,
+        "body": """
+def signal(view, p):
+    L = int(p["lookback_h"])
+    c = view.close(L + 1)
+    if len(c) <= L:
+        return 0.0
+    ann = float(np.std(np.diff(np.log(c)))) * math.sqrt(8760) + 1e-12
+    nxt = int(view.time_ms()) + 3600000  # the decision is executed at the NEXT bar's open
+    wd = (nxt // 86400000 + 3) % 7  # 0 = Monday (1970-01-01 was a Thursday)
+    f = float(p["weekend_vol_factor"]) if wd >= 5 else 1.0
+    return max(0.0, min(0.5, 0.5 * float(p["target_vol"]) / (ann * f)))
 """,
     },
     "funding_carry": {

@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-04T22:00:25+00:00",
+ "fetched_utc": "2026-11-05T09:18:17+00:00",
  "files": [
   {
    "day": "2026-11-01",
@@ -18,11 +18,18 @@
    "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1h/BTCUSDT-1h-2026-11-03.zip",
    "sha256": "d62cfdb2d8c25f257121ed3936665298a4806e8680a12552d84cce707a83a232",
    "checksum_verified": true
+  },
+  {
+   "day": "2026-11-04",
+   "url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1h/BTCUSDT-1h-2026-11-04.zip",
+   "sha256": "232fd0e5d746194c0197b61a07fb3d2bc86c92995f74132b7da45ae22bf64b18",
+   "checksum_verified": true
   }
  ],
  "not_published": [],
  "filled_from_monthly": [],
  "publication_last_modified": {
-  "2026-11-03": "Wed, 04 Nov 2026 07:53:17 GMT"
+  "2026-11-03": "Wed, 04 Nov 2026 07:53:17 GMT",
+  "2026-11-04": "Thu, 05 Nov 2026 08:03:12 GMT"
  }
 }

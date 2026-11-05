@@ -301,3 +301,28 @@ def test_drift_monitor_flags_degradation_only_on_resolved_forecasts(tmp_path):
             led.resolve(f"f{i}", 0.0, {}, now_ms=o + 86_400_001)
     r = drift.check(led, rep)
     assert r["status"]["move3_24:M1_logistic"]["n"] == 35 and r["alerts"] == ["move3_24:M1_logistic"]
+
+
+def test_seasonality_template_is_feasible_and_uses_next_bar_weekday():
+    """Regression: 'seasonality' was wrongly marked infeasible ('BarView exposes no timestamps'); time_ms() exists."""
+    import numpy as np
+
+    from evolutionx.backtest.interface import decisions_for, load_module_strategy
+    from evolutionx.data.datasets import load_split
+    from evolutionx.research.contract import static_check
+
+    assert "seasonality" in mechanisms.IMPLEMENTABLE and "seasonality" not in mechanisms.INFEASIBLE
+    p = mechanisms.clamp_params("seasonality", {})
+    src = mechanisms.render("seasonality", "x", p, "doc")
+    assert src == mechanisms.render("seasonality", "x", p, "doc") and static_check(src) == []
+    d = load_split("BTCUSDT", "development")
+    data = {k: v[:4000] for k, v in d.items()}
+    from evolutionx.army.adversarial import load_module
+
+    a = decisions_for(load_module_strategy(load_module(src), p), data)
+    flat = decisions_for(load_module_strategy(load_module(src), {**p, "weekend_vol_factor": 1.0}), data)
+    assert np.all(np.isfinite(a)) and np.all((a >= 0) & (a <= 0.5))
+    nxt_wd = ((data["open_time"] + 3_600_000) // 86_400_000 + 3) % 7
+    wk = (nxt_wd >= 5) & (flat < 0.5)
+    assert np.all(a[wk] >= flat[wk]) and np.any(a[wk] > flat[wk])  # calmer weekend -> more exposure for the same risk
+    assert np.allclose(a[nxt_wd < 5], flat[nxt_wd < 5])
