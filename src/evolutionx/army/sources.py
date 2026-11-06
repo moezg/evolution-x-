@@ -27,10 +27,36 @@ MAX_ABSTRACT = 3000
 _last_call: dict[str, float] = {}
 _throttle_lock = __import__("threading").Lock()
 
-DISCOVERY_QUERIES = {
+DISCOVERY_QUERIES = {  # the original fixed pair per scout (kept for reproducibility of earlier cycles)
     "A1": ['all:cryptocurrency AND all:"time series momentum"', 'all:cryptocurrency AND all:"realized volatility"'],
     "A2": ['abs:"perpetual" AND abs:"funding rate"', 'abs:"volatility-managed" OR abs:"volatility managed portfolio"'],
 }
+# Rotating pool (2 per scout per UTC day, deterministic): covers every implementable family so the scouts stop
+# re-finding the same volatility-managed papers (all duplicates since 2026-11-03).
+QUERY_POOL = {
+    "A1": [
+        'all:bitcoin AND all:"weekend effect"',
+        'all:cryptocurrency AND all:"day-of-the-week"',
+        'all:bitcoin AND all:"intraday seasonality"',
+        'all:cryptocurrency AND all:"short-term reversal"',
+        'all:cryptocurrency AND all:"time series momentum"',
+        'all:bitcoin AND all:"calendar anomalies"',
+    ],
+    "A2": [
+        'abs:bitcoin AND abs:"trading range breakout"',
+        'abs:"perpetual" AND abs:"funding rate"',
+        'abs:cryptocurrency AND abs:"mean reversion" AND abs:"intraday"',
+        'abs:bitcoin AND abs:"overnight" AND abs:"returns"',
+        'abs:cryptocurrency AND abs:"trend following"',
+        'abs:bitcoin AND abs:"seasonality"',
+    ],
+}
+
+
+def queries_for(role: str, day_ordinal: int) -> list[str]:
+    pool = QUERY_POOL[role]
+    i = (2 * day_ordinal) % len(pool)
+    return [pool[i], pool[(i + 1) % len(pool)]]
 
 
 @dataclass

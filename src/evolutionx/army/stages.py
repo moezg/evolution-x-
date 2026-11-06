@@ -7,6 +7,7 @@ decisions (duplicate, rejected, eligibility) are made by deterministic code; LLM
 
 from __future__ import annotations
 
+import datetime as dt
 import hashlib
 import json
 import math
@@ -82,7 +83,9 @@ def reclassify_sources(store: Any, reason: str) -> list[dict[str, Any]]:
 # ============================================================================ DISCOVER (A1, A2)
 def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
     role = t["role"]
-    queries = ctx.config.get("queries", {}).get(role) or SRC.DISCOVERY_QUERIES[role]
+    queries = ctx.config.get("queries", {}).get(role) or SRC.queries_for(
+        role, dt.datetime.now(dt.UTC).date().toordinal()
+    )
     enabled = ctx.store.control("source_arxiv_enabled", True)
     found, new = [], []
     for q in queries[:2]:
@@ -108,8 +111,8 @@ def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
             new.append({**row, "family": cls["family"], "relevance": _relevance(row, cls)})
     # research queue: sources discovered earlier by these queries but never verified stay eligible
     backlog = []
-    for r in ctx.store.q("SELECT * FROM army_sources WHERE status='discovered'"):
-        if r["query"] in queries[:2] and r["id"] not in {n["id"] for n in new}:
+    for r in ctx.store.q("SELECT * FROM army_sources WHERE status IN ('discovered','reopened')"):
+        if (r["query"] in queries[:2] or r["status"] == "reopened") and r["id"] not in {n["id"] for n in new}:
             cls = r["mechanism"] or M.classify(r["title"], r["abstract"])
             backlog.append({**r, "family": cls["family"], "relevance": _relevance(r, cls), "from_backlog": True})
     pool = sorted(new + backlog, key=lambda r: -r["relevance"])

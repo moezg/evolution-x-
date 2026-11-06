@@ -326,3 +326,9 @@ def test_seasonality_template_is_feasible_and_uses_next_bar_weekday():
     wk = (nxt_wd >= 5) & (flat < 0.5)
     assert np.all(a[wk] >= flat[wk]) and np.any(a[wk] > flat[wk])  # calmer weekend -> more exposure for the same risk
     assert np.allclose(a[nxt_wd < 5], flat[nxt_wd < 5])
+
+
+def test_discovery_queries_rotate_over_the_pool():
+    seen = {q for d in range(10) for role in ("A1", "A2") for q in sources.queries_for(role, 738000 + d)}
+    assert seen == set(sources.QUERY_POOL["A1"]) | set(sources.QUERY_POOL["A2"])
+    assert sources.queries_for("A1", 5) == sources.queries_for("A1", 5)  # deterministic per day
