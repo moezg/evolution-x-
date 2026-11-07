@@ -332,3 +332,13 @@ def test_discovery_queries_rotate_over_the_pool():
     seen = {q for d in range(10) for role in ("A1", "A2") for q in sources.queries_for(role, 738000 + d)}
     assert seen == set(sources.QUERY_POOL["A1"]) | set(sources.QUERY_POOL["A2"])
     assert sources.queries_for("A1", 5) == sources.queries_for("A1", 5)  # deterministic per day
+
+
+def test_every_implementable_family_is_fully_wired():
+    """Regression: 'seasonality' became implementable without a researcher role, crashing novelty (KeyError)."""
+    from evolutionx.army import stages
+
+    for fam in mechanisms.IMPLEMENTABLE:
+        assert fam in mechanisms.RESEARCHER and fam in mechanisms.TEMPLATES
+        assert stages._default_statement(fam)
+        assert mechanisms.RESEARCHER[fam] in {r.id for r in ROLES}

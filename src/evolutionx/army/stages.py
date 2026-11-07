@@ -478,6 +478,7 @@ def _default_statement(fam: str) -> str:
         "reversal": "Large short-horizon moves (in volatility units) partially revert over the following hours.",
         "vol_managed_long": "Scaling long BTC exposure inversely to trailing realized volatility improves risk-adjusted return versus constant exposure.",
         "funding_carry": "Persistent positive (negative) perpetual funding precedes weaker (stronger) BTC returns, so positioning against the funding sign earns a premium net of funding.",
+        "seasonality": "BTC volatility is lower on weekends (traditional markets closed), so volatility-targeted long exposure that anticipates the weekday volatility profile improves risk-adjusted return versus trailing-volatility targeting alone.",
     }[fam]
 
 

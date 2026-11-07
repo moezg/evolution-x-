@@ -42,7 +42,7 @@ IMPLEMENTABLE = ("tsmom", "breakout", "reversal", "vol_managed_long", "funding_c
 INFEASIBLE = {
     "microstructure": "needs order-book / trade data; only 1 h bars are available",
 }
-RESEARCHER = {"tsmom": "C1", "breakout": "C1", "reversal": "C2", "vol_managed_long": "C3", "funding_carry": "C3"}
+RESEARCHER = {"tsmom": "C1", "breakout": "C1", "reversal": "C2", "vol_managed_long": "C3", "funding_carry": "C3", "seasonality": "C3"}  # fmt: skip
 
 
 def classify(title: str, text: str) -> dict[str, Any]:
