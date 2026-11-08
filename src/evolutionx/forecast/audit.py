@@ -29,8 +29,8 @@ CHAMPION = "M1_logistic"
 
 
 def _loss(target: str, pred: float, y: float) -> float:
-    if target.startswith("rv_"):
-        return (math.log(max(pred, 1e-12)) - math.log(max(y, 1e-12))) ** 2
+    # rv targets are already log(100 * realised vol) (domain.outcome): the registered loss is plain squared error
+    # for every target (forecast protocol v1 scoring.sq_err / brier). A second log here was a bug (fixed 2026-11-08).
     return (pred - y) ** 2
 
 

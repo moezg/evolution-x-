@@ -53,3 +53,12 @@ def test_futility_rule_retires_a_clearly_worse_challenger(ws, monkeypatch):
     r = CH.review(led)
     assert r["reviews"]["CH:f:move3_24"]["action"].startswith("RETIRED")
     assert CH.retired("CH:f", "move3_24") and not CH.retired("CH:f", "rv_24")
+
+
+def test_rv_loss_is_plain_squared_error_on_log_scale_targets():
+    """Regression: rv targets are log values (can be negative); a second log made losses explode (11-07: ~750)."""
+    from evolutionx.forecast import audit as A
+
+    assert CH._loss("rv_24", 0.786, -0.5868) == pytest.approx((0.786 + 0.5868) ** 2)
+    assert A._loss("rv_24", 0.786, -0.5868) == pytest.approx((0.786 + 0.5868) ** 2)
+    assert CH._loss("move3_24", 0.2, 1.0) == pytest.approx(0.64)
