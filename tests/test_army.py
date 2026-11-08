@@ -342,3 +342,12 @@ def test_every_implementable_family_is_fully_wired():
         assert fam in mechanisms.RESEARCHER and fam in mechanisms.TEMPLATES
         assert stages._default_statement(fam)
         assert mechanisms.RESEARCHER[fam] in {r.id for r in ROLES}
+
+
+def test_missing_lab_verdict_is_an_evaluation_error_not_a_refutation():
+    """Regression (2026-11-08): a sandbox outage left no verdict and the hypothesis was archived as not_supported."""
+    e = policy.eligibility(None, {"tests": {}}, None)
+    assert e["status"] == "evaluation_error"
+    assert policy.eligibility("refuted", {"tests": {}}, None)["status"] == "rejected"
+    hard = {"tests": {"causality": {"hard_failure": True}}}
+    assert policy.eligibility(None, hard, None)["status"] == "rejected"  # a hard failure is still evidence

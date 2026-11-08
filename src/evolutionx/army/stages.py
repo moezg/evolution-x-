@@ -111,12 +111,20 @@ def discover(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
             new.append({**row, "family": cls["family"], "relevance": _relevance(row, cls)})
     # research queue: sources discovered earlier by these queries but never verified stay eligible
     backlog = []
+    taken = {  # sources another scout already sent to verification in this cycle (picked once per cycle)
+        (x["payload"] or {}).get("source_id")
+        for x in ctx.store.q("SELECT payload FROM army_tasks WHERE cycle_id=? AND kind='verify'", (ctx.cycle,))
+    }
     for r in ctx.store.q("SELECT * FROM army_sources WHERE status IN ('discovered','reopened')"):
+        if r["id"] in taken:
+            continue
         if (r["query"] in queries[:2] or r["status"] == "reopened") and r["id"] not in {n["id"] for n in new}:
             cls = r["mechanism"] or M.classify(r["title"], r["abstract"])
             backlog.append({**r, "family": cls["family"], "relevance": _relevance(r, cls), "from_backlog": True})
     pool = sorted(new + backlog, key=lambda r: -r["relevance"])
-    picked = [r for r in pool if r["relevance"] > 0][: int(ctx.config.get("verify_per_scout", 2))]
+    picked = [r for r in pool if r["relevance"] > 0 and r["id"] not in taken][
+        : int(ctx.config.get("verify_per_scout", 2))
+    ]
     for r in picked:
         vt = new_task(ctx.store, ctx.cycle, "verify", "A3", "VERIFY", {"source_id": r["id"]})
         new_task(ctx.store, ctx.cycle, "novelty", "A4", "UNDERSTAND", {"source_id": r["id"]}, deps=[vt])
@@ -836,6 +844,7 @@ def archive(ctx: Ctx, t: dict[str, Any]) -> dict[str, Any]:
         "rejected": "refuted" if st.get("lab_verdict") in ("refuted", "reject") else "not_supported",
         "prospective_challenger": "selection_pass",
         "validated": "validated",
+        "evaluation_error": "evaluation_error",
     }.get(status, "inconclusive")
     reason = {
         "lab_verdict": st.get("lab_verdict"),

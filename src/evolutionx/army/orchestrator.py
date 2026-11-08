@@ -28,7 +28,13 @@ from .store import Store
 _current = threading.local()  # id of the task whose handler is running (records spawned_by)
 TERMINAL = {"done", "failed", "skipped", "cancelled", "rejected"}
 # the research lab is a single-writer store; novelty/formulate must see each other's hypotheses (no duplicate LLM work)
-SERIAL = {"evaluate", "novelty", "formulate"}
+SERIAL = {
+    "evaluate",
+    "novelty",
+    "formulate",
+    "discover",
+    "challenge",
+}  # discover: picked-once rule; challenge: per-role LLM caps
 
 
 class Ctx:

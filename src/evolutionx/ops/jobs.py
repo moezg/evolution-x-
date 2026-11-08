@@ -324,7 +324,10 @@ def default_research_runner(cfg: dict[str, Any]) -> dict[str, Any]:
 def make_research(runner: Callable[[dict[str, Any]], dict[str, Any]], limits: dict[str, Any]) -> Callable[..., Any]:
     def research_army(slot: str, now: dt.datetime, db: OpsDB) -> dict[str, Any]:
         from ..army.store import Store
+        from ..research import sandbox
 
+        if not sandbox.AVAILABLE:  # never start a cycle whose candidates cannot be evaluated in isolation
+            return {"_status": "pending", "_retry_after_s": 600, "reason": "research sandbox unavailable in this process (needs user/mount namespaces); a host-side tick will run it"}  # fmt: skip
         state = Store().control("state", "running")
         if state != "running":
             return {"_status": "skipped", "reason": f"army is {state}; critical forecasting unaffected"}

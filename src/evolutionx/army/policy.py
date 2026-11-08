@@ -45,6 +45,8 @@ def eligibility(
 ) -> dict[str, Any]:
     """Status of a candidate. 'validated' is impossible without prospective evidence and a human approval flag."""
     hard = [k for k, v in (adversarial.get("tests") or {}).items() if v.get("hard_failure")]
+    if lab_verdict is None and not hard:  # the lab produced no verdict (e.g. sandbox unavailable): not evidence
+        return {"status": "evaluation_error", "why": ["no lab verdict (evaluation did not run); not a refutation"], "validated": False}  # fmt: skip
     if lab_verdict != "promote" or hard:
         why = []
         if lab_verdict != "promote":

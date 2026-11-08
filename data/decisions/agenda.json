@@ -1,8 +1,19 @@
 {
   "maintained_by": "research director (decision journal: data/decisions/journal.jsonl)",
-  "updated_utc": "2026-11-04T09:08:09+00:00",
+  "updated_utc": "2026-11-08T09:35:55+00:00",
   "ranking": "expected information gain per unit cost; prospective evidence outranks retrospective analysis; method validity outranks new hypotheses",
   "items": [
+    {
+      "id": "A11",
+      "status": "queued",
+      "roles": [
+        "E1",
+        "F1"
+      ],
+      "task": "Research lab: never re-use a cached evaluation whose task failed on infrastructure (SandboxUnavailable etc.); a re-examination must re-run it",
+      "why": "on 2026-11-08 a duplicate evaluation of identical code returned the cached sandbox failure and overwrote a real verdict",
+      "cost": "small (code in research lab, protected path src/evolutionx/research/ -> code proposal + human review)"
+    },
     {
       "id": "A1",
       "status": "running",
@@ -133,6 +144,10 @@
     {
       "task": "implied volatility (Deribit DVOL) as a 24 h feature at the registered 24 h cutoff",
       "why": "F-FCAST-5 0/6; SCREEN shows no incremental value; coverage-matched DEV slightly worse (diagnostic)"
+    },
+    {
+      "task": "seasonality (weekend-vol) long-only strategy",
+      "why": "lab verdict inconclusive on 2026-11-08 (delta Sharpe +0.83 vs champion but P(improvement) 0.85 and DSR 0.38 fail the frozen rule; dev drawdown 69%); hypothesis H-5314f7deca not_supported"
     }
   ]
 }
