@@ -507,7 +507,10 @@ def build_jobs(
     limits = {**DEFAULTS, **(cfg or {})}
     hourly = lambda now: now.strftime("%Y-%m-%dT%H")  # noqa: E731
     daily = lambda now: now.date().isoformat()  # noqa: E731
-    return [
+    skip = {
+        x.strip() for x in os.environ.get("EVOX_SKIP_JOBS", "").split(",") if x.strip()
+    }  # e.g. research in a container
+    return [j for j in [
         Job("fetch_data", True, hourly, fetch_data, max_attempts=4),
         Job("forecast_issue", True, issue_slot, forecast_issue, max_attempts=8),
         Job("forecast_missed_check", True, hourly, forecast_missed_check),
@@ -520,4 +523,4 @@ def build_jobs(
         Job("research_army", False, research_slot, make_research(research_runner or default_research_runner, limits), max_attempts=2),
         Job("fomc_followup", False, fomc_slot, fomc_followup, max_attempts=3),
         Job("election_followup", False, election_slot, election_followup, max_attempts=3),
-    ]  # fmt: skip
+    ] if j.name not in skip]  # fmt: skip
