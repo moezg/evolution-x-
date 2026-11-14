@@ -41,6 +41,18 @@ QUERY_POOL = {
         'all:cryptocurrency AND all:"short-term reversal"',
         'all:cryptocurrency AND all:"time series momentum"',
         'all:bitcoin AND all:"calendar anomalies"',
+        # widened 2026-11-14 (D-e4baf5d7a1 review: 5 consecutive empty cycles; 6-query pool repeated every 3 days);
+        # every added query was checked to return >= 1 arXiv result on 2026-11-14
+        'cat:q-fin.TR AND all:bitcoin',
+        'cat:q-fin.PM AND all:cryptocurrency',
+        'all:bitcoin AND all:"moving average"',
+        'all:cryptocurrency AND all:"technical analysis"',
+        'all:bitcoin AND all:"trading strategy"',
+        'all:cryptocurrency AND all:"basis" AND all:"futures"',
+        'all:bitcoin AND all:"holiday effect"',
+        'all:cryptocurrency AND all:"risk parity"',
+        'all:bitcoin AND all:"return predictability"',
+        'all:cryptocurrency AND all:"overreaction"',
     ],
     "A2": [
         'abs:bitcoin AND abs:"trading range breakout"',
@@ -49,6 +61,17 @@ QUERY_POOL = {
         'abs:bitcoin AND abs:"overnight" AND abs:"returns"',
         'abs:cryptocurrency AND abs:"trend following"',
         'abs:bitcoin AND abs:"seasonality"',
+        # widened 2026-11-14 (see A1)
+        'cat:q-fin.ST AND abs:bitcoin',
+        'cat:q-fin.TR AND abs:cryptocurrency',
+        'abs:bitcoin AND abs:"technical indicators"',
+        'abs:cryptocurrency AND abs:"carry"',
+        'abs:bitcoin AND abs:"time-of-day"',
+        'abs:cryptocurrency AND abs:"momentum"',
+        'abs:bitcoin AND abs:"realized volatility" AND abs:"returns"',
+        'abs:cryptocurrency AND abs:"contrarian"',
+        'abs:cryptocurrency AND abs:"funding"',
+        'abs:cryptocurrency AND abs:"anomalies"',
     ],
 }
 

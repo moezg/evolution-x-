@@ -329,7 +329,7 @@ def test_seasonality_template_is_feasible_and_uses_next_bar_weekday():
 
 
 def test_discovery_queries_rotate_over_the_pool():
-    seen = {q for d in range(10) for role in ("A1", "A2") for q in sources.queries_for(role, 738000 + d)}
+    seen = {q for d in range(30) for role in ("A1", "A2") for q in sources.queries_for(role, 738000 + d)}
     assert seen == set(sources.QUERY_POOL["A1"]) | set(sources.QUERY_POOL["A2"])
     assert sources.queries_for("A1", 5) == sources.queries_for("A1", 5)  # deterministic per day
 
